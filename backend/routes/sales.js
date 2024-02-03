@@ -181,4 +181,28 @@ router.route("/discounts/:cusID").post(async (req, res) => {
     }
 });
 
+//search bulk
+router.route("/searchBulk").get(async (req, res) => {
+
+    const teaType = req.body.teaType;
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
+
+    try {
+
+        // Find the remaining tea bulk
+        const remainingbulk = await Bulk.findOne({ teaType: teaType, date: date });
+
+        if (remainingbulk) {
+            totalBulk = remainingbulk.totalBulk;
+            res.status(200).send({ status: `${teaType} is available`, totalBulk });
+        } else {
+            res.status(404).send({ status: `Reamainig bulk of ${teaType} is not found!` });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
 module.exports = router;

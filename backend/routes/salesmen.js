@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 let Salesmen = require("../models/salesmenModels/salesmenDetails");
-let Bulk = require("../models/salesModels/bulkManagement");
 
 //register as a new salesmen
 router.route('/salesmenRegister').post(async (req, res) => {
@@ -122,30 +121,6 @@ router.route("/resetPassword/:id").put(async (req, res) => {
         await Salesmen.findByIdAndUpdate(userId, { password: hashedPassword, confirmPassword: hashedPassword });
 
         res.status(200).send({ status: "Password changed" });
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ status: "Error!", error: error.message });
-    }
-});
-
-//search bulk
-router.route("/searchBulk").get(async (req, res) => {
-
-    const teaType = req.body.teaType;
-    const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
-
-    try {
-
-        // Find the remaining tea bulk
-        const remainingbulk = await Bulk.findOne({ teaType: teaType, date: date });
-
-        if (remainingbulk) {
-            totalBulk = remainingbulk.totalBulk;
-            res.status(200).send({ status: `${teaType} is available`, totalBulk });
-        } else {
-            res.status(404).send({ status: `Reamainig bulk of ${teaType} is not found!` });
-        }
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
