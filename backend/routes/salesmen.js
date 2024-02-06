@@ -41,7 +41,6 @@ router.route('/salesmenRegister').post(async (req, res) => {
             name,
             username,
             password: hashedPassword,
-            confirmPassword: hashedPassword,
             dateOfBirth,
             gender,
             email,
@@ -50,6 +49,20 @@ router.route('/salesmenRegister').post(async (req, res) => {
         });
 
         res.json({ status: "Salesmen added", salesmen: newSalesmen });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+//dashboard details
+router.route("/salesmenDashboard/:id").get(async (req, res) => {
+
+    let userId = req.params.id;
+
+    try {
+        let salesman = await Salesmen.findById(userId);
+        res.status(200).send({ status: "Salesman fetched", salesman });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
@@ -92,6 +105,7 @@ router.route("/deleteSalesmen/:id").delete(async (req, res) => {
     let userId = req.params.id;
 
     try {
+
         await Salesmen.findByIdAndDelete(userId);
         res.status(200).send({ status: "User deleted" });
     } catch (error) {
@@ -101,7 +115,7 @@ router.route("/deleteSalesmen/:id").delete(async (req, res) => {
 });
 
 //change password
-router.route("/resetPassword/:id").put(async (req, res) => {
+router.route("/changePassword/:id").put(async (req, res) => {
 
     let userId = req.params.id;
     const password = req.body.password;
@@ -118,7 +132,7 @@ router.route("/resetPassword/:id").put(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Update password in the database
-        await Salesmen.findByIdAndUpdate(userId, { password: hashedPassword, confirmPassword: hashedPassword });
+        await Salesmen.findByIdAndUpdate(userId, { password: hashedPassword });
 
         res.status(200).send({ status: "Password changed" });
     } catch (error) {

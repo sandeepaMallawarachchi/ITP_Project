@@ -17,11 +17,6 @@ const salesmenSchema = new Schema({
         required: true
     },
 
-    confirmPassword: {
-        type: String,
-        required: true
-    },
-
     dateOfBirth: {
         type: String,
         required: true
