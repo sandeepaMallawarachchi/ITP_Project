@@ -1,0 +1,75 @@
+#profDetails {
+    width: 340px;
+    padding: 20px;
+    font-weight: 600;
+    margin-left: 300px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#profPic {
+    max-width: 300px;
+}
+
+#profBtns {
+    width: 340px;
+    padding: 20px;
+    margin-top: -420px;
+    margin-left: 700px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#profBtns button {
+    width: 200px;
+    height: 60px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+#span {
+    color: green;
+}
+
+#navigation{
+    position: absolute;
+    width: 250px;
+    height: 100vh;
+    background-color: rgb(243, 243, 243);
+    text-align: left;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+#navigation p {
+    text-align: left;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+#navigation a{
+    text-decoration: none;
+    font-size: 17px;
+    line-height: 50px;
+    color: rgb(54, 54, 54);
+}
+
+#gmap {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    margin-left: 1100px;
+    margin-top: -250px;
+    text-align: left;
+    font-weight: 600;
+}
+
+#calander{
+    position: absolute;
+    text-align: left;
+    font-weight: 600;
+    width: 400px;
+    height: 400px;
+    margin: 0 0 0 1100px;
+}
