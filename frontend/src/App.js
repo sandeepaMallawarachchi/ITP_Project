@@ -1,10 +1,10 @@
 import './App.css';
 // import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SalesmenDashboard from './pages/SalesmenDashboard';
-import UpdateSalesmanDetails from './pages/UpdateSalesmanDetails';
-import DeleteSalesman from './pages/DeleteSalesman';
-import ChangeSalesmanPassword from './pages/ChangeSalesmanPassword';
+import SalesmenDashboard from './components/SalesmenDashboard';
+import UpdateSalesmanDetails from './components/UpdateSalesmanDetails';
+import DeleteSalesman from './components/DeleteSalesman';
+import ChangeSalesmanPassword from './components/ChangeSalesmanPassword';
 
 function App() {
   return (
