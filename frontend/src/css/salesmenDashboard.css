@@ -48,11 +48,19 @@
     font-size: 17px;
 }
 
-#navigation a{
-    text-decoration: none;
+#navigation button{
+    border: none;
+    width: 180px;
     font-size: 17px;
     line-height: 50px;
+    text-align: left;
+    background-color: rgb(243, 243, 243);
     color: rgb(54, 54, 54);
+}
+
+#navigation button:hover{
+    transform: scale(1.1);
+    text-decoration: underline;
 }
 
 #gmap {

@@ -4,7 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../css/salesmenDashboard.css';
 import profilePic from '../images/Profile.png';
 
-
 export default function SalesmenDashboard() {
     const { id } = useParams();
     const [salesman, setSalesman] = useState({
@@ -43,19 +42,9 @@ export default function SalesmenDashboard() {
 
         navigate(`/changeSalesmanPassword/${id}`);
     };
-
+    
     return (
         <div>
-            <div id='navigation'>
-                <p>LOGO</p>
-                <p>Hello, <span id='span'>{salesman.name}</span></p>
-                <a href='#'>My account</a>
-                <a href='#'>New sale</a>
-                <a href='#'>Sales history</a>
-                <a href='#'>Payment</a>
-                <a href='#'>Locations</a>
-            </div>
-
             <div id='profDetails'>
                 <img src={profilePic} id='profPic' />
                 <p>Name: <span id='span'>{salesman.name}</span></p>
