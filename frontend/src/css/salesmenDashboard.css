@@ -56,11 +56,12 @@
     text-align: left;
     background-color: rgb(243, 243, 243);
     color: rgb(54, 54, 54);
+    border-radius: 10px;
 }
 
 #navigation button:hover{
     transform: scale(1.1);
-    text-decoration: underline;
+    background-color: rgb(231, 231, 231);
 }
 
 #gmap {

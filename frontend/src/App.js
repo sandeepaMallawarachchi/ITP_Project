@@ -5,6 +5,7 @@ import SalesmenDashboard from './components/SalesmenDashboard';
 import UpdateSalesmanDetails from './components/UpdateSalesmanDetails';
 import DeleteSalesman from './components/DeleteSalesman';
 import ChangeSalesmanPassword from './components/ChangeSalesmanPassword';
+import AddNewSale from './components/AddNewSale';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -37,6 +38,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/changeSalesmanPassword/:id' element={<ChangeSalesmanPassword />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/addNewSale/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/addNewSale/:id' element={<AddNewSale />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,15 @@
+#addSale{
+    max-width: 1000px;
+    margin-left: 300px;
+}
+
+#addSale form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.mb-3{
+   max-width: 200px;
+   text-align: left;
+}

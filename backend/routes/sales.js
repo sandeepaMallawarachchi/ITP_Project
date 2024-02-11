@@ -6,12 +6,13 @@ let Bulk = require("../models/salesModels/bulkManagement");
 let Discount = require("../models/salesModels/discounts");
 
 //add a new sale
-router.route("/addSale").post(async (req, res) => {
+router.route("/addSale/:id").post(async (req, res) => {
 
     const teaType = req.body.teaType;
     const amount = req.body.amount;
     const sellingPrice = req.body.sellingPrice;
     const cusID = req.body.cusID;
+    const salesmanID = req.params.id;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
 
@@ -56,6 +57,7 @@ router.route("/addSale").post(async (req, res) => {
 
         // Save the sales information
         const newSale = await Sales.create({
+            salesmanID,
             cusID,
             teaType: teaType,
             amount,
@@ -64,10 +66,37 @@ router.route("/addSale").post(async (req, res) => {
             totalPrice,
         });
 
-        res.json({ status: "Sale added", sales: newSale });
+        res.json({ status: "Sale added", sales: newSale, standardPrice });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: "Error adding sale" });
+    }
+});
+
+//get standard price
+router.route("/getStandardPrice/:teaType").get(async (req, res) => {
+    const teaType = req.params.teaType;
+
+    try {
+        // Retrieve standard price based on the tea type selected
+        const priceDocument = await Prices.findOne({ teaType: teaType });
+
+        if (!priceDocument) {
+            throw new Error("Tea type not found!");
+        }
+
+        // Get the index of the teaType in the array
+        const index = priceDocument.teaType.indexOf(teaType);
+        if (index === -1) {
+            throw new Error("Tea type not found!");
+        }
+
+        // Get the standard price corresponding to the teaType
+        let standardPrice = priceDocument.price[index];
+
+        res.status(200).send({ status: "Standard price", standardPrice });
+    } catch (error) {
+        res.status(500).send({ error: "Error fetching standard price!" });
     }
 });
 

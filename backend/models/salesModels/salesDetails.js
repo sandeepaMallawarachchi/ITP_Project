@@ -31,6 +31,11 @@ const salesSchema = new Schema({
         required: true
     },
 
+    salesmanID: {
+        type: String,
+        required: true
+    },
+
     date: {
         type: Date,
         default: () => { // Use a function to set the default date

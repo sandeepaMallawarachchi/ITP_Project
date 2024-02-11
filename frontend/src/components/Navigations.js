@@ -32,13 +32,18 @@ export default function Navigations() {
         navigate(`/salesmenDashboard/${id}`);
     };
 
+    const handleAddSale = () => {
+
+        navigate(`/AddNewSale/${id}`);
+    };
+
     return (
         <div>
             <div id='navigation'>
                 <p>LOGO</p>
-                <p>Hello, {salesman.name}</p>
+                <p>Hello, <span id='span'>{salesman.name}</span></p>
                 <button onClick={handleMyAccount}> My account</button>
-                <button>New sale</button>
+                <button onClick={handleAddSale}>New sale</button>
                 <button>Sales history</button>
                 <button>Payment</button>
                 <button>Locations</button>
