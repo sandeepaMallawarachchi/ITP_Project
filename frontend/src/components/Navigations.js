@@ -37,10 +37,10 @@ export default function Navigations() {
         navigate(`/AddNewSale/${id}`);
     };
 
-    // const handleSalesHistory = () => {
+    const handleSalesSummary = () => {
 
-    //     navigate(`/SalesHistory/${id}`);
-    // };
+        navigate(`/SalesSummary/${id}`);
+    };
 
     return (
         <div>
@@ -49,7 +49,7 @@ export default function Navigations() {
                 <p>Hello, <span id='span'>{salesman.name}</span></p>
                 <button onClick={handleMyAccount}> My account</button>
                 <button onClick={handleAddSale}>New sale</button>
-                <button>Sales history</button>
+                <button onClick={handleSalesSummary}>Sales summary</button>
                 <button>Payment</button>
                 <button>Locations</button>
             </div>
