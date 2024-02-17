@@ -3,13 +3,8 @@
     margin-left: 300px;
 }
 
-#addSale form{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .mb-3{
-   max-width: 200px;
-   text-align: left;
+    margin: auto;
+    max-width: 400px;
+    text-align: left;
 }

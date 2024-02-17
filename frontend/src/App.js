@@ -6,6 +6,7 @@ import UpdateSalesmanDetails from './components/UpdateSalesmanDetails';
 import DeleteSalesman from './components/DeleteSalesman';
 import ChangeSalesmanPassword from './components/ChangeSalesmanPassword';
 import AddNewSale from './components/AddNewSale';
+// import SalesHistory from './components/SalesHistory';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -46,6 +47,13 @@ function App() {
         <Routes>
           <Route path='/addNewSale/:id' element={<AddNewSale />} />
         </Routes>
+
+        {/* <Routes>
+          <Route path="/salesHistory/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/salesHistory/:id' element={<AddNewSale />} />
+        </Routes> */}
       </div>
     </Router>
   );

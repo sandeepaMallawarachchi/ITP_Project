@@ -101,7 +101,7 @@ router.route("/getStandardPrice/:teaType").get(async (req, res) => {
 });
 
 //get customer total sales by id
-router.route("/get/:cusID").get(async (req, res) => {
+router.route("/getTotalPrice/:cusID").get(async (req, res) => {
     const cusID = req.params.cusID;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);

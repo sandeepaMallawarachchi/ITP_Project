@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../css/sales.css';
 
 export default function AddNewSale() {
@@ -12,6 +12,7 @@ export default function AddNewSale() {
     const [standardPrice, setStandardPrice] = useState("");
     const [cusID, setCusID] = useState("");
     const [teaTypes, setTeaTypes] = useState([]);
+    // const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         const fetchTeaType = async () => {
@@ -67,6 +68,19 @@ export default function AddNewSale() {
         }
     };
 
+    // useEffect(()=>{
+    //     const fetchCustomerTotalPrice = async () => {
+    //         try {
+    //             const res = axios.get(`http://localhost:5000/sales/getTotalPrice/4`);
+    //             console.log((await res).data.subTotal);
+    //             setTotalPrice((await res).data.subTotal);
+    //         } catch (error) {
+    //             console.log("error", error.message);
+    //         }
+    //     };
+    //     fetchCustomerTotalPrice();
+    // }, [cusID]);
+
     return (
         <div id='addSale'>
             <form onSubmit={handleSubmit}>
@@ -107,6 +121,9 @@ export default function AddNewSale() {
                 </div>
 
                 <button type="submit" className="btn btn-primary">Add sale</button>
+
+                {/* <p>Total price: {totalPrice}</p> */}
+
             </form>
         </div>
     );

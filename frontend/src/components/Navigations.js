@@ -37,6 +37,11 @@ export default function Navigations() {
         navigate(`/AddNewSale/${id}`);
     };
 
+    // const handleSalesHistory = () => {
+
+    //     navigate(`/SalesHistory/${id}`);
+    // };
+
     return (
         <div>
             <div id='navigation'>
