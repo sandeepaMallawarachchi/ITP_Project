@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const summarySchema = new Schema({
+
+    id: {
+        type: String,
+        required: true
+    },
+
     cusID: {
         type: String,
         required: true

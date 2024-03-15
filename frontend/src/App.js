@@ -7,6 +7,7 @@ import DeleteSalesman from './components/DeleteSalesman';
 import ChangeSalesmanPassword from './components/ChangeSalesmanPassword';
 import AddNewSale from './components/AddNewSale';
 import SalesSummary from './components/SalesSummary';
+import CurrentSale from './components/CurrentSale';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -53,6 +54,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/SalesSummary/:id' element={<SalesSummary />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/currentSale/:id/:cusID" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
         </Routes>
       </div>
     </Router>

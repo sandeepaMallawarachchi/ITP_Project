@@ -101,7 +101,7 @@ router.route("/getStandardPrice/:teaType").get(async (req, res) => {
 });
 
 //get customer total sales by id
-router.route("/getTotalPrice/:cusID").get(async (req, res) => {
+router.route("/getSalesSummary/:cusID").get(async (req, res) => {
     const cusID = req.params.cusID;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
@@ -109,6 +109,10 @@ router.route("/getTotalPrice/:cusID").get(async (req, res) => {
     try {
         // Find all sales records for the specified customer and date
         const salesRecords = await Sales.find({ cusID, date });
+
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found for the specified customer ID" });
+        }
 
         // Calculate subtotal by summing up total prices from sales records
         let subTotal = 0;
@@ -119,7 +123,8 @@ router.route("/getTotalPrice/:cusID").get(async (req, res) => {
             salesDetails.push({
                 teaType: sale.teaType,
                 amount: sale.amount,
-                sellingPrice: sale.sellingPrice
+                sellingPrice: sale.sellingPrice,
+                totalPrice: sale.totalPrice,
             });
         }
 
@@ -128,6 +133,42 @@ router.route("/getTotalPrice/:cusID").get(async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: "Error calculating subtotal" });
+    }
+});
+
+//get daily sales details of a particular salesperson
+router.route("/getDailySales/:id").get(async (req, res) => {
+    const id = req.params.id;
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
+
+    try {
+        // Find all sales records for the specified salesperson and date
+        const salesRecords = await Sales.find({ id, date });
+
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found for the specified salesperson ID" });
+        }
+
+        // Calculate subtotal by summing up total prices from sales records
+        let subTotal = 0;
+        let salesDetails = [];
+
+        for (const sale of salesRecords) {
+            subTotal += sale.totalPrice;
+            salesDetails.push({
+                teaType: sale.teaType,
+                amount: sale.amount,
+                sellingPrice: sale.sellingPrice,
+                totalPrice: sale.totalPrice,
+            });
+        }
+
+        res.status(200).send({ status: "Sales details fetched", cusID, subTotal, date, salesDetails });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching details" });
     }
 });
 

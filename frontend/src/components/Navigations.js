@@ -50,6 +50,7 @@ export default function Navigations() {
                 <button onClick={handleMyAccount}> My account</button>
                 <button onClick={handleAddSale}>New sale</button>
                 <button onClick={handleSalesSummary}>Sales summary</button>
+                <button>Remaining Stock</button>
                 <button>Payment</button>
                 <button>Locations</button>
             </div>

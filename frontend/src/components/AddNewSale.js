@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../css/sales.css';
 
 export default function AddNewSale() {
@@ -13,6 +13,7 @@ export default function AddNewSale() {
     const [cusID, setCusID] = useState("");
     const [teaTypes, setTeaTypes] = useState([]);
     // const [totalPrice, setTotalPrice] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTeaType = async () => {
@@ -61,25 +62,15 @@ export default function AddNewSale() {
             setTeaType("");
             setAmount("");
             setSellingPrice("");
-            setCusID("");
             setStandardPrice("");
         } catch (error) {
             alert("Error adding a sale!");
         }
     };
 
-    // useEffect(()=>{
-    //     const fetchCustomerTotalPrice = async () => {
-    //         try {
-    //             const res = axios.get(`http://localhost:5000/sales/getTotalPrice/4`);
-    //             console.log((await res).data.subTotal);
-    //             setTotalPrice((await res).data.subTotal);
-    //         } catch (error) {
-    //             console.log("error", error.message);
-    //         }
-    //     };
-    //     fetchCustomerTotalPrice();
-    // }, [cusID]);
+    const handleSalesSummary = () => {
+        navigate(`/currentSale/${id}/${cusID}`);
+    };
 
     return (
         <div id='addSale'>
@@ -121,10 +112,9 @@ export default function AddNewSale() {
                 </div>
 
                 <button type="submit" className="btn btn-primary">Add sale</button>
-
-                {/* <p>Total price: {totalPrice}</p> */}
-
             </form>
+            <button type="button" className="btn btn-success" onClick={handleSalesSummary}>Confirm Sale</button>
+
         </div>
     );
 }

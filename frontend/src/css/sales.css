@@ -3,6 +3,18 @@
     margin-left: 300px;
 }
 
+#salesSummary{
+    position: absolute;
+    max-width: 1000px;
+    margin-left: 500px;
+}
+
+#currentSale{
+    position: absolute;
+    max-width: 1000px;
+    margin-left: 500px;
+}
+
 .mb-3{
     margin: auto;
     max-width: 400px;
