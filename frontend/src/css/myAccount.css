@@ -63,22 +63,3 @@
     transform: scale(1.1);
     background-color: rgb(231, 231, 231);
 }
-
-#gmap {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    margin-left: 1100px;
-    margin-top: -250px;
-    text-align: left;
-    font-weight: 600;
-}
-
-#calander{
-    position: absolute;
-    text-align: left;
-    font-weight: 600;
-    width: 400px;
-    height: 400px;
-    margin: 0 0 0 1100px;
-}

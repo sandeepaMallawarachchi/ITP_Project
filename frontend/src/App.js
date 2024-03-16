@@ -8,6 +8,7 @@ import ChangeSalesmanPassword from './components/ChangeSalesmanPassword';
 import AddNewSale from './components/AddNewSale';
 import SalesSummary from './components/SalesSummary';
 import CurrentSale from './components/CurrentSale';
+import MyAccount from './components/MyAccount';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -61,6 +62,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/myAccount/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/myAccount/:id' element={<MyAccount />} />
         </Routes>
       </div>
     </Router>

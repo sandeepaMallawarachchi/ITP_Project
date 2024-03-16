@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../css/salesmenDashboard.css';
+import '../css/myAccount.css';
 
 export default function Navigations() {
     const { id } = useParams();
@@ -27,9 +27,14 @@ export default function Navigations() {
         fetchSalesmanDetails();
     }, [id]);
 
-    const handleMyAccount = () => {
+    const handleDashboard = () => {
 
         navigate(`/salesmenDashboard/${id}`);
+    };
+
+    const handleMyAccount = () => {
+
+        navigate(`/myAccount/${id}`);
     };
 
     const handleAddSale = () => {
@@ -47,12 +52,14 @@ export default function Navigations() {
             <div id='navigation'>
                 <p>LOGO</p>
                 <p>Hello, <span id='span'>{salesman.name}</span></p>
-                <button onClick={handleMyAccount}> My account</button>
+                
+                <button onClick={handleDashboard}>Dashboard</button>
                 <button onClick={handleAddSale}>New sale</button>
                 <button onClick={handleSalesSummary}>Sales summary</button>
                 <button>Remaining Stock</button>
                 <button>Payment</button>
                 <button>Locations</button>
+                <button onClick={handleMyAccount}> My account</button>
             </div>
 
         </div>

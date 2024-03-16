@@ -137,34 +137,41 @@ router.route("/getSalesSummary/:cusID").get(async (req, res) => {
 });
 
 //get daily sales details of a particular salesperson
-router.route("/getDailySales/:id").get(async (req, res) => {
-    const id = req.params.id;
+router.route("/getDailySales/:salesmanID").get(async (req, res) => {
+    const salesmanID = req.params.salesmanID;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
 
     try {
         // Find all sales records for the specified salesperson and date
-        const salesRecords = await Sales.find({ id, date });
+        const salesRecords = await Sales.find({ salesmanID, date });
 
         if (salesRecords.length === 0) {
             return res.status(500).send({ error: "No sales records found for the specified salesperson ID" });
         }
 
-        // Calculate subtotal by summing up total prices from sales records
-        let subTotal = 0;
-        let salesDetails = [];
+        const salesDetails = [];
 
         for (const sale of salesRecords) {
-            subTotal += sale.totalPrice;
-            salesDetails.push({
-                teaType: sale.teaType,
-                amount: sale.amount,
-                sellingPrice: sale.sellingPrice,
-                totalPrice: sale.totalPrice,
-            });
+
+            const teaType = sale.teaType;
+
+            // Check if the tea type already exists in salesDetails
+            const existingSale = salesDetails.find(item => item.teaType === teaType);
+      
+            if (!existingSale) {
+                salesDetails.push({
+                    teaType,
+                    amount: sale.amount
+                });
+            } else {
+                existingSale.amount += sale.amount;
+            }  
+
         }
 
-        res.status(200).send({ status: "Sales details fetched", cusID, subTotal, date, salesDetails });
+        const totalSales = salesRecords.length;
+        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales });
 
     } catch (error) {
         console.log(error.message);
