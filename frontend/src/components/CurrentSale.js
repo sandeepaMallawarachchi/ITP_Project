@@ -12,7 +12,6 @@ function CurrentSale() {
         date: "",
         salesDetails: [],
     });
-    const [saleID, setSaleID] = useState("");
 
     const navigate = useNavigate();
 

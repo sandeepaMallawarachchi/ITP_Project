@@ -178,9 +178,6 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
     }
 });
 
-//get sale id
-
-
 //delete sale
 router.route("/deleteSale/:saleID").delete(async (req, res) => {
 
