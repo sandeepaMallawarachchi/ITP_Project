@@ -6,14 +6,13 @@ import '../css/sales.css'
 function CurrentSale() {
 
     const { id, cusID } = useParams();
-    console.log("cusID:", cusID);
     const [salesSummary, setSalesSummary] = useState({
         cusID: "",
         subTotal: "",
         date: "",
         salesDetails: [],
     });
-
+    const [saleID, setSaleID] = useState("");
 
     const navigate = useNavigate();
 
@@ -50,6 +49,10 @@ function CurrentSale() {
         navigate(`/AddNewSale/${id}`);
     };
 
+    const deleteBtn = (saleID) => {
+        navigate(`/deleteSale/${id}/${cusID}/${saleID}`);
+    };
+
     return (
         <div id="currentSale">
             <div className="container" style={{ textAlign: "left", width: "600px", marginTop: "50px" }}>
@@ -75,6 +78,7 @@ function CurrentSale() {
                                 <th scope="col">Tea Type</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Selling Price</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,6 +87,7 @@ function CurrentSale() {
                                     <td>{detail.teaType}</td>
                                     <td>{detail.amount}</td>
                                     <td>{detail.sellingPrice}</td>
+                                    <td><button type="button" className="btn btn-danger" onClick={() => deleteBtn(detail._id)}>Delete</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -91,7 +96,7 @@ function CurrentSale() {
                     <button type="submit" class="btn btn-success">Confirm</button>
                 </form>
 
-                <button type="submit" class="btn btn-primary" onClick={handleAddMoreSale}>Add more</button>
+                <button type="submit" class="btn btn-primary" onClick={handleAddMoreSale}>Update</button>
             </div>
         </div>
     )

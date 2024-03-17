@@ -103,8 +103,7 @@ router.route("/getStandardPrice/:teaType").get(async (req, res) => {
 //get customer total sales by id
 router.route("/getSalesSummary/:cusID").get(async (req, res) => {
     const cusID = req.params.cusID;
-    const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
+    const date = new Date().toISOString().split('T')[0];
 
     try {
         // Find all sales records for the specified customer and date
@@ -121,6 +120,7 @@ router.route("/getSalesSummary/:cusID").get(async (req, res) => {
         for (const sale of salesRecords) {
             subTotal += sale.totalPrice;
             salesDetails.push({
+                _id: sale._id,
                 teaType: sale.teaType,
                 amount: sale.amount,
                 sellingPrice: sale.sellingPrice,
@@ -128,19 +128,18 @@ router.route("/getSalesSummary/:cusID").get(async (req, res) => {
             });
         }
 
-        res.status(200).send({ status: "Subtotal calculated", cusID, subTotal, date, salesDetails });
+        res.status(200).send({ status: "Data fetched", cusID, subTotal, date, salesDetails });
 
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({ error: "Error calculating subtotal" });
+        res.status(500).send({ error: "Error fetching data" });
     }
 });
 
 //get daily sales details of a particular salesperson
 router.route("/getDailySales/:salesmanID").get(async (req, res) => {
     const salesmanID = req.params.salesmanID;
-    const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
+    const date = new Date().toISOString().split('T')[0];
 
     try {
         // Find all sales records for the specified salesperson and date
@@ -176,6 +175,24 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: "Error fetching details" });
+    }
+});
+
+//get sale id
+
+
+//delete sale
+router.route("/deleteSale/:saleID").delete(async (req, res) => {
+
+    let saleID = req.params.saleID;
+
+    try {
+
+        await Sales.findByIdAndDelete(saleID);
+        res.status(200).send({ status: "Sale deleted" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
     }
 });
 

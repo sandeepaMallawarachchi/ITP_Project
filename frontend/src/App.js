@@ -9,6 +9,7 @@ import AddNewSale from './components/AddNewSale';
 import SalesSummary from './components/SalesSummary';
 import CurrentSale from './components/CurrentSale';
 import MyAccount from './components/MyAccount';
+import DeleteSale from './components/DeleteSale';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -70,6 +71,15 @@ function App() {
         <Routes>
           <Route path='/myAccount/:id' element={<MyAccount />} />
         </Routes>
+        
+        <Routes>
+          <Route path="/deleteSale/:id/:cusID/:saleID" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/deleteSale/:id/:cusID/:saleID' element={<DeleteSale />} />
+        </Routes>
+
+
       </div>
     </Router>
   );

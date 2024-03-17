@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const salesSchema = new Schema({
+    
     teaType: {
         type: String,
         required: true

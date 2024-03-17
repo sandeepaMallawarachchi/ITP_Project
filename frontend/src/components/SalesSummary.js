@@ -73,9 +73,6 @@ function SalesSummary() {
                         </tbody>
                     </table>
                 </form>
-                
-                <button type="button" className="btn btn-success">Change</button>
-                <button type="button" className="btn btn-danger">Delete</button>
             </div>
         </div>
     )

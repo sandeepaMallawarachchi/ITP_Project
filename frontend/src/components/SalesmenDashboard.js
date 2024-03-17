@@ -28,7 +28,7 @@ export default function SalesmenDashboard() {
 
     return (
         <div>
-            <div>You have done <p>{totalSales}</p></div>
+            <div>You have done <span>{totalSales}</span> Sales today</div>
             <div id='salesGraph'>
                 <BarChart
                     width={500}
