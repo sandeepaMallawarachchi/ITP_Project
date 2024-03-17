@@ -20,7 +20,7 @@ function UpdateEmployee() {
     useEffect(() => {
         const fetchEmpDetails = async () => {
             try {
-                const response = await axios.get(http://localhost:8070/staff/get/${id});
+                const response = await axios.get(`http://localhost:8070/staff/get/${id}`);
                     console.log("Response data:", response.data);
 
                 const empData = response.data.employee || response.data;
@@ -37,7 +37,7 @@ function UpdateEmployee() {
         e.preventDefault();
 
         try {
-            await axios.put(http://localhost:8070/staff/update/${id},empDetails);
+            await axios.put(`http://localhost:8070/staff/update/${id}`,empDetails);
                 alert("Details Updated!");
                 //navigate("/dashboard");
         } catch (error) {
