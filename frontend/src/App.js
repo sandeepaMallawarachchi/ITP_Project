@@ -6,7 +6,7 @@ import AllEmployees from './components/AllEmployees'
 import UpdateEmployee from './components/UpdateEmployee'
 import DeleteEmployee from './components/DeleteEmployee'
 import AllSalaries from './components/AllSalaries'
-import AddSalaries from './components/AddSalaries'
+import AddSalaries from './components/AddSalary'
 
 function App() {
   return (
