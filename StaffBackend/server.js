@@ -26,8 +26,10 @@ connection.once("open",()=>{
 })
 
 const staffRouter = require("./routes/staff.js");
+const netSalaryRouter = require("./routes/netSalary.js");
 
 app.use("/staff",staffRouter);
+app.use("/netSalary",netSalaryRouter);
 
 app.listen(PORT, ()=>{
     console.log(`Server is up and running on port number: ${PORT}`)
