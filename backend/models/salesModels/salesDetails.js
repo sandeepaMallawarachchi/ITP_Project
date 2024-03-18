@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const salesSchema = new Schema({
+    
     teaType: {
         type: String,
         required: true
@@ -27,6 +28,11 @@ const salesSchema = new Schema({
     },
 
     cusID: {
+        type: String,
+        required: true
+    },
+
+    salesmanID: {
         type: String,
         required: true
     },

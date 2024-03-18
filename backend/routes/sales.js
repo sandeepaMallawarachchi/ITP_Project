@@ -6,12 +6,13 @@ let Bulk = require("../models/salesModels/bulkManagement");
 let Discount = require("../models/salesModels/discounts");
 
 //add a new sale
-router.route("/addSale").post(async (req, res) => {
+router.route("/addSale/:id").post(async (req, res) => {
 
     const teaType = req.body.teaType;
     const amount = req.body.amount;
     const sellingPrice = req.body.sellingPrice;
     const cusID = req.body.cusID;
+    const salesmanID = req.params.id;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
 
@@ -56,6 +57,7 @@ router.route("/addSale").post(async (req, res) => {
 
         // Save the sales information
         const newSale = await Sales.create({
+            salesmanID,
             cusID,
             teaType: teaType,
             amount,
@@ -64,22 +66,52 @@ router.route("/addSale").post(async (req, res) => {
             totalPrice,
         });
 
-        res.json({ status: "Sale added", sales: newSale });
+        res.json({ status: "Sale added", sales: newSale, standardPrice });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: "Error adding sale" });
     }
 });
 
+//get standard price
+router.route("/getStandardPrice/:teaType").get(async (req, res) => {
+    const teaType = req.params.teaType;
+
+    try {
+        // Retrieve standard price based on the tea type selected
+        const priceDocument = await Prices.findOne({ teaType: teaType });
+
+        if (!priceDocument) {
+            throw new Error("Tea type not found!");
+        }
+
+        // Get the index of the teaType in the array
+        const index = priceDocument.teaType.indexOf(teaType);
+        if (index === -1) {
+            throw new Error("Tea type not found!");
+        }
+
+        // Get the standard price corresponding to the teaType
+        let standardPrice = priceDocument.price[index];
+
+        res.status(200).send({ status: "Standard price", standardPrice });
+    } catch (error) {
+        res.status(500).send({ error: "Error fetching standard price!" });
+    }
+});
+
 //get customer total sales by id
-router.route("/get/:cusID").get(async (req, res) => {
+router.route("/getSalesSummary/:cusID").get(async (req, res) => {
     const cusID = req.params.cusID;
-    const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
+    const date = new Date().toISOString().split('T')[0];
 
     try {
         // Find all sales records for the specified customer and date
         const salesRecords = await Sales.find({ cusID, date });
+
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found for the specified customer ID" });
+        }
 
         // Calculate subtotal by summing up total prices from sales records
         let subTotal = 0;
@@ -88,17 +120,76 @@ router.route("/get/:cusID").get(async (req, res) => {
         for (const sale of salesRecords) {
             subTotal += sale.totalPrice;
             salesDetails.push({
+                _id: sale._id,
                 teaType: sale.teaType,
                 amount: sale.amount,
-                sellingPrice: sale.sellingPrice
+                sellingPrice: sale.sellingPrice,
+                totalPrice: sale.totalPrice,
             });
         }
 
-        res.status(200).send({ status: "Subtotal calculated", cusID, subTotal, date, salesDetails });
+        res.status(200).send({ status: "Data fetched", cusID, subTotal, date, salesDetails });
 
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({ error: "Error calculating subtotal" });
+        res.status(500).send({ error: "Error fetching data" });
+    }
+});
+
+//get daily sales details of a particular salesperson
+router.route("/getDailySales/:salesmanID").get(async (req, res) => {
+    const salesmanID = req.params.salesmanID;
+    const date = new Date().toISOString().split('T')[0];
+
+    try {
+        // Find all sales records for the specified salesperson and date
+        const salesRecords = await Sales.find({ salesmanID, date });
+
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found for the specified salesperson ID" });
+        }
+
+        const salesDetails = [];
+
+        for (const sale of salesRecords) {
+
+            const teaType = sale.teaType;
+
+            // Check if the tea type already exists in salesDetails
+            const existingSale = salesDetails.find(item => item.teaType === teaType);
+      
+            if (!existingSale) {
+                salesDetails.push({
+                    teaType,
+                    amount: sale.amount
+                });
+            } else {
+                existingSale.amount += sale.amount;
+            }  
+
+        }
+
+        const totalSales = salesRecords.length;
+        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching details" });
+    }
+});
+
+//delete sale
+router.route("/deleteSale/:saleID").delete(async (req, res) => {
+
+    let saleID = req.params.saleID;
+
+    try {
+
+        await Sales.findByIdAndDelete(saleID);
+        res.status(200).send({ status: "Sale deleted" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
     }
 });
 
