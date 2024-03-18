@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../css/myAccount.css';
+import { Sidebar } from 'flowbite-react';
+import { BiBuoy } from 'react-icons/bi';
+import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
+import logo from '../images/logo.png';
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdOutlineAddCircleOutline } from "react-icons/md";
+import { MdFormatListBulleted } from "react-icons/md";
+import { MdOutlinePayment } from "react-icons/md";
+import { IoSearchSharp } from "react-icons/io5";
+import { FiMapPin } from "react-icons/fi";
+import { MdOutlineAccountCircle } from "react-icons/md";
+
 
 export default function Navigations() {
     const { id } = useParams();
@@ -49,19 +60,42 @@ export default function Navigations() {
 
     return (
         <div>
-            <div id='navigation'>
-                <p>LOGO</p>
-                <p>Hello, <span id='span'>{salesman.name}</span></p>
-                
-                <button onClick={handleDashboard}>Dashboard</button>
-                <button onClick={handleAddSale}>New sale</button>
-                <button onClick={handleSalesSummary}>Sales summary</button>
-                <button>Payment</button>
-                <button>Remaining Stock</button>
-                <button>Locations</button>
-                <button onClick={handleMyAccount}> My account</button>
-            </div>
 
+            <Sidebar aria-label="Sidebar with content separator example">
+                <img src={logo} id='logo' alt="logo" className='ml-4 mb-5'/>
+                <h2>Hello, <p>{salesman.name}</p></h2>
+                <Sidebar.Items>
+                    <Sidebar.ItemGroup>
+                        <Sidebar.Item href="#" icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
+                            Dashboard
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
+                            New sale
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={MdFormatListBulleted} onClick={handleSalesSummary}>
+                            Sales Summary
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={MdOutlinePayment}>
+                            Payment
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={IoSearchSharp}>
+                            Remaining Stock
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={FiMapPin}>
+                            Locations
+                        </Sidebar.Item>
+
+                    </Sidebar.ItemGroup>
+                    <Sidebar.ItemGroup>
+                        <Sidebar.Item href="#" icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
+                            My account
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={BiBuoy}>
+                            Help
+                        </Sidebar.Item>
+                    </Sidebar.ItemGroup>
+                </Sidebar.Items>
+            </Sidebar>
         </div>
     );
 }

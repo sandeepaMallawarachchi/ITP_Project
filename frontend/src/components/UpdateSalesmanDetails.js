@@ -25,6 +25,7 @@ function UpdateSalesmanDetails() {
                 const salesmanData = res.data.salesman || res.data;
                 const { name, username, dateOfBirth, email, phone, address } = salesmanData;
                 setSalesmanDetails({ name, username, dateOfBirth, email, phone, address });
+                console.log(name)
             } catch (error) {
                 console.log("Error fetching details", error.message);
             }

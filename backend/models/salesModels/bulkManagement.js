@@ -2,12 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const bulckSchema = new Schema({
+
+    salesPersonName: {
+        type: String,
+        required: true
+    },
+
     teaType: {
         type: String,
         required: true
     },
 
-    totalBulk: {
+    totalStock: {
         type: Number,
         required: true
     },

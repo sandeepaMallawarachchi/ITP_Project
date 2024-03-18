@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../css/salesmandashboard.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 export default function SalesmenDashboard() {
@@ -28,7 +27,7 @@ export default function SalesmenDashboard() {
 
     return (
         <div>
-            <div>You have done <span>{totalSales}</span> Sales today</div>
+            <div>You have done <span className='text-green-500 text-2xl'>{totalSales}</span> Sales today</div>
             <div id='salesGraph'>
                 <BarChart
                     width={500}

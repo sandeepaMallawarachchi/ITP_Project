@@ -1,4 +1,3 @@
-import './App.css';
 // import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SalesmenDashboard from './components/SalesmenDashboard';
@@ -10,6 +9,7 @@ import SalesSummary from './components/SalesSummary';
 import CurrentSale from './components/CurrentSale';
 import MyAccount from './components/MyAccount';
 import DeleteSale from './components/DeleteSale';
+import AddDailyStock from './components/salesManager/AddDailyStock';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -79,6 +79,12 @@ function App() {
           <Route path='/deleteSale/:id/:cusID/:saleID' element={<DeleteSale />} />
         </Routes>
 
+        <Routes>
+          <Route path="/addStock" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/addStock' element={<AddDailyStock />} />
+        </Routes>
 
       </div>
     </Router>
