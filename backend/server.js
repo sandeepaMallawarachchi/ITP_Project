@@ -27,6 +27,9 @@ connection.once("open",()=>{
 const expensesRouter=require("./route/financials.js");
 app.use("/expenses",expensesRouter);
 
+const incomeRouter=require("./route/incomesheet.js");
+app.use("/incomeRt",incomeRouter);
+
 app.listen(PORT,()=>{
     console.log(`app running server on ${PORT}`);
 });

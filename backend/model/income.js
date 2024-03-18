@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 const Schema= mongoose.Schema;
 
-const expensesSh=new Schema({
+const incomeSh=new Schema({
     date:{
         type:String,
         required:true
@@ -22,5 +22,5 @@ const expensesSh=new Schema({
 )
 
 
-const expenses=mongoose.model("expenses",expensesSh);
-module.exports=expenses
+const income=mongoose.model("income",incomeSh);
+module.exports=income

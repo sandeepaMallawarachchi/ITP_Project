@@ -1,37 +1,66 @@
 import React, { useState } from "react"
+import axios from "axios";
 
 export default function AddIncome(){
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
 
+  function setData(e){
+    e.preventDefault();
+    
+    const newIncome={
+      date,
+      category,
+      description,
+      amount
+    }
+    axios.post("http://localhost:3013/incomeRt/addIncome",newIncome).then(()=>{
+      alert("Income Added")
+    }).catch((err)=>{
+      alert(err)
+    })
+
+  }
 
     return(
         <div className="container">
-        <form>
-        <div class="mb-3">
-    <label for="date" class="form-label">Date</label><br></br>
-    <input type="Date" class="form-control" id="date" placeholder="2024/01/20"/>
+        <form onSubmit={setData}>
+        <div className="mb-3">
+    <label for="date" className="form-label">Date</label><br></br>
+    <input type="Date" className="form-control" id="date" placeholder="2024/01/20" onChange={(e)=>{
+      setDate(e.target.value);
+    }}/>
     </div>
     <br></br>
 
-  <div class="mb-3">
-    <label for="category" class="form-label">Category</label><br></br>
-    <input type="text" class="form-control" id="category" placeholder="Enter expense category"/>
+  <div className="mb-3">
+    <label for="category" className="form-label">Category</label><br></br>
+    <input type="text" className="form-control" id="category" placeholder="Enter expense category" onChange={(e)=>{
+      setCategory(e.target.value);
+    }}/>
     </div>
     <br></br>
-    <div class="mb-3">
-    <label for="description" class="form-label">Description</label><br></br>
-    <input type="text" class="form-control" id="description" placeholder="Type description"/>
+    <div className="mb-3">
+    <label for="description" className="form-label">Description</label><br></br>
+    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e)=>{
+      setDescription(e.target.value);
+    }}/>
     </div>
     <br></br>
 
-    <div class="mb-3">
-    <label for="amount" class="form-label">Amount</label><br></br>
-    <input type="text" class="form-control" id="amount" placeholder="Type description"/>
+    <div className="mb-3">
+    <label for="amount" className="form-label">Amount</label><br></br>
+    <input type="text" className="form-control" id="amount" placeholder="Type description" onChange={(e)=>{
+      setAmount(e.target.value);
+    }}/>
     </div>
     <br></br>
 
 
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" className="btn btn-primary">Submit</button>
 </form>
 </div>
     )

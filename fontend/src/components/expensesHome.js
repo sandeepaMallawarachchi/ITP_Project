@@ -1,49 +1,65 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Home(){
+export default function Home() {
+  const navigate = useNavigate();
+  const [expenses, setExpenses] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3013/expenses/display").then((res) => {
+      setExpenses(res.data);
+    }).catch((error) => {
+      alert(error.message);
+    });
+
+  }, []);
+
+  const addExpensesBtn=()=>{
+    navigate(`/add`);
+  };
+
+  const deleteExpensesBtn=(id)=>{
+    navigate(`/deleteExpen/${id}`);
+  };
+
+  const updateExpensesBtn=(id)=>{
+    navigate(`/updateExpenses/${id}`);
+  };
+
+  return (
+
+    <div>
+      <h1>January ( 2024 )</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Category</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {expenses.map((expense) => (
+            <tr key={expense._id}>
+              <td>{expense.date}</td>
+              <td>{expense.category}</td>
+              <td>{expense.description}</td>
+              <td>{expense.amount}</td>
+              <td><button type="button" class="btn btn-secondary btn-lg" onClick={()=>updateExpensesBtn(expense._id)}>Update Expenses</button>
+              <button type="button" class="btn btn-secondary btn-lg" onClick={()=>deleteExpensesBtn(expense._id)}>Delete Expenses</button></td>
+              
+            </tr>
+          ))}
 
 
-
-    return (
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-secondary btn-lg" onClick={addExpensesBtn}>Add Expenses</button>
       
-      <div>
-        <h1>January ( 2024 )</h1>
-        <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">No.</th>
-      <th scope="col">Date</th>
-      <th scope="col">Category</th>
-      <th scope="col">Description</th>
-      <th scope="col">Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>Otto</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>Otto</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td>Otto</td>
-    </tr>
-  </tbody>
-</table>
-<button type="button" class="btn btn-secondary btn-lg">Add Expenses</button>
-<button type="button" class="btn btn-secondary btn-lg">Update Expenses</button>
-<button type="button" class="btn btn-secondary btn-lg">Delete Expenses</button>
-</div>
-    )
+      
+    </div>
+  )
 }
