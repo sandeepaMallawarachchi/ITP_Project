@@ -62,9 +62,10 @@ export default function Navigations() {
         <div>
 
             <Sidebar aria-label="Sidebar with content separator example">
-                <img src={logo} id='logo' alt="logo" className='ml-4 mb-5'/>
-                <h2>Hello, <p>{salesman.name}</p></h2>
+                
                 <Sidebar.Items>
+
+                    
                     <Sidebar.ItemGroup>
                         <Sidebar.Item href="#" icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                             Dashboard
