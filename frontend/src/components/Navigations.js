@@ -12,7 +12,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FiMapPin } from "react-icons/fi";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
-import { Avatar, Dropdown } from 'flowbite-react';
+import { Avatar } from 'flowbite-react';
 
 
 export default function Navigations() {
