@@ -29,12 +29,11 @@ connection.once("open", () => {
 
 const salesRouter = require("./routes/sales.js");
 const salesmenRouter = require("./routes/salesmen.js");
-const invRouter = require("./routes/inventory.js");
+const salesManagementRouter = require("./routes/salesManagement.js");
 
 app.use("/sales", salesRouter);
 app.use("/salesmen", salesmenRouter);
-
-app.use("/inventory",invRouter);
+app.use("/salesManagement", salesManagementRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
