@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
 import { BiBuoy } from 'react-icons/bi';
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 import logo from '../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -12,6 +11,8 @@ import { MdOutlinePayment } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
 import { FiMapPin } from "react-icons/fi";
 import { MdOutlineAccountCircle } from "react-icons/md";
+import { Navbar } from 'flowbite-react';
+import { Avatar, Dropdown } from 'flowbite-react';
 
 
 export default function Navigations() {
@@ -61,11 +62,20 @@ export default function Navigations() {
     return (
         <div>
 
-            <Sidebar aria-label="Sidebar with content separator example">
-                
-                <Sidebar.Items>
+            <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>
+                <Navbar.Brand href="https://flowbite-react.com">
+                    <img src={logo} id='logo' alt="logo" />
+                </Navbar.Brand>
+                <div className="flex md:order-2">
+                    <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded/>
+                    <span>{salesman.name}</span>
+                    <Navbar.Toggle />
+                </div>
+            </Navbar>
 
-                    
+            <Sidebar aria-label="Sidebar with content separator example">
+
+                <Sidebar.Items>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item href="#" icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                             Dashboard
