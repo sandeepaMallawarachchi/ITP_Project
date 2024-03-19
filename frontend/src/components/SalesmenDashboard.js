@@ -51,10 +51,10 @@ export default function SalesmenDashboard() {
             <MdWavingHand className='absolute h-6 w-6 mr-2 mt-7 ml-5 text-yellow-300'/>
             <div className='ml-14 mt-6 text-2xl'>Hello, <span className='text-green-500'>{salesman.name}</span></div>
             <div>You have done <span className='text-green-500 text-2xl'>{totalSales}</span> Sales today</div>
-            <div className='flex justify-center'>
+            <div className='flex justify-center mt-14'>
                 <BarChart
-                    width={500}
-                    height={300}
+                    width={700}
+                    height={500}
                     data={saleSummary}
                     margin={{
                         top: 5,
@@ -66,8 +66,7 @@ export default function SalesmenDashboard() {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <Legend /> 
                     <Bar dataKey="value" fill="#07b307" />
                 </BarChart>
             </div>
