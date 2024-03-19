@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { response } = require("express");
-let Staff = require("../models/staffDetails");
+let Staff = require("../models/StaffDetails");
 
 router.route("/add").post((req,res)=>{
 
@@ -29,7 +29,7 @@ router.route("/add").post((req,res)=>{
     })
 
     newEmp.save().then(()=>{
-       res.json("Staff Menmber Added") 
+       res.json("Staff Member Added") 
     }).catch((err)=>{
         console.log(err);
     })

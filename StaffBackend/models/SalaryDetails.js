@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const BonusSchema = new Schema({
+const BasicSalarySchema = new Schema({
 
     empId : {
+        type : String,
+        required : true
+    },
+    name : {
         type : String,
         required : true
     },
@@ -12,7 +16,7 @@ const BonusSchema = new Schema({
         type : String,
         required : true
     },
-    Month : {
+    month : {
         type : String,
         required : true
     },
@@ -35,6 +39,6 @@ const BonusSchema = new Schema({
 
 })
 
-const Bonus = mongoose.model("Bonus",BonusSchema);
+const BasicSalary = mongoose.model("BasicSalary",BasicSalarySchema);
 
-module.exports = Bonus;
+module.exports = BasicSalary;

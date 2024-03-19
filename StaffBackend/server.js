@@ -25,11 +25,11 @@ connection.once("open",()=>{
     console.log("Mongodb Connection Success!");
 })
 
-const staffRouter = require("./routes/staff.js");
-const netSalaryRouter = require("./routes/netSalary.js");
+const StaffRouter = require("./routes/Staff.js");
+const NetSalaryRouter = require("./routes/NetSalary.js");
 
-app.use("/staff",staffRouter);
-app.use("/netSalary",netSalaryRouter);
+app.use("/Staff",StaffRouter);
+app.use("/NetSalary",NetSalaryRouter);
 
 app.listen(PORT, ()=>{
     console.log(`Server is up and running on port number: ${PORT}`)

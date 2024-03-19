@@ -6,7 +6,7 @@ import AllEmployees from './components/AllEmployees'
 import UpdateEmployee from './components/UpdateEmployee'
 import DeleteEmployee from './components/DeleteEmployee'
 import AllSalaries from './components/AllSalaries'
-import AddSalaries from './components/AddSalary'
+import AddSalary from './components/AddSalary'
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
           <Route path='/allSalaries/:id' element={<AllSalaries />} />
         </Routes>
         <Routes>
-          <Route path='/addSalaries/:id' element={<AddSalaries />} />
+          <Route path='/addSalary' element={<AddSalary />} />
         </Routes>
       </div>
     </Router>

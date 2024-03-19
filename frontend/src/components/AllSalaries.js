@@ -20,6 +20,7 @@ function AllSalaries() {
                 <thead>
                     <tr>
                         <th scope="col">Employee ID</th>
+                        <th scope="col">Employee Name</th>
                         <th scope="col">Designation</th>
                         <th scope="col">Month</th>
                         <th scope="col">Basic Salary</th>
@@ -30,14 +31,15 @@ function AllSalaries() {
                 </thead>
                 <tbody>
                     {salaries.map((salary) => (
-                    <tr key={(employee._id)}>
-                        <td>{employee.empId}</td>
-                        <td>{employee.designation}</td>
-                        <td>{employee.month}</td>
-                        <td>{employee.basicSalary}</td>
-                        <td>{employee.bonusType}</td>
-                        <td>{employee.netBonus}</td>
-                        <td>{employee.netSalary}</td>
+                    <tr key={(salaries._id)}>
+                        <td>{salaries.empId}</td>
+                        <td>{salaries.name}</td>
+                        <td>{salaries.designation}</td>
+                        <td>{salaries.month}</td>
+                        <td>{salaries.basicSalary}</td>
+                        <td>{salaries.bonusType}</td>
+                        <td>{salaries.netBonus}</td>
+                        <td>{salaries.netSalary}</td>
                     </tr>
                     ))}
                     
