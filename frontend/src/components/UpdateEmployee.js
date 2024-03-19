@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function UpdateEmployee() {
     const { id } = useParams();
@@ -28,16 +28,21 @@ function UpdateEmployee() {
         fetchEmpDetails();
     }, [id]);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await axios.put(`http://localhost:8070/staff/update/${id}`, empDetails);
+            navigate(`/allEmployees`);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating employee details", error.message);
         }
     };
+
+
 
     return (
         <div className="container" style={{ width: "600px" }}>
@@ -82,6 +87,7 @@ function UpdateEmployee() {
                 </div>
                 <button type="submit" className="btn btn-primary">Update</button>
             </form>
+
         </div>
     );
 }

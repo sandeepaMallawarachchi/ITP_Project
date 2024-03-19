@@ -9,7 +9,8 @@ router.route("/addSalary").post((req, res) => {
     const designation = req.body.designation;
     const month = req.body.month;
     const basicSalary = req.body.basicSalary;
-    const bonusType = req.body.bonusType;
+    const ETFbonus = req.body.ETFbonus;
+    const EPFbonus = req.body.EPFbonus;
     const netBonus = req.body.netBonus;
     const netSalary = req.body.netSalary;
 
@@ -20,7 +21,8 @@ router.route("/addSalary").post((req, res) => {
         designation,
         month,
         basicSalary,
-        bonusType,
+        ETFbonus,
+        EPFbonus,
         netBonus,
         netSalary
 

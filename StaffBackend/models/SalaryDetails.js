@@ -21,19 +21,21 @@ const BasicSalarySchema = new Schema({
         required : true
     },
     basicSalary : {
-        type : String,
+        type : Number,
         required : true
     },
-    bonusType : {
+    ETFbonus : {
         type : String,
-        required : true
+    },
+    EPFbonus : {
+        type : String,
     },
     netBonus : {
-        type : String,
+        type : Number,
         required : true
     },
     netSalary : {
-        type : String,
+        type : Number,
         required : true
     }
 

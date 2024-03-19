@@ -24,7 +24,8 @@ function AllSalaries() {
                         <th scope="col">Designation</th>
                         <th scope="col">Month</th>
                         <th scope="col">Basic Salary</th>
-                        <th scope="col">Bonus Type</th>
+                        <th scope="col">ETF Bonus Amount</th>
+                        <th scope="col">EPF Bonus Amount</th>
                         <th scope="col">Net Bonus</th>
                         <th scope="col">Net Salary</th>
                     </tr>
@@ -37,7 +38,8 @@ function AllSalaries() {
                         <td>{salaries.designation}</td>
                         <td>{salaries.month}</td>
                         <td>{salaries.basicSalary}</td>
-                        <td>{salaries.bonusType}</td>
+                        <td>{salaries.ETFbonus}</td>
+                        <td>{salaries.EPFbonus}</td>
                         <td>{salaries.netBonus}</td>
                         <td>{salaries.netSalary}</td>
                     </tr>
