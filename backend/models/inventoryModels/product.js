@@ -1,32 +1,32 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const teaPackSchema = new Schema({
-    productCode : {
+    productName : {
         type : String,
-        required : true
+        required : true,
     },
+    
     teaType :{
         type : String,
         required : true
     },
     stockLevel : {
         type : Number,
-        required : true
+        required : true,
+        min : 0
     },
     unitPrice : {
         type : Number,
-        required : true
+        required : true,
+        min : 0
     },
     weight :{
         type : Number,
-        required :true
+        required :true,
+        min : 0
     },
-    packageType : {
-        type : String,
-        required : true
-    },
+   
     manDate : {
         type : Date,
         required : true
@@ -37,9 +37,14 @@ const teaPackSchema = new Schema({
     },
     reorderLevel :{
         type : Number,
-        required:true
+        required:true,
+        min : 0
+    },
+    emailSent : {
+        type : Boolean,
+        required : true
     }
-});
+},{timestamps : true});
 
-const teaPack = mongoose.model("TeaPack",teaPackSchema);
+const teaPack = mongoose.model("Product",teaPackSchema);
 module.exports = teaPack;

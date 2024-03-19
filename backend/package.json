@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "sales_management",
   "main": "index.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
@@ -21,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongo": "^0.1.0",
     "mongoose": "^5.13.22",
+    "nodemailer": "^6.9.12",
     "nodemon": "^3.0.3"
   }
 }

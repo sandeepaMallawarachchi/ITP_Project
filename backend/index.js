@@ -2,7 +2,6 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
 
@@ -31,9 +30,18 @@ const salesRouter = require("./routes/sales.js");
 const salesmenRouter = require("./routes/salesmen.js");
 const salesManagementRouter = require("./routes/salesManagement.js");
 
+//inventory routes
+const invRouter = require( "./routes/product.js")
+const orderRouter = require("./routes/newOrder.js")
+const reorderRouter = require("./routes/reorderFunction.js")
+
 app.use("/sales", salesRouter);
 app.use("/salesmen", salesmenRouter);
 app.use("/salesManagement", salesManagementRouter);
+
+app.use("/inventory/product",invRouter)
+app.use("/inventory/orders",orderRouter)
+app.use("/inventory/reorder",reorderRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
