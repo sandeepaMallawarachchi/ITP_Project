@@ -26,9 +26,9 @@ export default function SalesmenDashboard() {
     const saleSummary = sales.map(sale => ({ name: sale.teaType, value: sale.amount }));
 
     return (
-        <div>
+        <div className='relative ml-24 h-screen' style={{marginTop:"-350px"}}>
             <div>You have done <span className='text-green-500 text-2xl'>{totalSales}</span> Sales today</div>
-            <div id='salesGraph'>
+            <div className='flex justify-center'>
                 <BarChart
                     width={500}
                     height={300}
@@ -48,7 +48,7 @@ export default function SalesmenDashboard() {
                     <Bar dataKey="value" fill="#07b307" />
                 </BarChart>
             </div>
-
         </div>
+
     );
 }
