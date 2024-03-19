@@ -66,9 +66,12 @@ export default function Navigations() {
                 <Navbar.Brand href="https://flowbite-react.com">
                     <img src={logo} id='logo' alt="logo" />
                 </Navbar.Brand>
-                <div className="flex md:order-2">
-                    <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded/>
-                    <span>{salesman.name}</span>
+                <div className="flex md:order-2  mr-12 items-start">
+                    <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                    <div className="ml-4 flex flex-col">
+                        <span className='text-green-500 text-2xl'>{salesman.name}</span>
+                        <span className='text-green-400'>{salesman.username}</span>
+                    </div>
                     <Navbar.Toggle />
                 </div>
             </Navbar>
@@ -83,11 +86,11 @@ export default function Navigations() {
                         <Sidebar.Item href="#" icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
                             New sale
                         </Sidebar.Item>
-                        <Sidebar.Item href="#" icon={MdFormatListBulleted} onClick={handleSalesSummary}>
-                            Sales Summary
-                        </Sidebar.Item>
                         <Sidebar.Item href="#" icon={MdOutlinePayment}>
                             Payment
+                        </Sidebar.Item>
+                        <Sidebar.Item href="#" icon={MdFormatListBulleted} onClick={handleSalesSummary}>
+                            Sales Summary
                         </Sidebar.Item>
                         <Sidebar.Item href="#" icon={IoSearchSharp}>
                             Remaining Stock
