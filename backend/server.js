@@ -30,6 +30,9 @@ app.use("/expenses",expensesRouter);
 const incomeRouter=require("./route/incomesheet.js");
 app.use("/incomeRt",incomeRouter);
 
+const totalIncomRouter=require("./route/totalIncome.js");
+app.use("/totalIncome",totalIncomRouter);
+
 app.listen(PORT,()=>{
     console.log(`app running server on ${PORT}`);
 });
