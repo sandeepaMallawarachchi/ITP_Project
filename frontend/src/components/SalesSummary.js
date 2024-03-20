@@ -39,7 +39,8 @@ function SalesSummary() {
                     type="text"
                     id="cusID"
                     placeholder="c123"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"                    required
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"                    
+                    required
                     onChange={(e) => {
 
                         setCusID(e.target.value);
@@ -60,7 +61,7 @@ function SalesSummary() {
                     />
                 </div>
                 <div className="mb-6">
-                    <label for="total" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total price</label>
+                    <label for="total" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total price (LKR)</label>
                     <input
                         type="text"
                         id="total"
@@ -72,29 +73,29 @@ function SalesSummary() {
                 </div>
 
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-500">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">
                                     Product name
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    selling Price
-                                </th>
-                                <th scope="col" className="px-6 py-3">
                                     Amount
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Total Price
+                                    selling Price
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Total Price (LKR)
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             {salesSummary.salesDetails.map((detail, index) => (
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black" key={index}>
                                     <td className="px-6 py-4">{detail.teaType}</td>
-                                    <td className="px-6 py-4">{detail.sellingPrice}</td>
                                     <td className="px-6 py-4">{detail.amount}</td>
+                                    <td className="px-6 py-4">{detail.sellingPrice}</td>
                                     <td className="px-6 py-4">{detail.totalPrice}</td>
                                 </tr>
                             ))}

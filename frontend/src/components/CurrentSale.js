@@ -52,50 +52,78 @@ function CurrentSale() {
     };
 
     return (
-        <div id="currentSale">
-            <div className="container" style={{ textAlign: "left", width: "600px", marginTop: "50px" }}>
-                <form >
-                    <div class="mb-3">
-                        <label for="cusID" class="form-label" >Customer ID</label>
-                        <input type="text" class="form-control" id="cusID" required value={cusID} readOnly />
-                    </div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
+            <form >
+                <div className="mb-6">
+                    <label for="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customer ID</label>
+                    <input
+                        type="text"
+                        id="cusID"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required
+                        readOnly
+                        value={cusID}
+                    />
+                </div>
 
-                    <div class="mb-3">
-                        <label for="subTotal" class="form-label" >Total price</label>
-                        <input type="text" class="form-control" id="subTotal" required value={salesSummary.subTotal} readOnly />
-                    </div>
+                <div className="mb-6">
+                    <label for="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current date</label>
+                    <input
+                        type="text"
+                        id="date"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required
+                        readOnly
+                        value={salesSummary.date}
+                    />
+                </div>
 
-                    <div class="mb-3">
-                        <label for="date" class="form-label" >Date</label>
-                        <input type="text" class="form-control" id="date" required value={salesSummary.date} readOnly />
-                    </div>
+                <div className="mb-6">
+                    <label for="total" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total price (LKR)</label>
+                    <input
+                        type="text"
+                        id="total"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required
+                        readOnly
+                        value={salesSummary.subTotal}
+                    />
+                </div>
 
-                    <table class="table">
-                        <thead>
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col">Tea Type</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Selling Price</th>
-                                <th>Action</th>
+                                <th scope="col" className="px-6 py-3">
+                                    Product name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Amount
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    selling Price (LKR)
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {salesSummary.salesDetails.map((detail, index) => (
-                                <tr key={index}>
-                                    <td>{detail.teaType}</td>
-                                    <td>{detail.amount}</td>
-                                    <td>{detail.sellingPrice}</td>
-                                    <td><button type="button" className="btn btn-danger" onClick={() => deleteBtn(detail._id)}>Delete</button></td>
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black" key={index}>
+                                    <td className="px-6 py-4">{detail.teaType}</td>
+                                    <td className="px-6 py-4">{detail.amount}</td>
+                                    <td className="px-6 py-4">{detail.sellingPrice}</td>
+                                    <td><button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => deleteBtn(detail._id)}>Delete</button></td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <button type="submit" className="mt-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Confirm</button>
+            </form>
 
-                    <button type="submit" class="btn btn-success">Confirm</button>
-                </form>
-
-                <button type="submit" class="btn btn-primary" onClick={handleAddMoreSale}>Update</button>
-            </div>
+            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={handleAddMoreSale}>Update</button>
         </div>
     )
 };
