@@ -48,13 +48,13 @@ export default function SalesmenDashboard() {
         fetchSalesDetails();
     }, [id]);
 
-    const saleSummary = sales.map(sale => ({ name: sale.teaType, value: sale.amount }));
+    const saleSummary = sales.map(sale => ({ name: sale.teaType, TotalSales: sale.amount }));
 
     return (
-        <div className='absolute ml-64  w-3/4 mt-40'>
+        <div className='absolute ml-72  w-3/4 mt-40'>
             <MdWavingHand className='absolute h-6 w-6 mr-2 mt-7 ml-5 text-yellow-300' />
             <div className='ml-14 mt-6 text-2xl'>Hello, <span className='text-green-500 font-bold'>{salesman.name}</span></div>
-            <div className='flex justify-center mt-20'>
+            <div className='flex justify-center mt-20 ml-2'>
                 <BarChart
                     width={850}
                     height={450}
@@ -70,7 +70,7 @@ export default function SalesmenDashboard() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="value" fill="rgb(14 159 110 )" />
+                    <Bar dataKey="TotalSales" fill="rgb(14 159 110 )" />
                 </BarChart>
             </div>
             <div className='w-full h-36 flex pl-44 space-x-10 mt-10'>
