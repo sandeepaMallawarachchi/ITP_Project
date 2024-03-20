@@ -150,6 +150,8 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
         }
 
         const salesDetails = [];
+        let totalAmount = 0;
+        let totalCustomers = new Set(); 
 
         for (const sale of salesRecords) {
 
@@ -167,10 +169,14 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
                 existingSale.amount += sale.amount;
             }  
 
+            totalAmount += sale.amount;
+            totalCustomers.add(sale.cusID);
         }
 
+        // const totalAmount = salesRecords.reduce((total, sale) => total + sale.amount, 0);
+        const customers = totalCustomers.size;
         const totalSales = salesRecords.length;
-        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales });
+        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales, totalAmount, customers });
 
     } catch (error) {
         console.log(error.message);
