@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@material-tailwind/react": "^2.1.9",
+    "nodemon": "^3.1.0",
+    "tw-elements-react": "^1.0.0-alpha2"
+  }
+}
