@@ -9,7 +9,7 @@ router.post("/addTeaPack",async(req,res)=>{
     const {productName,teaType,stockLevel,unitPrice,weight,manDate,expDate,reorderLevel} = req.body; //destructuring
     
     //db query to insert new product 
-    const newPack = new teaPack({productName,teaType,stockLevel,unitPrice,weight,manDate,expDate,reorderLevel,emailSent : false});
+    const newPack = new teaPack({productName,teaType,stockLevel,unitPrice,weight, manDate,expDate,reorderLevel,emailSent : false});
     
     await newPack.save()
     .then(()=>{

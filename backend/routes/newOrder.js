@@ -11,7 +11,7 @@ router.post("/addOrder",async(req,res)=>{
         productName,
         teaType,
         quantity,
-        date : new Date(),
+        date : new Date().toLocaleDateString(),
         status : "Low stock"
     }
     
