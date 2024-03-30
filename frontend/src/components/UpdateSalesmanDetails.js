@@ -19,7 +19,7 @@ function UpdateSalesmanDetails() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
 
                 const salesmanData = res.data.salesman || res.data;
@@ -37,7 +37,7 @@ function UpdateSalesmanDetails() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:5000/salesmen/updateSalesmen/${id}`, salesmanDetails);
+            await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
             alert('Details Updated successfully');
             navigate(`/salesmenDashboard/${id}`);
         } catch (error) {

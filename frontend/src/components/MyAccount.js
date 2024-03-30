@@ -14,7 +14,7 @@ export default function SalesmenDashboard() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 const salesmanData = res.data.salesman || res.data;
                 const { name, username } = salesmanData;
                 setSalesman({ name, username });

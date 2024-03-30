@@ -26,7 +26,7 @@ export default function Navigations() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
                 const salesmanData = res.data.salesman || res.data;
                 const { name, username } = salesmanData;
@@ -59,12 +59,17 @@ export default function Navigations() {
         navigate(`/SalesSummary/${id}`);
     };
 
+    const handleRemainingStock = () => {
+
+        navigate(`/remainingStock/${id}`);
+    };
+
     return (
         <div>
             {/* header section */}
             <div className="fixed top-0 left-0 w-full z-50">
-                <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>
-                    <Navbar.Brand href="#" onClick={handleDashboard}>
+                <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }} className='cursor-pointer'>
+                    <Navbar.Brand onClick={handleDashboard}>
                         <img src={logo} id='logo' alt="logo" />
                     </Navbar.Brand>
 
@@ -94,32 +99,32 @@ export default function Navigations() {
                 <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50" style={{marginTop:"133px"}}>
 
                     <Sidebar.Items className='pt-5'>
-                        <Sidebar.ItemGroup>
-                            <Sidebar.Item href="#" icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
+                        <Sidebar.ItemGroup className='cursor-pointer'>
+                            <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
                                 New sale
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={MdOutlinePayment}>
+                            <Sidebar.Item icon={MdOutlinePayment}>
                                 Payment
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={MdFormatListBulleted} onClick={handleSalesSummary}>
+                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesSummary}>
                                 Sales Summary
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={IoSearchSharp}>
+                            <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingStock}>
                                 Remaining Stock
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={FiMapPin}>
+                            <Sidebar.Item icon={FiMapPin}>
                                 Locations
                             </Sidebar.Item>
 
                         </Sidebar.ItemGroup>
-                        <Sidebar.ItemGroup>
-                            <Sidebar.Item href="#" icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
+                        <Sidebar.ItemGroup className='cursor-pointer'>
+                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
                                 My account
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={BiBuoy}>
+                            <Sidebar.Item icon={BiBuoy}>
                                 Help
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>

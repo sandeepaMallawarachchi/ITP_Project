@@ -6,6 +6,7 @@ let Salesmen = require("../models/salesmenModels/salesmenDetails");
 
 //register as a new salesmen
 router.route('/salesmenRegister').post(async (req, res) => {
+    const salespersonID = req.body.salespersonID;
     const name = req.body.name;
     const username = req.body.username;
     const password = req.body.password;
@@ -38,6 +39,7 @@ router.route('/salesmenRegister').post(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newSalesmen = await Salesmen.create({
+            salespersonID,
             name,
             username,
             password: hashedPassword,
@@ -57,17 +59,20 @@ router.route('/salesmenRegister').post(async (req, res) => {
 
 //dashboard details
 router.route("/salesmenDashboard/:id").get(async (req, res) => {
-
-    let userId = req.params.id;
+    let salespersonID = req.params.id;
 
     try {
-        let salesman = await Salesmen.findById(userId);
+        let salesman = await Salesmen.findOne({ salespersonID: salespersonID });
+        if (!salesman) {
+            return res.status(404).send({ status: "Error!", message: "Salesman not found." });
+        }
         res.status(200).send({ status: "Salesman fetched", salesman });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
     }
 });
+
 
 //update salesmen details
 router.route("/updateSalesmen/:id").put(async (req, res) => {

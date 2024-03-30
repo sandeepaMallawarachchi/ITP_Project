@@ -32,7 +32,7 @@ const salesSchema = new Schema({
         required: true
     },
 
-    salesmanID: {
+    salesPersonID: {
         type: String,
         required: true
     },

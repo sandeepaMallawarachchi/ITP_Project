@@ -17,7 +17,7 @@ export default function AddNewSale() {
     useEffect(() => {
         const fetchTeaType = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/sales/stocks");
+                const res = await axios.get(`http://localhost:8070/sales/stocks/${id}`);
                 const teaTypes = res.data.map(item => item.teaType);
                 console.log(teaTypes);
                 setTeaTypes(teaTypes);
@@ -34,7 +34,7 @@ export default function AddNewSale() {
 
         const fetchStandardPrice = async () => {
             try {
-                const res = axios.get(`http://localhost:5000/sales/getStandardPrice/${selectedTeaType}`);
+                const res = axios.get(`http://localhost:8070/sales/getStandardPrice/${selectedTeaType}`);
                 console.log((await res).data.standardPrice);
                 setStandardPrice((await res).data.standardPrice);
             } catch (error) {
@@ -48,7 +48,7 @@ export default function AddNewSale() {
         e.preventDefault();
 
         try {
-            const res = axios.post(`http://localhost:5000/sales/addSale/${id}`, {
+            const res = axios.post(`http://localhost:8070/sales/addSale/${id}`, {
                 teaType,
                 amount,
                 sellingPrice,

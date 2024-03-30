@@ -7,12 +7,8 @@ let Discount = require("../models/salesModels/discounts");
 
 //add a new sale
 router.route("/addSale/:id").post(async (req, res) => {
-
-    const teaType = req.body.teaType;
-    const amount = req.body.amount;
-    const sellingPrice = req.body.sellingPrice;
-    const cusID = req.body.cusID;
-    const salesmanID = req.params.id;
+    const salesPersonID = req.params.id;
+    const { teaType, amount, sellingPrice, cusID } = req.body;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
 
@@ -31,33 +27,32 @@ router.route("/addSale/:id").post(async (req, res) => {
         }
 
         // Get the standard price corresponding to the teaType
-        let standardPrice = priceDocument.price[index];
+        const standardPrice = priceDocument.price[index];
 
-        //calculate total price
-        let totalPrice = sellingPrice * amount;
+        // Calculate total price
+        const totalPrice = sellingPrice * amount;
 
         // Retrieve total bulk based on the tea type selected
-        let bulk = await Bulk.findOne({ teaType: teaType, date: date });
+        const bulk = await Bulk.findOne({ salesPersonID: salesPersonID, teaType: teaType, date: date });
 
         if (!bulk) {
             throw new Error("Bulk information not found");
         }
 
         // Check if there is enough stock
-        if (bulk.totalBulk === 0) {
+        if (amount > bulk.totalStock) {
+            return res.status(400).json({ error: "Not enough bulk!", remaining: bulk.totalStock });
+        } else if (bulk.totalStock === 0) {
             return res.status(400).json({ error: "Out of stock!" });
         }
-        else if (amount > bulk.totalBulk) {
-            return res.status(400).json({ error: "Not enough bulk!", remaining: bulk.totalBulk });
-        }
 
-        // Update the totalBulk
-        bulk.totalBulk -= amount;
+        // Update the totalStock
+        bulk.totalStock -= amount;
         await bulk.save();
 
         // Save the sales information
         const newSale = await Sales.create({
-            salesmanID,
+            salesPersonID,
             cusID,
             teaType: teaType,
             amount,
@@ -72,6 +67,7 @@ router.route("/addSale/:id").post(async (req, res) => {
         res.status(500).json({ error: "Error adding sale" });
     }
 });
+
 
 //get standard price
 router.route("/getStandardPrice/:teaType").get(async (req, res) => {
@@ -137,13 +133,13 @@ router.route("/getSalesSummary/:cusID").get(async (req, res) => {
 });
 
 //get daily sales details of a particular salesperson
-router.route("/getDailySales/:salesmanID").get(async (req, res) => {
-    const salesmanID = req.params.salesmanID;
+router.route("/getDailySales/:salesPersonID").get(async (req, res) => {
+    const salesPersonID = req.params.salesPersonID;
     const date = new Date().toISOString().split('T')[0];
 
     try {
         // Find all sales records for the specified salesperson and date
-        const salesRecords = await Sales.find({ salesmanID, date });
+        const salesRecords = await Sales.find({ salesPersonID, date });
 
         if (salesRecords.length === 0) {
             return res.status(500).send({ error: "No sales records found for the specified salesperson ID" });
@@ -151,7 +147,7 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
 
         const salesDetails = [];
         let totalAmount = 0;
-        let totalCustomers = new Set(); 
+        let totalCustomers = new Set();
 
         for (const sale of salesRecords) {
 
@@ -159,7 +155,7 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
 
             // Check if the tea type already exists in salesDetails
             const existingSale = salesDetails.find(item => item.teaType === teaType);
-      
+
             if (!existingSale) {
                 salesDetails.push({
                     teaType,
@@ -167,7 +163,7 @@ router.route("/getDailySales/:salesmanID").get(async (req, res) => {
                 });
             } else {
                 existingSale.amount += sale.amount;
-            }  
+            }
 
             totalAmount += sale.amount;
             totalCustomers.add(sale.cusID);
@@ -220,17 +216,66 @@ router.route("/addBulk").post(async (req, res) => {
 });
 
 //get all stocks
-router.route("/stocks").get((req, res) => {
+router.route("/stocks/:salesPersonID").get(async (req, res) => {
 
+    const salesPersonID = req.params.salesPersonID;
+
+    try {
+        const date = new Date();
+        date.setUTCHours(0, 0, 0, 0);
+
+        const bulks = await Bulk.find({ salesPersonID: salesPersonID, date: date });
+
+        if (bulks.length === 0) {
+            return res.status(404).json({ error: "No stocks found for the provided salesPersonID and date" });
+        }
+
+        res.json(bulks);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Error fetching stocks" });
+    }
+});
+
+
+// //get remaining stock of a salesperson
+// router.route("/remainingStock/:id").get((req, res) => {
+
+//     const { id } = req.params.id;
+//     const date = new Date();
+//     date.setUTCHours(0, 0, 0, 0);
+
+//     try {
+//         const remainingStock = Bulk.find({ id, date });
+//         res.json(remainingStock);
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// });
+
+//search bulk
+router.route("/searchBulk/:salesPersonID").get(async (req, res) => {
+
+    const salesPersonID = req.params.salesPersonID;
+    const teaType = req.body.teaType;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
 
-    Bulk.find({ date: date }).then((bulks) => {
-        res.json(bulks);
-    }).catch((err) => {
+    try {
 
-        console.log(err);
-    });
+        // Find the remaining tea bulk
+        const remainingbulk = await Bulk.findOne({ salesPersonID: salesPersonID, teaType: teaType, date: date });
+
+        if (remainingbulk) {
+            const totalBulk = remainingbulk.totalBulk;
+            res.status(200).send({ status: `${teaType} is available`, totalBulk });
+        } else {
+            res.status(404).send({ status: `${teaType} is not found!` });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
 });
 
 //discounts
@@ -275,30 +320,6 @@ router.route("/discounts/:cusID").post(async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: "Error adding discount" });
-    }
-});
-
-//search bulk
-router.route("/searchBulk").get(async (req, res) => {
-
-    const teaType = req.body.teaType;
-    const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
-
-    try {
-
-        // Find the remaining tea bulk
-        const remainingbulk = await Bulk.findOne({ teaType: teaType, date: date });
-
-        if (remainingbulk) {
-            totalBulk = remainingbulk.totalBulk;
-            res.status(200).send({ status: `${teaType} is available`, totalBulk });
-        } else {
-            res.status(404).send({ status: `Reamainig bulk of ${teaType} is not found!` });
-        }
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ status: "Error!", error: error.message });
     }
 });
 

@@ -15,7 +15,7 @@ function SalesSummary() {
     useEffect(() => {
         const fetchSaleDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/sales/getSalesSummary/${cusID}`);
+                const res = await axios.get(`http://localhost:8070/sales/getSalesSummary/${cusID}`);
                 const saleData = res.data.sale || res.data;
                 const { subTotal, date, salesDetails } = saleData;
                 setSalesSummary({ subTotal, date, salesDetails });

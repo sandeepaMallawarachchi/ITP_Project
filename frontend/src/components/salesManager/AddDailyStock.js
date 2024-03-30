@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function AddNewSale() {
 
-    // const { id } = useParams();
+    const [salesPersonID, setSalesPersonID] = useState("");
     const [salesPersonName, setSalesPersonName] = useState("");
     const [teaType, setTeaType] = useState("");
     const [totalStock, setTotalStock] = useState("");
@@ -13,7 +13,8 @@ export default function AddNewSale() {
         e.preventDefault();
 
         try {
-            const res = axios.post(`http://localhost:5000/salesManagement/addStock`, {
+            const res = axios.post(`http://localhost:8070/salesManagement/addStock`, {
+                salesPersonID,
                 salesPersonName,
                 teaType,
                 totalStock,
@@ -32,6 +33,21 @@ export default function AddNewSale() {
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={handleSubmit}>
+
+            <div className="mb-6">
+                    <label for="salesPersonID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Salesperson ID</label>
+                    <input
+                        type="text"
+                        id="salesPersonID"
+                        placeholder="s123"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required
+                        onChange={(e) => {
+
+                            setSalesPersonID(e.target.value);
+                        }}
+                    />
+                </div>
 
                 <div className="mb-6">
                     <label for="SalesPersonName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Salesperson Name</label>

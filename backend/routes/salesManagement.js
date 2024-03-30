@@ -8,6 +8,7 @@ let Discount = require("../models/salesModels/discounts");
 //add tea daily stock for salesperson
 router.route("/addStock").post(async (req, res) => {
 
+    const salesPersonID = req.body.salesPersonID;
     const salesPersonName = req.body.salesPersonName;
     const teaType = req.body.teaType;
     const totalStock = req.body.totalStock;
@@ -15,6 +16,7 @@ router.route("/addStock").post(async (req, res) => {
     try {
         // Save the tea stock information
         const newStock = await Bulk.create({
+            salesPersonID,
             salesPersonName,
             teaType,
             totalStock,

@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const bulckSchema = new Schema({
 
+    salesPersonID: {
+        type: String,
+        required: true
+    },
+
     salesPersonName: {
         type: String,
         required: true

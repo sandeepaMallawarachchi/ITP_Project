@@ -10,6 +10,8 @@ import CurrentSale from './components/CurrentSale';
 import MyAccount from './components/MyAccount';
 import DeleteSale from './components/DeleteSale';
 import AddDailyStock from './components/salesManager/AddDailyStock';
+// import Search from './components/Search';
+import RemainingStock from './components/RemainingStock';
 import Navigations from './components/Navigations';
 
 function App() {
@@ -84,6 +86,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/addStock' element={<AddDailyStock />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/remainingStock/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/remainingStock/:id' element={<RemainingStock />} />
         </Routes>
 
       </div>
