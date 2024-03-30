@@ -11,12 +11,17 @@ import MyAccount from './components/MyAccount';
 import DeleteSale from './components/DeleteSale';
 import AddDailyStock from './components/salesManager/AddDailyStock';
 import Navigations from './components/Navigations';
+import InventoryRoutes from "./InventoryRoutes";
+
 
 function App() {
   return (
     <Router>
       <div className='App'>
-        <Routes>
+      <Routes>
+         <Route path="/inventory/*" element={<InventoryRoutes/>} />
+      </Routes>
+      <Routes>
           <Route path="/salesmenDashboard/:id" element={<Navigations />} />
         </Routes>
         <Routes>
