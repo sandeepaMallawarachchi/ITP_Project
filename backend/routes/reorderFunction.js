@@ -22,7 +22,7 @@ const checkInventoryLevel = async()=>{
                 teaType : item.teaType,
                 stockLevel : item.stockLevel,
                 reorderLevel : item.reorderLevel,
-                date : new Date()
+                date : new Date().toDateString()
             }
             
             //saving the product that needs to be reordered to db
