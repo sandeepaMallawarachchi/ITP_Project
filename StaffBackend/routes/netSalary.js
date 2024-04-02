@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { response } = require("express");
 let Salary = require("../models/SalaryDetails");
 
-router.route("/addSalary").post((req, res) => {
+router.route("/addSalary/:id").post((req, res) => {
 
     const empId = req.body.empId;
     const name = req.body.name;

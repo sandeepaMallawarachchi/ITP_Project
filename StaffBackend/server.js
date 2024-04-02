@@ -26,7 +26,7 @@ connection.once("open",()=>{
 })
 
 const StaffRouter = require("./routes/Staff.js");
-const NetSalaryRouter = require("./routes/NetSalary.js");
+const NetSalaryRouter = require("./routes/netSalary.js");
 
 app.use("/Staff",StaffRouter);
 app.use("/NetSalary",NetSalaryRouter);

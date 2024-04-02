@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function AddSalary() {
 
+    const {id} = useParams();
     const [empId, setEmpId] = useState("");
     const [name, setName] = useState("");
     const [designation, setDesignation] = useState("");
@@ -35,7 +36,7 @@ function AddSalary() {
         }
 
         try {
-            axios.post(`http://localhost:8070/netSalary/addSalary`, newSalary);
+            axios.post(`http://localhost:8070/netSalary/addSalary/${id}`, newSalary);
             alert("Success! Salary added");
         } catch (error) {
             alert("Error! Failed to add salary");
@@ -122,7 +123,7 @@ function AddSalary() {
                     <input type="number" className="form-control" id="netSalary" value={Number(basicSalary) + Number(ETFbonus) + Number(EPFbonus)} required readOnly />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Add Salary</button>
             </form>
         </div>
     )

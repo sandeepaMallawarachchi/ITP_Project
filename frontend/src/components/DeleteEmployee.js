@@ -5,10 +5,14 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 function DeleteEmployee() {
 
     const { id } = useParams();
-
+    
+    const navigate = useNavigate();
+    
     const yesBtn = async () => {
         try {
             await axios.delete(`http://localhost:8070/staff/delete/${id}`);
+            alert("Employee deleted!");
+            navigate("/allSalaries")
         } catch (error) {
             console.error("Error deleting employee", error.message);
             alert("Error deleting employee. Please try again.");

@@ -29,8 +29,9 @@ function App() {
           <Route path='/allSalaries/:id' element={<AllSalaries />} />
         </Routes>
         <Routes>
-          <Route path='/addSalary' element={<AddSalary />} />
+          <Route path='/addSalary/:id' element={<AddSalary />} />
         </Routes>
+
       </div>
     </Router>
   );
