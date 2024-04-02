@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import axios from "axios";
 import { Table } from 'flowbite-react';
 import { Link } from "react-router-dom";
+import { Button } from "flowbite-react";
 
 export default function DisplayProducts(){
 
@@ -12,7 +13,7 @@ export default function DisplayProducts(){
         const getProducts = async()=>{
             try{
                 const response = await axios.get(`http://localhost:5000/inventory/product/getTeaPack`);
-                console.log(response.data)
+                //console.log(response.data)
                 setProducts(response.data)
             }catch(err){
                 console.log(err)
@@ -26,7 +27,7 @@ export default function DisplayProducts(){
 
     <div >
       <div className="flex-1 overflow-auto "  >
-      <Table hoverable>
+      <Table hoverable className="table-auto">
         <Table.Head>
           <Table.HeadCell >Product Name</Table.HeadCell>
           <Table.HeadCell >Tea Type</Table.HeadCell>
@@ -53,8 +54,10 @@ export default function DisplayProducts(){
                     <Table.Cell>{new Date(item.manDate).toLocaleDateString()}</Table.Cell>
                     <Table.Cell>{new Date(item.expDate).toLocaleDateString()}</Table.Cell>
                     <Table.Cell>{item.reorderLevel}</Table.Cell>
-                    <Table.Cell className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"><Link to={`/inventory/updateProduct/${item._id}`}> Update</Link></Table.Cell>
-                    <Table.Cell className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"><Link to={`/inventory/deleteProduct/${item._id}`}> Delete</Link> </Table.Cell>
+                    <div className="flex flex-wrap gap-2">
+                     <Button color="success"><Link to={`/inventory/updateProduct/${item._id}`}> Update</Link></Button>
+                     <Button color="failure"><Link to={`/inventory/deleteProduct/${item._id}`}> Delete</Link> </Button>
+                     </div>
                    </Table.Row>
                    )
 

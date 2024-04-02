@@ -21,6 +21,7 @@
     "mongo": "^0.1.0",
     "mongoose": "^5.13.22",
     "nodemailer": "^6.9.12",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "react-to-print": "^2.15.1"
   }
 }
