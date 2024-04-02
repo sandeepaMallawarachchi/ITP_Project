@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const salesSchema = new Schema({
     
-    teaType: {
+    productName: {
         type: String,
         required: true
     },
@@ -12,7 +12,7 @@ const salesSchema = new Schema({
         required: true
     },
 
-    standardPrice: {
+    unitPrice: {
         type: Number,
         required: true
     },

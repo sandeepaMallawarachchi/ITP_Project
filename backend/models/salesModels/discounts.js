@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const discountSchema = new Schema({
-    teaType: {
+    productName: {
         type: String,
         required: true
     },

@@ -111,7 +111,7 @@ function CurrentSale() {
                         <tbody>
                             {salesSummary.salesDetails.map((detail, index) => (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black" key={index}>
-                                    <td className="px-6 py-4">{detail.teaType}</td>
+                                    <td className="px-6 py-4">{detail.productName}</td>
                                     <td className="px-6 py-4">{detail.amount}</td>
                                     <td className="px-6 py-4">{detail.sellingPrice}</td>
                                     <td><button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => deleteBtn(detail._id)}>Delete</button></td>

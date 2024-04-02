@@ -26,18 +26,19 @@ connection.once("open", () => {
     console.log("Mongodb connected successfully");
 });
 
+//sales routes
 const salesRouter = require("./routes/sales.js");
 const salesmenRouter = require("./routes/salesmen.js");
 const salesManagementRouter = require("./routes/salesManagement.js");
+
+app.use("/sales", salesRouter);
+app.use("/salesmen", salesmenRouter);
+app.use("/salesManagement", salesManagementRouter);
 
 //inventory routes
 const invRouter = require( "./routes/product.js")
 const orderRouter = require("./routes/newOrder.js")
 const reorderRouter = require("./routes/reorderFunction.js")
-
-app.use("/sales", salesRouter);
-app.use("/salesmen", salesmenRouter);
-app.use("/salesManagement", salesManagementRouter);
 
 app.use("/inventory/product",invRouter)
 app.use("/inventory/orders",orderRouter)

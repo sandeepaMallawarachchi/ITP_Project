@@ -13,7 +13,7 @@ const bulckSchema = new Schema({
         required: true
     },
 
-    teaType: {
+    productName: {
         type: String,
         required: true
     },

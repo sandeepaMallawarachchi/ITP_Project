@@ -1,39 +1,34 @@
 const router = require("express").Router();
 let Sales = require("../models/salesModels/salesDetails");
-let Prices = require("../models/salesModels/priceDetails");
+// let Prices = require("../models/salesModels/priceDetails");
 // let Summary = require("../models/salesModels/summary");
 let Bulk = require("../models/salesModels/bulkManagement");
 let Discount = require("../models/salesModels/discounts");
+let teaPack = require("../models/inventoryModels/product");
 
 //add a new sale
 router.route("/addSale/:id").post(async (req, res) => {
     const salesPersonID = req.params.id;
-    const { teaType, amount, sellingPrice, cusID } = req.body;
+    const { amount, sellingPrice, cusID, productName } = req.body;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);
 
     try {
         // Retrieve standard price based on the tea type selected
-        const priceDocument = await Prices.findOne({ teaType: teaType });
+        const priceDocument = await teaPack.findOne({ productName: productName });
 
         if (!priceDocument) {
             throw new Error("Tea type not found");
         }
 
-        // Get the index of the teaType in the array
-        const index = priceDocument.teaType.indexOf(teaType);
-        if (index === -1) {
-            throw new Error("Tea type not found");
-        }
-
-        // Get the standard price corresponding to the teaType
-        const standardPrice = priceDocument.price[index];
+        // Get the standard price corresponding to the productName
+        const unitPrice = priceDocument.unitPrice;
 
         // Calculate total price
         const totalPrice = sellingPrice * amount;
 
         // Retrieve total bulk based on the tea type selected
-        const bulk = await Bulk.findOne({ salesPersonID: salesPersonID, teaType: teaType, date: date });
+        const bulk = await Bulk.findOne({ salesPersonID: salesPersonID, productName: productName, date: date });
 
         if (!bulk) {
             throw new Error("Bulk information not found");
@@ -54,14 +49,14 @@ router.route("/addSale/:id").post(async (req, res) => {
         const newSale = await Sales.create({
             salesPersonID,
             cusID,
-            teaType: teaType,
+            productName,
             amount,
-            standardPrice,
+            unitPrice,
             sellingPrice,
             totalPrice,
         });
 
-        res.json({ status: "Sale added", sales: newSale, standardPrice });
+        res.json({ status: "Sale added", sales: newSale, unitPrice });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: "Error adding sale" });
@@ -70,29 +65,23 @@ router.route("/addSale/:id").post(async (req, res) => {
 
 
 //get standard price
-router.route("/getStandardPrice/:teaType").get(async (req, res) => {
-    const teaType = req.params.teaType;
+router.route("/getStandardPrice/:productName").get(async (req, res) => {
+    const productName = req.params.productName;
 
     try {
         // Retrieve standard price based on the tea type selected
-        const priceDocument = await Prices.findOne({ teaType: teaType });
+        const priceDocument = await teaPack.findOne({ productName: productName });
 
         if (!priceDocument) {
             throw new Error("Tea type not found!");
         }
 
-        // Get the index of the teaType in the array
-        const index = priceDocument.teaType.indexOf(teaType);
-        if (index === -1) {
-            throw new Error("Tea type not found!");
-        }
+        // Get the standard price corresponding to the productName
+        const unitPrice = priceDocument.unitPrice;
 
-        // Get the standard price corresponding to the teaType
-        let standardPrice = priceDocument.price[index];
-
-        res.status(200).send({ status: "Standard price", standardPrice });
+        res.status(200).send({ status: "Standard price", unitPrice });
     } catch (error) {
-        res.status(500).send({ error: "Error fetching standard price!" });
+        res.status(500).send({ error: "Error fetching unit price!" });
     }
 });
 
@@ -117,7 +106,7 @@ router.route("/getSalesSummary/:cusID").get(async (req, res) => {
             subTotal += sale.totalPrice;
             salesDetails.push({
                 _id: sale._id,
-                teaType: sale.teaType,
+                productName: sale.productName,
                 amount: sale.amount,
                 sellingPrice: sale.sellingPrice,
                 totalPrice: sale.totalPrice,
@@ -151,14 +140,14 @@ router.route("/getDailySales/:salesPersonID").get(async (req, res) => {
 
         for (const sale of salesRecords) {
 
-            const teaType = sale.teaType;
+            const productName = sale.productName;
 
             // Check if the tea type already exists in salesDetails
-            const existingSale = salesDetails.find(item => item.teaType === teaType);
+            const existingSale = salesDetails.find(item => item.productName === productName);
 
             if (!existingSale) {
                 salesDetails.push({
-                    teaType,
+                    productName,
                     amount: sale.amount
                 });
             } else {
@@ -198,13 +187,13 @@ router.route("/deleteSale/:saleID").delete(async (req, res) => {
 //add tea bulk
 router.route("/addBulk").post(async (req, res) => {
 
-    const teaType = req.body.teaType;
+    const productName = req.body.productName;
     const totalBulk = req.body.totalBulk;
 
     try {
         // Save the tea bulk information
         const newBulk = await Bulk.create({
-            teaType,
+            productName,
             totalBulk,
         });
 
@@ -215,7 +204,7 @@ router.route("/addBulk").post(async (req, res) => {
     }
 });
 
-//get all stocks
+//get remaining stock of a salesperson
 router.route("/stocks/:salesPersonID").get(async (req, res) => {
 
     const salesPersonID = req.params.salesPersonID;
@@ -238,50 +227,34 @@ router.route("/stocks/:salesPersonID").get(async (req, res) => {
 });
 
 
-// //get remaining stock of a salesperson
-// router.route("/remainingStock/:id").get((req, res) => {
-
-//     const { id } = req.params.id;
-//     const date = new Date();
-//     date.setUTCHours(0, 0, 0, 0);
-
-//     try {
-//         const remainingStock = Bulk.find({ id, date });
-//         res.json(remainingStock);
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// });
-
-//search bulk
-router.route("/searchBulk/:salesPersonID").get(async (req, res) => {
+//search remaining stock by product name
+router.route("/searchStock/:salesPersonID/:productName").get(async (req, res) => {
 
     const salesPersonID = req.params.salesPersonID;
-    const teaType = req.body.teaType;
-    const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
+    const productName = req.params.productName;
+    // const productName = req.body.productName;
 
     try {
+        const date = new Date();
+        date.setUTCHours(0, 0, 0, 0);
 
-        // Find the remaining tea bulk
-        const remainingbulk = await Bulk.findOne({ salesPersonID: salesPersonID, teaType: teaType, date: date });
+        const bulks = await Bulk.find({ salesPersonID: salesPersonID, date: date, productName: productName });
 
-        if (remainingbulk) {
-            const totalBulk = remainingbulk.totalBulk;
-            res.status(200).send({ status: `${teaType} is available`, totalBulk });
-        } else {
-            res.status(404).send({ status: `${teaType} is not found!` });
+        if (bulks.length === 0) {
+            return res.status(404).json({ error: "No stocks found for the provided salesPersonID and date" });
         }
+
+        res.json(bulks);
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ status: "Error!", error: error.message });
+        console.log(error);
+        res.status(500).json({ error: "Error fetching stocks" });
     }
 });
 
 //discounts
 router.route("/discounts/:cusID").post(async (req, res) => {
 
-    const teaType = req.body.teaType;
+    const productName = req.body.productName;
     const amount = req.body.amount;
     const discription = req.body.discription;
     const cusID = req.params.cusID;
@@ -289,7 +262,7 @@ router.route("/discounts/:cusID").post(async (req, res) => {
     date.setUTCHours(0, 0, 0, 0);
 
     // Retrieve total bulk based on the tea type selected
-    let bulk = await Bulk.findOne({ teaType: teaType, date: date });
+    let bulk = await Bulk.findOne({ productName: productName, date: date });
 
     if (!bulk) {
         throw new Error("Bulk information not found");
@@ -311,7 +284,7 @@ router.route("/discounts/:cusID").post(async (req, res) => {
         // Save the tea bulk information
         const newDiscount = await Discount.create({
             cusID,
-            teaType,
+            productName,
             amount,
             discription,
         });

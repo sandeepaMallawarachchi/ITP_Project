@@ -3,18 +3,17 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
 import { BiBuoy } from 'react-icons/bi';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { MdFormatListBulleted } from "react-icons/md";
-import { MdOutlinePayment } from "react-icons/md";
+import { HiOutlineDocumentReport } from "react-icons/hi";
 import { IoSearchSharp } from "react-icons/io5";
-import { FiMapPin } from "react-icons/fi";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 
-export default function Navigations() {
+export default function SalesManagerNavigations() {
     const { id } = useParams();
     const [salesman, setSalesman] = useState({
         name: "",
@@ -71,23 +70,23 @@ export default function Navigations() {
     };
 
     const handleDashboard = () => {
-        navigate(`/salesmenDashboard/${id}`);
+        navigate(`/salesManagerDashboard`);
     };
 
     const handleMyAccount = () => {
         navigate(`/myAccount/${id}`);
     };
 
-    const handleAddSale = () => {
-        navigate(`/AddNewSale/${id}`);
+    const handleStock = () => {
+        navigate(`/addStock`);
     };
 
-    const handleSalesSummary = () => {
-        navigate(`/SalesSummary/${id}`);
+    const handleSalesPersonDetails = () => {
+        navigate(`/salesPersonDetails`);
     };
 
-    const handleRemainingStock = () => {
-        navigate(`/remainingStock/${id}`);
+    const handleRemainingInventoryStock = () => {
+        navigate(`/remainingInventoryStock`);
     };
 
     const handleSearchClick = async () => {
@@ -145,20 +144,17 @@ export default function Navigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
-                                New sale
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleStock}>
+                                Add Daily Stock
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlinePayment}>
-                                Payment
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesSummary}>
-                                Sales Summary
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingStock}>
+                            <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingInventoryStock}>
                                 Remaining Stock
                             </Sidebar.Item>
-                            <Sidebar.Item icon={FiMapPin}>
-                                Locations
+                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesPersonDetails}>
+                                Salesperson Details
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={HiOutlineDocumentReport}>
+                                Reports
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
@@ -201,7 +197,7 @@ export default function Navigations() {
                                             <td className="px-6 py-4">{detail.totalStock}</td>
                                             {detail.totalStock === 0 ? (
                                                 <td className="px-6 py-4 text-red-600 font-bold">Out of stock</td>
-                                            ) : detail.totalStock < 10 ? (
+                                            ) : detail.totalStock < 50 ? (
                                                 <td className="px-6 py-4 text-yellow-400 font-bold">Low stock</td>
                                             ) : (
                                                 <td className="px-6 py-4 text-green-500 font-bold">Available</td>
