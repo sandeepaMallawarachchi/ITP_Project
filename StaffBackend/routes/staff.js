@@ -82,14 +82,14 @@ router.route("/delete/:id").delete(async(req,res)=>{
 
 })
 
-router.route("/get/:id").get(async(req,res)=>{
-    let id = req.params.id;
-    const emp = await Staff.findById(id).then((staff)=>{
-        res.status(200).send({status: "User fetched",staff})
-    }).catch((err)=>{
+router.route("/get/:empId").get(async (req, res) => {
+    const empId = req.params.empId;
+    const emp = await Staff.find({ empId: empId }).then((staff) => {
+        res.status(200).send({ status: "User fetched", staff });
+    }).catch((err) => {
         console.log(err.message);
-        res.status(500).send({status: "Error with get employee",error:err.message})
-    })
-})
+        res.status(500).send({ status: "Error with get employee", error: err.message });
+    });
+});
 
 module.exports = router;

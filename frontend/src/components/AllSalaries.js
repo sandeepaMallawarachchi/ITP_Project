@@ -31,7 +31,7 @@ function AllSalaries() {
                     </tr>
                 </thead>
                 <tbody>
-                    {salaries.map((salary) => (
+                    {salaries.map((salaries) => (
                     <tr key={(salaries._id)}>
                         <td>{salaries.empId}</td>
                         <td>{salaries.name}</td>

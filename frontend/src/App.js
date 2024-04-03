@@ -26,10 +26,10 @@ function App() {
           <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
         </Routes>
         <Routes>
-          <Route path='/allSalaries/:id' element={<AllSalaries />} />
+          <Route path='/allSalaries' element={<AllSalaries />} />
         </Routes>
         <Routes>
-          <Route path='/addSalary/:id' element={<AddSalary />} />
+          <Route path='/addSalary' element={<AddSalary />} />
         </Routes>
 
       </div>

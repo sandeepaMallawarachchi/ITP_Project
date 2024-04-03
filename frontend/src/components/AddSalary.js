@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
 
 function AddSalary() {
-
-    const {id} = useParams();
-    const [empId, setEmpId] = useState("");
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [designation, setDesignation] = useState("");
     const [month, setMonth] = useState("");
@@ -20,11 +17,30 @@ function AddSalary() {
         "July", "August", "September", "October", "November", "December"
     ];
 
+    useEffect(() => {
+        if (id) {
+            fetchEmpDetails();
+        }
+    }, [id]);
+
+    const fetchEmpDetails = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8070/staff/get/${id}`);
+            const empData = response.data.staff[0]; // Access the first element of the staff array
+            const { firstName } = empData;
+            setName(firstName); // Set the name state with the first name
+            setDesignation(empData.designation); // Set the designation state
+        } catch (error) {
+            console.error("Error fetching employee details", error.message);
+        }
+    };
+    
+
     function sendData(e) {
         e.preventDefault();
 
         const newSalary = {
-            empId,
+            empId: id,
             name,
             designation,
             month,
@@ -56,28 +72,25 @@ function AddSalary() {
         return calculatedNetSalary;
     };
 
+    console.log(name)
+    console.log(designation)
+
     return (
         <div>
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label htmlFor="empId" className="form-label">Enter Employee ID: </label>
-                    <input type="text" className="form-control" id="empId" required onChange={(e) => {
-                        setEmpId(e.target.value);
-                    }} />
+                    <input type="text" className="form-control" id="empId" value={id} onChange={(e) => setId(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Enter Employee Name: </label>
-                    <input type="text" className="form-control" id="name" required onChange={(e) => {
-                        setName(e.target.value);
-                    }} />
+                    <label htmlFor="name" className="form-label">Employee Name: </label>
+                    <input type="text" className="form-control" id="name" value={name} readOnly />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="designation" className="form-label">Enter Designation: </label>
-                    <input type="text" className="form-control" id="designation" required onChange={(e) => {
-                        setDesignation(e.target.value);
-                    }} />
+                    <label htmlFor="designation" className="form-label">Designation: </label>
+                    <input type="text" className="form-control" id="designation" value={designation} readOnly />
                 </div>
 
                 <div className="mb-3">
@@ -96,6 +109,7 @@ function AddSalary() {
                     <label htmlFor="basicSalary" className="form-label">Enter Basic Salary: </label>
                     <input type="number" className="form-control" id="basicSalary" required onChange={(e) => {
                         setBasicSalary(e.target.value);
+                        calculateNetSalary();
                     }} />
                 </div>
 
@@ -115,12 +129,12 @@ function AddSalary() {
 
                 <div className="mb-3">
                     <label htmlFor="netBonus" className="form-label">Net Bonus: </label>
-                    <input type="number" className="form-control" id="netBonus" value={Number(ETFbonus) + Number(EPFbonus)} required readOnly />
+                    <input type="number" className="form-control" id="netBonus" value={netBonus} readOnly />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="netSalary" className="form-label">Net Salary: </label>
-                    <input type="number" className="form-control" id="netSalary" value={Number(basicSalary) + Number(ETFbonus) + Number(EPFbonus)} required readOnly />
+                    <input type="number" className="form-control" id="netSalary" value={netSalary} readOnly />
                 </div>
 
                 <button type="submit" className="btn btn-primary">Add Salary</button>
