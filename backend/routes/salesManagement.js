@@ -65,4 +65,19 @@ router.route("/getRemainingStock").get(async (req, res) => {
     }
 });
 
+//all sales
+router.route("/getSales").get(async (req, res) => {
+
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
+
+    try {
+        const sales = await Sales.find();
+        res.json(sales);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Error fetching sales" });
+    }
+});
+
 module.exports = router;

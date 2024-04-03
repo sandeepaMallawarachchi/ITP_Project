@@ -49,7 +49,7 @@ export default function SalesmenDashboard() {
         fetchSalesDetails();
     }, [id]);
 
-    const saleSummary = sales.map(sale => ({ name: sale.teaType, TotalSales: sale.amount }));
+    const saleSummary = sales.map(sale => ({ name: sale.productName, TotalSales: sale.amount }));
 
     const [selectedDate, setSelectedDate] = useState(currentDate);
 
