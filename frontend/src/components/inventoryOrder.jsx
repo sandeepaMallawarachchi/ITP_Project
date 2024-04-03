@@ -24,7 +24,7 @@ export default function Orders(){
 
         e.preventDefault();
         
-        await axios.post("http://localhost:5000/inventory/orders/addOrder",{
+        await axios.post("http://localhost:8070/inventory/orders/addOrder",{
             productName : order.productName,
             teaType : order.teaType,
             quantity : order.quantity

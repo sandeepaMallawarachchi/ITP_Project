@@ -12,7 +12,7 @@ export default function DisplayProducts(){
 
         const getProducts = async()=>{
             try{
-                const response = await axios.get(`http://localhost:5000/inventory/product/getTeaPack`);
+                const response = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
                 //console.log(response.data)
                 setProducts(response.data)
             }catch(err){

@@ -11,7 +11,7 @@ export default function SearchBar(prop){
 
     async function fetchData(){
         try{
-            const res = await axios.get(`http://localhost:5000/inventory/product/searchTeapack?q=${input}`);
+            const res = await axios.get(`http://localhost:8070/inventory/product/searchTeapack?q=${input}`);
             //console.log(res.data)
             prop.setResults(res.data);
            
@@ -34,7 +34,7 @@ export default function SearchBar(prop){
     /*useEffect(()=>{
         const fetchData = async()=>{
             try{
-                const res = await axios.get(`http://localhost:5000/inventory/product/searchTeapack?q=${input}`)
+                const res = await axios.get(`http://localhost:8070/inventory/product/searchTeapack?q=${input}`)
                 console.log(res.data);
                 setResults(res.data);
             }catch(err){

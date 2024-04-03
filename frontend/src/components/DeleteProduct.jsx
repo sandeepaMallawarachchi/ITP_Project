@@ -23,7 +23,7 @@ export default function DeleteProduct(){
     useEffect(()=>{
 
         async function getProduct(){
-            await axios.get(`http://localhost:5000/inventory/product/getPack/${id}`)
+            await axios.get(`http://localhost:8070/inventory/product/getPack/${id}`)
             .then((response)=>{
                 console.log("Got a product")
                 const manDate = new Date(response.data.manDate).toLocaleDateString();
@@ -47,7 +47,7 @@ export default function DeleteProduct(){
        
         e.preventDefault();
         try{
-            await axios.delete(`http://localhost:5000/inventory/product/deleteTeaPack/${id}`)
+            await axios.delete(`http://localhost:8070/inventory/product/deleteTeaPack/${id}`)
             .then(()=>{
                alert("delete product")
             }).catch((err)=>{

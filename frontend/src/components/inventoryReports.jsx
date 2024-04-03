@@ -11,7 +11,7 @@ export default function Reports(){
 
         const fetchData = async()=>{
             try{
-                const res = await axios.get(`http://localhost:5000/inventory/product/getTeaPack`);
+                const res = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
                 setData(res.data)
 
             }catch(err){

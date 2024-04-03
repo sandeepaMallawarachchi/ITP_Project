@@ -12,8 +12,9 @@ export default function Dashboard(){
         async function fetchOrders(){
             try{
 
-                const response = await axios.get("http://localhost:5000/inventory/reorder/getReorders");
+                const response = await axios.get("http://localhost:8070/inventory/reorder/getReorders");
                 setOrders(response.data)
+                console.log(response.data);
                 //alert("order successfully fetched")
 
             }catch(err){
