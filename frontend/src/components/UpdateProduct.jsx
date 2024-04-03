@@ -119,14 +119,14 @@ export default function UpdateProduct(){
         e.preventDefault();
         
         const errors = validate(data)
-       
+        console.log(errors)
         //if no errors , update the data into db
         if(Object.keys(errors).length === 0){
           await updateData();
         }else{
           //set the errors into formErrors
           setFormErrors(errors)
-          console.log(errors)
+          
         }
 
     }
