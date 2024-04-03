@@ -5,38 +5,38 @@ import { useParams, useNavigate } from 'react-router-dom';
 export default function AddNewSale() {
 
     const { id } = useParams();
-    const [teaType, setTeaType] = useState("");
+    const [productName, setProductName] = useState("");
     const [amount, setAmount] = useState("");
     const [sellingPrice, setSellingPrice] = useState("");
-    const [standardPrice, setStandardPrice] = useState("");
+    const [unitPrice, setUnitPrice] = useState("");
     const [cusID, setCusID] = useState("");
-    const [teaTypes, setTeaTypes] = useState([]);
+    const [productNames, setProductNames] = useState([]);
     // const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchTeaType = async () => {
+        const fetchProductName = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/sales/stocks");
-                const teaTypes = res.data.map(item => item.teaType);
-                console.log(teaTypes);
-                setTeaTypes(teaTypes);
+                const res = await axios.get(`http://localhost:8070/sales/stocks/${id}`);
+                const productNames = res.data.map(item => item.productName);
+                console.log(productNames);
+                setProductNames(productNames);
             } catch (error) {
                 console.log("error", error.message);
             }
         }
 
-        fetchTeaType();
+        fetchProductName();
     }, []);
 
-    const handleChangeTeaType = (selectedTeaType) => {
-        setTeaType(selectedTeaType);
+    const handleChangeProductName = (selectedProductName) => {
+        setProductName(selectedProductName);
 
         const fetchStandardPrice = async () => {
             try {
-                const res = axios.get(`http://localhost:5000/sales/getStandardPrice/${selectedTeaType}`);
-                console.log((await res).data.standardPrice);
-                setStandardPrice((await res).data.standardPrice);
+                const res = axios.get(`http://localhost:8070/sales/getStandardPrice/${selectedProductName}`);
+                console.log((await res).data.unitPrice);
+                setUnitPrice((await res).data.unitPrice);
             } catch (error) {
                 console.log("error", error.message);
             }
@@ -48,20 +48,20 @@ export default function AddNewSale() {
         e.preventDefault();
 
         try {
-            const res = axios.post(`http://localhost:5000/sales/addSale/${id}`, {
-                teaType,
+            const res = axios.post(`http://localhost:8070/sales/addSale/${id}`, {
+                productName,
                 amount,
                 sellingPrice,
-                standardPrice,
+                unitPrice,
                 cusID,
             });
             alert("Sale added");
             console.log(res.data);
 
-            setTeaType("");
+            setProductName("");
             setAmount("");
             setSellingPrice("");
-            setStandardPrice("");
+            setUnitPrice("");
         } catch (error) {
             alert("Error adding a sale!");
         }
@@ -92,12 +92,12 @@ export default function AddNewSale() {
                     <label htmlFor="teaType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter product name</label>
                     <select
                         className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        value={teaType}
-                        onChange={(e) => handleChangeTeaType(e.target.value)}
+                        value={productName}
+                        onChange={(e) => handleChangeProductName(e.target.value)}
                         required
                     >
                         <option value="">Select Tea Type</option>
-                        {teaTypes.map((type, index) => (
+                        {productNames.map((type, index) => (
                             <option key={index} value={type}>{type}</option>
                         ))}
                     </select>
@@ -114,14 +114,14 @@ export default function AddNewSale() {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="standardPrice" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Standard price</label>
+                    <label htmlFor="unitPrice" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Standard price</label>
                     <input
                         type="text"
                         className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                         placeholder='LKR 1000'
-                        id="standardPrice"
-                        value={standardPrice}
+                        id="unitPrice"
+                        value={unitPrice}
                         readOnly
                     />
                 </div>

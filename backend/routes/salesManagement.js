@@ -3,27 +3,65 @@ let Sales = require("../models/salesModels/salesDetails");
 let Prices = require("../models/salesModels/priceDetails");
 // let Summary = require("../models/salesModels/summary");
 let Bulk = require("../models/salesModels/bulkManagement");
-let Discount = require("../models/salesModels/discounts");
+let teaPack = require("../models/inventoryModels/product");
+let Salesmen = require("../models/salesmenModels/salesmenDetails");
 
 //add tea daily stock for salesperson
 router.route("/addStock").post(async (req, res) => {
-
-    const salesPersonName = req.body.salesPersonName;
-    const teaType = req.body.teaType;
-    const totalStock = req.body.totalStock;
+    const { salesPersonID, salesPersonName, productName, totalStock } = req.body;
 
     try {
-        // Save the tea stock information
-        const newStock = await Bulk.create({
-            salesPersonName,
-            teaType,
-            totalStock,
-        });
+        let existingStock = await Bulk.findOne({ salesPersonID, productName });
 
-        res.json({ status: "Stock added", sales: newStock });
+        if (existingStock) {
+            existingStock.totalStock = parseInt(existingStock.totalStock) + parseInt(totalStock);
+            await existingStock.save();
+            res.json({ status: "Stock updated", sales: existingStock });
+        } else {
+            const newStock = await Bulk.create({
+                salesPersonID,
+                salesPersonName,
+                productName,
+                totalStock,
+            });
+
+            const stockLevel = await teaPack.findOne({ productName: productName });
+            if (!stockLevel) {
+                throw new Error("Product not found in inventory");
+            }
+
+            stockLevel.stockLevel = parseInt(stockLevel.stockLevel) - parseInt(totalStock);
+            if (stockLevel.stockLevel < 0) {
+                throw new Error("Not enough stock level");
+            }
+
+            await stockLevel.save();
+            res.json({ status: "Stock added", sales: newStock });
+        }
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ error: "Error adding stock" });
+        res.status(500).json({ error: error.message });
+    }
+});
+
+//All salespersons
+router.route("/getSalespersons").get(async (req, res) => {
+    try {
+        const salesPersons = await Salesmen.find();
+        res.json(salesPersons);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Error fetching salespersons" });
+    }
+});
+
+router.route("/getRemainingStock").get(async (req, res) => {
+    try {
+        const bulk = await teaPack.find();
+        res.json(bulk);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: "Error fetching bulk" });
     }
 });
 

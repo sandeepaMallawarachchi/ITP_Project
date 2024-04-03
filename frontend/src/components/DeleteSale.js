@@ -10,7 +10,7 @@ function DeleteSale() {
     const handleDelete = async () => {
         try {
 
-            await axios.delete(`http://localhost:5000/sales/deleteSale/${saleID}`);
+            await axios.delete(`http://localhost:8070/sales/deleteSale/${saleID}`);
             alert("Sale deleted!");
             navigate(`/currentSale/${id}/${cusID}`);
         } catch (error) {
@@ -24,11 +24,12 @@ function DeleteSale() {
     };
 
     return (
-        <div>
-            <p>Are you sure you want to delete this sale?</p>
-
-            <button style={{ margin: "0 30px 0 0" }} className='btn btn-danger' onClick={handleDelete}>Yes</button>
-            <button  className='btn btn-primary' onClick={handleCancel}>No</button>
+        <div className="flex justify-center items-center h-screen">
+            <div className=''>
+                <p>Are you sure you want to delete this sale?</p>
+                <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={handleDelete}>Yes</button>
+                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={handleCancel}>No</button>
+            </div>
         </div>
     );
 };

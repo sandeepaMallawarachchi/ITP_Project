@@ -1,4 +1,5 @@
 // import React, { useState } from "react";
+//sales person
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SalesmenDashboard from './components/SalesmenDashboard';
 import UpdateSalesmanDetails from './components/UpdateSalesmanDetails';
@@ -9,8 +10,17 @@ import SalesSummary from './components/SalesSummary';
 import CurrentSale from './components/CurrentSale';
 import MyAccount from './components/MyAccount';
 import DeleteSale from './components/DeleteSale';
-import AddDailyStock from './components/salesManager/AddDailyStock';
+import RemainingStock from './components/RemainingStock';
 import Navigations from './components/Navigations';
+
+//sales manager
+import AddDailyStock from './components/salesManager/AddDailyStock';
+import SalesManagerDashboard from './components/salesManager/SalesManagerDashboard';
+import SalesPersonDetails from './components/salesManager/SalesPersonDetails';
+import RemainingInventoryStock from './components/salesManager/RemainingInventoryStock';
+import SalesManagerNavigations from './components/salesManager/SalesManagerNavigations';
+
+//inventory
 import InventoryRoutes from "./InventoryRoutes";
 
 
@@ -18,10 +28,12 @@ function App() {
   return (
     <Router>
       <div className='App'>
-      <Routes>
-         <Route path="/inventory/*" element={<InventoryRoutes/>} />
-      </Routes>
-      <Routes>
+        <Routes>
+          <Route path="/inventory/*" element={<InventoryRoutes />} />
+        </Routes>
+        <Routes>
+
+        {/* salesperson routes */}
           <Route path="/salesmenDashboard/:id" element={<Navigations />} />
         </Routes>
         <Routes>
@@ -76,7 +88,7 @@ function App() {
         <Routes>
           <Route path='/myAccount/:id' element={<MyAccount />} />
         </Routes>
-        
+
         <Routes>
           <Route path="/deleteSale/:id/:cusID/:saleID" element={<Navigations />} />
         </Routes>
@@ -85,10 +97,39 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/addStock" element={<Navigations />} />
+          <Route path="/remainingStock/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/remainingStock/:id' element={<RemainingStock />} />
+        </Routes>
+
+        {/* sales manager routes */}
+        <Routes>
+          <Route path="/addStock" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
           <Route path='/addStock' element={<AddDailyStock />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/salesManagerDashboard" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/salesManagerDashboard' element={<SalesManagerDashboard />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/salesPersonDetails" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/salesPersonDetails' element={<SalesPersonDetails />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/remainingInventoryStock" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/remainingInventoryStock' element={<RemainingInventoryStock />} />
         </Routes>
 
       </div>

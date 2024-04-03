@@ -19,7 +19,7 @@ function ChangeSalesmanPassword() {
                 return;
             }
 
-            await axios.put(`http://localhost:5000/salesmen/changePassword/${id}`, {
+            await axios.put(`http://localhost:8070/salesmen/changePassword/${id}`, {
                 password: newPassword.password,
                 confirmPassword: newPassword.confirmPassword
             });

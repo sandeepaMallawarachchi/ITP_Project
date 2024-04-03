@@ -14,19 +14,25 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 
-
 export default function Navigations() {
     const { id } = useParams();
     const [salesman, setSalesman] = useState({
         name: "",
         username: "",
     });
+
+    const [productName, setProductName] = useState("");
+    const [stockDetails, setStockDetails] = useState([]);
+    const [filteredStockDetails, setFilteredStockDetails] = useState([]);
+    const [searchClicked, setSearchClicked] = useState(false);
+    const [showTable, setShowTable] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
                 const salesmanData = res.data.salesman || res.data;
                 const { name, username } = salesmanData;
@@ -39,45 +45,87 @@ export default function Navigations() {
         fetchSalesmanDetails();
     }, [id]);
 
-    const handleDashboard = () => {
+    useEffect(() => {
+        filterStockDetails();
+    }, [productName, stockDetails]);
 
+    const fetchStockDetails = async () => {
+        try {
+            const res = await axios.get(`http://localhost:8070/sales/searchStock/${id}/${productName}`);
+            setStockDetails(res.data);
+            setShowTable(true);
+        } catch (error) {
+            console.log("Error fetching details", error.message);
+        }
+    };
+
+    const filterStockDetails = () => {
+        if (productName.trim() === "") {
+            setFilteredStockDetails(stockDetails);
+        } else {
+            const filteredData = stockDetails.filter(stock =>
+                stock.productName.toLowerCase().includes(productName.toLowerCase())
+            );
+            setFilteredStockDetails(filteredData);
+        }
+    };
+
+    const handleDashboard = () => {
         navigate(`/salesmenDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-
         navigate(`/myAccount/${id}`);
     };
 
     const handleAddSale = () => {
-
         navigate(`/AddNewSale/${id}`);
     };
 
     const handleSalesSummary = () => {
-
         navigate(`/SalesSummary/${id}`);
+    };
+
+    const handleRemainingStock = () => {
+        navigate(`/remainingStock/${id}`);
+    };
+
+    const handleSearchClick = async () => {
+        setSearchClicked(true);
+        await fetchStockDetails();
+        filterStockDetails();
+        
+    };
+
+    const handleTableClose = () => {
+        setShowTable(false);
     };
 
     return (
         <div>
-            {/* header section */}
+            {/* header */}
             <div className="fixed top-0 left-0 w-full z-50">
-                <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>
-                    <Navbar.Brand href="#" onClick={handleDashboard}>
+                <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }} className='cursor-pointer'>
+                    <Navbar.Brand onClick={handleDashboard}>
                         <img src={logo} id='logo' alt="logo" />
                     </Navbar.Brand>
-
                     <div className="relative w-1/3">
-                        <input type="search" id="location-search" className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search for Remaining stock" required />
-                        <button type="submit" className="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <input type="search"
+                            id="location-search"
+                            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                            placeholder="Search for Remaining stock"
+                            required
+                            onChange={(e) => {
+                                setProductName(e.target.value);
+                            }} />
+                        <button type="submit" className="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            onClick={handleSearchClick}>
                             <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-
                     <div className="flex md:order-2  mr-20 items-start">
                         <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
                         <div className="ml-4 flex flex-col">
@@ -89,43 +137,83 @@ export default function Navigations() {
                 </Navbar>
             </div>
 
-            {/* side bar */}
+            {/* sidebar */}
             <div>
-                <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50" style={{marginTop:"133px"}}>
-
+                <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50" style={{ marginTop: "133px" }}>
                     <Sidebar.Items className='pt-5'>
-                        <Sidebar.ItemGroup>
-                            <Sidebar.Item href="#" icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
+                        <Sidebar.ItemGroup className='cursor-pointer'>
+                            <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
                                 New sale
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={MdOutlinePayment}>
+                            <Sidebar.Item icon={MdOutlinePayment}>
                                 Payment
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={MdFormatListBulleted} onClick={handleSalesSummary}>
+                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesSummary}>
                                 Sales Summary
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={IoSearchSharp}>
+                            <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingStock}>
                                 Remaining Stock
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={FiMapPin}>
+                            <Sidebar.Item icon={FiMapPin}>
                                 Locations
                             </Sidebar.Item>
-
                         </Sidebar.ItemGroup>
-                        <Sidebar.ItemGroup>
-                            <Sidebar.Item href="#" icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
+                        <Sidebar.ItemGroup className='cursor-pointer'>
+                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
                                 My account
                             </Sidebar.Item>
-                            <Sidebar.Item href="#" icon={BiBuoy}>
+                            <Sidebar.Item icon={BiBuoy}>
                                 Help
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
                     </Sidebar.Items>
                 </Sidebar>
             </div>
+
+            {/* search details */}
+            {searchClicked && (
+                <div className={`fixed top-[133px] left-72 w-[76%] pt-10 ${showTable ? 'z-50 bg-white h-full' : 'hidden'}`}>
+                    <button onClick={handleTableClose} className="absolute ml-[1070px] focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">close</button>
+                    {searchClicked && filteredStockDetails.length === 0 && <span className="ml-64 px-6 py-4">No data found!</span>}
+                    {searchClicked && filteredStockDetails.length !== 0 && (
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
+                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Product name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Remaining Amount
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Status
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredStockDetails.map((detail, index) => (
+                                        <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
+                                            <td className="px-6 py-4">{detail.productName}</td>
+                                            <td className="px-6 py-4">{detail.totalStock}</td>
+                                            {detail.totalStock === 0 ? (
+                                                <td className="px-6 py-4 text-red-600 font-bold">Out of stock</td>
+                                            ) : detail.totalStock < 10 ? (
+                                                <td className="px-6 py-4 text-yellow-400 font-bold">Low stock</td>
+                                            ) : (
+                                                <td className="px-6 py-4 text-green-500 font-bold">Available</td>
+                                            )}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

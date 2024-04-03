@@ -15,7 +15,7 @@ function SalesSummary() {
     useEffect(() => {
         const fetchSaleDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/sales/getSalesSummary/${cusID}`);
+                const res = await axios.get(`http://localhost:8070/sales/getSalesSummary/${cusID}`);
                 const saleData = res.data.sale || res.data;
                 const { subTotal, date, salesDetails } = saleData;
                 setSalesSummary({ subTotal, date, salesDetails });
@@ -93,7 +93,7 @@ function SalesSummary() {
                         <tbody>
                             {salesSummary.salesDetails.map((detail, index) => (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black" key={index}>
-                                    <td className="px-6 py-4">{detail.teaType}</td>
+                                    <td className="px-6 py-4">{detail.productName}</td>
                                     <td className="px-6 py-4">{detail.amount}</td>
                                     <td className="px-6 py-4">{detail.sellingPrice}</td>
                                     <td className="px-6 py-4">{detail.totalPrice}</td>

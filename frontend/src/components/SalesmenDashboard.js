@@ -19,7 +19,7 @@ export default function SalesmenDashboard() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
                 const salesmanData = res.data.salesman || res.data;
                 const { name, username } = salesmanData;
@@ -35,7 +35,7 @@ export default function SalesmenDashboard() {
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/sales/getDailySales/${id}`);
+                const res = await axios.get(`http://localhost:8070/sales/getDailySales/${id}`);
                 const { salesDetails, totalSales, totalAmount, customers } = res.data;
                 setSales(salesDetails);
                 setTotalSales(totalSales);
