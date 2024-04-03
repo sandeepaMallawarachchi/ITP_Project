@@ -14,7 +14,7 @@ export default function Dashboard(){
 
                 const response = await axios.get("http://localhost:5000/inventory/reorder/getReorders");
                 setOrders(response.data)
-                alert("order successfully fetched")
+                //alert("order successfully fetched")
 
             }catch(err){
                 console.log(err)
@@ -36,11 +36,11 @@ export default function Dashboard(){
                 <div className="overflow-x-auto">
                   <Table hoverable>
                     <Table.Head>
-                       <Table.HeadCell>Product Name</Table.HeadCell>
-                       <Table.HeadCell>Tea type</Table.HeadCell>
-                       <Table.HeadCell>Stock Level</Table.HeadCell>
-                       <Table.HeadCell>Reorder Level</Table.HeadCell>
-                       <Table.HeadCell>Date</Table.HeadCell>
+                       <Table.HeadCell className="w-52">Product Name</Table.HeadCell>
+                       <Table.HeadCell className="w-32">Tea type</Table.HeadCell>
+                       <Table.HeadCell className="w-32">Stock Level</Table.HeadCell>
+                       <Table.HeadCell className="w-32">Reorder Level</Table.HeadCell>
+                       <Table.HeadCell className="w-32">Date</Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y">
                         {
@@ -48,7 +48,7 @@ export default function Dashboard(){
                                 return(
                                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
                                    
-                                   <Table.Cell>{item.productName}</Table.Cell>
+                                   <Table.Cell >{item.productName}</Table.Cell>
                                    <Table.Cell>{item.teaType}</Table.Cell>
                                   <Table.Cell>{item.stockLevel}</Table.Cell>
                                   <Table.Cell>{item.reorderLevel}</Table.Cell>
