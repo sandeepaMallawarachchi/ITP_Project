@@ -40,6 +40,7 @@ export default function AddProduct() {
       //if there are no error, add the products
       if(Object.keys(formErrors).length === 0){
 
+        //creating a new product
         const newProduct = {
           productName : productData.name,
           teaType : productData.type,
@@ -64,7 +65,7 @@ export default function AddProduct() {
           }
         }
         addProducts();
-
+        
         setProductData({
           name : "",
           type : "",
@@ -77,6 +78,7 @@ export default function AddProduct() {
         });
   
       }
+      
       
     },[formErrors] )
     
@@ -122,6 +124,7 @@ export default function AddProduct() {
 
       return errors;
     }
+    
   return (
     <div>
     <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
