@@ -32,8 +32,8 @@ export default function SalesManagerDashboard() {
 
     return (
         <div className='absolute ml-72  w-3/4 mt-40'>
-            {/* <MdWavingHand className='absolute h-6 w-6 mr-2 mt-7 ml-5 text-yellow-300' />
-            <div className='ml-14 mt-6 text-2xl'>Hello, <span className='text-green-500 font-bold'>{salesman.name}</span></div>
+            <MdWavingHand className='absolute h-6 w-6 mr-2 mt-7 ml-5 text-yellow-300' />
+            {/* <div className='ml-14 mt-6 text-2xl'>Hello, <span className='text-green-500 font-bold'>{salesman.name}</span></div> */}
 
             <div className="absolute max-w-sm top-5 left-0 ml-[950px]" >
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -54,9 +54,8 @@ export default function SalesManagerDashboard() {
                     value={selectedDate}
                     onChange={handleDateChange}
                 />
-            </div> */}
-
-            
+            </div>
+   
         </div>
     );
 }

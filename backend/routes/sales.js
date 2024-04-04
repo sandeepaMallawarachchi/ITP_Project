@@ -1,7 +1,5 @@
 const router = require("express").Router();
 let Sales = require("../models/salesModels/salesDetails");
-// let Prices = require("../models/salesModels/priceDetails");
-// let Summary = require("../models/salesModels/summary");
 let Bulk = require("../models/salesModels/bulkManagement");
 let Discount = require("../models/salesModels/discounts");
 let teaPack = require("../models/inventoryModels/product");
@@ -62,7 +60,6 @@ router.route("/addSale/:id").post(async (req, res) => {
         res.status(500).json({ error: "Error adding sale" });
     }
 });
-
 
 //get standard price
 router.route("/getStandardPrice/:productName").get(async (req, res) => {

@@ -44,6 +44,11 @@ app.use("/inventory/product",invRouter)
 app.use("/inventory/orders",orderRouter)
 app.use("/inventory/reorder",reorderRouter)
 
+//staff routes
+const salaryRouter = require("./routes/salary.js")
+
+app.use("/staff/salary",salaryRouter)
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });

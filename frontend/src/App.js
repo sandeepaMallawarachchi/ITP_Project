@@ -1,16 +1,16 @@
 // import React, { useState } from "react";
 //sales person
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SalesmenDashboard from './components/SalesmenDashboard';
-import UpdateSalesmanDetails from './components/UpdateSalesmanDetails';
-import DeleteSalesman from './components/DeleteSalesman';
-import ChangeSalesmanPassword from './components/ChangeSalesmanPassword';
-import AddNewSale from './components/AddNewSale';
-import SalesSummary from './components/SalesSummary';
-import CurrentSale from './components/CurrentSale';
+import SalesmenDashboard from './components/salesPerson/SalesmenDashboard';
+import UpdateSalesmanDetails from './components/salesPerson/UpdateSalesmanDetails';
+import DeleteSalesman from './components/salesPerson/DeleteSalesman';
+import ChangeSalesmanPassword from './components/salesPerson/ChangeSalesmanPassword';
+import AddNewSale from './components/salesPerson/AddNewSale';
+import SalesSummary from './components/salesPerson/SalesSummary';
+import CurrentSale from './components/salesPerson/CurrentSale';
 import MyAccount from './components/MyAccount';
-import DeleteSale from './components/DeleteSale';
-import RemainingStock from './components/RemainingStock';
+import DeleteSale from './components/salesPerson/DeleteSale';
+import RemainingStock from './components/salesPerson/RemainingStock';
 import Navigations from './components/Navigations';
 
 //sales manager
@@ -23,6 +23,9 @@ import SalesManagerNavigations from './components/salesManager/SalesManagerNavig
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
+//staf
+import AddSalary from "./components/staffManager/AddSalary";
+import SalaryReport from "./components/staffManager/SalaryReport";
 
 function App() {
   return (
@@ -130,6 +133,18 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/remainingInventoryStock' element={<RemainingInventoryStock />} />
+        </Routes>
+
+        {/* staff routes */}
+        {/* <Routes>
+          <Route path='/addSalary' element={<Navigations />} />
+        </Routes> */}
+        <Routes>
+          <Route path='/addSalary' element={<AddSalary />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/salary/:empId/:month' element={<SalaryReport />} />
         </Routes>
 
       </div>
