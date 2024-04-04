@@ -22,6 +22,12 @@ export default function AllDriver() {
        navigate(`/updateDrivers/${id}`);
     }
 
+    
+    
+       const handleDelete = (id) => {
+       navigate(`/deleteDrivers/${id}`);
+    }
+
     return (
 
         <div>
@@ -53,6 +59,11 @@ export default function AllDriver() {
                                 <button type="update" className="btn btn-primary" onClick={() => handleUpdate(driver1._id)}>Update</button>
 
                             </td>
+                            <td>
+                                <button type="delete" className="btn btn-primary" onClick={() => handleDelete(driver1._id)}>Delete</button>
+
+                            </td>
+
 
                         </tr>
                     ))}

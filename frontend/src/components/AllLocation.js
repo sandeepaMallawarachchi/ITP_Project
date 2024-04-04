@@ -53,6 +53,7 @@ export default function AllLocation() {
                                 <button type="update" className="btn btn-primary" onClick={() => handleUpdate(tea1._id)}>Update</button>
 
                             </td>
+                            
 
                         </tr>
                     ))}

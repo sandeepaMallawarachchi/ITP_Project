@@ -10,7 +10,7 @@ router.route("/add").post((req,res)=>{
     const email = req.body.email; 
     const duration_of_job = req.body.duration_of_job;
 
-    const newTea = new Driver({
+    const newDriver = new Driver({
 
         dname,
         age,
@@ -20,7 +20,7 @@ router.route("/add").post((req,res)=>{
         duration_of_job
     })
 
-    newTea.save().then(()=>{
+    newDriver.save().then(()=>{
         res.json("Driver Added")
     }).catch((err)=>{
         console.log(err);
@@ -30,7 +30,7 @@ router.route("/add").post((req,res)=>{
 
 router.route("/").get((req,res)=>{
 
-    Tea.find().then((driver)=>{
+    Driver.find().then((driver)=>{
        res.json(driver)
 }).catch((err)=>{
     console.log(err)
@@ -43,7 +43,7 @@ router.route("/").get((req,res)=>{
     let userId = req.params.id;
     const {dname, age, address, phone_number, email, duration_of_job} = req.body;
 
-    const updateTea = {
+    const updateDriver = {
         dname,
         age,
         address,
@@ -62,7 +62,7 @@ router.route("/").get((req,res)=>{
 
  })
 
- router.route("/delete/:id").delete(async (req, res) => {
+ router.route("/deleteDriver/:id").delete(async (req, res) => {
     let userId = req.params.id;
 
     await Driver.findByIdAndDelete(userId)

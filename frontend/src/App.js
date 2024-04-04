@@ -8,7 +8,6 @@ import AllDriver from "./components/AllDriver";
 import UpdateDriver from "./components/UpdateDriver";
 import DeleteDriver from "./components/DeleteDriver";
 
-
 function App() {
   return (
     <Router>

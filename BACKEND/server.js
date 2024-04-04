@@ -33,6 +33,10 @@ const driverRouter = require("./routes/driver.js");
 
 app.use("/driver",driverRouter);
 
+const licenseRouter = require("./routes/License.js");
+
+app.use("/License",licenseRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is up and running on port number: ${PORT}`)
 })
