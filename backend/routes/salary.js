@@ -7,6 +7,7 @@ router.route("/addSalary").post((req, res) => {
     const name = req.body.name;
     const designation = req.body.designation;
     const month = req.body.month;
+    const year = req.body.year;
     const basicSalary = req.body.basicSalary;
     const ETFbonus = req.body.ETFbonus;
     const EPFbonus = req.body.EPFbonus;
@@ -20,6 +21,7 @@ router.route("/addSalary").post((req, res) => {
         name,
         designation,
         month,
+        year,
         basicSalary,
         ETFbonus,
         EPFbonus,
@@ -35,12 +37,14 @@ router.route("/addSalary").post((req, res) => {
 
 })
 
-router.route("/salaryDetails/:empId/:month").get(async (req, res) => {
+router.route("/salaryDetails/:empId/:month/:year").get(async (req, res) => {
 
     const empId = req.params.empId;
     const month = req.params.month;
+    const year = req.params.year;
+
     try {
-        const salary = await Salary.find({ empId: empId, month: month });
+        const salary = await Salary.find({ empId: empId, month: month, year: year });
         res.json(salary);
     } catch (error) {
         console.log(error.message);

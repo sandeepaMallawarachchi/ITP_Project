@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MdWavingHand } from "react-icons/md";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, } from 'recharts';
 
 export default function SalesManagerDashboard() {
 
@@ -11,20 +12,21 @@ export default function SalesManagerDashboard() {
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesManagement/getSales`);
+                const res = await axios.get(`http://localhost:8070/salesManagement/getTotalSales`);
                 const { salesDetails } = res.data;
                 setSales(salesDetails);
+                console.log(salesDetails)
             } catch (error) {
                 console.log("error", error.message);
             }
         };
 
         fetchSalesDetails();
-    }, []);
+    }, [currentMonth]);
 
     const saleSummary = sales.map(sale => ({ name: sale.productName, TotalSales: sale.amount }));
 
-    const [selectedDate, setSelectedDate] = useState(currentDate);
+    const [selectedDate, setSelectedDate] = useState(currentDate.toISOString().split('T')[0]);
 
     const handleDateChange = (e) => {
         setSelectedDate(e.target.value);
@@ -55,7 +57,40 @@ export default function SalesManagerDashboard() {
                     onChange={handleDateChange}
                 />
             </div>
-   
+
+            <div className='flex justify-center mt-20 ml-2'>
+                <BarChart
+                    width={850}
+                    height={450}
+                    data={saleSummary}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                >
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="TotalSales" fill="#0e9f6e" />
+                </BarChart>
+                {/* <PieChart width={400} height={400}>
+                    <Pie
+                        dataKey="TotalSales"
+                        isAnimationActive={false}
+                        data={saleSummary}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        fill="#0e9f6e"
+                        label
+                    />
+                    <Tooltip />
+                </PieChart> */}
+            </div>
+
         </div>
     );
 }

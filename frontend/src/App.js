@@ -18,6 +18,7 @@ import AddDailyStock from './components/salesManager/AddDailyStock';
 import SalesManagerDashboard from './components/salesManager/SalesManagerDashboard';
 import SalesPersonDetails from './components/salesManager/SalesPersonDetails';
 import RemainingInventoryStock from './components/salesManager/RemainingInventoryStock';
+import MonthlySales from './components/salesManager/MonthlySales';
 import SalesManagerNavigations from './components/salesManager/SalesManagerNavigations';
 
 //inventory
@@ -135,7 +136,15 @@ function App() {
           <Route path='/remainingInventoryStock' element={<RemainingInventoryStock />} />
         </Routes>
 
+        <Routes>
+          <Route path="/monthlySales/:salesPersonID" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/monthlySales/:salesPersonID' element={<MonthlySales />} />
+        </Routes>
+
         {/* staff routes */}
+
         {/* <Routes>
           <Route path='/addSalary' element={<Navigations />} />
         </Routes> */}
@@ -144,7 +153,7 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path='/salary/:empId/:month' element={<SalaryReport />} />
+          <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
         </Routes>
 
       </div>

@@ -46,7 +46,9 @@ app.use("/inventory/reorder",reorderRouter)
 
 //staff routes
 const salaryRouter = require("./routes/salary.js")
+const StaffRouter = require("./routes/staff.js");
 
+app.use("/Staff",StaffRouter);
 app.use("/staff/salary",salaryRouter)
 
 app.listen(PORT, () => {

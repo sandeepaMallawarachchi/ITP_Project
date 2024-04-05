@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function AddSalary() {
     const [empId, setEmpId] = useState("");
     const [name, setName] = useState("");
     const [designation, setDesignation] = useState("");
     const [month, setMonth] = useState("");
+    const [year, setYear] = useState("");
     const [basicSalary, setBasicSalary] = useState(0);
     const [ETFbonus, setETFbonus] = useState(0);
     const [EPFbonus, setEPFbonus] = useState(0);
@@ -15,6 +17,26 @@ function AddSalary() {
         "July", "August", "September", "October", "November", "December"
     ];
 
+    useEffect(() => {
+        if (empId) {
+            fetchEmpDetails();
+        }
+    }, [empId]);
+
+    const fetchEmpDetails = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8070/staff/get/${empId}`);
+            const empData = response.data.staff[0]; // Access the first element of the staff array
+            const { firstName } = empData;
+            setName(firstName); // Set the name state with the first name
+            setDesignation(empData.designation); // Set the designation state
+        } catch (error) {
+            console.error("Error fetching employee details", error.message);
+        }
+    };
+
+    const navigate = useNavigate();
+
     const sendData = async (e) => {
         e.preventDefault();
 
@@ -23,6 +45,7 @@ function AddSalary() {
             name,
             designation,
             month,
+            year,
             basicSalary,
             ETFbonus,
             EPFbonus,
@@ -31,6 +54,7 @@ function AddSalary() {
         try {
             await axios.post(`http://localhost:8070/staff/salary/addSalary`, newSalary);
             alert("Success! Salary added");
+            navigate(`/salary/${empId}/${month}/${year}`)
         } catch (error) {
             alert("Error! Failed to add salary");
             console.error("Error:", error);
@@ -47,12 +71,12 @@ function AddSalary() {
 
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Employee Name: </label>
-                    <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" className="form-control" id="name" value={name} />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="designation" className="form-label">Designation: </label>
-                    <input type="text" className="form-control" id="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} />
+                    <input type="text" className="form-control" id="designation" value={designation}/>
                 </div>
 
                 <div className="mb-3">
@@ -63,6 +87,11 @@ function AddSalary() {
                             <option key={index} value={month}>{month}</option>
                         ))}
                     </select>
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="year" className="form-label">Enter Year: </label>
+                    <input type="text" className="form-control" id="year" value={year} onChange={(e) => setYear(e.target.value)} />
                 </div>
 
                 <div className="mb-3">

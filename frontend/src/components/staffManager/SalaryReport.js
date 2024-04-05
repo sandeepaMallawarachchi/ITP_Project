@@ -5,12 +5,13 @@ import axios from 'axios';
 function SalaryReport() {
     const { empId } = useParams();
     const { month } = useParams();
+    const { year } = useParams();
     const [salaryDetails, setSalaryDetails] = useState([]);
 
     useEffect(() => {
         const fetchSalaryDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/staff/salary/salaryDetails/${empId}/${month}`);
+                const response = await axios.get(`http://localhost:8070/staff/salary/salaryDetails/${empId}/${month}/${year}`);
                 setSalaryDetails(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -19,7 +20,7 @@ function SalaryReport() {
         };
 
         fetchSalaryDetails();
-    }, [empId, month]);
+    }, [empId, month, year]);
 
     return (
         <div>
@@ -31,6 +32,7 @@ function SalaryReport() {
                         <p>Name: {detail.name}</p>
                         <p>Designation: {detail.designation}</p>
                         <p>Month: {detail.month}</p>
+                        <p>Year: {detail.year}</p>
                         <p>Basic Salary: {detail.basicSalary}</p>
                         <p>ETF Bonus: {detail.ETFbonus}</p>
                         <p>EPF Bonus: {detail.EPFbonus}</p>
