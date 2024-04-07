@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom"
-import InventoryLayout from "./components/inventoryManager/inventoryLayout"
-import Dashboard from "./components/inventoryManager/inventoryDashboard";
-import DisplayProducts from "./components/inventoryManager/inventoryDisplayProducts";
-import AddProduct from "./components/inventoryManager/addProduct";
-import Orders from "./components/inventoryManager/inventoryOrder";
-import Reports from "./components/inventoryManager/inventoryReports";
-import DeleteProduct from "./components/inventoryManager/DeleteProduct";
-import UpdateProduct from "./components/inventoryManager/UpdateProduct";
+import InventoryLayout from "./components/inventoryLayout"
+import Dashboard from "./components/inventoryDashboard";
+import DisplayProducts from "./components/inventoryDisplayProducts";
+import AddProduct from "./components/addProduct";
+import Orders from "./components/inventoryOrder";
+import Reports from "./components/inventoryReports";
+import DeleteProduct from "./components/DeleteProduct";
+import UpdateProduct from "./components/UpdateProduct";
 
 
 export default function InventoryRoutes() {

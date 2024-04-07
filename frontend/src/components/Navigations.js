@@ -18,7 +18,7 @@ export default function Navigations() {
     const { id } = useParams();
     const [salesman, setSalesman] = useState({
         name: "",
-        username: "",
+        email: "",
     });
 
     const [productName, setProductName] = useState("");
@@ -26,6 +26,7 @@ export default function Navigations() {
     const [filteredStockDetails, setFilteredStockDetails] = useState([]);
     const [searchClicked, setSearchClicked] = useState(false);
     const [showTable, setShowTable] = useState(false);
+    const [error, setError] = useState(false);
 
     const navigate = useNavigate();
 
@@ -35,8 +36,9 @@ export default function Navigations() {
                 const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
                 const salesmanData = res.data.salesman || res.data;
-                const { name, username } = salesmanData;
-                setSalesman({ name, username });
+                const { name, email } = salesmanData;
+                setSalesman({ name, email });
+
             } catch (error) {
                 console.log("error", error.message);
             }
@@ -52,9 +54,17 @@ export default function Navigations() {
     const fetchStockDetails = async () => {
         try {
             const res = await axios.get(`http://localhost:8070/sales/searchStock/${id}/${productName}`);
-            setStockDetails(res.data);
-            setShowTable(true);
+
+            if (res.data.error) {
+                setError(true);
+            } else {
+                setStockDetails(res.data);
+                setShowTable(true);
+                setError(false);
+            }
+
         } catch (error) {
+            setError(true);
             console.log("Error fetching details", error.message);
         }
     };
@@ -94,11 +104,16 @@ export default function Navigations() {
         setSearchClicked(true);
         await fetchStockDetails();
         filterStockDetails();
-        
+
     };
 
     const handleTableClose = () => {
         setShowTable(false);
+        setProductName("");
+    };
+
+    const handleProfilePic = () => {
+        navigate(`/myAccount/${id}`)
     };
 
     return (
@@ -112,9 +127,10 @@ export default function Navigations() {
                     <div className="relative w-1/3">
                         <input type="search"
                             id="location-search"
-                            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                            className={`block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 ${error ? 'border-red-600 border-2' : ''}`}
                             placeholder="Search for Remaining stock"
                             required
+                            value={productName}
                             onChange={(e) => {
                                 setProductName(e.target.value);
                             }} />
@@ -126,11 +142,11 @@ export default function Navigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-20 items-start">
+                    <div className="flex md:order-2  mr-8 items-start" onClick={handleProfilePic}>
                         <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{salesman.name}</span>
-                            <span className='text-green-400 '>{salesman.username}</span>
+                            <span className='text-green-400 '>{salesman.email}</span>
                         </div>
                         <Navbar.Toggle />
                     </div>

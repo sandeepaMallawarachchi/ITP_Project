@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Alert } from "flowbite-react";
+import { HiInformationCircle } from "react-icons/hi";
 
 export default function AddNewSale() {
 
@@ -12,7 +14,8 @@ export default function AddNewSale() {
     const [cusID, setCusID] = useState("");
     const [error, setError] = useState(false);
     const [productNames, setProductNames] = useState([]);
-    // const [totalPrice, setTotalPrice] = useState(0);
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [errorsAlert, seErrorAlert] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,7 +50,7 @@ export default function AddNewSale() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         try {
             const res = await axios.post(`http://localhost:8070/sales/addSale/${id}`, {
                 productName,
@@ -56,24 +59,33 @@ export default function AddNewSale() {
                 unitPrice,
                 cusID,
             });
-    
+
             if (res.data.error) {
                 alert(res.data.error);
             } else {
-                alert("Sale added");
+                setSuccessAlert(true);
                 console.log(res.data);
-    
+
                 setProductName("");
                 setAmount("");
                 setSellingPrice("");
                 setUnitPrice("");
                 setError(false);
+
+                setTimeout(() => {
+                    setSuccessAlert(false);
+                }, 5000);
+
             }
         } catch (error) {
             setError(true);
-            alert("Error adding a sale!");
+            seErrorAlert(true);
+
+            setTimeout(() => {
+                seErrorAlert(false);
+            }, 5000);
         }
-    };    
+    };
 
     const handleSalesSummary = () => {
         navigate(`/currentSale/${id}/${cusID}`);
@@ -81,6 +93,12 @@ export default function AddNewSale() {
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
+            <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-14' : 'hidden'}`}>
+                <span className="font-medium">Sale added successfully</span>
+            </Alert>
+            <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-14' : 'hidden'}`}>
+                <span className="font-medium">Error adding sale!</span>
+            </Alert>
             <form onSubmit={handleSubmit}>
                 <div class="mb-6">
                     <label for="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>

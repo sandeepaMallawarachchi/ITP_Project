@@ -40,35 +40,39 @@ function ChangeSalesmanPassword() {
     };
 
     return (
-        <div>
-            <div className="container" style={{ textAlign: "left", width: "600px", marginTop: "50px" }}>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">New Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            required
-                            value={newPassword.password}
-                            onChange={handlePasswordChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="confirmPassword"
-                            required
-                            value={newPassword.confirmPassword}
-                            onChange={handlePasswordChange}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-success">Change Password</button>
-                </form>
+        <div className='absolute mt-64 left-1/3 w-1/2'>
+        <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">New Password</label>
+                <input
+                    type="password"
+                    className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    id="password"
+                    required
+                    value={newPassword.password}
+                    onChange={handlePasswordChange}
+                />
             </div>
-        </div>
+            <div className="mb-4">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm New Password</label>
+                <input
+                    type="password"
+                    className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    id="confirmPassword"
+                    required
+                    value={newPassword.confirmPassword}
+                    onChange={handlePasswordChange}
+                />
+            </div>
+            <button
+                type="submit"
+                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+                Change Password
+            </button>
+        </form>
+    </div>
+    
     );
 }
 
