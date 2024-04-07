@@ -123,48 +123,48 @@ router.route("/getRemainingStock").get(async (req, res) => {
     }
 });
 
-// //total sales for particular product
-// router.route("/getTotalSales").get(async (req, res) => {
+//total sales for particular product
+router.route("/getTotalSales").get(async (req, res) => {
 
-//     const date = new Date().toISOString().split('T')[0];
+    const date = new Date().toISOString().split('T')[0];
 
-//     try {
-//         // Find all sales records
-//         const salesRecords = await Sales.find();
+    try {
+        // Find all sales records
+        const salesRecords = await Sales.find();
 
-//         if (salesRecords.length === 0) {
-//             return res.status(500).send({ error: "No sales records found" });
-//         }
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found" });
+        }
 
-//         const salesDetails = [];
-//         let totalAmount = 0;
+        const salesDetails = [];
+        let totalAmount = 0;
 
-//         for (const sale of salesRecords) {
+        for (const sale of salesRecords) {
 
-//             const productName = sale.productName;
+            const productName = sale.productName;
 
-//             // Check if the tea type already exists in salesDetails
-//             const existingSale = salesDetails.find(item => item.productName === productName);
+            // Check if the tea type already exists in salesDetails
+            const existingSale = salesDetails.find(item => item.productName === productName);
 
-//             if (!existingSale) {
-//                 salesDetails.push({
-//                     productName,
-//                     amount: sale.amount
-//                 });
-//             } else {
-//                 existingSale.amount += sale.amount;
-//             }
+            if (!existingSale) {
+                salesDetails.push({
+                    productName,
+                    amount: sale.amount
+                });
+            } else {
+                existingSale.amount += sale.amount;
+            }
 
-//             totalAmount += sale.amount;
-//         }
+            totalAmount += sale.amount;
+        }
 
-//         const totalSales = salesRecords.length;
-//         res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales, totalAmount });
+        const totalSales = salesRecords.length;
+        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales, totalAmount });
 
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).send({ error: "Error fetching details" });
-//     }
-// });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching details" });
+    }
+});
 
 module.exports = router;
