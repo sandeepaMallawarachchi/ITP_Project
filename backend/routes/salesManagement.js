@@ -82,7 +82,7 @@ router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
         for (const sale of salesRecords) {
             if (sale) {
                 const productName = sale.productName;
-                const formattedDate = new Date(sale.date).toISOString().split('T')[0]; // Formatting date to YYYY-MM-DD
+                const formattedDate = new Date(sale.date).toISOString().split('T')[0];
 
                 // Check if the tea type already exists in salesDetails
                 const existingSale = salesDetails.find(item => item.productName === productName);
@@ -107,6 +107,19 @@ router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: "Error fetching details" });
+    }
+});
+
+//get remaining stock of products
+router.route("/getRemainingStock").get(async (req, res) => {
+    try {
+  
+        const stockDetails = await teaPack.find();
+       
+        res.json(stockDetails);
+    } catch (error) {
+        console.error("Error fetching remaining stock:", error.message);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 
