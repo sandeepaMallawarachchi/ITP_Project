@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { Sidebar } from 'flowbite-react';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
 import SearchBar from "./inventorySearchBar";

@@ -9,9 +9,11 @@ let Salesmen = require("../models/salesmenModels/salesmenDetails");
 //add tea daily stock for salesperson
 router.route("/addStock").post(async (req, res) => {
     const { salesPersonID, salesPersonName, productName, totalStock } = req.body;
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
 
     try {
-        let existingStock = await Bulk.findOne({ salesPersonID, productName });
+        let existingStock = await Bulk.findOne({ salesPersonID, productName, date });
 
         if (existingStock) {
             existingStock.totalStock = parseInt(existingStock.totalStock) + parseInt(totalStock);

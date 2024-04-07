@@ -38,7 +38,7 @@ export default function SalesmenDashboard() {
         navigate(`/changeSalesmanPassword/${id}`);
     };
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <div id='profDetails'>
                 <img src={profilePic} id='profPic' alt="Profile" />
                 <p>Name: <span id='span'>{salesman.name}</span></p>

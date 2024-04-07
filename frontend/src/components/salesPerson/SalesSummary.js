@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import { useParams, useNavigate } from "react-router-dom";
 
 function SalesSummary() {
     const [cusID, setCusID] = useState("");
@@ -9,27 +8,51 @@ function SalesSummary() {
         date: "",
         salesDetails: [],
     });
-
-    // const navigate = useNavigate();
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchSaleDetails = async () => {
             try {
                 const res = await axios.get(`http://localhost:8070/sales/getSalesSummary/${cusID}`);
-                const saleData = res.data.sale || res.data;
-                const { subTotal, date, salesDetails } = saleData;
-                setSalesSummary({ subTotal, date, salesDetails });
+
+                if (res.data.error) {
+                    setError(true);
+                    setSalesSummary({
+                        subTotal: "",
+                        date: "",
+                        salesDetails: [],
+                    });
+                } else {
+                    const saleData = res.data.sale || res.data;
+                    const { subTotal, date, salesDetails } = saleData;
+                    setSalesSummary({ subTotal, date, salesDetails });
+                    setError(false);
+                }
             } catch (error) {
+                setError(true);
                 console.log("Error fetching details", error.message);
             }
         };
-        fetchSaleDetails();
+
+        if (cusID.trim() !== "") {
+            fetchSaleDetails();
+        } else {
+            setError(false);
+            setSalesSummary({
+                subTotal: "",
+                date: "",
+                salesDetails: [],
+            });
+        }
     }, [cusID]);
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     // Do something when confirming sales details
-    // };
+    const handleChangeCusID = (e) => {
+        const inputCusID = e.target.value.trim();
+        setCusID(inputCusID);
+        if (error && inputCusID !== "") {
+            setError(false);
+        }
+    };
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
@@ -39,12 +62,9 @@ function SalesSummary() {
                     type="text"
                     id="cusID"
                     placeholder="c123"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"                    
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${error ? 'border-red-600 border-2' : ''}`}
                     required
-                    onChange={(e) => {
-
-                        setCusID(e.target.value);
-                    }}
+                    onChange={handleChangeCusID}
                 />
             </div>
 
