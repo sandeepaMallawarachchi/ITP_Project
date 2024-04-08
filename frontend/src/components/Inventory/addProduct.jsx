@@ -55,6 +55,7 @@ export default function AddProduct() {
         const addProducts = async()=>{
 
          try{
+          //adding data to db
             await axios.post("http://localhost:8070/inventory/product/addTeaPack",newProduct);
             alert("Products added successfully");
             //after adding the product, navigate to products page
@@ -65,6 +66,7 @@ export default function AddProduct() {
           }
         }
         addProducts();
+        
         
         setProductData({
           name : "",
