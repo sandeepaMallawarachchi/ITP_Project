@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { MdWavingHand } from "react-icons/md";
+import helloMsg from '../../images/hello.gif';
 
 export default function SalesmenDashboard() {
     const { id } = useParams();
@@ -15,6 +16,8 @@ export default function SalesmenDashboard() {
         name: "",
         username: "",
     });
+    const [helloGifVisible, setHelloGifVisible] = useState(false);
+    const [helloGifSrc, setHelloGifSrc] = useState(helloMsg);
 
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
@@ -36,12 +39,18 @@ export default function SalesmenDashboard() {
         const fetchSalesDetails = async () => {
             try {
                 const res = await axios.get(`http://localhost:8070/sales/getDailySales/${id}`);
+
+                if (res.data.error) {
+                    setHelloGifVisible(true);
+                }
+
                 const { salesDetails, totalSales, totalAmount, customers } = res.data;
                 setSales(salesDetails);
                 setTotalSales(totalSales);
                 setTotalAmount(totalAmount);
                 setTotalCustomers(customers);
             } catch (error) {
+                setHelloGifVisible(true);
                 console.log("error", error.message);
             }
         };
@@ -101,6 +110,12 @@ export default function SalesmenDashboard() {
                     <Legend />
                     <Bar dataKey="TotalSales" fill="rgb(14 159 110 )" />
                 </BarChart>
+
+                {/* hello gif */}
+                <div className={`absolute ml-64 justify-center ${helloGifVisible ? 'z-50' : 'hidden'}`}>
+                    <img className='w-1/2' src={helloGifSrc} />
+                    <h1 className=' absolute text-5xl text-green-500 font-bold -mt-5 -ml-24'>Let's Sell Something</h1>
+                </div>
             </div>
             <div className='w-full h-36 flex pl-44 space-x-10 mt-10 ml-3'>
                 <div className='w-1/4 border rounded-lg flex justify-center items-center shadow-lg h-full bg-green-500'>
