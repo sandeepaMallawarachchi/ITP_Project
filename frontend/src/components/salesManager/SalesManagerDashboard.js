@@ -1,57 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { MdWavingHand } from "react-icons/md";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, } from 'recharts';
 
 export default function SalesManagerDashboard() {
-    const { id } = useParams();
+
     const [sales, setSales] = useState([]);
-    const [totalSales, setTotalSales] = useState(0);
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [totalCustomers, setTotalCustomers] = useState(0);
-    const currentDate = new Date().toISOString().split("T")[0];
-    const [salesman, setSalesman] = useState({
-        name: "",
-        username: "",
-    });
-
-    useEffect(() => {
-        const fetchSalesmanDetails = async () => {
-            try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
-                console.log(res.data);
-                const salesmanData = res.data.salesman || res.data;
-                const { name, username } = salesmanData;
-                setSalesman({ name, username });
-            } catch (error) {
-                console.log("error", error.message);
-            }
-        };
-
-        fetchSalesmanDetails();
-    }, [id]);
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
 
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/sales/getDailySales/${id}`);
-                const { salesDetails, totalSales, totalAmount, customers } = res.data;
+                const res = await axios.get(`http://localhost:8070/salesManagement/getTotalSales`);
+                const { salesDetails } = res.data;
                 setSales(salesDetails);
-                setTotalSales(totalSales);
-                setTotalAmount(totalAmount);
-                setTotalCustomers(customers);
+                console.log(salesDetails)
             } catch (error) {
                 console.log("error", error.message);
             }
         };
 
         fetchSalesDetails();
-    }, [id]);
+    }, [currentMonth]);
 
-    const stockDetails = sales.map(sale => ({ name: sale.teaType, TotalSales: sale.amount }));
+    const saleSummary = sales.map(sale => ({ name: sale.productName, TotalSales: sale.amount }));
 
-    const [selectedDate, setSelectedDate] = useState(currentDate);
+    const [selectedDate, setSelectedDate] = useState(currentDate.toISOString().split('T')[0]);
 
     const handleDateChange = (e) => {
         setSelectedDate(e.target.value);
@@ -60,7 +35,7 @@ export default function SalesManagerDashboard() {
     return (
         <div className='absolute ml-72  w-3/4 mt-40'>
             <MdWavingHand className='absolute h-6 w-6 mr-2 mt-7 ml-5 text-yellow-300' />
-            <div className='ml-14 mt-6 text-2xl'>Hello, <span className='text-green-500 font-bold'>{salesman.name}</span></div>
+            {/* <div className='ml-14 mt-6 text-2xl'>Hello, <span className='text-green-500 font-bold'>{salesman.name}</span></div> */}
 
             <div className="absolute max-w-sm top-5 left-0 ml-[950px]" >
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -87,7 +62,7 @@ export default function SalesManagerDashboard() {
                 <BarChart
                     width={850}
                     height={450}
-                    data={stockDetails}
+                    data={saleSummary}
                     margin={{
                         top: 5,
                         right: 30,
@@ -99,20 +74,23 @@ export default function SalesManagerDashboard() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="TotalSales" fill="rgb(14 159 110 )" />
+                    <Bar dataKey="TotalSales" fill="#0e9f6e" />
                 </BarChart>
+                {/* <PieChart width={400} height={400}>
+                    <Pie
+                        dataKey="TotalSales"
+                        isAnimationActive={false}
+                        data={saleSummary}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        fill="#0e9f6e"
+                        label
+                    />
+                    <Tooltip />
+                </PieChart> */}
             </div>
-            <div className='w-full h-36 flex pl-44 space-x-10 mt-10 ml-3'>
-                <div className='w-1/4 border rounded-lg flex justify-center items-center shadow-lg h-full bg-green-500'>
-                    <div className='flex flex-col justify-center items-center text-2xl font-bold'>Today sales <span className="ml-2 mt-5 text-white ">{totalSales}</span></div>
-                </div>
-                <div className='w-1/4 border rounded-lg flex justify-center items-center shadow-md h-full bg-green-500'>
-                    <div className='flex flex-col justify-center items-center text-2xl font-bold'>Sold Amount <span className="ml-2 mt-5 text-white ">{totalAmount}</span></div>
-                </div>
-                <div className='w-1/4 border rounded-lg flex justify-center items-center shadow-md h-full bg-green-500'>
-                    <div className='flex flex-col justify-center items-center text-2xl font-bold'>Total Customers <span className="ml-2 mt-5 text-white">{totalCustomers}</span></div>
-                </div>
-            </div>
+
         </div>
     );
 }

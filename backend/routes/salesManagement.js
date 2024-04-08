@@ -9,9 +9,11 @@ let Salesmen = require("../models/salesmenModels/salesmenDetails");
 //add tea daily stock for salesperson
 router.route("/addStock").post(async (req, res) => {
     const { salesPersonID, salesPersonName, productName, totalStock } = req.body;
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
 
     try {
-        let existingStock = await Bulk.findOne({ salesPersonID, productName });
+        let existingStock = await Bulk.findOne({ salesPersonID, productName, date });
 
         if (existingStock) {
             existingStock.totalStock = parseInt(existingStock.totalStock) + parseInt(totalStock);
@@ -44,24 +46,124 @@ router.route("/addStock").post(async (req, res) => {
     }
 });
 
-//All salespersons
+//all salespersons
 router.route("/getSalespersons").get(async (req, res) => {
     try {
-        const salesPersons = await Salesmen.find();
-        res.json(salesPersons);
+        // Find all salesperosns details
+        const salesPersonDetails = await Salesmen.find();
+
+        if (salesPersonDetails.length === 0) {
+            return res.status(500).send({ error: "No salesperson records found" });
+        }
+
+        res.status(200).send({ status: "Salesperson details fetched", salesPersonDetails });
+
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ error: "Error fetching salespersons" });
+        res.status(500).send({ error: "Error fetching details" });
     }
 });
 
-router.route("/getRemainingStock").get(async (req, res) => {
+//total sales for particular product
+router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
+    const salesPersonID = req.params.salesPersonID;
+
     try {
-        const bulk = await teaPack.find();
-        res.json(bulk);
+        // Find all sales records for the given salesperson
+        const salesRecords = await Sales.find({ salesPersonID: salesPersonID });
+
+        if (!salesRecords || salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found" });
+        }
+
+        const salesDetails = [];
+        let totalAmount = 0;
+
+        for (const sale of salesRecords) {
+            if (sale) {
+                const productName = sale.productName;
+                const formattedDate = new Date(sale.date).toISOString().split('T')[0];
+
+                // Check if the tea type already exists in salesDetails
+                const existingSale = salesDetails.find(item => item.productName === productName);
+
+                if (!existingSale) {
+                    salesDetails.push({
+                        productName,
+                        amount: sale.amount,
+                        date: formattedDate
+                    });
+                } else {
+                    existingSale.amount += sale.amount;
+                }
+
+                totalAmount += sale.amount;
+            }
+        }
+
+        const totalSales = salesRecords.length;
+        res.status(200).send({ status: "Sales details fetched", totalSales, totalAmount, salesDetails});
+
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ error: "Error fetching bulk" });
+        res.status(500).send({ error: "Error fetching details" });
+    }
+});
+
+//get remaining stock of products
+router.route("/getRemainingStock").get(async (req, res) => {
+    try {
+  
+        const stockDetails = await teaPack.find();
+       
+        res.json(stockDetails);
+    } catch (error) {
+        console.error("Error fetching remaining stock:", error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+//total sales for particular product
+router.route("/getTotalSales").get(async (req, res) => {
+
+    const date = new Date().toISOString().split('T')[0];
+
+    try {
+        // Find all sales records
+        const salesRecords = await Sales.find();
+
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found" });
+        }
+
+        const salesDetails = [];
+        let totalAmount = 0;
+
+        for (const sale of salesRecords) {
+
+            const productName = sale.productName;
+
+            // Check if the tea type already exists in salesDetails
+            const existingSale = salesDetails.find(item => item.productName === productName);
+
+            if (!existingSale) {
+                salesDetails.push({
+                    productName,
+                    amount: sale.amount
+                });
+            } else {
+                existingSale.amount += sale.amount;
+            }
+
+            totalAmount += sale.amount;
+        }
+
+        const totalSales = salesRecords.length;
+        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales, totalAmount });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching details" });
     }
 });
 
