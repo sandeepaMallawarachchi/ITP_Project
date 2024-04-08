@@ -1,20 +1,17 @@
-import { useEffect,useState } from "react";
+import { useEffect , useState} from "react";
 import axios from "axios";
 import { Table } from "flowbite-react";
 
-
-export default function Dashboard(){
+export default function ReorderProducts(){
 
     const [orders,setOrders] = useState([]);
 
     useEffect(()=>{
-
         async function fetchOrders(){
             try{
-
+                //get details of productsthat has reached reorder level
                 const response = await axios.get("http://localhost:8070/inventory/reorder/getReorders");
                 setOrders(response.data)
-                console.log(response.data);
                 //alert("order successfully fetched")
 
             }catch(err){
@@ -23,53 +20,41 @@ export default function Dashboard(){
         }
 
         fetchOrders();
-
     },[])
 
-
-    
     return (
         <div className="ml-96">
-            <h3>Here are the charts</h3>
-
-            <div>
-                <strong>Recent Orders</strong>
-                <div className="overflow-x-auto">
-                  <Table hoverable>
+            
+            <strong>Recent Orders</strong>
+            <div className="overflow-x-auto">
+                <Table hoverable>
                     <Table.Head>
                        <Table.HeadCell className="w-52">Product Name</Table.HeadCell>
                        <Table.HeadCell className="w-32">Tea type</Table.HeadCell>
                        <Table.HeadCell className="w-32">Stock Level</Table.HeadCell>
-                       <Table.HeadCell className="w-32">Reorder Level</Table.HeadCell>
+                       <Table.HeadCell className="w-32">Time</Table.HeadCell>
                        <Table.HeadCell className="w-32">Date</Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y">
                         {
                             orders.map((item,index)=>{
                                 return(
-                                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
-                                   
-                                   <Table.Cell >{item.productName}</Table.Cell>
-                                   <Table.Cell>{item.teaType}</Table.Cell>
-                                  <Table.Cell>{item.stockLevel}</Table.Cell>
-                                  <Table.Cell>{item.reorderLevel}</Table.Cell>
-                                  <Table.Cell>{new Date(item.date).toLocaleDateString()}</Table.Cell>
-                                </Table.Row>
+                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
+                                        <Table.Cell >{item.productName}</Table.Cell>
+                                        <Table.Cell>{item.teaType}</Table.Cell>
+                                        <Table.Cell>{item.stockLevel}</Table.Cell>
+                                        <Table.Cell>{new Date(item.createdAt).toLocaleTimeString()}</Table.Cell>
+                                        <Table.Cell>{new Date(item.createdAt).toLocaleDateString()}</Table.Cell>
+                                    </Table.Row>
                                 )
                             })
                         }
                     
                    </Table.Body>
                  </Table>
-                </div>
-
-
             </div>
         </div>
+           
+        
     )
 }
-
-
-
-
-

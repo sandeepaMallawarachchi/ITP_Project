@@ -20,7 +20,6 @@ import SalesPersonDetails from './components/salesManager/SalesPersonDetails';
 import RemainingInventoryStock from './components/salesManager/RemainingInventoryStock';
 import MonthlySales from './components/salesManager/MonthlySales';
 import SalesManagerNavigations from './components/salesManager/SalesManagerNavigations';
-
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
@@ -34,6 +33,7 @@ function App() {
       <div className='App'>
         <Routes>
           <Route path="/inventory/*" element={<InventoryRoutes />} />
+          
         </Routes>
         <Routes>
 
