@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 function UpdateSalesmanDetails() {
 
-    const { id } = useParams();
+    const { salespersonID } = useParams();
     const [salesmanDetails, setSalesmanDetails] = useState({
         name: "",
         username: "",
@@ -19,7 +19,7 @@ function UpdateSalesmanDetails() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${salespersonID}`);
                 console.log(res.data);
 
                 const salesmanData = res.data.salesman || res.data;
@@ -31,15 +31,15 @@ function UpdateSalesmanDetails() {
             }
         };
         fetchSalesmanDetails();
-    }, [id]);
+    }, [salespersonID]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
+            await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${salespersonID}`, salesmanDetails);
             alert('Details Updated successfully');
-            navigate(`/salesmenDashboard/${id}`);
+            navigate(`/salesmenDashboard/${salespersonID}`);
         } catch (error) {
             console.log("Error!", error.message);
         }

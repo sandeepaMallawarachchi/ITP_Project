@@ -13,12 +13,15 @@ import { FiMapPin } from "react-icons/fi";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
+import { Alert } from "flowbite-react";
+import { HiInformationCircle } from "react-icons/hi";
+import notFoundError from '../images/notFound.jpeg';
 
 export default function Navigations() {
     const { id } = useParams();
     const [salesman, setSalesman] = useState({
         name: "",
-        username: "",
+        email: "",
     });
 
     const [productName, setProductName] = useState("");
@@ -26,7 +29,9 @@ export default function Navigations() {
     const [filteredStockDetails, setFilteredStockDetails] = useState([]);
     const [searchClicked, setSearchClicked] = useState(false);
     const [showTable, setShowTable] = useState(false);
-
+    const [error, setError] = useState(false);
+    const [errorGif, setErrorGif] = useState(false);
+    const [errorsAlert, seErrorAlert] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,8 +40,9 @@ export default function Navigations() {
                 const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
                 const salesmanData = res.data.salesman || res.data;
-                const { name, username } = salesmanData;
-                setSalesman({ name, username });
+                const { name, email } = salesmanData;
+                setSalesman({ name, email });
+
             } catch (error) {
                 console.log("error", error.message);
             }
@@ -52,9 +58,27 @@ export default function Navigations() {
     const fetchStockDetails = async () => {
         try {
             const res = await axios.get(`http://localhost:8070/sales/searchStock/${id}/${productName}`);
-            setStockDetails(res.data);
-            setShowTable(true);
+
+            if (res.data.error) {
+                setError(true);
+                setErrorGif(true);
+            } else {
+                setStockDetails(res.data);
+                setShowTable(true);
+                setError(false);
+                setErrorGif(false);
+            }
+
         } catch (error) {
+            setError(true);
+            setErrorGif(true);
+            seErrorAlert(true);
+
+            setTimeout(() => {
+                setErrorGif(false);
+                seErrorAlert(false);
+            }, 5000);
+
             console.log("Error fetching details", error.message);
         }
     };
@@ -94,11 +118,16 @@ export default function Navigations() {
         setSearchClicked(true);
         await fetchStockDetails();
         filterStockDetails();
-        
+
     };
 
     const handleTableClose = () => {
         setShowTable(false);
+        setProductName("");
+    };
+
+    const handleProfilePic = () => {
+        navigate(`/myAccount/${id}`)
     };
 
     return (
@@ -112,9 +141,10 @@ export default function Navigations() {
                     <div className="relative w-1/3">
                         <input type="search"
                             id="location-search"
-                            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                            className={`block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                             placeholder="Search for Remaining stock"
                             required
+                            value={productName}
                             onChange={(e) => {
                                 setProductName(e.target.value);
                             }} />
@@ -126,11 +156,11 @@ export default function Navigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-20 items-start">
+                    <div className="flex md:order-2  mr-8 items-start" onClick={handleProfilePic}>
                         <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{salesman.name}</span>
-                            <span className='text-green-400 '>{salesman.username}</span>
+                            <span className='text-green-400 '>{salesman.email}</span>
                         </div>
                         <Navbar.Toggle />
                     </div>
@@ -177,7 +207,6 @@ export default function Navigations() {
             {searchClicked && (
                 <div className={`fixed top-[133px] left-72 w-[76%] pt-10 ${showTable ? 'z-50 bg-white h-full' : 'hidden'}`}>
                     <button onClick={handleTableClose} className="absolute ml-[1070px] focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">close</button>
-                    {searchClicked && filteredStockDetails.length === 0 && <span className="ml-64 px-6 py-4">No data found!</span>}
                     {searchClicked && filteredStockDetails.length !== 0 && (
                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -214,6 +243,14 @@ export default function Navigations() {
                     )}
                 </div>
             )}
+
+            {/* error gif */}
+            <div className={`fixed top-[133px] left-64 bg-[#fbfbfb] w-[85%] h-full ${errorGif ? 'z-50' : 'hidden'}`}>
+                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center mt-2' : 'hidden'}`}>
+                    <span className="font-medium">Invalid product name!</span>
+                </Alert>
+                <img className='w-1/2 mt-20 ml-64' src={notFoundError} />
+            </div>
         </div>
     );
 }

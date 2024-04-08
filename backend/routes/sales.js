@@ -168,13 +168,29 @@ router.route("/getDailySales/:salesPersonID").get(async (req, res) => {
 
 //delete sale
 router.route("/deleteSale/:saleID").delete(async (req, res) => {
-
-    let saleID = req.params.saleID;
+    const saleID = req.params.saleID;
 
     try {
 
+        const sale = await Sales.findById(saleID);
+        if (!sale) {
+            return res.status(404).send({ status: "Error!", error: "Sale not found" });
+        }
+
+        const { productName, amount, date } = sale;
+
         await Sales.findByIdAndDelete(saleID);
-        res.status(200).send({ status: "Sale deleted" });
+
+        let bulkItem = await Bulk.findOne({ productName, date });
+        if (!bulkItem) {
+            return res.status(404).send({ status: "Error!", error: "Bulk item not found" });
+        }
+
+        bulkItem.totalStock += amount;
+
+        await bulkItem.save();
+
+        res.status(200).send({ status: "Sale deleted and bulk updated" });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
@@ -229,13 +245,18 @@ router.route("/searchStock/:salesPersonID/:productName").get(async (req, res) =>
 
     const salesPersonID = req.params.salesPersonID;
     const productName = req.params.productName;
-    // const productName = req.body.productName;
 
     try {
         const date = new Date();
         date.setUTCHours(0, 0, 0, 0);
 
-        const bulks = await Bulk.find({ salesPersonID: salesPersonID, date: date, productName: productName });
+        const regex = new RegExp(productName, "i");
+
+        const bulks = await Bulk.find({
+            salesPersonID: salesPersonID,
+            date: date,
+            productName: regex,
+        });
 
         if (bulks.length === 0) {
             return res.status(404).json({ error: "No stocks found for the provided salesPersonID and date" });

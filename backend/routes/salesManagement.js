@@ -9,9 +9,11 @@ let Salesmen = require("../models/salesmenModels/salesmenDetails");
 //add tea daily stock for salesperson
 router.route("/addStock").post(async (req, res) => {
     const { salesPersonID, salesPersonName, productName, totalStock } = req.body;
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0);
 
     try {
-        let existingStock = await Bulk.findOne({ salesPersonID, productName });
+        let existingStock = await Bulk.findOne({ salesPersonID, productName, date });
 
         if (existingStock) {
             existingStock.totalStock = parseInt(existingStock.totalStock) + parseInt(totalStock);
@@ -80,7 +82,7 @@ router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
         for (const sale of salesRecords) {
             if (sale) {
                 const productName = sale.productName;
-                const formattedDate = new Date(sale.date).toISOString().split('T')[0]; // Formatting date to YYYY-MM-DD
+                const formattedDate = new Date(sale.date).toISOString().split('T')[0];
 
                 // Check if the tea type already exists in salesDetails
                 const existingSale = salesDetails.find(item => item.productName === productName);
@@ -108,48 +110,61 @@ router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
     }
 });
 
-// //total sales for particular product
-// router.route("/getTotalSales").get(async (req, res) => {
+//get remaining stock of products
+router.route("/getRemainingStock").get(async (req, res) => {
+    try {
+  
+        const stockDetails = await teaPack.find();
+       
+        res.json(stockDetails);
+    } catch (error) {
+        console.error("Error fetching remaining stock:", error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
-//     const date = new Date().toISOString().split('T')[0];
+//total sales for particular product
+router.route("/getTotalSales").get(async (req, res) => {
 
-//     try {
-//         // Find all sales records
-//         const salesRecords = await Sales.find();
+    const date = new Date().toISOString().split('T')[0];
 
-//         if (salesRecords.length === 0) {
-//             return res.status(500).send({ error: "No sales records found" });
-//         }
+    try {
+        // Find all sales records
+        const salesRecords = await Sales.find();
 
-//         const salesDetails = [];
-//         let totalAmount = 0;
+        if (salesRecords.length === 0) {
+            return res.status(500).send({ error: "No sales records found" });
+        }
 
-//         for (const sale of salesRecords) {
+        const salesDetails = [];
+        let totalAmount = 0;
 
-//             const productName = sale.productName;
+        for (const sale of salesRecords) {
 
-//             // Check if the tea type already exists in salesDetails
-//             const existingSale = salesDetails.find(item => item.productName === productName);
+            const productName = sale.productName;
 
-//             if (!existingSale) {
-//                 salesDetails.push({
-//                     productName,
-//                     amount: sale.amount
-//                 });
-//             } else {
-//                 existingSale.amount += sale.amount;
-//             }
+            // Check if the tea type already exists in salesDetails
+            const existingSale = salesDetails.find(item => item.productName === productName);
 
-//             totalAmount += sale.amount;
-//         }
+            if (!existingSale) {
+                salesDetails.push({
+                    productName,
+                    amount: sale.amount
+                });
+            } else {
+                existingSale.amount += sale.amount;
+            }
 
-//         const totalSales = salesRecords.length;
-//         res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales, totalAmount });
+            totalAmount += sale.amount;
+        }
 
-//     } catch (error) {
-//         console.log(error.message);
-//         res.status(500).send({ error: "Error fetching details" });
-//     }
-// });
+        const totalSales = salesRecords.length;
+        res.status(200).send({ status: "Sales details fetched", salesDetails, totalSales, totalAmount });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching details" });
+    }
+});
 
 module.exports = router;

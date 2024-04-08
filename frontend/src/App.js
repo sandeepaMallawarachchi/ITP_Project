@@ -45,10 +45,10 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/updateSalesman/:id" element={<Navigations />} />
+          <Route path="/updateSalesman/:salespersonID" element={<Navigations />} />
         </Routes>
         <Routes>
-          <Route path='/updateSalesman/:id' element={<UpdateSalesmanDetails />} />
+          <Route path='/updateSalesman/:salespersonID' element={<UpdateSalesmanDetails />} />
         </Routes>
 
         <Routes>
