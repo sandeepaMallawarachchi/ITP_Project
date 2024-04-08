@@ -15,7 +15,7 @@ export default function AddNewSale() {
     const [error, setError] = useState(false);
     const [productNames, setProductNames] = useState([]);
     const [successAlert, setSuccessAlert] = useState(false);
-    const [errorsAlert, seErrorAlert] = useState(false);
+    const [errorsAlert, setErrorAlert] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -79,10 +79,10 @@ export default function AddNewSale() {
             }
         } catch (error) {
             setError(true);
-            seErrorAlert(true);
+            setErrorAlert(true);
 
             setTimeout(() => {
-                seErrorAlert(false);
+                setErrorAlert(false);
             }, 5000);
         }
     };
@@ -132,7 +132,7 @@ export default function AddNewSale() {
                     <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter tea amount</label>
                     <input
                         type="text"
-                        className={`form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${error ? 'border-red-600 border-2' : ''}`}
+                        className={`form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         required
                         value={amount}
                         placeholder='100 KG'
