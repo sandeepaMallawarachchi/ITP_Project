@@ -59,10 +59,10 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/changeSalesmanPassword/:id" element={<Navigations />} />
+          <Route path="/changeSalesmanPassword/:salespersonID" element={<Navigations />} />
         </Routes>
         <Routes>
-          <Route path='/changeSalesmanPassword/:id' element={<ChangeSalesmanPassword />} />
+          <Route path='/changeSalesmanPassword/:salespersonID' element={<ChangeSalesmanPassword />} />
         </Routes>
 
         <Routes>

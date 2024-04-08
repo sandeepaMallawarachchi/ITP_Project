@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function ChangeSalesmanPassword() {
-    const { id } = useParams();
+    const { salespersonID } = useParams();
     const [newPassword, setNewPassword] = useState({
         password: "",
         confirmPassword: "",
@@ -19,13 +19,13 @@ function ChangeSalesmanPassword() {
                 return;
             }
 
-            await axios.put(`http://localhost:8070/salesmen/changePassword/${id}`, {
+            await axios.put(`http://localhost:8070/salesmen/changePassword/${salespersonID}`, {
                 password: newPassword.password,
                 confirmPassword: newPassword.confirmPassword
             });
 
             alert('Password changed successfully');
-            navigate(`/salesmenDashboard/${id}`);
+            navigate(`/salesmenDashboard/${salespersonID}`);
         } catch (error) {
             console.log("Error!", error.message);
             alert("Error changing password!");
@@ -35,7 +35,7 @@ function ChangeSalesmanPassword() {
     const handlePasswordChange = (e) => {
         setNewPassword({
             ...newPassword,
-            [e.target.id]: e.target.value
+            [e.target.salespersonID]: e.target.value
         });
     };
 

@@ -120,9 +120,9 @@ router.route("/deleteSalesmen/:id").delete(async (req, res) => {
 });
 
 //change password
-router.route("/changePassword/:id").put(async (req, res) => {
+router.route("/changePassword/:salespersonID").put(async (req, res) => {
 
-    let userId = req.params.id;
+    let salespersonID = req.params.salespersonID;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
 
@@ -137,9 +137,34 @@ router.route("/changePassword/:id").put(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Update password in the database
-        await Salesmen.findByIdAndUpdate(userId, { password: hashedPassword });
+        await Salesmen.findByIdAndUpdate(salespersonID, { password: hashedPassword });
 
         res.status(200).send({ status: "Password changed" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+//staff login
+router.route('/').post(async (req, res) => {
+    const { userName, phone, password } = req.body.userName;
+
+    try {
+
+        const staff = await Salesmen.findOne({ $or: [{ userName }, { phone }] });
+
+        if (staff) {
+
+            if (staff.password === password) {
+                res.status(200).send({ status: "Login success" });
+            } else {
+                res.status(401).send({ status: "Invalid password!" });
+            }
+        }
+        else {
+            res.status(401).send({ status: "Invalid username or phone!" });
+        }
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });

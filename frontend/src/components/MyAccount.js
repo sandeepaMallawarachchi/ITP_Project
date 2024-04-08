@@ -48,7 +48,7 @@ export default function SalesmenDashboard() {
         navigate(`/deleteSalesman/${id}`);
     };
 
-    const changePwBtn = (id) => {
+    const changePwBtn = () => {
         navigate(`/changeSalesmanPassword/${id}`);
     };
     return (
