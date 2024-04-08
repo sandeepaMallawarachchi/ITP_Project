@@ -6,13 +6,15 @@ import { Button } from "flowbite-react";
 
 export default function DisplayProducts(){
 
+  //initialize state to store product details
     const [products,setProducts] = useState([])
 
     useEffect(()=>{
 
         const getProducts = async()=>{
             try{
-                const response = await axios.get(`http://localhost:5000/inventory/product/getTeaPack`);
+              //getting product data from db and setting into products 
+                const response = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
                 //console.log(response.data)
                 setProducts(response.data)
             }catch(err){

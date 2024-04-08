@@ -7,6 +7,7 @@ export default function Orders(){
 
     const navigate = useNavigate();
 
+    //initialize state to store order form data
     const [order,setOrder] = useState({
         productName : "",
         teaType : "",
@@ -23,11 +24,12 @@ export default function Orders(){
     async function addOrder(e){
 
         e.preventDefault();
-        
-        await axios.post("http://localhost:5000/inventory/orders/addOrder",{
+        //adding order data to db
+        await axios.post("http://localhost:8070/inventory/orders/addOrder",{
             productName : order.productName,
             teaType : order.teaType,
-            quantity : order.quantity
+            quantity : order.quantity,
+            
          })
         .then(()=>{
             alert("Order added successfully")
@@ -35,6 +37,7 @@ export default function Orders(){
             console.log(err)
         })
 
+        
         setOrder({
             productName : "",
             teaType : "",

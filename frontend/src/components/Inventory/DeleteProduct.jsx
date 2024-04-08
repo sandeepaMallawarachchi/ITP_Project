@@ -6,6 +6,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 
 export default function DeleteProduct(){
 
+  //initialize state to store form data
     const [data,setData] = useState({
         productName : "",
         teaType : "",
@@ -23,7 +24,8 @@ export default function DeleteProduct(){
     useEffect(()=>{
 
         async function getProduct(){
-            await axios.get(`http://localhost:5000/inventory/product/getPack/${id}`)
+          //getting the product with :id from db
+            await axios.get(`http://localhost:8070/inventory/product/getPack/${id}`)
             .then((response)=>{
                 console.log("Got a product")
                 const manDate = new Date(response.data.manDate).toLocaleDateString();
@@ -47,7 +49,8 @@ export default function DeleteProduct(){
        
         e.preventDefault();
         try{
-            await axios.delete(`http://localhost:5000/inventory/product/deleteTeaPack/${id}`)
+          //deleting the product from db with :id
+            await axios.delete(`http://localhost:8070/inventory/product/deleteTeaPack/${id}`)
             .then(()=>{
                alert("delete product")
             }).catch((err)=>{
@@ -58,7 +61,7 @@ export default function DeleteProduct(){
             console.log(err);
         }
 
-        navigate("/inventory/products")
+        navigate("/inventory")
     }
 
 
