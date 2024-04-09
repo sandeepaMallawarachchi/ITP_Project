@@ -22,6 +22,11 @@ export default function AllLocation() {
         navigate(`/updatelocations/${id}`);
     }
 
+    
+    const handleDelete = (id) => {
+        navigate(`/deletelocations/${id}`);
+     }
+
     return (
 
         <div>
@@ -51,6 +56,10 @@ export default function AllLocation() {
                             <td>{tea1.delivery_code}</td>
                             <td>
                                 <button type="update" className="btn btn-primary" onClick={() => handleUpdate(tea1._id)}>Update</button>
+
+                            </td>
+                            <td>
+                                <button type="delete" className="btn btn-primary" onClick={() => handleDelete(tea1._id)}>Delete</button>
 
                             </td>
                             

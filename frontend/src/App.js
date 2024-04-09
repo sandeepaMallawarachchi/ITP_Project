@@ -7,6 +7,10 @@ import AddDriver from "./components/AddDriver";
 import AllDriver from "./components/AllDriver";
 import UpdateDriver from "./components/UpdateDriver";
 import DeleteDriver from "./components/DeleteDriver";
+import UploadImage from "./components/UploadImage";
+import AddReportData from "./components/AddReportData";
+import AllReportData from "./components/AllReportData";
+import UpdateReportData from "./components/UpdateReportData";
 
 function App() {
   return (
@@ -36,6 +40,18 @@ function App() {
         </Routes>
         <Routes>
            <Route path="/deleteDrivers/:id" element={<DeleteDriver/>}/>
+        </Routes>
+        <Routes>
+           <Route path="/uploadImage" element={<UploadImage/>}/>
+        </Routes>
+        <Routes>
+           <Route path="/addReportData" element={<AddReportData/>}/>
+        </Routes>
+        <Routes>
+           <Route path="/allReportData" element={<AllReportData/>}/>
+        </Routes>
+        <Routes>
+           <Route path="/updateReportData/:id" element={<UpdateReportData/>}/>
         </Routes>
       </div>
     </Router>
