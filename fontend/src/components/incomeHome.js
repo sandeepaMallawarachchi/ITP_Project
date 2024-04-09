@@ -30,6 +30,7 @@ export default function HomeIn(){
 
 
 
+
     return (
 
 
@@ -64,6 +65,7 @@ export default function HomeIn(){
   </tbody>
 </table>
 <button type="button" class="btn btn-secondary btn-lg" onClick={addIncomeBtn}>Add Income</button>
+
 
 </div>
     )

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Sales = require('../model/salesDetails');
 
-router.route("/getMonthlyIncome").get(async (req, res) => {
+router.route("/getMonthlyExpenses").get(async (req, res) => {
     try {
         const date = new Date();
         date.setUTCHours(0, 0, 0, 0);
@@ -22,22 +22,22 @@ router.route("/getMonthlyIncome").get(async (req, res) => {
             return res.status(404).send({ error: "No sales records found for the specified year and month", year, month });
         }
 
-        const incomeDetails = {};
-        let totalIncome = 0;
+        const expensesDetails = {};
+        let totalExpenses = 0;
 
         incomeRecords.forEach(sale => {
             const category = sale.category; // Assuming category is available in salesDetails model
             const amount = sale.totalPrice;
             
-            if (!incomeDetails[category]) {
-                incomeDetails[category] = 0;
+            if (!expensesDetails[category]) {
+                expensesDetails[category] = 0;
             }
             
-            incomeDetails[category] += amount;
-            totalIncome += amount;
+            expensesDetails[category] += amount;
+            totalExpenses += amount;
         });
 
-        res.status(200).send({ status: "Monthly income details fetched", incomeDetails, totalIncome });
+        res.status(200).send({ status: "Monthly income details fetched", expensesDetails, totalExpenses });
 
     } catch (error) {
         console.log(error.message);
