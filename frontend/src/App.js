@@ -11,6 +11,7 @@ import UploadImage from "./components/UploadImage";
 import AddReportData from "./components/AddReportData";
 import AllReportData from "./components/AllReportData";
 import UpdateReportData from "./components/UpdateReportData";
+import DeleteReportData from "./components/DeleteReportData";
 
 function App() {
   return (
@@ -52,6 +53,9 @@ function App() {
         </Routes>
         <Routes>
            <Route path="/updateReportData/:id" element={<UpdateReportData/>}/>
+        </Routes>
+        <Routes>
+           <Route path="/deleteReportData/:id" element={<DeleteReportData/>}/>
         </Routes>
       </div>
     </Router>

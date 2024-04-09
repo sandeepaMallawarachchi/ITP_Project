@@ -20,7 +20,7 @@ function DeleteReportData() {
         <div>
             <p>Are you sure you want to delete this data?</p>
             <button style={{ margin: "0 30px 0 0" }} className='btn btn-danger' onClick={yesBtn}>Yes</button>
-            <Link to="/allDrivers"><button className='btn btn-primary'>No</button></Link>
+            <Link to="/allReportData"><button className='btn btn-primary'>No</button></Link>
         </div>
     );
 }

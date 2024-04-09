@@ -62,7 +62,7 @@ router.route("/").get((req,res)=>{
 
  })
 
- router.route("/deleteReport/:id").delete(async (req, res) => {
+ router.route("/delete/:id").delete(async (req, res) => {
     let userId = req.params.id;
 
     await Report.findByIdAndDelete(userId)
