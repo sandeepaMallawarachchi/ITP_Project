@@ -45,6 +45,11 @@ function App() {
       <Routes>
       <Route path="/updateIncome/:id" element={<UpdateIncome/>}/>
       </Routes>
+
+      <Routes>
+  <Route path="/balanceSheetHome" element={<BalanceSheet />} />
+</Routes>
+
       
 </div>
 </Router>
