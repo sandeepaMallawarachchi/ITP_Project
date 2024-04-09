@@ -1,80 +1,70 @@
-const router = require("express").Router();
-const financial = require("../model/financial");
+const express = require('express');
+const router = express.Router();
+const financial = require('../model/financial');
 
-router.route("/add").post(async (req, res) => {
+router.post("/add", async (req, res) => {
+    const { date, category, description, amount } = req.body;
 
-    const date = req.body.date;
-    const category = req.body.category;
-    const description = req.body.description;
-    const amount = Number(req.body.amount);
-
-    const newExpen = new financial({
-        date,
-        category,
-        description,
-        amount
-    })
-
-    newExpen.save().then(() => {
-        res.json("Expenses Added")
-    }).catch((err) => {
-        console.log(err);
-    })
-})
-
-router.route("/display").get((req, res) => {
-    //body
-    financial.find().then((expenses) => {
-        res.json(expenses)
-    }).catch((err) => {
-        console.log(err)
-    })
-
-
-})
-router.route("/update/:id").put(async (req, res) => {
-    let UserId = req.params.id;
-    const { date,
-        category,
-        description,
-        amount } = req.body;
-    const updateExpenses = {
-        date,
-        category,
-        description,
-        amount
+    try {
+        const newExpense = new financial({ date, category, description, amount });
+        await newExpense.save();
+        res.json("Expense Added");
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
     }
-    const update = await financial.findByIdAndUpdate(UserId, updateExpenses).then(() => {
-        res.status(200).send({ status: "expenses updated" })
-
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).send({ status: "Error with updating data" });
-    })
 });
 
-router.route("/delete/:id").delete(async (req, res) => {
-    let UserId = req.params.id;
-
-    await financial.findByIdAndDelete(UserId).then(() => {
-        res.status(200).send({ status: "User deleted." });
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({ status: "Error with delete.", error: err.message });
-    })
-
-})
-
-router.route("/get/:id").get(async (req, res) => {
+router.get("/display", async (req, res) => {
     try {
-      const userId = req.params.id;
-      const expense = await financial.findById(userId);
-
-      res.status(200).json({ status: "Expense fetched", expense });
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ status: "Error with fetch", error: error.message });
+        const expenses = await financial.find();
+        res.json(expenses);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
     }
-  });
-  
+});
+
+router.put("/update/:id", async (req, res) => {
+    const { date, category, description, amount } = req.body;
+    const updateExpenses = { date, category, description, amount };
+
+    try {
+        const updated = await financial.findByIdAndUpdate(req.params.id, updateExpenses);
+        if (!updated) {
+            return res.status(404).json({ error: "Expense not found" });
+        }
+        res.status(200).json({ status: "Expense updated" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
+    }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+    try {
+        const deleted = await financial.findByIdAndDelete(req.params.id);
+        if (!deleted) {
+            return res.status(404).json({ error: "Expense not found" });
+        }
+        res.status(200).json({ status: "Expense deleted" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
+    }
+});
+
+router.get("/get/:id", async (req, res) => {
+    try {
+        const expense = await financial.findById(req.params.id);
+        if (!expense) {
+            return res.status(404).json({ error: "Expense not found" });
+        }
+        res.status(200).json({ status: "Expense fetched", expense });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
+    }
+});
+
 module.exports = router;

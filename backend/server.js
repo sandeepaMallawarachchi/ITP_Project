@@ -33,6 +33,10 @@ app.use("/incomeRt",incomeRouter);
 const totalIncomRouter=require("./route/totalIncome.js");
 app.use("/totalIncome",totalIncomRouter);
 
+const balance=require("./route/balanceSheet.js");
+app.use("/balanceRt",balance);
+
+
 app.listen(PORT,()=>{
     console.log(`app running server on ${PORT}`);
 });
