@@ -31,13 +31,14 @@ function App() {
   return (
     <Router>
       <div className='App'>
+
+        {/* inventory routes */}
         <Routes>
           <Route path="/inventory/*" element={<InventoryRoutes />} />
-          
         </Routes>
-        <Routes>
 
         {/* salesperson routes */}
+        <Routes>
           <Route path="/salesmenDashboard/:id" element={<Navigations />} />
         </Routes>
         <Routes>
@@ -59,12 +60,20 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/changeSalesmanPassword/:salespersonID" element={<Navigations />} />
+          <Route path="/changeSalesmanPassword/:id" element={<Navigations />} />
         </Routes>
         <Routes>
-          <Route path='/changeSalesmanPassword/:salespersonID' element={<ChangeSalesmanPassword />} />
+          <Route path='/changeSalesmanPassword/:id' element={<ChangeSalesmanPassword />} />
         </Routes>
 
+        <Routes>
+          <Route path="/myAccount/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/myAccount/:id' element={<MyAccount />} />
+        </Routes>
+
+        {/* sales routes */}
         <Routes>
           <Route path="/addNewSale/:id" element={<Navigations />} />
         </Routes>
@@ -84,13 +93,6 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/myAccount/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/myAccount/:id' element={<MyAccount />} />
         </Routes>
 
         <Routes>

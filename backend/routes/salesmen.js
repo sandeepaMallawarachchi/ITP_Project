@@ -137,7 +137,7 @@ router.route("/changePassword/:salespersonID").put(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Update password in the database
-        await Salesmen.findByIdAndUpdate(salespersonID, { password: hashedPassword });
+        await Salesmen.findOneAndUpdate(salespersonID, { password: hashedPassword });
 
         res.status(200).send({ status: "Password changed" });
     } catch (error) {
@@ -146,23 +146,39 @@ router.route("/changePassword/:salespersonID").put(async (req, res) => {
     }
 });
 
-//staff login
-router.route('/').post(async (req, res) => {
-    const { userName, phone, password } = req.body.userName;
+//staff login form
+router.route('/login').get(async (req, res) => {
+    let { usernameOrPhone, password } = req.body;
+
+    const isPhone = !isNaN(usernameOrPhone);
 
     try {
-
-        const staff = await Salesmen.findOne({ $or: [{ userName }, { phone }] });
+        let staff;
+        if (isPhone) {
+            staff = await Salesmen.findOne({ phone: usernameOrPhone });
+        } else {
+            staff = await Salesmen.findOne({ username: usernameOrPhone });
+        }
 
         if (staff) {
 
-            if (staff.password === password) {
-                res.status(200).send({ status: "Login success" });
+            const match = await bcrypt.compare(password, staff.password);
+
+            if (match) {
+            
+                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+                req.session.user = {
+                    id: staff._id,
+                    username: staff.username,
+                    role: staff.role
+                };
+
+                res.status(200).send({ status: "Login success", token });
             } else {
                 res.status(401).send({ status: "Invalid password!" });
             }
-        }
-        else {
+        } else {
             res.status(401).send({ status: "Invalid username or phone!" });
         }
     } catch (error) {

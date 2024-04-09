@@ -38,7 +38,7 @@ export default function SalesmenDashboard() {
         try {
             await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
             alert('Details Updated successfully');
-            navigate(`/salesmenDashboard/${id}`);
+            navigate(`/myAccount/${id}`);
         } catch (error) {
             console.log("Error!", error.message);
         }

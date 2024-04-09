@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 require("dotenv").config();
 
 
@@ -11,6 +13,14 @@ const PORT = process.env.PORT || 8070;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
+app.use(cookieParser());
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }
+}));
 
 const URL = process.env.MONGODB_URL;
 
