@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
@@ -60,7 +60,7 @@ export default function Login() {
     }
 
     return (
-        <div className='absolute w-full h-full'  style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'top' }}>
+        <div className='absolute w-full h-full' style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'top' }}>
 
             <div className='absolute mt-8 ml-[42.5%]'>
                 <img src={logo} alt="Logo" />
@@ -113,9 +113,16 @@ export default function Login() {
                         </button>
                     </div>
 
+                    <div>
+                        <Link to={`/forgetPassword`}
+                            className='text-sm font-italic hover:underline text-blue-700 text-right'>
+                            Forget Password
+                        </Link>
+                    </div>
+
                     <button
                         type="submit"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ml-[185px] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ml-[185px] mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Login
                     </button>
 

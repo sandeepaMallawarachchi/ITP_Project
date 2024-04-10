@@ -41,6 +41,7 @@ import BalanceSheet from './pages/financialManager/balanceSheet';
 
 //login
 import Login from "./components/Login";
+import ForgetPassword from "./components/ForgetPassword";
 
 function App() {
   return (
@@ -213,6 +214,10 @@ function App() {
         {/* login rotes */}
         <Routes>
           <Route path='/' element={<Login />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/forgetPassword' element={<ForgetPassword />} />
         </Routes>
       </div>
     </Router>

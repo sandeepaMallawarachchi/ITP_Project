@@ -199,7 +199,8 @@ router.use((req, res, next) => {
 //forget password
 router.route("/forgetPassword").post(async (req, res) => {
 
-    const username = req.body.username;
+    let { usernameOrPhone } = req.body;
+    const isPhone = !isNaN(usernameOrPhone);
     const email = req.body.email;
 
     // Create a transporter object
@@ -213,7 +214,12 @@ router.route("/forgetPassword").post(async (req, res) => {
 
     try {
 
-        const salesPerson = await Salesmen.findOne({ username: username });
+        let salesPerson;
+        if (isPhone) {
+            salesPerson = await Salesmen.findOne({ phone: usernameOrPhone });
+        } else {
+            salesPerson = await Salesmen.findOne({ username: usernameOrPhone });
+        }
 
         if (!salesPerson) {
             return res.status(404).send({ status: "Error!", error: "Salesperson not found" });

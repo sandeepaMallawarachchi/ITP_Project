@@ -239,7 +239,6 @@ router.route("/stocks/:salesPersonID").get(async (req, res) => {
     }
 });
 
-
 //search remaining stock by product name
 router.route("/searchStock/:salesPersonID/:productName").get(async (req, res) => {
 
