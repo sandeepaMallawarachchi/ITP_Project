@@ -39,7 +39,7 @@ function UpdateSalesmanDetails() {
         try {
             await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${salespersonID}`, salesmanDetails);
             alert('Details Updated successfully');
-            navigate(`/salesmenDashboard/${salespersonID}`);
+            navigate(`/myAccount/${salespersonID}`);
         } catch (error) {
             console.log("Error!", error.message);
         }

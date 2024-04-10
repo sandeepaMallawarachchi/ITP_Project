@@ -25,7 +25,7 @@ function ChangeSalesmanPassword() {
             });
 
             alert('Password changed successfully');
-            navigate(`/salesmenDashboard/${id}`);
+            navigate(`/myAccount/${id}`);
         } catch (error) {
             console.log("Error!", error.message);
             alert("Error changing password!");
@@ -66,7 +66,7 @@ function ChangeSalesmanPassword() {
             </div>
             <button
                 type="submit"
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                className="mt-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
                 Change Password
             </button>
