@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { useReactToPrint } from 'react-to-print';
 import { useState,useEffect,useRef } from "react";
@@ -30,17 +31,48 @@ export default function Reports(){
     
     const handlePrint = useReactToPrint({
         content :()=> componentRef.current,//specifies the content to be print
-        documentTitle : "Inventory StockCost Report",
-        //onAfterPrint :()=> alert("Report Downloaded")
+        documentTitle : "Inventory Stockcost Report",
+        pageStyle: `
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .document-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    `
     })
 
 
     return (
         <div className="ml-60">
-            <div className=" " >
-                <h2>Item StockCost Report</h2>
+            <div >
                 <Button onClick={handlePrint} color="blue" className="my-10 ml-20"> Download Report</Button>
-                <table className="shadow" ref={componentRef} >
+                <div  ref={componentRef} >
+                <div className="document-title">Inventory StockCost Report</div>
+                <table >
                     <thead className="bg-gray-50 border-b-2 border-gray-200 ">
                         <tr>
                             <th className="p-3 text-sm font-semibold tracking-wide text-left w-7rem">Product Name</th>
@@ -74,6 +106,7 @@ export default function Reports(){
                         }
                     </tbody>
                 </table> 
+                </div>
                 </div>
              
            

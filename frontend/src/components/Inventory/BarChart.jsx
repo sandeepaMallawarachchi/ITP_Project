@@ -66,7 +66,7 @@ export default function Barchart(){
         {name : "Green tea" , value : quantities[1]},
         {name : "Golden Blend tea", value : quantities[2]},
         {name : "Ceylon tea", value : quantities[3]},
-        {name : "Cinnamon ta", value : quantities[4]},
+        {name : "Cinnamon tea", value : quantities[4]},
     ]
 
     console.log(data)
