@@ -7,23 +7,13 @@ export default function InventoryLayout(){
     
 
     return(
-         <div >
-              <div > 
-                <Header />
-              </div>
+         <div className="flex flex-col">
               <InventorySidebar/>
-            
-            
-             
-              <div >
-                <Outlet />
-            </div>
-
-            
-           
-
-            
-          </div>
+              <div>
+                  <Header />
+                  <Outlet />
+              </div>
+         </div>
       
         )
 }

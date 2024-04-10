@@ -1,7 +1,7 @@
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Label } from 'recharts';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ApexCharts from 'apexcharts'
+ 
 
 export default function Piechart() {
     const [data, setData] = useState([]);

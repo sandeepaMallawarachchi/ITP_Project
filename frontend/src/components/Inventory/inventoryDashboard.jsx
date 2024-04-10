@@ -6,9 +6,10 @@ export default function Dashboard(){
 
     return (
         <div>
-            <ReorderProducts />
             <Piechart />
             <Barchart />
+            <ReorderProducts />
+            
 
         </div>
        
