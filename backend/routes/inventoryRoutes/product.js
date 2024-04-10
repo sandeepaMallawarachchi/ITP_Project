@@ -1,5 +1,5 @@
 const express = require("express");
-const teaPack = require("../models/inventoryModels/product");
+const teaPack = require("../../models/inventoryModels/product");
 const mongoose = require("mongoose");
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-let Salary = require("../models/staffModels/salaryDetails");
+let Salary = require("../../models/staffModels/salaryDetails");
 
 router.route("/addSalary").post((req, res) => {
 

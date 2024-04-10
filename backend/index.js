@@ -37,35 +37,35 @@ connection.once("open", () => {
 });
 
 //sales routes
-const salesRouter = require("./routes/sales.js");
-const salesmenRouter = require("./routes/salesmen.js");
-const salesManagementRouter = require("./routes/salesManagement.js");
+const salesRouter = require("./routes/salesRoutes/sales.js");
+const salesmenRouter = require("./routes/salesRoutes/salesmen.js");
+const salesManagementRouter = require("./routes/salesRoutes/salesManagement.js");
 
 app.use("/sales", salesRouter);
 app.use("/salesmen", salesmenRouter);
 app.use("/salesManagement", salesManagementRouter);
 
 //inventory routes
-const invRouter = require( "./routes/product.js")
-const orderRouter = require("./routes/newOrder.js")
-const reorderRouter = require("./routes/reorderFunction.js")
+const invRouter = require( "./routes/inventoryRoutes/product.js")
+const orderRouter = require("./routes/inventoryRoutes/newOrder.js")
+const reorderRouter = require("./routes/inventoryRoutes/reorderFunction.js")
 
 app.use("/inventory/product",invRouter)
 app.use("/inventory/orders",orderRouter)
 app.use("/inventory/reorder",reorderRouter)
 
 //staff routes
-const salaryRouter = require("./routes/salary.js")
-const StaffRouter = require("./routes/staff.js");
+const salaryRouter = require("./routes/staffRoutes/salary.js")
+const StaffRouter = require("./routes/staffRoutes/staff.js");
 
 app.use("/Staff",StaffRouter);
 app.use("/staff/salary",salaryRouter)
 
 //financial routes
-const expensesRouter=require("./routes/financials.js");
-const incomeRouter=require("./routes/incomesheet.js");
-const totalIncomRouter=require("./routes/totalIncome.js");
-const balance=require("./routes/balanceSheet.js");
+const expensesRouter=require("./routes/financialRoutes/financials.js");
+const incomeRouter=require("./routes/financialRoutes/incomesheet.js");
+const totalIncomRouter=require("./routes/financialRoutes/totalIncome.js");
+const balance=require("./routes/financialRoutes/balanceSheet.js");
 
 app.use("/expenses",expensesRouter);
 app.use("/incomeRt",incomeRouter);

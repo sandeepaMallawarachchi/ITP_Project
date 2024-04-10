@@ -1,6 +1,6 @@
 const express= require("express")
-const teaPack = require("../models/inventoryModels/product")
-const reorderProducts = require("../models/inventoryModels/reorderProduct")
+const teaPack = require("../../models/inventoryModels/product")
+const reorderProducts = require("../../models/inventoryModels/reorderProduct")
 const nodeMailer = require("nodemailer")
 const env = require("dotenv")
 const router = express.Router()

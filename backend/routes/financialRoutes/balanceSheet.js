@@ -1,5 +1,5 @@
 const router=require ("express").Router();
-const Balance = require("../models/financialModels/balance");
+const Balance = require("../../models/financialModels/balance");
 
 // Route to create a new balance
 router.post('/balances', async (req, res) => {

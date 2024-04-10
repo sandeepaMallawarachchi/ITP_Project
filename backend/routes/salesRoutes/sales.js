@@ -1,8 +1,8 @@
 const router = require("express").Router();
-let Sales = require("../models/salesModels/salesDetails");
-let Bulk = require("../models/salesModels/bulkManagement");
-let Discount = require("../models/salesModels/discounts");
-let teaPack = require("../models/inventoryModels/product");
+let Sales = require("../../models/salesModels/salesDetails");
+let Bulk = require("../../models/salesModels/bulkManagement");
+let Discount = require("../../models/salesModels/discounts");
+let teaPack = require("../../models/inventoryModels/product");
 
 //add a new sale
 router.route("/addSale/:id").post(async (req, res) => {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const financial = require('../models/financialModels/financial');
+const financial = require('../../models/financialModels/financial');
 
 router.post("/add", async (req, res) => {
     const { date, category, description, amount } = req.body;

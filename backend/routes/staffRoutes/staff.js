@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { response } = require("express");
-let Staff = require("../models/staffModels/staffDetails");
+let Staff = require("../../models/staffModels/staffDetails");
 
 router.route("/add").post((req,res)=>{
 
