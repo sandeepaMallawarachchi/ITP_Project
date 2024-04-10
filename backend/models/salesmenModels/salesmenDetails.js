@@ -5,7 +5,8 @@ const salesmenSchema = new Schema({
 
     salespersonID: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
 
     name: {
@@ -15,12 +16,14 @@ const salesmenSchema = new Schema({
 
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
 
     password: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
 
     dateOfBirth: {
@@ -35,17 +38,24 @@ const salesmenSchema = new Schema({
 
     email: {
         type: String,
+        unique: true,
     },
 
     phone: {
         type: Number,
-        required: true
+        required: true,
+        unique: true,
     },
 
     address: {
         type: String,
         required: true
     },
+
+    role: {
+        type: String,
+        default: "salesperson"
+    }
 });
 
 const Salesmen = mongoose.model("Salesmen", salesmenSchema);

@@ -92,6 +92,4 @@ router.route("/get/:empId").get(async (req, res) => {
     });
 });
 
-
-
 module.exports = router;
