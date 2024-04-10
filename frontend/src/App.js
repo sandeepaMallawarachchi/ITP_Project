@@ -27,6 +27,17 @@ import InventoryRoutes from "./InventoryRoutes";
 import AddSalary from "./components/staffManager/AddSalary";
 import SalaryReport from "./components/staffManager/SalaryReport";
 
+//financial
+import AddExpenses from './components/financialManager/addExpenses';
+import Home from './components/financialManager/expensesHome';
+import HomeIn from './components/financialManager/incomeHome';
+import AddIncome from './components/financialManager/addIncome';
+import DeleteEx from './components/financialManager/deleteExpenses';
+import UpdateExpenses from './components/financialManager/updateExpenses';
+import DeleteIn from './components/financialManager/deleteIncome';
+import UpdateIncome from './components/financialManager/updateIncome';
+import BalanceSheet from './components/financialManager/balanceSheet';
+
 //login
 import Login from "./components/Login";
 
@@ -159,6 +170,43 @@ function App() {
 
         <Routes>
           <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
+        </Routes>
+
+        {/* financial manager routes */}
+        <Routes>
+          <Route path="/add" element={<AddExpenses />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/HomeExpenses" element={<Home />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/HomeIncome" element={<HomeIn />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/addIncome" element={<AddIncome />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/deleteExpen/:id" element={<DeleteEx />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/updateExpenses/:id" element={<UpdateExpenses />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/deleteIncome/:id" element={<DeleteIn />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/updateIncome/:id" element={<UpdateIncome />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/balanceSheetHome" element={<BalanceSheet />} />
         </Routes>
 
         {/* login rotes */}

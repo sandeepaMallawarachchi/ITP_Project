@@ -61,6 +61,17 @@ const StaffRouter = require("./routes/staff.js");
 app.use("/Staff",StaffRouter);
 app.use("/staff/salary",salaryRouter)
 
+//financial routes
+const expensesRouter=require("./routes/financials.js");
+const incomeRouter=require("./routes/incomesheet.js");
+const totalIncomRouter=require("./routes/totalIncome.js");
+const balance=require("./routes/balanceSheet.js");
+
+app.use("/expenses",expensesRouter);
+app.use("/incomeRt",incomeRouter);
+app.use("/totalIncome",totalIncomRouter);
+app.use("/balanceRt",balance);
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
