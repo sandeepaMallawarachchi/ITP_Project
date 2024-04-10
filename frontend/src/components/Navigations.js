@@ -134,8 +134,8 @@ export default function Navigations() {
         <div>
             {/* header */}
             <div className="fixed top-0 left-0 w-full z-50">
-                <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }} className='cursor-pointer'>
-                    <Navbar.Brand onClick={handleDashboard}>
+                <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>
+                    <Navbar.Brand onClick={handleDashboard}  className='cursor-pointer w-32 ml-8'>
                         <img src={logo} id='logo' alt="logo" />
                     </Navbar.Brand>
                     <div className="relative w-1/3">
@@ -156,7 +156,7 @@ export default function Navigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-8 items-start" onClick={handleProfilePic}>
+                    <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleProfilePic} >
                         <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{salesman.name}</span>
@@ -169,7 +169,7 @@ export default function Navigations() {
 
             {/* sidebar */}
             <div>
-                <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50 mt-[170px]">
+                <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50 mt-[111px]">
                     <Sidebar.Items className='pt-5'>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
@@ -245,7 +245,7 @@ export default function Navigations() {
             )}
 
             {/* error gif */}
-            <div className={`fixed top-[133px] left-64 bg-[#fbfbfb] w-[85%] h-full ${errorGif ? 'z-50' : 'hidden'}`}>
+            <div className={`fixed top-[111px] left-64 bg-[#fbfbfb] w-[85%] h-full ${errorGif ? 'z-50' : 'hidden'}`}>
                 <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center mt-2' : 'hidden'}`}>
                     <span className="font-medium">Invalid product name!</span>
                 </Alert>

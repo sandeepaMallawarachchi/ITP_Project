@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
 
 //register as a new salesmen
@@ -164,7 +165,7 @@ router.route('/login').post(async (req, res) => {
             const match = await bcrypt.compare(password, staff.password);
 
             if (match) {
-                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1m' });
+                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
                 req.session.user = {
                     id: staff._id,
@@ -193,6 +194,52 @@ router.use((req, res, next) => {
         console.log("Session expired or invalid. User needs to log in again.");
     }
     next();
+});
+
+//forget password
+router.route("/forgetPassword").post(async (req, res) => {
+
+    const username = req.body.username;
+    const email = req.body.email;
+
+    // Create a transporter object
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    try {
+
+        const salesPerson = await Salesmen.findOne({ username: username });
+
+        if (!salesPerson) {
+            return res.status(404).send({ status: "Error!", error: "Salesperson not found" });
+        }
+
+        const resetPasswordLink = `http://localhost:3000/changeSalesmanPassword/${salesPerson.salespersonID}`;
+        const mailOptions = {
+            from: process.env.EMAIL_USERNAME,
+            to: email,
+            subject: 'Reset Your Password',
+            text: `You are receiving this email because you have requested to reset the password for your account.\n\nPlease click on the following link, or paste this into your browser to reset your password:\n\n${resetPasswordLink}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).send({ status: "Error!", error: "Failed to send reset password email" });
+            } else {
+                console.log("Reset password email sent: " + info.response);
+                return res.status(200).send({ status: "Success", message: "Reset password email sent successfully" });
+            }
+        });
+
+    } catch (error) {
+        res.status(404).send({ status: "Error!", error: error.message });
+    }
 });
 
 module.exports = router;

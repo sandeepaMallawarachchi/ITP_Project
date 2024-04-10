@@ -25,7 +25,7 @@ function ChangeSalesmanPassword() {
             });
 
             alert('Password changed successfully');
-            navigate(`/myAccount/${id}`);
+            navigate(`/`);
         } catch (error) {
             console.log("Error!", error.message);
             alert("Error changing password!");
