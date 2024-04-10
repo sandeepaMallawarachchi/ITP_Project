@@ -18,8 +18,8 @@ app.use(cookieParser());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 }
+    saveUninitialized: false,
+    cookie: { maxAge: 6000 }
 }));
 
 const URL = process.env.MONGODB_URL;

@@ -147,7 +147,7 @@ router.route("/changePassword/:salespersonID").put(async (req, res) => {
 });
 
 //staff login form
-router.route('/login').get(async (req, res) => {
+router.route('/login').post(async (req, res) => {
     let { usernameOrPhone, password } = req.body;
 
     const isPhone = !isNaN(usernameOrPhone);
@@ -161,30 +161,38 @@ router.route('/login').get(async (req, res) => {
         }
 
         if (staff) {
-
             const match = await bcrypt.compare(password, staff.password);
 
             if (match) {
-            
-                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1m' });
 
                 req.session.user = {
                     id: staff._id,
                     username: staff.username,
+                    role: staff.role,
+                    salespersonID: staff.salespersonID,
                     role: staff.role
                 };
 
-                res.status(200).send({ status: "Login success", token });
+                res.status(200).send({ status: "Login success", token, salespersonID: staff.salespersonID, role: staff.role });
             } else {
                 res.status(401).send({ status: "Invalid password!" });
             }
         } else {
-            res.status(401).send({ status: "Invalid username or phone!" });
+            res.status(404).send({ status: "Invalid username or phone!" });
         }
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
     }
+});
+
+// Middleware to check session status
+router.use((req, res, next) => {
+    if (!req.session.user) {
+        console.log("Session expired or invalid. User needs to log in again.");
+    }
+    next();
 });
 
 module.exports = router;

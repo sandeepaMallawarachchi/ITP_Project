@@ -61,7 +61,13 @@ export default function AddNewSale() {
             });
 
             if (res.data.error) {
-                alert(res.data.error);
+                setError(true);
+                setErrorAlert(true);
+                setSuccessAlert(false);
+
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 5000);
             } else {
                 setSuccessAlert(true);
                 console.log(res.data);

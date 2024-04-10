@@ -27,6 +27,9 @@ import InventoryRoutes from "./InventoryRoutes";
 import AddSalary from "./components/staffManager/AddSalary";
 import SalaryReport from "./components/staffManager/SalaryReport";
 
+//login
+import Login from "./components/Login";
+
 function App() {
   return (
     <Router>
@@ -158,6 +161,10 @@ function App() {
           <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
         </Routes>
 
+        {/* login rotes */}
+        <Routes>
+          <Route path='/' element={<Login />} />
+        </Routes>
       </div>
     </Router>
   );
