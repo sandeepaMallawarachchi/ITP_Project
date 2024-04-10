@@ -1,42 +1,43 @@
 // import React, { useState } from "react";
 //sales person
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SalesmenDashboard from './components/salesPerson/SalesmenDashboard';
-import UpdateSalesmanDetails from './components/salesPerson/UpdateSalesmanDetails';
-import DeleteSalesman from './components/salesPerson/DeleteSalesman';
-import ChangeSalesmanPassword from './components/salesPerson/ChangeSalesmanPassword';
-import AddNewSale from './components/salesPerson/AddNewSale';
-import SalesSummary from './components/salesPerson/SalesSummary';
-import CurrentSale from './components/salesPerson/CurrentSale';
+import SalesmenDashboard from './pages/salesPerson/SalesmenDashboard';
+import UpdateSalesmanDetails from './pages/salesPerson/UpdateSalesmanDetails';
+import DeleteSalesman from './pages/salesPerson/DeleteSalesman';
+import ChangeSalesmanPassword from './pages/salesPerson/ChangeSalesmanPassword';
+import AddNewSale from './pages/salesPerson/AddNewSale';
+import SalesSummary from './pages/salesPerson/SalesSummary';
+import CurrentSale from './pages/salesPerson/CurrentSale';
 import MyAccount from './components/MyAccount';
-import DeleteSale from './components/salesPerson/DeleteSale';
-import RemainingStock from './components/salesPerson/RemainingStock';
+import DeleteSale from './pages/salesPerson/DeleteSale';
+import RemainingStock from './pages/salesPerson/RemainingStock';
 import Navigations from './components/Navigations';
 
 //sales manager
-import AddDailyStock from './components/salesManager/AddDailyStock';
-import SalesManagerDashboard from './components/salesManager/SalesManagerDashboard';
-import SalesPersonDetails from './components/salesManager/SalesPersonDetails';
-import RemainingInventoryStock from './components/salesManager/RemainingInventoryStock';
-import MonthlySales from './components/salesManager/MonthlySales';
-import SalesManagerNavigations from './components/salesManager/SalesManagerNavigations';
+import AddDailyStock from './pages/salesManager/AddDailyStock';
+import SalesManagerDashboard from './pages/salesManager/SalesManagerDashboard';
+import SalesPersonDetails from './pages/salesManager/SalesPersonDetails';
+import RemainingInventoryStock from './pages/salesManager/RemainingInventoryStock';
+import MonthlySales from './pages/salesManager/MonthlySales';
+import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigations';
+
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
 //staf
-import AddSalary from "./components/staffManager/AddSalary";
-import SalaryReport from "./components/staffManager/SalaryReport";
+import AddSalary from "./pages/staffManager/AddSalary";
+import SalaryReport from "./pages/staffManager/SalaryReport";
 
 //financial
-import AddExpenses from './components/financialManager/addExpenses';
-import Home from './components/financialManager/expensesHome';
-import HomeIn from './components/financialManager/incomeHome';
-import AddIncome from './components/financialManager/addIncome';
-import DeleteEx from './components/financialManager/deleteExpenses';
-import UpdateExpenses from './components/financialManager/updateExpenses';
-import DeleteIn from './components/financialManager/deleteIncome';
-import UpdateIncome from './components/financialManager/updateIncome';
-import BalanceSheet from './components/financialManager/balanceSheet';
+import AddExpenses from './pages/financialManager/addExpenses';
+import Home from './pages/financialManager/expensesHome';
+import HomeIn from './pages/financialManager/incomeHome';
+import AddIncome from './pages/financialManager/addIncome';
+import DeleteEx from './pages/financialManager/deleteExpenses';
+import UpdateExpenses from './pages/financialManager/updateExpenses';
+import DeleteIn from './pages/financialManager/deleteIncome';
+import UpdateIncome from './pages/financialManager/updateIncome';
+import BalanceSheet from './pages/financialManager/balanceSheet';
 
 //login
 import Login from "./components/Login";
