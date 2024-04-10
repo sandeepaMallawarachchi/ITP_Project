@@ -138,7 +138,7 @@ export default function SalesManagerNavigations() {
 
             {/* sidebar */}
             <div>
-                <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50" style={{ marginTop: "133px" }}>
+                <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50 mt-[170px]">
                     <Sidebar.Items className='pt-5'>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
