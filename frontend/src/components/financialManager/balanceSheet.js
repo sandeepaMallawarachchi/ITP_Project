@@ -6,7 +6,7 @@ export default function BalanceSheet() {
     const [income, setIncome] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3013/balanceRt/displayBalance").then((res) => {
+        axios.get("http://localhost:8070/balanceRt/displayBalance").then((res) => {
             setIncome(res.data);
         }).catch((error) => {
             alert(error.message);

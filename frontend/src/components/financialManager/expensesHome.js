@@ -7,7 +7,7 @@ export default function Home() {
     const [expenses, setExpenses] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3013/expenses/display").then((res) => {
+        axios.get("http://localhost:8070/expenses/display").then((res) => {
             setExpenses(res.data);
         }).catch((error) => {
             alert(error.message);

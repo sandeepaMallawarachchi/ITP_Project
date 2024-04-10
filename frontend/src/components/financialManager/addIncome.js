@@ -8,7 +8,7 @@ export default function AddIncome() {
     const [amount, setAmount] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:3013/totalIncome/getMonthlyIncome")
+        axios.get("http://localhost:8070/totalIncome/getMonthlyIncome")
             .then((res) => {
                 const totalIncome = res.data.totalIncome; // Assuming totalIncome is the correct key in your response
                 setAmount(totalIncome);
@@ -28,7 +28,7 @@ export default function AddIncome() {
             amount
         };
 
-        axios.post("http://localhost:3013/incomeRt/addIncome", newIncome)
+        axios.post("http://localhost:8070/incomeRt/addIncome", newIncome)
             .then(() => {
                 alert("Income Added");
             })

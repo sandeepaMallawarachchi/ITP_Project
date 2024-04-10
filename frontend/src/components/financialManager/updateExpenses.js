@@ -14,7 +14,7 @@ function UpdateExpenses() {
     useEffect(() => {
         const fetchExpenses = async () => {
             try {
-                const response = await axios.get(`http://localhost:3013/expenses/get/${id}`);
+                const response = await axios.get(`http://localhost:8070/expenses/get/${id}`);
                 const expenseData = response.data.expense; // Assuming the response has an 'expense' property
                 setDetails({
                     date: expenseData.date || "",
@@ -33,7 +33,7 @@ function UpdateExpenses() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:3013/expenses/update/${id}`, details);
+            await axios.put(`http://localhost:8070/expenses/update/${id}`, details);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating expenses details", error.message);

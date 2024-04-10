@@ -9,7 +9,7 @@ export default function DeleteEx() {
 
 
     const yesBtn = async () => {
-        axios.delete(`http://localhost:3013/expenses/delete/${id}`).then(() => {
+        axios.delete(`http://localhost:8070/expenses/delete/${id}`).then(() => {
             alert("Expenses delete")
             navigate("/HomeExpenses")
         }).catch((err) => {

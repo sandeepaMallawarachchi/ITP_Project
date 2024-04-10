@@ -8,7 +8,7 @@ export default function HomeIn() {
     const [income, setIncome] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3013/incomeRt/displayIncome").then((res) => {
+        axios.get("http://localhost:8070/incomeRt/displayIncome").then((res) => {
             setIncome(res.data);
         }).catch((error) => {
             alert(error.message);

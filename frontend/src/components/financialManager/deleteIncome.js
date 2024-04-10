@@ -9,7 +9,7 @@ export default function DeleteIn() {
 
 
     const yesBtn = async () => {
-        axios.delete(`http://localhost:3013/incomeRt/delete/${id}`).then(() => {
+        axios.delete(`http://localhost:8070/incomeRt/delete/${id}`).then(() => {
             alert("Income delete")
             navigate("/HomeIncome")
         }).catch((err) => {

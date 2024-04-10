@@ -16,7 +16,7 @@ export default function AddExpenses() {
             description,
             amount
         }
-        axios.post("http://localhost:3013/expenses/add", newExpenses).then(() => {
+        axios.post("http://localhost:8070/expenses/add", newExpenses).then(() => {
             alert("Expenses Added")
         }).catch((err) => {
             alert(err)
