@@ -27,6 +27,11 @@ import InventoryRoutes from "./InventoryRoutes";
 //staf
 import AddSalary from "./pages/staffManager/AddSalary";
 import SalaryReport from "./pages/staffManager/SalaryReport";
+import AddEmployee from './pages/staffManager/AddEmployee'
+import AllEmployees from './pages/staffManager/AllEmployees'
+import UpdateEmployee from './pages/staffManager/UpdateEmployee'
+import DeleteEmployee from './pages/staffManager/DeleteEmployee'
+import AllSalaries from './pages/staffManager/AllSalaries'
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
@@ -162,16 +167,32 @@ function App() {
         </Routes>
 
         {/* staff routes */}
-
-        {/* <Routes>
-          <Route path='/addSalary' element={<Navigations />} />
-        </Routes> */}
         <Routes>
           <Route path='/addSalary' element={<AddSalary />} />
         </Routes>
 
         <Routes>
           <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/addEmployee' element={<AddEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allEmployees' element={<AllEmployees />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/updateEmployee/:id' element={<UpdateEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allSalaries' element={<AllSalaries />} />
         </Routes>
 
         {/* financial manager routes */}
