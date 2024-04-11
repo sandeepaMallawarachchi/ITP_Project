@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { Alert } from "flowbite-react";
+import { HiInformationCircle } from "react-icons/hi";
 
 function UpdateSalesmanDetails() {
 
@@ -13,7 +15,8 @@ function UpdateSalesmanDetails() {
         phone: "",
         address: "",
     });
-
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [errorsAlert, setErrorAlert] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +28,7 @@ function UpdateSalesmanDetails() {
                 const salesmanData = res.data.salesman || res.data;
                 const { name, username, dateOfBirth, email, phone, address } = salesmanData;
                 setSalesmanDetails({ name, username, dateOfBirth, email, phone, address });
-                console.log(name)
+
             } catch (error) {
                 console.log("Error fetching details", error.message);
             }
@@ -38,16 +41,36 @@ function UpdateSalesmanDetails() {
 
         try {
             await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${salespersonID}`, salesmanDetails);
-            alert('Details Updated successfully');
+
+            setSuccessAlert(true);
+
+            setTimeout(() => {
+                setSuccessAlert(false);
+            }, 5000);
+
             navigate(`/myAccount/${salespersonID}`);
         } catch (error) {
             console.log("Error!", error.message);
+
+            setErrorAlert(true);
+
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 5000);
         }
-    };
+    }
 
     return (
         <div>
             <div className="container" style={{ textAlign: "left", width: "600px", marginTop: "50px" }}>
+
+                <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                    <span className="font-medium">Salesman updated successfully</span>
+                </Alert>
+                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                    <span className="font-medium">Error updating!</span>
+                </Alert>
+
                 <form onSubmit={handleSubmit}>
                     <div class="mb-3">
                         <label for="name" class="form-label" >Name</label>

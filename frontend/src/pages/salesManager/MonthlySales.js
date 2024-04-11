@@ -25,7 +25,7 @@ export default function MonthlySales() {
     }, [salesPersonID]);
 
     return (
-        <div className="absolute mt-48 left-[500px] w-1/2">
+        <div className="absolute mt-40 left-[500px] w-1/2">
             <div className="mb-6">
                 <label for="salesPerosnID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Salesperson ID</label>
                 <input

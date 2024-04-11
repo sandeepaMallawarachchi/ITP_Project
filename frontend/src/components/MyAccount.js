@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import profilePic from '../images/Profile.png';
+import { Alert } from "flowbite-react";
+import { HiInformationCircle } from "react-icons/hi";
 
 export default function SalesmenDashboard() {
     const { id } = useParams();
@@ -13,6 +15,8 @@ export default function SalesmenDashboard() {
         phone: "",
         address: "",
     });
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [errorsAlert, setErrorAlert] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,10 +41,22 @@ export default function SalesmenDashboard() {
 
         try {
             await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
-            alert('Details Updated successfully');
+
+            setSuccessAlert(true);
+
+            setTimeout(() => {
+                setSuccessAlert(false);
+            }, 5000);
+
             navigate(`/myAccount/${id}`);
         } catch (error) {
             console.log("Error!", error.message);
+
+            setErrorAlert(true);
+
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 5000);
         }
     };
 
@@ -52,7 +68,7 @@ export default function SalesmenDashboard() {
         navigate(`/changeSalesmanPassword/${id}`);
     };
     return (
-        <div className='absolute mt-48 left-1/4 w-3/4 '>
+        <div className='absolute mt-44 left-1/4 w-3/4 '>
             <div id='profDetails' className='absolute w-72'>
                 <img src={profilePic} id='profPic' alt="Profile" />
                 {/* <p>Name: <span id='span'>{salesman.name}</span></p>
@@ -60,6 +76,13 @@ export default function SalesmenDashboard() {
             </div>
 
             <div className='absolute left-[40%] w-[500px]'>
+
+                <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                    <span className="font-medium">Salesman updated successfully</span>
+                </Alert>
+                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                    <span className="font-medium">Error updating!</span>
+                </Alert>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>

@@ -25,7 +25,7 @@ export default function SalesPersonDetails() {
     };
 
     return (
-        <div className="absolute mt-48 left-80 w-3/4">
+        <div className="absolute mt-40 left-80 w-3/4">
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
