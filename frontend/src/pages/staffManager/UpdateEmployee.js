@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 function UpdateEmployee() {
-    const { id } = useParams();
+
     const { empId } = useParams();
 
     const [empDetails, setEmpDetails] = useState({
@@ -38,7 +38,7 @@ function UpdateEmployee() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/staff/update/${id}`, empDetails);
+            await axios.put(`http://localhost:8070/staff/update/${empId}`, empDetails);
             navigate(`/allEmployees`);
             alert("Details Updated!");
         } catch (error) {

@@ -46,9 +46,9 @@ router.route("/allEmployees").get((req,res)=>{
 
 })
 
-router.route("/update/:id").put(async (req, res)=>{
-    let id = req.params.id;
-    const {empId,firstName,lastName,gender,department,designation,address,email,phoneNo} = req.body;
+router.route("/update/:empId").put(async (req, res)=>{
+    let empId = req.params.empId;
+    const {firstName,lastName,gender,department,designation,address,email,phoneNo} = req.body;
     
     const updateStaffDetails = {
         empId,
@@ -62,7 +62,7 @@ router.route("/update/:id").put(async (req, res)=>{
         phoneNo
     }
 
-    const update = await Staff.findByIdAndUpdate(id,updateStaffDetails).then(()=>{
+    const update = await Staff.findOneAndUpdate(empId,updateStaffDetails).then(()=>{
         res.status(200).send({status: "Employee Updated"})
     }).catch((err)=>{
         console.log(err);
@@ -84,7 +84,7 @@ router.route("/delete/:id").delete(async(req,res)=>{
 
 router.route("/get/:empId").get(async (req, res) => {
     const empId = req.params.empId;
-    const emp = await Staff.find({ empId: empId }).then((staff) => {
+    const emp = await Staff.findOne({ empId: empId }).then((staff) => {
         res.status(200).send({ status: "User fetched", staff });
     }).catch((err) => {
         console.log(err.message);
