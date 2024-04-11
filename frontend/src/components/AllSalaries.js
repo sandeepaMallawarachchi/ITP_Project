@@ -7,7 +7,7 @@ function AllSalaries() {
     const [salaries, setSalaries] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/netSalary/allSalaries").then((res) => {
+        axios.get(`http://localhost:8070/netSalary/allSalaries`).then((res) => {
             setSalaries(res.data);
         }).catch((error) => {
             alert(error.message);
@@ -23,6 +23,7 @@ function AllSalaries() {
                         <th scope="col">Employee Name</th>
                         <th scope="col">Designation</th>
                         <th scope="col">Month</th>
+                        <th scope="col">Year</th>
                         <th scope="col">Basic Salary</th>
                         <th scope="col">ETF Bonus Amount</th>
                         <th scope="col">EPF Bonus Amount</th>
@@ -37,6 +38,7 @@ function AllSalaries() {
                         <td>{salaries.name}</td>
                         <td>{salaries.designation}</td>
                         <td>{salaries.month}</td>
+                        <td>{salaries.year}</td>
                         <td>{salaries.basicSalary}</td>
                         <td>{salaries.ETFbonus}</td>
                         <td>{salaries.EPFbonus}</td>

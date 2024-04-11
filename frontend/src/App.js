@@ -7,6 +7,7 @@ import UpdateEmployee from './components/UpdateEmployee'
 import DeleteEmployee from './components/DeleteEmployee'
 import AllSalaries from './components/AllSalaries'
 import AddSalary from './components/AddSalary'
+import SalaryReport from './components/SalaryReport'
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/addSalary' element={<AddSalary />} />
+        </Routes>
+        <Routes>
+          <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
         </Routes>
 
       </div>

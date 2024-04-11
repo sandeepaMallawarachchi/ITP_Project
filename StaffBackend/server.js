@@ -25,8 +25,8 @@ connection.once("open",()=>{
     console.log("Mongodb Connection Success!");
 })
 
-const StaffRouter = require("./routes/Staff.js");
-const NetSalaryRouter = require("./routes/netSalary.js");
+const StaffRouter = require("./routes/staff.js");
+const NetSalaryRouter = require("./routes/salary.js");
 
 app.use("/Staff",StaffRouter);
 app.use("/NetSalary",NetSalaryRouter);

@@ -2,13 +2,25 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const netSalrySchema = new Schema({
+const staffManagerSchema = new Schema({
 
     empId : {
         type : String,
         required : true
     },
-    name : {
+    firstName : {
+        type : String,
+        required : true
+    },
+    lastName : {
+        type : String,
+        required : true
+    },
+    gender : {
+        type : String,
+        required : true
+    },
+    department : {
         type : String,
         required : true
     },
@@ -16,37 +28,21 @@ const netSalrySchema = new Schema({
         type : String,
         required : true
     },
-    month : {
+    address : {
         type : String,
         required : true
     },
-    year : {
+    email : {
         type : String,
-        required : true 
-    },
-    basicSalary : {
-        type : Number,
         required : true
     },
-    ETFbonus : {
-        type : Number,
-        required : true
-    },
-    EPFbonus : {
-        type : Number,
-        required : true
-    },
-    netBonus : {
-        type : Number,
-        required : true
-    },
-    netSalary : {
-        type : Number,
+    phoneNo : {
+        type : String,
         required : true
     }
 
 })
 
-const Salary = mongoose.model("Salary",netSalrySchema);
+const StaffManager = mongoose.model("StaffManager",staffManagerSchema);
 
-module.exports = Salary;
+module.exports = StaffManager;
