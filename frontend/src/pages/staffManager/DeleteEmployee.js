@@ -12,7 +12,7 @@ function DeleteEmployee() {
         try {
             await axios.delete(`http://localhost:8070/staff/delete/${id}`);
             alert("Employee deleted!");
-            navigate("/allSalaries")
+            navigate("/allEmployees");
         } catch (error) {
             console.error("Error deleting employee", error.message);
             alert("Error deleting employee. Please try again.");

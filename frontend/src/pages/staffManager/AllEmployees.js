@@ -56,7 +56,7 @@ function AllEmployees() {
                             <td>{employee.address}</td>
                             <td>{employee.email}</td>
                             <td>{employee.phoneNo}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleUpdateEmployees(employee._id)}>Update</button>
+                            <td><button type="submit" class="btn btn-success" onClick={() => handleUpdateEmployees(employee.empId)}>Update</button>
                                 <button type="submit" class="btn btn-danger" onClick={() => handleDeleteEmployees(employee._id)}>Delete</button>
                             </td>
                         </tr>

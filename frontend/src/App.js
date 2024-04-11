@@ -184,7 +184,7 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path='/updateEmployee/:id' element={<UpdateEmployee />} />
+          <Route path='/updateEmployee/:empId' element={<UpdateEmployee />} />
         </Routes>
 
         <Routes>
