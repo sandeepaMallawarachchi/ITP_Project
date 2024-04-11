@@ -13,6 +13,8 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [invalidUsernameOrPhone, setInvalidUsernameOrPhone] = useState(false);
     const [invalidPassword, setInvalidPassword] = useState(false);
+    const [errorUsername, setErrorUsername] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
     const navigate = useNavigate();
 
     const sendData = async (e) => {
@@ -28,28 +30,25 @@ export default function Login() {
             const salespersonID = res.data.salespersonID;
             const role = res.data.role;
 
-            if (res.data.error === 401) {
-                setInvalidPassword(true);
-
-                setTimeout(() => {
-                    setInvalidPassword(false);
-                }, 5000);
-            } else {
-                if (role === 'salesperson') {
-                    navigate(`/salesmenDashboard/${salespersonID}`);
-                }
+            if (role === 'salesperson') {
+                navigate(`/salesmenDashboard/${salespersonID}`);
             }
 
         } catch (error) {
-            if (error.res === 401) {
+            if (error.response && error.response.status === 401) {
                 setInvalidPassword(true);
+                setErrorPassword(true);
+                setErrorUsername(false);
 
                 setTimeout(() => {
                     setInvalidPassword(false);
                 }, 5000);
+                console.error("Error:", error.message);
 
             } else {
                 setInvalidUsernameOrPhone(true);
+                setErrorUsername(true);
+                setErrorPassword(false);
 
                 setTimeout(() => {
                     setInvalidUsernameOrPhone(false);
@@ -70,10 +69,10 @@ export default function Login() {
 
             <div className='absolute mt-72 left-1/3 w-1/3 bg-[#f9fafb] shadow-md sm:rounded-lg p-8 bg-cover bg-center'>
 
-                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${invalidUsernameOrPhone ? 'w-full text-center -mt-20' : 'hidden'}`}>
-                    <span className="font-medium">Invalid credentials!</span>
+                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${invalidUsernameOrPhone ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                    <span className="font-medium">Invalid username or phone!</span>
                 </Alert>
-                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${invalidPassword ? 'w-full text-center -mt-20' : 'hidden'}`}>
+                <Alert color="failure" icon={HiInformationCircle} className={`absolute ${invalidPassword ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
                     <span className="font-medium">Invalid password!</span>
                 </Alert>
 
@@ -83,7 +82,7 @@ export default function Login() {
                         <input
                             type="text"
                             id="usernameOrphone"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errorUsername ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                             placeholder="someone or 071234567"
                             required
                             onChange={(e) => setUsernameOrPhone(e.target.value)}
@@ -95,7 +94,7 @@ export default function Login() {
                         <input
                             type={showPassword ? "text" : "password"}
                             id="password"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errorPassword ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                             placeholder="password"
                             required
                             onChange={(e) => setPassword(e.target.value)}

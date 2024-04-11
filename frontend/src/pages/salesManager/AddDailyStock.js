@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Alert } from "flowbite-react";
+import { HiInformationCircle } from "react-icons/hi";
 
 export default function AddNewSale() {
     const [salesPersonID, setSalesPersonID] = useState("");
@@ -7,7 +9,9 @@ export default function AddNewSale() {
     const [productName, setProductName] = useState([]);
     const [selectedTeaType, setSelectedTeaType] = useState("");
     const [totalStock, setTotalStock] = useState("");
-    const [error, setError] = useState("");
+    const [error, setError] = useState(false);
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [errorsAlert, setErrorAlert] = useState(false);
 
     useEffect(() => {
         const fetchProductName = async () => {
@@ -16,7 +20,14 @@ export default function AddNewSale() {
                 const products = res.data.map(item => item.productName);
                 setProductName(products);
             } catch (error) {
-                setError("Error fetching product names");
+                setErrorAlert(true);
+                setError(true);
+
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 5000);
+
+                console.log(error.message);
             }
         }
 
@@ -27,7 +38,12 @@ export default function AddNewSale() {
         e.preventDefault();
 
         if (!selectedTeaType || !totalStock) {
-            setError("Please select a product name and enter the amount");
+            setError(true);
+            setErrorAlert(true);
+
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 5000);
             return;
         }
 
@@ -35,24 +51,42 @@ export default function AddNewSale() {
             const res = await axios.post(`http://localhost:8070/salesManagement/addStock`, {
                 salesPersonID,
                 salesPersonName,
-                productName: selectedTeaType, 
+                productName: selectedTeaType,
                 totalStock,
             });
-            alert("Stock added");
             console.log(res.data);
 
             setSalesPersonID("");
             setSalesPersonName("");
             setSelectedTeaType("");
             setTotalStock("");
-            setError("");
+
+            setSuccessAlert(true);
+
+            setTimeout(() => {
+                setSuccessAlert(false);
+            }, 5000);
+
         } catch (error) {
-            setError("Error adding stock!");
+            setError(true);
+            setErrorAlert(true);
+
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 5000);
+
+            console.log(error.message);
         }
     };
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
+            <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                <span className="font-medium">Stock added successfully</span>
+            </Alert>
+            <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
+                <span className="font-medium">Error adding stock!</span>
+            </Alert>
             <form onSubmit={handleSubmit}>
                 <div className="mb-6">
                     <label htmlFor="salesPersonID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Salesperson ID</label>
@@ -83,7 +117,7 @@ export default function AddNewSale() {
                 <div className="mb-3">
                     <label htmlFor="productName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select product name</label>
                     <select
-                        className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className={`form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         value={selectedTeaType}
                         onChange={(e) => setSelectedTeaType(e.target.value)}
                         required
@@ -101,7 +135,7 @@ export default function AddNewSale() {
                         type="number"
                         id="amount"
                         placeholder="1000 KG"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         required
                         value={totalStock}
                         onChange={(e) => setTotalStock(e.target.value)}

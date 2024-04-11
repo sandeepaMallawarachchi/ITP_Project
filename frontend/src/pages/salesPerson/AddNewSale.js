@@ -99,10 +99,10 @@ export default function AddNewSale() {
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
-            <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-14' : 'hidden'}`}>
+            <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
                 <span className="font-medium">Sale added successfully</span>
             </Alert>
-            <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-14' : 'hidden'}`}>
+            <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
                 <span className="font-medium">Error adding sale!</span>
             </Alert>
             <form onSubmit={handleSubmit}>

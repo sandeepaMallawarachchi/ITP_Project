@@ -1,7 +1,5 @@
 const router = require("express").Router();
 let Sales = require("../../models/salesModels/salesDetails");
-let Prices = require("../../models/salesModels/priceDetails");
-// let Summary = require("../models/salesModels/summary");
 let Bulk = require("../../models/salesModels/bulkManagement");
 let teaPack = require("../../models/inventoryModels/product");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
@@ -13,33 +11,42 @@ router.route("/addStock").post(async (req, res) => {
     date.setUTCHours(0, 0, 0, 0);
 
     try {
+
+        const stockLevel = await teaPack.findOne({ productName: productName });
+        if (!stockLevel) {
+            throw new Error("Product not found in inventory");
+        }
+        else if (stockLevel.stockLevel < 1) {
+            throw new Error("Out of stock level");
+        }
+        else if (stockLevel.stockLevel < totalStock) {
+            throw new Error("Not enough stock level");
+        }
+
+        stockLevel.stockLevel = parseInt(stockLevel.stockLevel) - parseInt(totalStock);
+
+        await stockLevel.save();
+
         let existingStock = await Bulk.findOne({ salesPersonID, productName, date });
 
+        let newStock;
+
         if (existingStock) {
+
             existingStock.totalStock = parseInt(existingStock.totalStock) + parseInt(totalStock);
+
             await existingStock.save();
             res.json({ status: "Stock updated", sales: existingStock });
         } else {
-            const newStock = await Bulk.create({
+            newStock = await Bulk.create({
                 salesPersonID,
                 salesPersonName,
                 productName,
                 totalStock,
             });
-
-            const stockLevel = await teaPack.findOne({ productName: productName });
-            if (!stockLevel) {
-                throw new Error("Product not found in inventory");
-            }
-
-            stockLevel.stockLevel = parseInt(stockLevel.stockLevel) - parseInt(totalStock);
-            if (stockLevel.stockLevel < 0) {
-                throw new Error("Not enough stock level");
-            }
-
-            await stockLevel.save();
             res.json({ status: "Stock added", sales: newStock });
         }
+
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: error.message });
@@ -102,7 +109,7 @@ router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
         }
 
         const totalSales = salesRecords.length;
-        res.status(200).send({ status: "Sales details fetched", totalSales, totalAmount, salesDetails});
+        res.status(200).send({ status: "Sales details fetched", totalSales, totalAmount, salesDetails });
 
     } catch (error) {
         console.log(error.message);
@@ -113,9 +120,9 @@ router.route("/getSalespersonSales/:salesPersonID").get(async (req, res) => {
 //get remaining stock of products
 router.route("/getRemainingStock").get(async (req, res) => {
     try {
-  
+
         const stockDetails = await teaPack.find();
-       
+
         res.json(stockDetails);
     } catch (error) {
         console.error("Error fetching remaining stock:", error.message);
