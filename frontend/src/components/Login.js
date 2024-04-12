@@ -67,7 +67,7 @@ export default function Login() {
 
             <h1 className='absolute text-center text-5xl mt-48 ml-[45%] text-green-600 font-bold'>Login</h1>
 
-            <div className='absolute mt-72 left-1/3 w-1/3 bg-[#f9fafb] shadow-md sm:rounded-lg p-8 bg-cover bg-center'>
+            <div className='absolute mt-72 left-1/3 w-1/3 bg-[rgba(249, 250, 251, 0.8)] shadow-md sm:rounded-lg p-8 bg-cover bg-center'>
 
                 <Alert color="failure" icon={HiInformationCircle} className={`absolute ${invalidUsernameOrPhone ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
                     <span className="font-medium">Invalid username or phone!</span>
