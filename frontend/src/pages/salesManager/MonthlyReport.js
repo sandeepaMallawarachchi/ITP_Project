@@ -9,20 +9,20 @@ import app from '../../firebase';
 export default function MonthlyReport() {
 
     const [report, setReport] = useState(undefined);
-    const [input, setInput] = useState({});
+    const [downloadURL, setDownloadURL] = useState('');
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
-
         report && uploadFile(report);
     }, [report]);
 
     const uploadFile = (file) => {
         const storage = getStorage(app);
-        const folder = "report/";
         const fileName = new Date().getTime() + file.name;
-        const storageRef = ref(storage, 'report/' + file.name);
+        const storageRef = ref(storage, 'report/' + fileName);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
+        setUploading(true);
 
         uploadTask.on('state_changed',
             (snapshot) => {
@@ -38,7 +38,6 @@ export default function MonthlyReport() {
                 }
             },
             (error) => {
-
                 switch (error.code) {
                     case 'storage/unauthorized':
                         break;
@@ -47,16 +46,13 @@ export default function MonthlyReport() {
                     case 'storage/unknown':
                         break;
                 }
+                setUploading(false);
             },
             () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                    setInput((prev) => {
-                        return {
-                            ...prev,
-                            downloadURL,
-                        }
-                    });
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    console.log('File available at', url);
+                    setDownloadURL(url);
+                    setUploading(false);
                 });
             }
         );
@@ -66,13 +62,29 @@ export default function MonthlyReport() {
         e.preventDefault();
 
         try {
+            if (!report) {
+                return alert("Please select a file!");
+            }
 
-            await axios.post(`http://localhost:8070/salesManagement/uploadReport`, { ...input })
+            if (!uploading) {
+                uploadFile(report);
+            } else {
+                console.log("Upload is already in progress.");
+            }
+
+            if (!downloadURL) {
+                return alert("Please wait for the upload to complete!");
+            }
+
+            await axios.post(`http://localhost:8070/salesManagement/uploadReport`, { downloadURL });
+
+            setDownloadURL('');
+            alert("Report uploaded successfully");
         } catch (error) {
             console.log(error);
-            alert("error upload file!");
+            alert("Error uploading file!");
         }
-    }
+    };
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
@@ -91,8 +103,10 @@ export default function MonthlyReport() {
                     />
                 </div>
                 <button type="submit"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Upload report
+                    className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={uploading}
+                >
+                    {uploading ? "Uploading..." : "Upload report"}
                 </button>
             </form>
         </div>

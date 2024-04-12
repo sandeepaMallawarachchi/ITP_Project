@@ -113,6 +113,10 @@ export default function SalesManagerNavigations() {
         navigate(`/remainingInventoryStock`);
     };
 
+    const handleMonthlyReport = () => {
+        navigate(`/monthlyReport`);
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchStockDetails();
@@ -177,7 +181,7 @@ export default function SalesManagerNavigations() {
                             <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesPersonDetails}>
                                 Salesperson Details
                             </Sidebar.Item>
-                            <Sidebar.Item icon={HiOutlineDocumentReport}>
+                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleMonthlyReport}>
                                 Reports
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
