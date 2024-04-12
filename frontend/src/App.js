@@ -19,6 +19,7 @@ import SalesManagerDashboard from './pages/salesManager/SalesManagerDashboard';
 import SalesPersonDetails from './pages/salesManager/SalesPersonDetails';
 import RemainingInventoryStock from './pages/salesManager/RemainingInventoryStock';
 import MonthlySales from './pages/salesManager/MonthlySales';
+import MonthlyReport from './pages/salesManager/MonthlyReport';
 import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigations';
 
 //inventory
@@ -164,6 +165,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/monthlySales/:salesPersonID' element={<MonthlySales />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/monthlyReport" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/monthlyReport' element={<MonthlyReport />} />
         </Routes>
 
         {/* staff routes */}
