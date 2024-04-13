@@ -192,9 +192,16 @@ router.route('/login').post(async (req, res) => {
 router.use((req, res, next) => {
     if (!req.session.user) {
         console.log("Session expired or invalid. User needs to log in again.");
+
+        req.session.destroy((err) => {
+            if (err) {
+                console.log("Error destroying session:", err);
+            }
+        });
     }
     next();
 });
+
 
 //forget password
 router.route("/forgetPassword").post(async (req, res) => {
@@ -247,5 +254,18 @@ router.route("/forgetPassword").post(async (req, res) => {
         res.status(404).send({ status: "Error!", error: error.message });
     }
 });
+
+//logout
+router.route("/logout").get(async (req, res) => {
+    try {
+
+        req.session = null;
+        res.status(200).send({ status: "Logged out successfully" });
+    } catch (error) {
+        console.log("Error logging out:", error);
+        res.status(500).send({ status: "Error logging out", error: error.message });
+    }
+});
+
 
 module.exports = router;

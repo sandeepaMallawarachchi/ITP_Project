@@ -60,13 +60,19 @@ export default function SalesmenDashboard() {
         }
     };
 
-    const deleteBtn = (id) => {
-        navigate(`/deleteSalesman/${id}`);
-    };
-
     const changePwBtn = () => {
         navigate(`/changeSalesmanPassword/${id}`);
     };
+
+    const handleLogout = async () => {
+        try {
+            await axios.get(`http://localhost:8070/salesmen/logout`);
+            navigate('/');
+        } catch (error) {
+            console.log("Error logging out:", error.message);
+        }
+    };
+
     return (
         <div className='absolute mt-44 left-1/4 w-3/4 '>
             <div id='profDetails' className='absolute w-72'>
@@ -200,9 +206,9 @@ export default function SalesmenDashboard() {
                     Change Password
                 </button>
                 <button type="button"
-                    onClick={deleteBtn}
+                    onClick={handleLogout}
                     className="focus:outline-none mt-8 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                    Delete Account
+                    Logout
                 </button>
             </div>
 
