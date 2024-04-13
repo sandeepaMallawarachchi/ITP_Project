@@ -9,6 +9,14 @@ export default function MonthlyReport() {
 
     const [report, setReport] = useState(undefined);
     const [downloadURL, setDownloadURL] = useState('');
+    const [year, setYear] = useState('');
+    const [month, setMonth] = useState('');
+
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     const [uploading, setUploading] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
@@ -53,8 +61,10 @@ export default function MonthlyReport() {
                 return alert("Please wait for the upload to complete!");
             }
 
-            await axios.post(`http://localhost:8070/salesManagement/uploadReport`, { downloadURL });
+            await axios.post(`http://localhost:8070/salesManagement/uploadReport`, { downloadURL, year, month });
 
+            setYear('');
+            setMonth('');
             setDownloadURL('');
             setReport(null);
             document.getElementById('report').value = '';
@@ -80,8 +90,37 @@ export default function MonthlyReport() {
             <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
                 <span className="font-medium">Error uploading report!</span>
             </Alert>
-            <Spinner aria-label="Default status example" className={` ${uploading ? 'absolute mt-[125px] ml-36' : 'hidden'}`} />
+            <Spinner aria-label="Default status example" className={` ${uploading ? 'absolute mt-[300px] ml-36' : 'hidden'}`} />
             <form onSubmit={handleSubmit}>
+
+                <div className="mb-6">
+                    <label htmlFor="year" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Year</label>
+                    <input
+                        type="text"
+                        id="year"
+                        placeholder="2024"
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        required
+                        value={year}
+                        onChange={(e) => setYear(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="months" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Month</label>
+                    <select
+                        className='form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        value={month}
+                        onChange={(e) => setMonth(e.target.value)}
+                        required
+                    >
+                        <option value="">Select Month</option>
+                        {months.map((month, index) => (
+                            <option key={index} value={month}>{month}</option>
+                        ))}
+                    </select>
+                </div>
+
                 <div className="mb-6">
                     <label htmlFor="report" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add monthly sales report</label>
                     <input

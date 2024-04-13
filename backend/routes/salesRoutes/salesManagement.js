@@ -178,7 +178,7 @@ router.route("/getTotalSales").get(async (req, res) => {
 //upload monthly report
 router.route("/uploadReport").post(async (req, res) => {
 
-    const { downloadURL } = req.body;
+    const { downloadURL, year, month } = req.body;
 
     if (!downloadURL) {
         res.status(400).send({ status: "File url not found" });
@@ -186,7 +186,7 @@ router.route("/uploadReport").post(async (req, res) => {
 
     try {
 
-        const report = await SalesReport.create({ downloadURL });
+        const report = await SalesReport.create({ downloadURL, year, month });
 
         res.status(200).send({ status: "file uploaded successfully", report });
 
