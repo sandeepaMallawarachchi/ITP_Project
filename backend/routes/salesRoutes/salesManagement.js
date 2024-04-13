@@ -196,4 +196,23 @@ router.route("/uploadReport").post(async (req, res) => {
     }
 });
 
+//download monthly report
+router.route("/downloadReport").get(async (req, res) => {
+
+    try {
+
+        const report = await SalesReport.find();
+
+        if (!report) {
+            return res.status(404).send({ status: "Report not found" });
+        }
+
+        res.status(200).send({ status: "file fetched successfully", report });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching file" });
+    }
+});
+
 module.exports = router;

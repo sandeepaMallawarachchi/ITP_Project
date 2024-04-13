@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert, Spinner } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
+import { FaDownload } from "react-icons/fa6";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from '../../firebase';
 
@@ -17,6 +18,7 @@ export default function MonthlyReport() {
         "July", "August", "September", "October", "November", "December"
     ];
 
+    const [reportDetails, setReportDetails] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
@@ -80,6 +82,23 @@ export default function MonthlyReport() {
             }, 5000);
             console.log(error);
         }
+    };
+
+    useEffect(() => {
+        const fetchReport = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8070/salesManagement/downloadReport`);
+                setReportDetails(res.data.report);
+            } catch (error) {
+                console.log("Error fetching details", error.message);
+            }
+        };
+        fetchReport();
+    }, []);
+
+    const handleDownload = (downloadURL) => {
+
+        window.open(downloadURL);
     };
 
     return (
@@ -147,6 +166,35 @@ export default function MonthlyReport() {
                     {uploading ? "Uploading..." : "Upload report"}
                 </button>
             </form>
+
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3">
+                                Year
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Month
+                            </th>
+
+                            <th scope="col" className="px-6 py-3">
+                                Report
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reportDetails.map((detail, index) => (
+                            <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
+                                <td className="px-6 py-4">{detail.year}</td>
+                                <td className="px-6 py-4">{detail.month}</td>
+                                <td className="px-6 py-4"><FaDownload className='cursor-pointer' onClick={() => handleDownload(detail.downloadURL)} /></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            {reportDetails.length === 0 && <span className="ml-64 px-6 py-4">No data found!</span>}
         </div>
     )
 }
