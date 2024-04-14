@@ -120,9 +120,9 @@ router.route("/deleteSalesmen/:id").delete(async (req, res) => {
 });
 
 //change password
-router.route("/changePassword/:id").put(async (req, res) => {
+router.route("/changePassword/:salespersonID").put(async (req, res) => {
 
-    let userId = req.params.id;
+    let salespersonID = req.params.salespersonID;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
 
@@ -137,13 +137,62 @@ router.route("/changePassword/:id").put(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Update password in the database
-        await Salesmen.findByIdAndUpdate(userId, { password: hashedPassword });
+        await Salesmen.findOneAndUpdate(salespersonID, { password: hashedPassword });
 
         res.status(200).send({ status: "Password changed" });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
     }
+});
+
+//staff login form
+router.route('/login').post(async (req, res) => {
+    let { usernameOrPhone, password } = req.body;
+
+    const isPhone = !isNaN(usernameOrPhone);
+
+    try {
+        let staff;
+        if (isPhone) {
+            staff = await Salesmen.findOne({ phone: usernameOrPhone });
+        } else {
+            staff = await Salesmen.findOne({ username: usernameOrPhone });
+        }
+
+        if (staff) {
+            const match = await bcrypt.compare(password, staff.password);
+
+            if (match) {
+                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1m' });
+
+                req.session.user = {
+                    id: staff._id,
+                    username: staff.username,
+                    role: staff.role,
+                    salespersonID: staff.salespersonID,
+                    role: staff.role
+                };
+
+                res.status(200).send({ status: "Login success", token, salespersonID: staff.salespersonID, role: staff.role });
+            } else {
+                res.status(401).send({ status: "Invalid password!" });
+            }
+        } else {
+            res.status(404).send({ status: "Invalid username or phone!" });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+// Middleware to check session status
+router.use((req, res, next) => {
+    if (!req.session.user) {
+        console.log("Session expired or invalid. User needs to log in again.");
+    }
+    next();
 });
 
 module.exports = router;

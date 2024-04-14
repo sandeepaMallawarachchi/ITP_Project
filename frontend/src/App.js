@@ -28,17 +28,21 @@ import InventoryRoutes from "./InventoryRoutes";
 import AddSalary from "./components/staffManager/AddSalary";
 import SalaryReport from "./components/staffManager/SalaryReport";
 
+//login
+import Login from "./components/Login";
+
 function App() {
   return (
     <Router>
       <div className='App'>
+
+        {/* inventory routes */}
         <Routes>
           <Route path="/inventory/*" element={<InventoryRoutes />} />
-          
         </Routes>
-        <Routes>
 
         {/* salesperson routes */}
+        <Routes>
           <Route path="/salesmenDashboard/:id" element={<Navigations />} />
         </Routes>
         <Routes>
@@ -67,6 +71,14 @@ function App() {
         </Routes>
 
         <Routes>
+          <Route path="/myAccount/:id" element={<Navigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/myAccount/:id' element={<MyAccount />} />
+        </Routes>
+
+        {/* sales routes */}
+        <Routes>
           <Route path="/addNewSale/:id" element={<Navigations />} />
         </Routes>
         <Routes>
@@ -85,13 +97,6 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/myAccount/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/myAccount/:id' element={<MyAccount />} />
         </Routes>
 
         <Routes>
@@ -157,6 +162,10 @@ function App() {
           <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
         </Routes>
 
+        {/* login rotes */}
+        <Routes>
+          <Route path='/' element={<Login />} />
+        </Routes>
       </div>
     </Router>
   );
