@@ -67,16 +67,16 @@ export default function Reports(){
 
 
     return (
-        <div className="ml-60">
-            <div >
-                <Button onClick={handlePrint} color="blue" className="my-10 ml-20"> Download Report</Button>
+        <div >
+            <div style={{marginTop:"7rem",marginLeft:"23rem"}} >
+                <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
                 <div  ref={componentRef} >
-                <div className="document-title">Inventory StockCost Report</div>
-                <table >
-                    <thead className="bg-gray-50 border-b-2 border-gray-200 ">
+                <div className="document-title" style={{marginLeft:"23rem",marginTop:"-5rem",fontWeight:"bold",fontSize:"1.5rem"}}>Inventory StockCost Report</div>
+                <table style={{width:"60rem",marginLeft:"2rem",marginTop:"2.5rem"}} >
+                    <thead className="bg-blue-50 border-b-2 border-gray-200 ">
                         <tr>
                             <th className="p-3 text-sm font-semibold tracking-wide text-left w-7rem">Product Name</th>
-                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Tea Type</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left ">Tea Type</th>
                             <th className="p-3 text-sm font-semibold tracking-wide text-left">On hand</th>
                             <th className="p-3 text-sm font-semibold tracking-wide text-left">Unit Cost(Rs.)</th>
                             <th className="p-3 text-sm font-semibold tracking-wide text-left">Total Cost(Rs.)</th>
@@ -89,7 +89,7 @@ export default function Reports(){
                                     if(item.stockLevel !==0){
                                         return (
                                     
-                                            <tr key={index} className="hover:bg-gray-50">
+                                            <tr key={index} className="hover:bg-blue-50">
                                                 <td className="p-3 text-sm text-gray-700 w-7rem">{item.productName}</td>
                                                 <td className="p-3 text-sm text-gray-700">{item.teaType}</td>
                                                 <td className="p-3 text-sm text-gray-700">{item.stockLevel}</td>

@@ -7,7 +7,7 @@ export default function Header(){
 
   
     return (
-        <div className="">
+        <div className="fixed top-0 right-0 z-50" style={{width:"83.4%"}}>
             <Navbar fluid rounded  style={{ backgroundColor: "#E5E5E5"}} >
                 <SearchBar />
 
