@@ -6,9 +6,9 @@ export default function Dashboard(){
 
     return (
         <div>
-            <Piechart />
-            <Barchart />
-            <ReorderProducts />
+            <div style={{marginTop: "7rem",marginLeft:"65rem"}}><Piechart /></div>
+            <div style={{marginTop:"-16rem",marginLeft:"18rem"}}><Barchart /></div>
+            <div style={{marginLeft:"23rem",marginTop:"3rem",marginBottom:"2rem"}}><ReorderProducts /></div>
             
 
         </div>

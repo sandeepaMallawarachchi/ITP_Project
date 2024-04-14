@@ -23,6 +23,7 @@ import SalesManagerNavigations from './components/salesManager/SalesManagerNavig
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
+
 //staf
 import AddSalary from "./components/staffManager/AddSalary";
 import SalaryReport from "./components/staffManager/SalaryReport";

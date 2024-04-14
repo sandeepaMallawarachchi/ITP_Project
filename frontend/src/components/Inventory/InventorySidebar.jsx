@@ -10,15 +10,15 @@ import { IoIosLogOut } from "react-icons/io";
 
 export default function InventorySidebar(){
     return(
-        <div >
-            <Sidebar aria-label="Sidebar with content separator example" className="h-full fixed flex flex-col w-60px" >
+        <div>
+            <Sidebar aria-label="Sidebar with content separator example " className='h-full fixed flex flex-col w-60px'>
                
                     <div className='ml-10'>
                         <img src={logo} id='logo' alt="logo"  />
                     </div>
                     <div>
                 <Sidebar.Items className='pt-5'>
-                     <Sidebar.ItemGroup> 
+                     <Sidebar.ItemGroup className='cursor-pointer'> 
                         <Link to="/inventory/"><Sidebar.Item icon={MdOutlineSpaceDashboard} > Dashboard</Sidebar.Item></Link>
                         <Link to="/inventory/products" ><Sidebar.Item icon={MdOutlineCategory}>Products </Sidebar.Item></Link>
                         <Link to="/inventory/addProduct"><Sidebar.Item icon={IoMdAddCircleOutline} >Add Products </Sidebar.Item></Link>
@@ -29,7 +29,7 @@ export default function InventorySidebar(){
                 </div>
                 <div>
                 <Sidebar.Items className='pt-5'>
-                     <Sidebar.ItemGroup>
+                     <Sidebar.ItemGroup className='cursor-pointer'>
                         <Sidebar.Item  icon={MdOutlineAccountCircle} > My account </Sidebar.Item>
                         <Sidebar.Item  icon={IoIosLogOut} > Log Out </Sidebar.Item>
                      </Sidebar.ItemGroup>

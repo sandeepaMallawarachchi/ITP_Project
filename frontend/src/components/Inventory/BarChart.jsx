@@ -1,7 +1,6 @@
 import { useEffect,useState } from "react";
 import axios from "axios";
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import Chart from "react-apexcharts";
 
 export default function Barchart(){
 
@@ -11,6 +10,7 @@ export default function Barchart(){
 
         async function getOrders(){
             try{
+                //get order data from DB
                 const res = await axios.get("http://localhost:8070/inventory/orders/getAllOrders");
                 setOrders(res.data);
                 //console.log(res.data)
@@ -21,8 +21,8 @@ export default function Barchart(){
         getOrders()
 
     },[])
-
-    function getData(){
+    //categorise order data according to product name
+    function chartData(){
         const array = [];
         var nectarOrder = 0;
         var ceylonOrder = 0;
@@ -42,7 +42,7 @@ export default function Barchart(){
                 case "golden blend tea":
                     blendOrder = blendOrder + item.quantity;
                     break;
-                case "pure ceylon tea":
+                case "ceylon black tea":
                     ceylonOrder = ceylonOrder + item.quantity
                     break;
                 case "hendricks cinnamon tea":
@@ -58,37 +58,69 @@ export default function Barchart(){
         return array;
     }
 
-    const quantities = getData()
-    //console.log(quantities)
+   
+    
+    function Data(){ 
+        return chartData()
+    }
+   //calling Data every min
+   setTimeout(Data,1000*60)
+   const quantities = Data()
 
-    const data = [
-        {name : "Nectar tea", value : quantities[0]},
-        {name : "Green tea" , value : quantities[1]},
-        {name : "Golden Blend tea", value : quantities[2]},
-        {name : "Ceylon tea", value : quantities[3]},
-        {name : "Cinnamon tea", value : quantities[4]},
+
+   //options for chart
+    const options = {
+        chart : {
+            background :'#ADD8E6' 
+        },
+        plotOptions : {
+            bar:{
+                columnWidth : 50
+            }
+        },
+        xaxis : {
+            categories : ["Nectar Tea","Green tea","Golden Blend tea","Ceylon Black tea", "Cinnamon tea"],
+            title: {
+                text: "Tea Type",
+                style: {color : "000000"}
+            }
+        },
+        yaxis : {
+             title :{
+                text: "Quantity",
+                style: {color : "000000"}
+             }
+        },
+        legend : {
+           show : true,
+           position : "bottom"
+        },
+        title :{
+            text : "Total number of products ordered",
+            style :{
+                fontSize : 20
+            }
+        },
+
+        colors : ['#ff3333','#33ff33' ,'#ffff1a','#c65353','#4d4dff'],
+        tooltip:{
+            followCursor:true
+        },
+    }
+
+    //data that is displayed in bar chart
+    const series = [
+        {
+            name :"Orders made" ,
+            data : quantities
+        }
     ]
 
-    console.log(data)
+    
     return (
-        <div>
-            <BarChart
-                    width={400}
-                    height={300}
-                    data={data}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
-                >
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="value" fill="rgb(14 159 110 )" />
-                </BarChart>
+        <div >
+            <Chart options={options} series={series} type="bar" width={700} height={400}/>
+          
         </div>
 
     )

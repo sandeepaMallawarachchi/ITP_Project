@@ -1,13 +1,13 @@
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Label } from 'recharts';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Chart from "react-apexcharts";
 
-import ApexCharts from 'apexcharts'
 
 export default function Piechart() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
+        //fetching the products from DB
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
@@ -19,6 +19,7 @@ export default function Piechart() {
         fetchData();
     }, []);
 
+    //categorising the products according to tea type
     function chartData(){
 
         const array = []
@@ -55,66 +56,32 @@ export default function Piechart() {
         return array;
     }
 
-    const Data = chartData();
-    const finalData = [
-        {name : "Green",value : Data[0] },
-        {name : "Black",value : Data[1] },
-        {name : "Blend",value : Data[2] },
-        {name : "Nectar",value : Data[3] },
-        {name : "Cinnamon",value : Data[4] },
-    ]
+    function Data(){ 
+         return chartData()
 
+    }
+
+    //calling Data function every minute
+    setTimeout(Data,1000*60)
+    const series = Data()
+
+     //chart options
+    const options = {
+        labels : ["Green Tea","Black Tea","Golden Blend Tea","Nectar Tea","Cinnamon Tea"],
+        title : {
+            text : 'Percentage of Products in Inventory'
+        },
+        chart : {
+            background :'#ADD8E6' 
+        },
+       
+    }
     
-
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#dda0dd'];
-
-    const RADIAN = Math.PI / 180;
-    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
     return (
-        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-        </text>
-    );
-    };
+        <div>
 
-   
-   
-
-    return (
-        <div  style={{ marginTop: "90px", marginLeft: "110px" }}>
-         
-           <PieChart width={400} height={400}>
-            <Pie
-                data={finalData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={renderCustomizedLabel}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-            >
-                {finalData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-                {finalData.map((entry,index)=>{
-                     <Label key={`label-${index}`} position="center">
-                     {entry.name}
-                   </Label>
-                })
-
-                }
-            </Pie>
-            </PieChart>
-        
-            
+            <Chart type="pie" width={400} height={400} options={options} series={series} />
         </div>
         
-        
-
     );
 }

@@ -133,70 +133,80 @@ export default function UpdateProduct(){
 
 
     return(
-       <div>
-         <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
-      <div>
-        <div className="mb-2 block">
-          <Label>Product Name</Label>
+        <div style={{marginLeft:"25%",marginTop:"8rem"}}>
+          <form onSubmit={handleSubmit} className="flex w-10/12 flex-col gap-4">
+
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ flex: 1 }}>
+          <div className="mb-2 block">
+            <Label>Product Name</Label>
+          </div>
+          <TextInput  type="text" name="productName" value={data.productName} onChange={handleChange} required />
         </div>
-        <TextInput  type="text" name="productName" value={data.productName} onChange={handleChange} required />
+
+        <div style={{ flex: 1, marginLeft: "5rem" }}>
+          <div className="mb-2 block">
+          <Label>Tea Type</Label>
+          </div>
+          <TextInput  type="text" name="teaType" value={data.teaType} onChange={handleChange} required />
+        </div>
+        </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ flex: 1 }}>
+          <div className="mb-2 block">
+          <Label>Stock Level</Label>
+          </div>
+          <TextInput  type="number" name="stockLevel" value={data.stockLevel} onChange={handleChange} required />
+        </div>
+
+        <div style={{ flex: 1, marginLeft: "5rem" }}>
+          <div className="mb-2 block">
+          <Label>Reorder Level</Label>
+          </div>
+          <TextInput type="number" name="reorderLevel" value={data.reorderLevel} onChange={handleChange} required />
+          <p className="text-sm text-red-700 my-2 ml-3">{formErrors.reorderLevel}</p>
+        </div>
+
       </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Tea Type</Label>
+      <div  style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ flex: 1 }}>
+          <div className="mb-2 block">
+          <Label>Unit Price (Rs.)</Label>
+          </div>
+          <TextInput type="number" name="unitPrice" value={data.unitPrice} onChange={handleChange} required />
         </div>
-        <TextInput  type="text" name="teaType" value={data.teaType} onChange={handleChange} required />
+
+        <div  style={{ flex: 1, marginLeft: "5rem" }}>
+          <div className="mb-2 block">
+          <Label>Weight (Gram)</Label>
+          </div>
+          <TextInput type="number" name="weight" value={data.weight} onChange={handleChange} required />
+        </div>
       </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Stock Level</Label>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ flex: 1 }}>
+          <div className="mb-2 block">
+          <Label>Manufactured Date</Label>
+          </div>
+          <TextInput  type="text" name="manDate" value={data.manDate} onChange={handleChange} required />
+          <p className="text-sm text-red-700 my-2 ml-3">{formErrors.manDate}</p>
         </div>
-        <TextInput  type="number" name="stockLevel" value={data.stockLevel} onChange={handleChange} required />
-      </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Reorder Level</Label>
+        <div style={{ flex: 1, marginLeft: "5rem" }} >
+          <div className="mb-2 block">
+          <Label>Expiry Date</Label>
+          </div>
+          <TextInput  type="text" name="expDate" value={data.expDate} onChange={handleChange} required />
+          <p className="text-sm text-red-700 my-2 ml-3">{formErrors.expDate}</p>
         </div>
-        <TextInput type="number" name="reorderLevel" value={data.reorderLevel} onChange={handleChange} required />
-        <p className="text-sm text-red-700">{formErrors.reorderLevel}</p>
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Unit Price</Label>
         </div>
-        <TextInput type="number" name="unitPrice" value={data.unitPrice} onChange={handleChange} required />
-      </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Weight</Label>
-        </div>
-        <TextInput type="number" name="weight" value={data.weight} onChange={handleChange} required />
+        
+        <Button style={{width:"15rem",marginTop:"3rem"}} color="success" pill type="submit">Update Product</Button>
+      </form>
       </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Manufactured Date</Label>
-        </div>
-        <TextInput  type="text" name="manDate" value={data.manDate} onChange={handleChange} required />
-        <p className="text-sm text-red-700">{formErrors.manDate}</p>
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Expiry Date</Label>
-        </div>
-        <TextInput  type="text" name="expDate" value={data.expDate} onChange={handleChange} required />
-        <p className="text-sm text-red-700">{formErrors.expDate}</p>
-      </div>
-
-      
-      <Button type="submit">Update Product</Button>
-    </form>
-     </div>
     )
 }

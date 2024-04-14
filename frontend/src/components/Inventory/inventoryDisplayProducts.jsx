@@ -26,7 +26,7 @@ export default function DisplayProducts(){
     },[])
     
     return (
-       <div className="ml-72" >
+       <div style={{marginTop:"6rem",marginLeft:"18rem"}} >
             <table>
               <thead className="bg-gray-50 border-b-2 border-gray-200 ">
                 <tr>
@@ -52,17 +52,17 @@ export default function DisplayProducts(){
                     
                     return(
                     <tr key={index} className="hover:bg-gray-50">
-                      <td className="p-3 text-sm text-gray-700 w-52">{item.productName}</td>
-                      <td className="p-3 text-sm text-gray-700">{item.teaType}</td>
-                      <td className="p-3 text-sm text-gray-700" style={{color : toColor ? "red" : "green"}}>{item.stockLevel}</td>
-                      <td className="p-3 text-sm text-gray-700">{item.unitPrice}</td>
-                      <td className="p-3 text-sm text-gray-700">{item.weight}</td>
-                      <td className="p-3 text-sm text-gray-700">{new Date(item.manDate).toLocaleDateString()}</td>
-                      <td className="p-3 text-sm text-gray-700">{new Date(item.expDate).toLocaleDateString()}</td>
-                      <td className="p-3 text-sm text-gray-700" >{item.reorderLevel }</td>
+                      <td className="p-3 text-sm text-gray-500 w-52" >{item.productName.toUpperCase()}</td>
+                      <td className="p-3 text-sm text-gray-500">{item.teaType.toUpperCase()}</td>
+                      <td className="p-3 text-sm text-gray-500" style={{color : toColor ? "red" : "green"}}>{item.stockLevel}</td>
+                      <td className="p-3 text-sm text-gray-500">{item.unitPrice}</td>
+                      <td className="p-3 text-sm text-gray-500">{item.weight}</td>
+                      <td className="p-3 text-sm text-gray-500">{new Date(item.manDate).toLocaleDateString()}</td>
+                      <td className="p-3 text-sm text-gray-500">{new Date(item.expDate).toLocaleDateString()}</td>
+                      <td className="p-3 text-sm text-gray-500" >{item.reorderLevel }</td>
                       <div className="flex gap-2">
-                      <Button color="success" className="my-2.5 mx-5"><Link to={`/inventory/updateProduct/${item._id}`}> Update</Link></Button>
-                      <Button color="failure" className="my-2.5 mx-5"><Link to={`/inventory/deleteProduct/${item._id}`}> Delete</Link> </Button>
+                      <Button color="success" className="my-2 mx-3"><Link to={`/inventory/updateProduct/${item._id}`}> Update</Link></Button>
+                      <Button color="failure" className="my-2 mx-3"><Link to={`/inventory/deleteProduct/${item._id}`}> Delete</Link> </Button>
                       </div>
                     </tr>
                     )}
