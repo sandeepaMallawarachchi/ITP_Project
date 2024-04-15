@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
+let ProfilePicture = require("../../models/salesmenModels/profilePictureDetails");
 
 //register as a new salesmen
 router.route('/salesmenRegister').post(async (req, res) => {
@@ -147,7 +148,7 @@ router.route("/changePassword/:salespersonID").put(async (req, res) => {
     }
 });
 
-//staff login form
+//salesperson login form
 router.route('/login').post(async (req, res) => {
     let { usernameOrPhone, password } = req.body;
 
@@ -267,5 +268,54 @@ router.route("/logout").get(async (req, res) => {
     }
 });
 
+//upload profile picture
+router.route("/uploadProfilePicture").post(async (req, res) => {
+
+    const { imageURL, salespersonID } = req.body;
+
+    if (!imageURL) {
+        res.status(400).send({ status: "Image url not found" });
+    }
+
+    try {
+
+        let profilePicture = await ProfilePicture.findOne({ salespersonID });
+
+        if (profilePicture) {
+
+            profilePicture.imageURL = imageURL;
+            await profilePicture.save();
+        } else {
+
+            profilePicture = await ProfilePicture.create({ imageURL, salespersonID });
+        }
+
+        res.status(200).send({ status: "image uploaded successfully", profilePicture });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error uploading image" });
+    }
+});
+
+//download monthly report
+router.route("/changeProfilePicture/:salespersonID").get(async (req, res) => {
+
+    const { salespersonID } = req.params;
+    try {
+
+        const image = await ProfilePicture.findOne({ salespersonID: salespersonID });
+
+        if (!image) {
+            return res.status(404).send({ status: "Image not found" });
+        }
+
+        res.status(200).send({ status: "image fetched successfully", image });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching image" });
+    }
+});
 
 module.exports = router;

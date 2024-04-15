@@ -71,6 +71,12 @@ app.use("/incomeRt", incomeRouter);
 app.use("/totalIncome", totalIncomRouter);
 app.use("/balanceRt", balance);
 
+
+//employeeLogin routes
+const employeeLoginRouter = require("./routes/loginRoutes/employeeLogin.js");
+
+app.use("/empLogin", employeeLoginRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
