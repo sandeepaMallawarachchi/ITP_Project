@@ -1,44 +1,42 @@
 const router = require("express").Router();
 const { response } = require("express");
-let Staff = require("../models/staffDetails");
+let Vacation = require("../models/vacationDetails");
 
 router.route("/add").post((req,res)=>{
 
-    const empId = req.body.empId;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const gender = req.body.gender;
+    const date = req.body.date;
+    const empName = req.body.empName;
+    const title = req.body.title;
     const department = req.body.department;
-    const designation = req.body.designation;
-    const address = req.body.address;
-    const email = req.body.email;
-    const phoneNo = req.body.phoneNo;
+    const daysEarned = req.body.daysEarned;
+    const reqDate = req.body.reqDate;
+    const returningDate = req.body.returningDate;
+    const totDays = req.body.totDays;
 
-    const newEmp = new Staff({
+    const newEmp = new Vacation({
 
-        empId,
-        firstName,
-        lastName,
-        gender,
+        date,
+        empName,
+        title,
         department,
-        designation,
-        address,
-        email,
-        phoneNo
+        daysEarned,
+        reqDate,
+        returningDate,
+        totDays
 
     })
 
-    newEmp.save().then(()=>{
-       res.json("Staff Member Added") 
+    newVac.save().then(()=>{
+       res.json("Vacation Added") 
     }).catch((err)=>{
         console.log(err);
     })
 
 })
 
-router.route("/allEmployees").get((req,res)=>{
+router.route("/allVacations").get((req,res)=>{
 
-    Staff.find().then((staff)=>{
+    Vacation.find().then((vacation)=>{
         res.json(staff)
     }).catch((err)=>{
         console.log(err)
@@ -46,41 +44,41 @@ router.route("/allEmployees").get((req,res)=>{
 
 })
 
-router.route("/update/:id").put(async (req, res)=>{
-    let id = req.params.id;
-    const {empId,firstName,lastName,gender,department,designation,address,email,phoneNo} = req.body;
+// router.route("/update/:id").put(async (req, res)=>{
+//     let id = req.params.id;
+//     const {empId,firstName,lastName,gender,department,designation,address,email,phoneNo} = req.body;
     
-    const updateStaffDetails = {
-        empId,
-        firstName,
-        lastName,
-        gender,
-        department,
-        designation,
-        address,
-        email,
-        phoneNo
-    }
+//     const updateStaffDetails = {
+//         empId,
+//         firstName,
+//         lastName,
+//         gender,
+//         department,
+//         designation,
+//         address,
+//         email,
+//         phoneNo
+//     }
 
-    const update = await Staff.findByIdAndUpdate(id,updateStaffDetails).then(()=>{
-        res.status(200).send({status: "Employee Updated"})
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).send({status: "Error with updating data",error: err.message});
-    })  
-})
+//     const update = await Staff.findByIdAndUpdate(id,updateStaffDetails).then(()=>{
+//         res.status(200).send({status: "Employee Updated"})
+//     }).catch((err)=>{
+//         console.log(err);
+//         res.status(500).send({status: "Error with updating data",error: err.message});
+//     })  
+// })
 
-router.route("/delete/:id").delete(async(req,res)=>{
-    let id = req.params.id;
+// router.route("/delete/:id").delete(async(req,res)=>{
+//     let id = req.params.id;
 
-    await Staff.findByIdAndDelete(id).then(()=>{
-        res.status(200).send({status: "Employee Deleted"});
-    }).catch((err)=>{
-        console.log(err.message);
-        res.status(500).send({status: "Error with delete employee",error: err.message});
-    })
+//     await Staff.findByIdAndDelete(id).then(()=>{
+//         res.status(200).send({status: "Employee Deleted"});
+//     }).catch((err)=>{
+//         console.log(err.message);
+//         res.status(500).send({status: "Error with delete employee",error: err.message});
+//     })
 
-})
+// })
 
 router.route("/get/:empId").get(async (req, res) => {
     const empId = req.params.empId;
