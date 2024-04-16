@@ -54,11 +54,13 @@ app.use("/inventory/orders", orderRouter)
 app.use("/inventory/reorder", reorderRouter)
 
 //staff routes
-const salaryRouter = require("./routes/staffRoutes/salary.js")
+const salaryRouter = require("./routes/staffRoutes/salary.js");
 const StaffRouter = require("./routes/staffRoutes/staff.js");
+const VacationRouter = require("./routes/staffRoutes/vacation.js");
 
 app.use("/Staff", StaffRouter);
-app.use("/staff/salary", salaryRouter)
+app.use("/staff/salary", salaryRouter);
+app.use("/staff/vacation", VacationRouter);
 
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");

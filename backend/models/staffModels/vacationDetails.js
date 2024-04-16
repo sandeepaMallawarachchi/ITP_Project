@@ -36,6 +36,10 @@ const vacationSchema = new Schema({
         type : Number,
         required : true
     },
+    approvalDate : {
+        type : Date,
+        required : true
+    },
 
 })
 
