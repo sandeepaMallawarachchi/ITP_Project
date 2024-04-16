@@ -33,6 +33,7 @@ import AllEmployees from './pages/staffManager/AllEmployees'
 import UpdateEmployee from './pages/staffManager/UpdateEmployee'
 import DeleteEmployee from './pages/staffManager/DeleteEmployee'
 import AllSalaries from './pages/staffManager/AllSalaries'
+import ManagerRegistration from './pages/staffManager/ManagerRegistration'
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
@@ -201,6 +202,10 @@ function App() {
 
         <Routes>
           <Route path='/allSalaries' element={<AllSalaries />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/managerRegistration' element={<ManagerRegistration />} />
         </Routes>
 
         {/* financial manager routes */}
