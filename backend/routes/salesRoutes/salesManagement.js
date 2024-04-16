@@ -3,6 +3,7 @@ let Sales = require("../../models/salesModels/salesDetails");
 let Bulk = require("../../models/salesModels/bulkManagement");
 let teaPack = require("../../models/inventoryModels/product");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
+let SalesReport = require("../../models/salesModels/reportDetails");
 
 //add tea daily stock for salesperson
 router.route("/addStock").post(async (req, res) => {
@@ -171,6 +172,46 @@ router.route("/getTotalSales").get(async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: "Error fetching details" });
+    }
+});
+
+//upload monthly report
+router.route("/uploadReport").post(async (req, res) => {
+
+    const { downloadURL, year, month } = req.body;
+
+    if (!downloadURL) {
+        res.status(400).send({ status: "File url not found" });
+    }
+
+    try {
+
+        const report = await SalesReport.create({ downloadURL, year, month });
+
+        res.status(200).send({ status: "file uploaded successfully", report });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error uploading file" });
+    }
+});
+
+//download monthly report
+router.route("/downloadReport").get(async (req, res) => {
+
+    try {
+
+        const report = await SalesReport.find();
+
+        if (!report) {
+            return res.status(404).send({ status: "Report not found" });
+        }
+
+        res.status(200).send({ status: "file fetched successfully", report });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching file" });
     }
 });
 

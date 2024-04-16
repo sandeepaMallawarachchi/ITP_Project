@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { MdWavingHand } from "react-icons/md";
-import helloMsg from '../../images/hello.gif';
+import helloMsg from '../../images/dashboardIntro.gif';
 
 export default function SalesmenDashboard() {
     const { id } = useParams();
@@ -126,9 +126,9 @@ export default function SalesmenDashboard() {
                 </BarChart>
 
                 {/* hello gif */}
-                <div className={`absolute ml-64 justify-center ${helloGifVisible ? 'z-50' : 'hidden'}`}>
+                <div className={`absolute pl-48 h-80 bg-white w-1/2 ${helloGifVisible ? 'z-50' : 'hidden'}`}>
                     <img className='w-1/2' src={helloGifSrc} />
-                    <h1 className=' absolute text-5xl text-green-500 font-bold -mt-5 -ml-24'>Let's Sell Something</h1>
+                    <h1 className=' absolute text-5xl text-green-500 font-bold left-16'>Let's Sell Something</h1>
                 </div>
             </div>
             <div className='w-full h-36 flex pl-44 space-x-10 mt-10 ml-3'>
