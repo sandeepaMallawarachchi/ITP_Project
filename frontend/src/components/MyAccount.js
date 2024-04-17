@@ -74,7 +74,7 @@ export default function SalesmenDashboard() {
 
     const handleLogout = async () => {
         try {
-            await axios.get(`http://localhost:8070/salesmen/logout`);
+            await axios.get(`http://localhost:8070/empLogin/logout`);
             navigate('/');
         } catch (error) {
             console.log("Error logging out:", error.message);

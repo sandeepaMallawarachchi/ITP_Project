@@ -203,7 +203,6 @@ router.use((req, res, next) => {
     next();
 });
 
-
 //forget password
 router.route("/forgetPassword").post(async (req, res) => {
 
