@@ -68,7 +68,7 @@ export default function Reports(){
 
     return (
         <div >
-            <div style={{marginTop:"7rem",marginLeft:"23rem"}} >
+            <div style={{marginTop:"10rem",marginLeft:"23rem"}} >
                 <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
                 <div  ref={componentRef} >
                 <div className="document-title" style={{marginLeft:"23rem",marginTop:"-5rem",fontWeight:"bold",fontSize:"1.5rem"}}>Inventory StockCost Report</div>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Label, TextInput } from "flowbite-react";
+import Swal from "sweetalert2";
 
 export default function UpdateProduct(){
 
@@ -72,7 +73,8 @@ export default function UpdateProduct(){
           });
             
           console.log(response.data)
-          alert("successfully updated")
+          //alert("successfully updated")
+          Swal.fire(`Updated ${data.productName} details successfully`);
           navigate("/inventory/products")
             
           }catch(err){
@@ -133,7 +135,7 @@ export default function UpdateProduct(){
 
 
     return(
-        <div style={{marginLeft:"25%",marginTop:"8rem"}}>
+        <div style={{marginLeft:"25%",marginTop:"10rem"}}>
           <form onSubmit={handleSubmit} className="flex w-10/12 flex-col gap-4">
 
         <div className="flex justify-between">

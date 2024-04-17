@@ -67,7 +67,7 @@ export default function DeleteProduct(){
 
 
     return(
-          <div style={{marginLeft:"25%",marginTop:"8rem"}}>
+          <div style={{marginLeft:"25%",marginTop:"10rem"}}>
           <form onSubmit={deleteProduct} className="flex w-10/12 flex-col gap-4">
         
         <div className="flex justify-between">
