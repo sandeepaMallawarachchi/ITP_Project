@@ -19,12 +19,8 @@ const reorderSchema = new Schema({
     reorderLevel : {
         type : Number,
         required : true
-    },
-    
-    date : {
-        type : Date,
-        required : true
     }
+    
     
 },{timestamps : true})
 
