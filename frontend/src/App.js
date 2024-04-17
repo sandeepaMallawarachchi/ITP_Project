@@ -1,35 +1,55 @@
 // import React, { useState } from "react";
 //sales person
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SalesmenDashboard from './components/salesPerson/SalesmenDashboard';
-import UpdateSalesmanDetails from './components/salesPerson/UpdateSalesmanDetails';
-import DeleteSalesman from './components/salesPerson/DeleteSalesman';
-import ChangeSalesmanPassword from './components/salesPerson/ChangeSalesmanPassword';
-import AddNewSale from './components/salesPerson/AddNewSale';
-import SalesSummary from './components/salesPerson/SalesSummary';
-import CurrentSale from './components/salesPerson/CurrentSale';
+import SalesmenDashboard from './pages/salesPerson/SalesmenDashboard';
+import UpdateSalesmanDetails from './pages/salesPerson/UpdateSalesmanDetails';
+import DeleteSalesman from './pages/salesPerson/DeleteSalesman';
+import ChangeSalesmanPassword from './pages/salesPerson/ChangeSalesmanPassword';
+import AddNewSale from './pages/salesPerson/AddNewSale';
+import SalesSummary from './pages/salesPerson/SalesSummary';
+import CurrentSale from './pages/salesPerson/CurrentSale';
 import MyAccount from './components/MyAccount';
-import DeleteSale from './components/salesPerson/DeleteSale';
-import RemainingStock from './components/salesPerson/RemainingStock';
+import DeleteSale from './pages/salesPerson/DeleteSale';
+import RemainingStock from './pages/salesPerson/RemainingStock';
 import Navigations from './components/Navigations';
 
 //sales manager
-import AddDailyStock from './components/salesManager/AddDailyStock';
-import SalesManagerDashboard from './components/salesManager/SalesManagerDashboard';
-import SalesPersonDetails from './components/salesManager/SalesPersonDetails';
-import RemainingInventoryStock from './components/salesManager/RemainingInventoryStock';
-import MonthlySales from './components/salesManager/MonthlySales';
-import SalesManagerNavigations from './components/salesManager/SalesManagerNavigations';
+import AddDailyStock from './pages/salesManager/AddDailyStock';
+import SalesManagerDashboard from './pages/salesManager/SalesManagerDashboard';
+import SalesPersonDetails from './pages/salesManager/SalesPersonDetails';
+import RemainingInventoryStock from './pages/salesManager/RemainingInventoryStock';
+import MonthlySales from './pages/salesManager/MonthlySales';
+import MonthlyReport from './pages/salesManager/MonthlyReport';
+import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigations';
+
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
 
 //staf
-import AddSalary from "./components/staffManager/AddSalary";
-import SalaryReport from "./components/staffManager/SalaryReport";
+import AddSalary from "./pages/staffManager/AddSalary";
+import SalaryReport from "./pages/staffManager/SalaryReport";
+import AddEmployee from './pages/staffManager/AddEmployee'
+import AllEmployees from './pages/staffManager/AllEmployees'
+import UpdateEmployee from './pages/staffManager/UpdateEmployee'
+import DeleteEmployee from './pages/staffManager/DeleteEmployee'
+import AllSalaries from './pages/staffManager/AllSalaries'
+import ManagerRegistration from './pages/staffManager/ManagerRegistration'
+
+//financial
+import AddExpenses from './pages/financialManager/addExpenses';
+import Home from './pages/financialManager/expensesHome';
+import HomeIn from './pages/financialManager/incomeHome';
+import AddIncome from './pages/financialManager/addIncome';
+import DeleteEx from './pages/financialManager/deleteExpenses';
+import UpdateExpenses from './pages/financialManager/updateExpenses';
+import DeleteIn from './pages/financialManager/deleteIncome';
+import UpdateIncome from './pages/financialManager/updateIncome';
+import BalanceSheet from './pages/financialManager/balanceSheet';
 
 //login
 import Login from "./components/Login";
+import ForgetPassword from "./components/ForgetPassword";
 
 function App() {
   return (
@@ -122,10 +142,10 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/salesManagerDashboard" element={<SalesManagerNavigations />} />
+          <Route path="/salesManagerDashboard/:id" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
-          <Route path='/salesManagerDashboard' element={<SalesManagerDashboard />} />
+          <Route path='/salesManagerDashboard/:id' element={<SalesManagerDashboard />} />
         </Routes>
 
         <Routes>
@@ -149,11 +169,14 @@ function App() {
           <Route path='/monthlySales/:salesPersonID' element={<MonthlySales />} />
         </Routes>
 
-        {/* staff routes */}
+        <Routes>
+          <Route path="/monthlyReport" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/monthlyReport' element={<MonthlyReport />} />
+        </Routes>
 
-        {/* <Routes>
-          <Route path='/addSalary' element={<Navigations />} />
-        </Routes> */}
+        {/* staff routes */}
         <Routes>
           <Route path='/addSalary' element={<AddSalary />} />
         </Routes>
@@ -162,9 +185,74 @@ function App() {
           <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
         </Routes>
 
+        <Routes>
+          <Route path='/addEmployee' element={<AddEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allEmployees' element={<AllEmployees />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/updateEmployee/:empId' element={<UpdateEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allSalaries' element={<AllSalaries />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/managerRegistration' element={<ManagerRegistration />} />
+        </Routes>
+
+        {/* financial manager routes */}
+        <Routes>
+          <Route path="/add" element={<AddExpenses />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/HomeExpenses" element={<Home />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/HomeIncome" element={<HomeIn />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/addIncome" element={<AddIncome />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/deleteExpen/:id" element={<DeleteEx />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/updateExpenses/:id" element={<UpdateExpenses />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/deleteIncome/:id" element={<DeleteIn />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/updateIncome/:id" element={<UpdateIncome />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/balanceSheetHome" element={<BalanceSheet />} />
+        </Routes>
+
         {/* login rotes */}
         <Routes>
           <Route path='/' element={<Login />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/forgetPassword' element={<ForgetPassword />} />
         </Routes>
       </div>
     </Router>
