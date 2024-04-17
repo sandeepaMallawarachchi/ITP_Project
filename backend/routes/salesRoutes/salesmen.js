@@ -149,59 +149,71 @@ router.route("/changePassword/:salespersonID").put(async (req, res) => {
 });
 
 //salesperson login form
-router.route('/login').post(async (req, res) => {
-    let { usernameOrPhone, password } = req.body;
+// router.route('/login').post(async (req, res) => {
+//     let { usernameOrPhone, password } = req.body;
 
-    const isPhone = !isNaN(usernameOrPhone);
+//     const isPhone = !isNaN(usernameOrPhone);
 
-    try {
-        let staff;
-        if (isPhone) {
-            staff = await Salesmen.findOne({ phone: usernameOrPhone });
-        } else {
-            staff = await Salesmen.findOne({ username: usernameOrPhone });
-        }
+//     try {
+//         let staff;
+//         if (isPhone) {
+//             staff = await Salesmen.findOne({ phone: usernameOrPhone });
+//         } else {
+//             staff = await Salesmen.findOne({ username: usernameOrPhone });
+//         }
 
-        if (staff) {
-            const match = await bcrypt.compare(password, staff.password);
+//         if (staff) {
+//             const match = await bcrypt.compare(password, staff.password);
 
-            if (match) {
-                const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+//             if (match) {
+//                 const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-                req.session.user = {
-                    id: staff._id,
-                    username: staff.username,
-                    role: staff.role,
-                    salespersonID: staff.salespersonID,
-                    role: staff.role
-                };
+//                 req.session.user = {
+//                     id: staff._id,
+//                     username: staff.username,
+//                     role: staff.role,
+//                     salespersonID: staff.salespersonID,
+//                     role: staff.role
+//                 };
 
-                res.status(200).send({ status: "Login success", token, salespersonID: staff.salespersonID, role: staff.role });
-            } else {
-                res.status(401).send({ status: "Invalid password!" });
-            }
-        } else {
-            res.status(404).send({ status: "Invalid username or phone!" });
-        }
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ status: "Error!", error: error.message });
-    }
-});
+//                 res.status(200).send({ status: "Login success", token, salespersonID: staff.salespersonID, role: staff.role });
+//             } else {
+//                 res.status(401).send({ status: "Invalid password!" });
+//             }
+//         } else {
+//             res.status(404).send({ status: "Invalid username or phone!" });
+//         }
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ status: "Error!", error: error.message });
+//     }
+// });
 
 // Middleware to check session status
-router.use((req, res, next) => {
-    if (!req.session.user) {
-        console.log("Session expired or invalid. User needs to log in again.");
+// router.use((req, res, next) => {
+//     if (!req.session.user) {
+//         console.log("Session expired or invalid. User needs to log in again.");
 
-        req.session.destroy((err) => {
-            if (err) {
-                console.log("Error destroying session:", err);
-            }
-        });
-    }
-    next();
-});
+//         req.session.destroy((err) => {
+//             if (err) {
+//                 console.log("Error destroying session:", err);
+//             }
+//         });
+//     }
+//     next();
+// });
+
+//logout
+// router.route("/logout").get(async (req, res) => {
+//     try {
+
+//         req.session = null;
+//         res.status(200).send({ status: "Logged out successfully" });
+//     } catch (error) {
+//         console.log("Error logging out:", error);
+//         res.status(500).send({ status: "Error logging out", error: error.message });
+//     }
+// });
 
 //forget password
 router.route("/forgetPassword").post(async (req, res) => {
@@ -252,18 +264,6 @@ router.route("/forgetPassword").post(async (req, res) => {
 
     } catch (error) {
         res.status(404).send({ status: "Error!", error: error.message });
-    }
-});
-
-//logout
-router.route("/logout").get(async (req, res) => {
-    try {
-
-        req.session = null;
-        res.status(200).send({ status: "Logged out successfully" });
-    } catch (error) {
-        console.log("Error logging out:", error);
-        res.status(500).send({ status: "Error logging out", error: error.message });
     }
 });
 
