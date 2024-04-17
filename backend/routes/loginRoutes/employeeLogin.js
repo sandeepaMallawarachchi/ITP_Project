@@ -3,12 +3,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 let Manager = require("../../models/staffModels/managerDetails");
+let Salesmen = require("../../models/salesmenModels/salesmenDetails");
 
 //register a new manager
 router.route('/managerRegister').post(async (req, res) => {
     const empId = req.body.empId;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
+    const username = req.body.username;
     const gender = req.body.gender;
     const department = req.body.department;
     const designation = req.body.designation;
@@ -31,7 +33,7 @@ router.route('/managerRegister').post(async (req, res) => {
             return res.status(400).json({ error: "Passwords do not match" });
         }
 
-        const existingManager = await Manager.find({ firstName, lastName, designation });
+        const existingManager = await Manager.find({ username, designation });
 
         if (existingManager.length > 0) {
             return res.status(400).json({ error: "Manager already exists!" });
@@ -44,6 +46,7 @@ router.route('/managerRegister').post(async (req, res) => {
             empId,
             firstName,
             lastName,
+            username,
             password: hashedPassword,
             gender,
             department,
@@ -61,36 +64,65 @@ router.route('/managerRegister').post(async (req, res) => {
     }
 });
 
-//manager login form
-router.route('/managerLogin').post(async (req, res) => {
-    const { designation, password } = req.body;
+//employee login form
+router.route('/employeeLogin').post(async (req, res) => {
+    const { usernameOrPhone, password } = req.body;
 
     try {
-        const manager = await Manager.findOne({ designation });
+        const isPhone = !isNaN(usernameOrPhone);
 
-        if (manager) {
+        let staff;
+
+        if (isPhone) {
+            staff = await Salesmen.findOne({ phone: usernameOrPhone });
+        } else {
+            staff = await Salesmen.findOne({ username: usernameOrPhone });
+        }
+
+        if (!staff) {
+            const manager = await Manager.findOne({ username: usernameOrPhone });
+
+            if (!manager) {
+                return res.status(404).json({ status: "Invalid username or phone!" });
+            }
 
             const match = await bcrypt.compare(password, manager.password);
 
-            if (match) {
-                const token = jwt.sign({ id: manager._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-                req.session.user = {
-                    id: manager._id,
-                    designation: manager.designation,
-                    empID: manager.empID,
-                };
-
-                res.status(200).send({ status: "Login success", token, empID: manager.empID, designation: manager.designation });
-            } else {
-                res.status(401).send({ status: "Invalid password!" });
+            if (!match) {
+                return res.status(401).json({ status: "Invalid password!" });
             }
-        } else {
-            res.status(404).send({ status: "Invalid designation!" });
+
+            const token = jwt.sign({ id: manager._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+            req.session.user = {
+                id: manager._id,
+                username: manager.username,
+                empID: manager.empID,
+            };
+
+            return res.status(200).json({ status: "Login success", token, empID: manager.empID, username: manager.username, designation: manager.designation });
         }
+
+        const match = await bcrypt.compare(password, staff.password);
+
+        if (!match) {
+            return res.status(401).json({ status: "Invalid password!" });
+        }
+
+        const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+        req.session.user = {
+            id: staff._id,
+            username: staff.username,
+            role: staff.role,
+            salespersonID: staff.salespersonID,
+        };
+
+        res.status(200).json({ status: "Login success", token, salespersonID: staff.salespersonID, role: staff.role });
+
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ status: "Error!", error: error.message });
+        console.error("Error:", error.message);
+        res.status(500).json({ status: "Error!", error: error.message });
     }
 });
 

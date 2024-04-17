@@ -7,6 +7,7 @@ export default function ManagerRegistration() {
     const [empId, setEmpId] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [gender, setGender] = useState("");
@@ -25,6 +26,7 @@ export default function ManagerRegistration() {
             empId,
             firstName,
             lastName,
+            username,
             password,
             confirmPassword,
             gender,
@@ -66,6 +68,13 @@ export default function ManagerRegistration() {
                     <label for="lastName" class="form-label">Enter Last Name: </label>
                     <input type="text" class="form-control" id="lastName" required onChange={(e) => {
                         setLastName(e.target.value);
+                    }} />
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Enter Username: </label>
+                    <input type="text" class="form-control" id="username" required onChange={(e) => {
+                        setUsername(e.target.value);
                     }} />
                 </div>
 

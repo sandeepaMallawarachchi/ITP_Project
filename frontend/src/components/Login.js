@@ -21,20 +21,22 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:8070/salesmen/login`, {
+            const res = await axios.post(`http://localhost:8070/empLogin/employeeLogin`, {
                 usernameOrPhone,
                 password
             });
 
-            const token = res.data.token;
-            const salespersonID = res.data.salespersonID;
-            const role = res.data.role;
-
-            if (role === 'salesperson') {
+            if (res.data.role === 'salesperson') {
+                const salespersonID = res.data.salespersonID;
                 navigate(`/salesmenDashboard/${salespersonID}`);
+                return;
             }
-
+            else if (res.data.designation === 'Sales Manager') {
+                navigate(`/salesManagerDashboard`);
+                return;
+            }
         } catch (error) {
+            console.error("Error in salesmen login request:", error.message);
             if (error.response && error.response.status === 401) {
                 setInvalidPassword(true);
                 setErrorPassword(true);
