@@ -141,10 +141,10 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/salesManagerDashboard" element={<SalesManagerNavigations />} />
+          <Route path="/salesManagerDashboard/:id" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
-          <Route path='/salesManagerDashboard' element={<SalesManagerDashboard />} />
+          <Route path='/salesManagerDashboard/:id' element={<SalesManagerDashboard />} />
         </Routes>
 
         <Routes>
