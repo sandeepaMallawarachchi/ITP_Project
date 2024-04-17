@@ -152,4 +152,21 @@ router.route("/logout").get(async (req, res) => {
     }
 });
 
+//get manager by id
+router.route("/getManager/:empId").get(async (req, res) => {
+
+    let empId = req.params.empId;
+
+    try {
+        let manager = await Manager.findOne({ empId: empId });
+        if (!manager) {
+            return res.status(404).send({ status: "Error!", message: "manager not found." });
+        }
+        res.status(200).send({ status: "manager fetched", manager });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
 module.exports = router;

@@ -35,6 +35,11 @@ export default function Login() {
                 navigate(`/salesManagerDashboard`);
                 return;
             }
+
+            else if (res.data.designation === 'Inventory Manager') {
+                navigate(`/inventory`);
+                return;
+            }
         } catch (error) {
             console.error("Error in salesmen login request:", error.message);
             if (error.response && error.response.status === 401) {
