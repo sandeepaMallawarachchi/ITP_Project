@@ -24,7 +24,7 @@ export default function ReorderProducts(){
     return (
         <div >
             
-            <h2 style={{fontWeight:"bold",fontSize:"1.2rem",backgroundColor:"yellow",width:"22rem"}}>Products that reached Reorder Level</h2>
+            <h2 style={{fontWeight:"bold",fontSize:"1.2rem",backgroundColor:"#ADD8E6",width:"22rem"}}>Products that reached Reorder Level</h2>
             <div>
                 <table  style={{width:"60rem",marginTop:"2rem"}}>
                     <thead className="bg-blue-50 border-b-2 border-gray-200 ">

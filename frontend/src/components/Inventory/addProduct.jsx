@@ -131,14 +131,14 @@ export default function AddProduct() {
       <div style={{marginLeft:"25%",marginTop:"8rem"}}>
       <form onSubmit={handleSubmit} className="flex w-10/12 flex-col gap-4 ">
       
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div style={{ flex: 1 }}>
+      <div className="flex justify-between">
+              <div className="flex-1">
                 <div className="mb-2 block">
                   <Label>Product Name</Label>
                 </div>
                 <TextInput type="text" name="name" value={productData.name} onChange={handleChange} required />
               </div>
-              <div style={{ flex: 1, marginLeft: "5rem" }}>
+              <div className="flex-1 ml-20">
                 <div className="mb-2 block">
                   <Label>Tea Type</Label>
                 </div>
@@ -146,15 +146,15 @@ export default function AddProduct() {
               </div>
             </div>
 
-  <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{flex:1}}>
+      <div className="flex justify-between">
+        <div className="flex-1">
           <div className="mb-2 block">
           <Label>Stock Level</Label>
           </div>
           <TextInput  type="number" name="stockLevel" value={productData.stockLevel} onChange={handleChange} required />
       </div>
 
-        <div style={{ flex: 1, marginLeft: "5rem"}}>
+        <div className="flex-1 ml-20">
           <div className="mb-2 block">
           <Label>Reorder Level</Label>
           </div>
@@ -163,15 +163,15 @@ export default function AddProduct() {
         </div>
   </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{flex:1}}>
+      <div className="flex justify-between">
+        <div className="flex-1">
           <div className="mb-2 block">
           <Label>Unit Price(Rs)</Label>
           </div>
           <TextInput type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
 
-        <div style={{ flex: 1, marginLeft: "5rem"}}>
+        <div className="flex-1 ml-20">
           <div className="mb-2 block">
           <Label>Weight(Grams)</Label>
           </div>
@@ -180,8 +180,8 @@ export default function AddProduct() {
       </div>
 
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{flex:1}}>
+      <div className="flex justify-between">
+        <div className="flex-1">
           <div className="mb-2 block">
           <Label>Manufactured Date</Label>
           </div>
@@ -189,7 +189,7 @@ export default function AddProduct() {
           <p className="text-sm text-red-700  my-2 ml-3">{formErrors.manDate}</p>
         </div>
 
-        <div style={{ flex: 1, marginLeft: "5rem"}}>
+        <div className="flex-1 ml-20">
           <div className="mb-2 block">
           <Label>Expiry Date</Label>
           </div>
