@@ -8,17 +8,17 @@ function DeleteReportData() {
 
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:5000/report/deleteReportData/${id}`);
+            await axios.delete(`http://localhost:5000/report/delete/${id}`);
             navigate("/allReportData");
         } catch (error) {
-            console.error("Error deleting report data", error.message);
-            alert("Error deleting report data. Please try again.");
+            console.error("Error deleting data", error.message);
+            alert("Error deleting data. Please try again.");
         }
     };
 
     return (
         <div>
-            <p>Are you sure you want to delete this data?</p>
+            <p>Are you sure you want to delete this details?</p>
             <button style={{ margin: "0 30px 0 0" }} className='btn btn-danger' onClick={yesBtn}>Yes</button>
             <Link to="/allReportData"><button className='btn btn-primary'>No</button></Link>
         </div>
