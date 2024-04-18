@@ -37,6 +37,7 @@ import ManagerRegistration from './pages/staffManager/ManagerRegistration'
 import AddVacation from './pages/staffManager/AddVacation'
 import AllVacations from './pages/staffManager/AllVacations'
 import ManagerAccount from './components/ManagerAccount'
+import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
@@ -209,7 +210,15 @@ function App() {
 
         {/* staff routes */}
         <Routes>
-          <Route path='/addSalary' element={<AddSalary />} />
+          <Route path='/addSalary/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/addSalary/:id' element={<AddSalary />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/salary/:empId/:month/:year' element={<StaffManagerNavigation />} />
         </Routes>
 
         <Routes>
@@ -217,11 +226,23 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path='/addEmployee' element={<AddEmployee />} />
+          <Route path='/addEmployee/:id' element={<StaffManagerNavigation />} />
         </Routes>
 
         <Routes>
-          <Route path='/allEmployees' element={<AllEmployees />} />
+          <Route path='/addEmployee/:id' element={<AddEmployee />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allEmployees/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allEmployees/:id' element={<AllEmployees />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/updateEmployee/:empId' element={<StaffManagerNavigation />} />
         </Routes>
 
         <Routes>
@@ -229,23 +250,43 @@ function App() {
         </Routes>
 
         <Routes>
+          <Route path='/deleteEmployee/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+
+        <Routes>
           <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
         </Routes>
 
         <Routes>
-          <Route path='/allSalaries' element={<AllSalaries />} />
+          <Route path='/allSalaries/:id' element={<StaffManagerNavigation />} />
         </Routes>
 
         <Routes>
-          <Route path='/managerRegistration' element={<ManagerRegistration />} />
+          <Route path='/allSalaries/:id' element={<AllSalaries />} />
         </Routes>
 
         <Routes>
-          <Route path='/addVacation' element={<AddVacation />} />
+          <Route path='/managerRegistration/:id' element={<StaffManagerNavigation />} />
         </Routes>
 
         <Routes>
-          <Route path='/allVacations' element={<AllVacations />} />
+          <Route path='/managerRegistration/:id' element={<ManagerRegistration />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/addVacation/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/addVacation/:id' element={<AddVacation />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allVacations/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allVacations/:id' element={<AllVacations />} />
         </Routes>
 
         {/* financial manager routes */}
