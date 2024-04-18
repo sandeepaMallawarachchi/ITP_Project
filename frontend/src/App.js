@@ -25,6 +25,7 @@ import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigation
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
+
 //staf
 import AddSalary from "./pages/staffManager/AddSalary";
 import SalaryReport from "./pages/staffManager/SalaryReport";

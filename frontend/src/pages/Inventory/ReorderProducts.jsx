@@ -1,6 +1,5 @@
 import { useEffect , useState} from "react";
 import axios from "axios";
-import { Table } from "flowbite-react";
 
 export default function ReorderProducts(){
 
@@ -23,36 +22,38 @@ export default function ReorderProducts(){
     },[])
 
     return (
-        <div className="ml-96">
+        <div >
             
-            <strong>Recent Orders</strong>
-            <div className="overflow-x-auto">
-                <Table hoverable>
-                    <Table.Head>
-                       <Table.HeadCell className="w-52">Product Name</Table.HeadCell>
-                       <Table.HeadCell className="w-32">Tea type</Table.HeadCell>
-                       <Table.HeadCell className="w-32">Stock Level</Table.HeadCell>
-                       <Table.HeadCell className="w-32">Time</Table.HeadCell>
-                       <Table.HeadCell className="w-32">Date</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
-                        {
-                            orders.map((item,index)=>{
-                                return(
-                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
-                                        <Table.Cell >{item.productName}</Table.Cell>
-                                        <Table.Cell>{item.teaType}</Table.Cell>
-                                        <Table.Cell>{item.stockLevel}</Table.Cell>
-                                        <Table.Cell>{new Date(item.createdAt).toLocaleTimeString()}</Table.Cell>
-                                        <Table.Cell>{new Date(item.createdAt).toLocaleDateString()}</Table.Cell>
-                                    </Table.Row>
-                                )
-                            })
-                        }
-                    
-                   </Table.Body>
-                 </Table>
+            <h2 style={{fontWeight:"bold",fontSize:"1.2rem",backgroundColor:"#ADD8E6",width:"22rem"}}>Products that reached Reorder Level</h2>
+            <div>
+                <table  style={{width:"60rem",marginTop:"2rem"}}>
+                    <thead className="bg-blue-50 border-b-2 border-gray-200 ">
+                        <tr>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left w-52">Product Name</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Tea Type</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Stock Level</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Time</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                       {
+                        orders.map((item,index)=>{
+                            return(
+                                <tr  className="hover:bg-gray-50" key={index}>
+                                    <td className="p-3 text-sm text-gray-700 w-52">{item.productName}</td>
+                                    <td className="p-3 text-sm text-gray-700">{item.teaType}</td>
+                                    <td className="p-3 text-sm text-gray-700">{item.stockLevel}</td>
+                                    <td className="p-3 text-sm text-gray-700">{new Date(item.createdAt).toLocaleTimeString()}</td>
+                                    <td className="p-3 text-sm text-gray-700">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                </tr>
+                            )
+                        })
+                       }
+                    </tbody>
+                </table>
             </div>
+           
         </div>
            
         

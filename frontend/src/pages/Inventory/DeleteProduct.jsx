@@ -67,70 +67,82 @@ export default function DeleteProduct(){
 
 
     return(
-        <div>
-         <form onSubmit={deleteProduct} className="flex max-w-md flex-col gap-4">
-      <div>
-        <div className="mb-2 block">
-          <Label>Product Name</Label>
+          <div style={{marginLeft:"25%",marginTop:"8rem"}}>
+          <form onSubmit={deleteProduct} className="flex w-10/12 flex-col gap-4">
+        
+        <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+            <Label>Product Name</Label>
+          </div>
+          <TextInput  type="text" name="name" value={data.productName} disabled />
         </div>
-        <TextInput  type="text" name="name" value={data.productName} disabled />
-      </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Tea Type</Label>
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Tea Type</Label>
+          </div>
+          <TextInput  type="text" name="type" value={data.teaType}  disabled />
         </div>
-        <TextInput  type="text" name="type" value={data.teaType}  disabled />
-      </div>
+      </div>  
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Stock Level</Label>
+      <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+          <Label>Stock Level</Label>
+          </div>
+          <TextInput  type="number" name="stockLevel" value={data.stockLevel}  disabled />
         </div>
-        <TextInput  type="number" name="stockLevel" value={data.stockLevel}  disabled />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Reorder Level</Label>
+      
+      
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Reorder Level</Label>
+          </div>
+          <TextInput type="number" name="reorderLevel" value={data.reorderLevel}  disabled />
         </div>
-        <TextInput type="number" name="reorderLevel" value={data.reorderLevel}  disabled />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Unit Price</Label>
-        </div>
-        <TextInput type="number" name="price" value={data.unitPrice} disabled />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Weight</Label>
-        </div>
-        <TextInput type="number" name="weight" value={data.weight} disabled />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Manufactured Date</Label>
-        </div>
-        <TextInput  type="text" name="manDate" value={data.manDate}  disabled/>
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Expiry Date</Label>
-        </div>
-        <TextInput  type="text" name="expDate" value={data.expDate} disabled />
       </div>
 
       
-      <Button type="submit">Delete Product</Button>
-    </form>
-
-
+      <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+          <Label>Unit Price</Label>
+          </div>
+          <TextInput type="number" name="price" value={data.unitPrice} disabled />
         </div>
+     
+
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Weight</Label>
+          </div>
+          <TextInput type="number" name="weight" value={data.weight} disabled />
+        </div>
+      </div>
+
+      <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+          <Label>Manufactured Date</Label>
+          </div>
+          <TextInput  type="text" name="manDate" value={data.manDate}  disabled/>
+        </div>
+
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Expiry Date</Label>
+          </div>
+          <TextInput  type="text" name="expDate" value={data.expDate} disabled />
+        </div>
+      </div>
+
+        
+        <Button className="w-60 mt-12" color="failure" pill type="submit">Delete Product</Button>
+      </form>
+
+
+      </div>
         
     )
 }
