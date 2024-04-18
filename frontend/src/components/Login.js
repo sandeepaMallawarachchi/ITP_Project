@@ -43,7 +43,8 @@ export default function Login() {
             }
 
             else if (res.data.designation === 'Staff Manager') {
-                navigate(`/allEmployees`);
+                const empId = res.data.empId;
+                navigate(`/allEmployees/${empId}`);
                 return;
             }
 
