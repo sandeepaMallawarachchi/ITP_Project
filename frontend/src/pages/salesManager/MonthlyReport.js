@@ -109,7 +109,7 @@ export default function MonthlyReport() {
             <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-12 left-0' : 'hidden'}`}>
                 <span className="font-medium">Error uploading report!</span>
             </Alert>
-            <Spinner aria-label="Default status example" className={` ${uploading ? 'absolute mt-[280px] ml-36' : 'hidden'}`} />
+            <Spinner aria-label="Default status example" className={` ${uploading ? 'absolute mt-[280px] ml-40' : 'hidden'}`} />
             <form onSubmit={handleSubmit}>
 
                 <div className="mb-6">
