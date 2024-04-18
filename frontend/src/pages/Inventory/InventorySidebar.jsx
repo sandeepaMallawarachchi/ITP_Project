@@ -1,4 +1,3 @@
-import logo from '../../images/logo.png';
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Sidebar } from 'flowbite-react';
@@ -12,11 +11,11 @@ import { IoAddCircleSharp } from "react-icons/io5";
 export default function InventorySidebar(){
     return(
         <div>
-            <Sidebar aria-label="Sidebar with content separator example " className=' flex flex-col w-60px fixed'>
+            <Sidebar aria-label="Sidebar with content separator example " className='fixed flex flex-col w-60px'>
                
-                    
-                <div style={{marginTop:"8rem"}}>
-                <Sidebar.Items className='pt-5 mt-5'>
+                  
+                <div style={{marginTop:"7.5rem"}}>
+                <Sidebar.Items className='pt-5'>
                      <Sidebar.ItemGroup className='cursor-pointer'> 
                         <Link to="/inventory/"><Sidebar.Item icon={MdOutlineSpaceDashboard} > Dashboard</Sidebar.Item></Link>
                         <Link to="/inventory/products" ><Sidebar.Item icon={MdOutlineCategory}>Products </Sidebar.Item></Link>
@@ -27,7 +26,7 @@ export default function InventorySidebar(){
                 </Sidebar.Items>
                 </div>
                 <div>
-                <Sidebar.Items className='pt-5 mt-5'>
+                <Sidebar.Items className='pt-5'>
                      <Sidebar.ItemGroup className='cursor-pointer'>
                         <Sidebar.Item  icon={MdOutlineAccountCircle} > My account </Sidebar.Item>
                         <Sidebar.Item  icon={IoIosLogOut} > Log Out </Sidebar.Item>

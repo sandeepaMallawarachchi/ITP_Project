@@ -10,7 +10,7 @@ export default function Header(){
         <div className="fixed top-0 right-0 z-50 w-full" >
             <Navbar fluid rounded  style={{ backgroundColor: "#E5E5E5"}} >
                 <div className='ml-10'>
-                    <img src={logo} id='logo' alt="logo"  />
+                    <img src={logo} id='logo' alt="logo" width="150"  />
                 </div>
                 <SearchBar />
 
