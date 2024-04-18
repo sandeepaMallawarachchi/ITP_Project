@@ -75,6 +75,11 @@ app.use("/incomeRt", incomeRouter);
 app.use("/totalIncome", totalIncomRouter);
 app.use("/balanceRt", balance);
 
+//supplier routes
+const supplier = require("./routes/supplierRoutes/supplier.js");
+
+app.use("/supplier", supplier);
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
