@@ -35,6 +35,7 @@ import UpdateEmployee from './pages/staffManager/UpdateEmployee'
 import DeleteEmployee from './pages/staffManager/DeleteEmployee'
 import AllSalaries from './pages/staffManager/AllSalaries'
 import ManagerRegistration from './pages/staffManager/ManagerRegistration'
+import ManagerAccount from './components/ManagerAccount';
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
@@ -181,6 +182,13 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/monthlyReport/:id' element={<MonthlyReport />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/managerAccount/:id" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/managerAccount/:id' element={<ManagerAccount />} />
         </Routes>
 
         {/* staff routes */}
