@@ -36,7 +36,7 @@ router.route("/add").post((req,res)=>{
 
 })
 
-router.route("/allVacations").get((req,res)=>{
+router.route("/AllVacations").get((req,res)=>{
 
     Vacation.find().then((vacation)=>{
         res.json(staff)
