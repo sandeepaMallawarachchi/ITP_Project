@@ -100,7 +100,7 @@ router.route('/employeeLogin').post(async (req, res) => {
                 empID: manager.empID,
             };
 
-            return res.status(200).json({ status: "Login success", token, empID: manager.empID, username: manager.username, designation: manager.designation });
+            return res.status(200).json({ status: "Login success", token, empId: manager.empId, username: manager.username, designation: manager.designation });
         }
 
         const match = await bcrypt.compare(password, staff.password);

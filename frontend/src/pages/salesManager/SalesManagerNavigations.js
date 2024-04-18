@@ -94,7 +94,7 @@ export default function SalesManagerNavigations() {
     };
 
     const handleDashboard = () => {
-        navigate(`/salesManagerDashboard`);
+        navigate(`/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
@@ -102,19 +102,19 @@ export default function SalesManagerNavigations() {
     };
 
     const handleStock = () => {
-        navigate(`/addStock`);
+        navigate(`/addStock/${id}`);
     };
 
     const handleSalesPersonDetails = () => {
-        navigate(`/salesPersonDetails`);
+        navigate(`/salesPersonDetails/${id}`);
     };
 
     const handleRemainingInventoryStock = () => {
-        navigate(`/remainingInventoryStock`);
+        navigate(`/remainingInventoryStock/${id}`);
     };
 
     const handleMonthlyReport = () => {
-        navigate(`/monthlyReport`);
+        navigate(`/monthlyReport/${id}`);
     };
 
     const handleSearchClick = async () => {

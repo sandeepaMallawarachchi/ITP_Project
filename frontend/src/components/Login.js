@@ -32,9 +32,8 @@ export default function Login() {
                 return;
             }
             else if (res.data.designation === 'Sales Manager') {
-                const id = res.data.empID;
-                console.log(id);
-                navigate(`/salesManagerDashboard/Emp01`);
+                const empId = res.data.empId;
+                navigate(`/salesManagerDashboard/${empId}`);
                 return;
             }
 

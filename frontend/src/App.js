@@ -47,6 +47,13 @@ import DeleteIn from './pages/financialManager/deleteIncome';
 import UpdateIncome from './pages/financialManager/updateIncome';
 import BalanceSheet from './pages/financialManager/balanceSheet';
 
+//supplier
+import Details from './pages/supplierManager/details';
+import SupplierHome from './pages/supplierManager/Home';
+import Update from './pages/supplierManager/update';
+import Supplierdetails from './pages/supplierManager/supplierdetails';
+import Search from './pages/supplierManager/serach';
+
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
@@ -135,10 +142,10 @@ function App() {
 
         {/* sales manager routes */}
         <Routes>
-          <Route path="/addStock" element={<SalesManagerNavigations />} />
+          <Route path="/addStock/:id" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
-          <Route path='/addStock' element={<AddDailyStock />} />
+          <Route path='/addStock/:id' element={<AddDailyStock />} />
         </Routes>
 
         <Routes>
@@ -149,31 +156,31 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/salesPersonDetails" element={<SalesManagerNavigations />} />
+          <Route path="/salesPersonDetails/:id" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
-          <Route path='/salesPersonDetails' element={<SalesPersonDetails />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/remainingInventoryStock" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/remainingInventoryStock' element={<RemainingInventoryStock />} />
+          <Route path='/salesPersonDetails/:id' element={<SalesPersonDetails />} />
         </Routes>
 
         <Routes>
-          <Route path="/monthlySales/:salesPersonID" element={<SalesManagerNavigations />} />
+          <Route path="/remainingInventoryStock/:id" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
-          <Route path='/monthlySales/:salesPersonID' element={<MonthlySales />} />
+          <Route path='/remainingInventoryStock/:id' element={<RemainingInventoryStock />} />
         </Routes>
 
         <Routes>
-          <Route path="/monthlyReport" element={<SalesManagerNavigations />} />
+          <Route path="/monthlySales/:salesPersonID/:id" element={<SalesManagerNavigations />} />
         </Routes>
         <Routes>
-          <Route path='/monthlyReport' element={<MonthlyReport />} />
+          <Route path='/monthlySales/:salesPersonID/:id' element={<MonthlySales />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/monthlyReport/:id" element={<SalesManagerNavigations />} />
+        </Routes>
+        <Routes>
+          <Route path='/monthlyReport/:id' element={<MonthlyReport />} />
         </Routes>
 
         {/* staff routes */}
@@ -246,7 +253,28 @@ function App() {
           <Route path="/balanceSheetHome" element={<BalanceSheet />} />
         </Routes>
 
-        {/* login rotes */}
+        {/* supplier routes */}
+        <Routes>
+          <Route path="/details" element={<Details />}></Route>
+        </Routes>
+
+        <Routes>
+          <Route path="/home" element={<SupplierHome />}  ></Route >
+        </Routes>
+
+        <Routes>
+          <Route path="/update/:id" element={<Update />} ></Route >
+        </Routes>
+
+        <Routes>
+          <Route path="/supplierdetails" element={<Supplierdetails />} ></Route >
+        </Routes>
+
+        <Routes>
+          <Route path="/search" element={< Search />} ></Route >
+        </Routes>
+
+        {/* login routes */}
         <Routes>
           <Route path='/' element={<Login />} />
         </Routes>
