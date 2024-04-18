@@ -37,7 +37,7 @@ export default function SearchResult(){
     
     return (
             
-            <div style={{marginTop:"8rem",marginLeft:"23rem"}}>
+            <div style={{marginTop:"10rem",marginLeft:"23rem"}}>
             
              { 
              result.length === 0 ?
