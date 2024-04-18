@@ -20,6 +20,7 @@ export default function AllDriver() {
             .then(response => {
                 setDriver(response.data);
                 setFilteredDriver(response.data);
+                console.log(filteredDriver)
             })
             .catch((err) => {
                 console.log(err);
