@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+
 
 export default function AddProduct() {
 
@@ -59,7 +59,7 @@ export default function AddProduct() {
           //adding data to db
             await axios.post("http://localhost:8070/inventory/product/addTeaPack",newProduct);
             
-            Swal.fire(`Added ${newProduct.productName} to the Inventory`);
+            
             //after adding the product, navigate to products page
             navigate("/inventory/products");
 

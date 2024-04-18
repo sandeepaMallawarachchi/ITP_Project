@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Label, TextInput } from "flowbite-react";
-import Swal from "sweetalert2";
+
 
 export default function UpdateProduct(){
 
@@ -74,7 +74,7 @@ export default function UpdateProduct(){
             
           console.log(response.data)
           //alert("successfully updated")
-          Swal.fire(`Updated ${data.productName} details successfully`);
+          
           navigate("/inventory/products")
             
           }catch(err){
