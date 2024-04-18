@@ -34,6 +34,9 @@ import UpdateEmployee from './pages/staffManager/UpdateEmployee'
 import DeleteEmployee from './pages/staffManager/DeleteEmployee'
 import AllSalaries from './pages/staffManager/AllSalaries'
 import ManagerRegistration from './pages/staffManager/ManagerRegistration'
+import AddVacation from './pages/staffManager/AddVacation'
+import AllVacations from './pages/staffManager/AllVacations'
+import ManagerAccount from './components/ManagerAccount'
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
