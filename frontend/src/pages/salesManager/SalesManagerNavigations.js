@@ -3,25 +3,24 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
 import { BiBuoy } from 'react-icons/bi';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { MdFormatListBulleted } from "react-icons/md";
-import { MdOutlinePayment } from "react-icons/md";
+import { HiOutlineDocumentReport } from "react-icons/hi";
 import { IoSearchSharp } from "react-icons/io5";
-import { FiMapPin } from "react-icons/fi";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
-import notFoundError from '../images/notFound.jpeg';
+import notFoundError from '../../images/notFound.jpeg';
 
-export default function Navigations() {
+export default function SalesManagerNavigations() {
     const { id } = useParams();
-    const [salesman, setSalesman] = useState({
-        name: "",
-        email: "",
+    const [manager, setManager] = useState({
+        firstName: "",
+        designation: "",
     });
 
     const [productName, setProductName] = useState("");
@@ -32,24 +31,23 @@ export default function Navigations() {
     const [error, setError] = useState(false);
     const [errorGif, setErrorGif] = useState(false);
     const [errorsAlert, seErrorAlert] = useState(false);
-    const [profilePicture, setProfilePicture] = useState('');
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchSalesmanDetails = async () => {
+        const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
                 console.log(res.data);
-                const salesmanData = res.data.salesman || res.data;
-                const { name, email } = salesmanData;
-                setSalesman({ name, email });
-
+                const managerData = res.data.manager || res.data;
+                const { firstName, designation } = managerData;
+                setManager({ firstName, designation });
             } catch (error) {
                 console.log("error", error.message);
             }
         };
 
-        fetchSalesmanDetails();
+        fetchManagerDetails();
     }, [id]);
 
     useEffect(() => {
@@ -69,8 +67,8 @@ export default function Navigations() {
                 setError(false);
                 setErrorGif(false);
             }
-
         } catch (error) {
+
             setError(true);
             setErrorGif(true);
             seErrorAlert(true);
@@ -95,39 +93,28 @@ export default function Navigations() {
         }
     };
 
-    useEffect(() => {
-        const fetchProfilePicture = async () => {
-            try {
-                const res = await axios.get(`http://localhost:8070/salesmen/changeProfilePicture/${id}`);
-                console.log(res.data);
-
-                const { imageURL } = res.data.image;
-                setProfilePicture(imageURL);
-            } catch (error) {
-                console.log("Error fetching image", error.message);
-            }
-        };
-        fetchProfilePicture();
-    }, [id]);
-
     const handleDashboard = () => {
-        navigate(`/salesmenDashboard/${id}`);
+        navigate(`/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
         navigate(`/myAccount/${id}`);
     };
 
-    const handleAddSale = () => {
-        navigate(`/AddNewSale/${id}`);
+    const handleStock = () => {
+        navigate(`/addStock/${id}`);
     };
 
-    const handleSalesSummary = () => {
-        navigate(`/SalesSummary/${id}`);
+    const handleSalesPersonDetails = () => {
+        navigate(`/salesPersonDetails/${id}`);
     };
 
-    const handleRemainingStock = () => {
-        navigate(`/remainingStock/${id}`);
+    const handleRemainingInventoryStock = () => {
+        navigate(`/remainingInventoryStock/${id}`);
+    };
+
+    const handleMonthlyReport = () => {
+        navigate(`/monthlyReport/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -139,11 +126,6 @@ export default function Navigations() {
 
     const handleTableClose = () => {
         setShowTable(false);
-        setProductName("");
-    };
-
-    const handleProfilePic = () => {
-        navigate(`/myAccount/${id}`)
     };
 
     return (
@@ -160,7 +142,6 @@ export default function Navigations() {
                             className={`block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                             placeholder="Search for Remaining stock"
                             required
-                            value={productName}
                             onChange={(e) => {
                                 setProductName(e.target.value);
                             }} />
@@ -172,11 +153,11 @@ export default function Navigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleProfilePic} >
-                        <Avatar alt="User settings" img={profilePicture} rounded />
+                    <div className="flex md:order-2  mr-20 items-start">
+                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
                         <div className="ml-4 flex flex-col">
-                            <span className='text-green-500 font-bold'>{salesman.name}</span>
-                            <span className='text-green-400 '>{salesman.email}</span>
+                            <span className='text-green-500 font-bold'>{manager.firstName}</span>
+                            <span className='text-green-400 '>{manager.designation}</span>
                         </div>
                         <Navbar.Toggle />
                     </div>
@@ -191,20 +172,17 @@ export default function Navigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
-                                New sale
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleStock}>
+                                Add Daily Stock
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlinePayment}>
-                                Payment
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesSummary}>
-                                Sales Summary
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingStock}>
+                            <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingInventoryStock}>
                                 Remaining Stock
                             </Sidebar.Item>
-                            <Sidebar.Item icon={FiMapPin}>
-                                Locations
+                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesPersonDetails}>
+                                Salesperson Details
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleMonthlyReport}>
+                                Reports
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
@@ -223,6 +201,7 @@ export default function Navigations() {
             {searchClicked && (
                 <div className={`fixed top-[133px] left-72 w-[76%] pt-10 ${showTable ? 'z-50 bg-white h-full' : 'hidden'}`}>
                     <button onClick={handleTableClose} className="absolute ml-[1070px] focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">close</button>
+                    {searchClicked && filteredStockDetails.length === 0 && <span className="ml-64 px-6 py-4">No data found!</span>}
                     {searchClicked && filteredStockDetails.length !== 0 && (
                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -246,7 +225,7 @@ export default function Navigations() {
                                             <td className="px-6 py-4">{detail.totalStock}</td>
                                             {detail.totalStock === 0 ? (
                                                 <td className="px-6 py-4 text-red-600 font-bold">Out of stock</td>
-                                            ) : detail.totalStock < 10 ? (
+                                            ) : detail.totalStock < 50 ? (
                                                 <td className="px-6 py-4 text-yellow-400 font-bold">Low stock</td>
                                             ) : (
                                                 <td className="px-6 py-4 text-green-500 font-bold">Available</td>

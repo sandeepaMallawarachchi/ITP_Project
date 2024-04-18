@@ -7,19 +7,18 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require("dotenv").config();
 
-
 const PORT = process.env.PORT || 8070;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 6000 }
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 const URL = process.env.MONGODB_URL;
@@ -37,29 +36,49 @@ connection.once("open", () => {
 });
 
 //sales routes
-const salesRouter = require("./routes/sales.js");
-const salesmenRouter = require("./routes/salesmen.js");
-const salesManagementRouter = require("./routes/salesManagement.js");
+const salesRouter = require("./routes/salesRoutes/sales.js");
+const salesmenRouter = require("./routes/salesRoutes/salesmen.js");
+const salesManagementRouter = require("./routes/salesRoutes/salesManagement.js");
 
 app.use("/sales", salesRouter);
 app.use("/salesmen", salesmenRouter);
 app.use("/salesManagement", salesManagementRouter);
 
 //inventory routes
-const invRouter = require( "./routes/product.js")
-const orderRouter = require("./routes/newOrder.js")
-const reorderRouter = require("./routes/reorderFunction.js")
+const invRouter = require("./routes/inventoryRoutes/product.js")
+const orderRouter = require("./routes/inventoryRoutes/newOrder.js")
+const reorderRouter = require("./routes/inventoryRoutes/reorderFunction.js")
 
-app.use("/inventory/product",invRouter)
-app.use("/inventory/orders",orderRouter)
-app.use("/inventory/reorder",reorderRouter)
+app.use("/inventory/product", invRouter)
+app.use("/inventory/orders", orderRouter)
+app.use("/inventory/reorder", reorderRouter)
 
 //staff routes
-const salaryRouter = require("./routes/salary.js")
-const StaffRouter = require("./routes/staff.js");
+const salaryRouter = require("./routes/staffRoutes/salary.js");
+const StaffRouter = require("./routes/staffRoutes/staff.js");
+const VacationRouter = require("./routes/staffRoutes/vacation.js");
+const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
 
-app.use("/Staff",StaffRouter);
-app.use("/staff/salary",salaryRouter)
+app.use("/Staff", StaffRouter);
+app.use("/staff/salary", salaryRouter);
+app.use("/staff/vacation", VacationRouter);
+app.use("/empLogin", employeeLoginRouter);
+
+//financial routes
+const expensesRouter = require("./routes/financialRoutes/financials.js");
+const incomeRouter = require("./routes/financialRoutes/incomesheet.js");
+const totalIncomRouter = require("./routes/financialRoutes/totalIncome.js");
+const balance = require("./routes/financialRoutes/balanceSheet.js");
+
+app.use("/expenses", expensesRouter);
+app.use("/incomeRt", incomeRouter);
+app.use("/totalIncome", totalIncomRouter);
+app.use("/balanceRt", balance);
+
+//supplier routes
+const supplier = require("./routes/supplierRoutes/supplier.js");
+
+app.use("/supplier", supplier);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
