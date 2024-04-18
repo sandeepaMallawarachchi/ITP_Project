@@ -12,7 +12,7 @@ const reportSchema = new Schema({
         type : Number,
         required: true
     },
-    amountOfFuel : {
+    fuelCost : {
         type : Number,
         required: true
     },

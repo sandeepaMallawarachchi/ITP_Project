@@ -7,7 +7,7 @@ function UpdateReportData() {
     const [reportDetails, setreportDetails] = useState({
         vehicleType: "",
         monthlyDistance: "",
-        amountOfFuel: "",
+        fuelCost: "",
         serviceCharge: "",
         totalCost: ""
           
@@ -41,23 +41,23 @@ function UpdateReportData() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <div className="mb-3">
-                        <label htmlFor="vehicleType" className="form-label">Driver Name</label>
+                        <label htmlFor="vehicleType" className="form-label">Vehicle Type</label>
                         <input type="text" className="form-control" id="vehicleType" value={reportDetails.vehicleType} onChange={(e) => setreportDetails({...reportDetails, vehicleType: e.target.value})} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="monthlyDistance" className="form-label">Age</label>
+                        <label htmlFor="monthlyDistance" className="form-label">Monthly Distance (km)</label>
                         <input type="number" className="form-control" id="monthlyDistance" value={reportDetails.monthlyDistance} onChange={(e) => setreportDetails({...reportDetails, monthlyDistance: e.target.value})} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="amountOfFuel" className="form-label">Address</label>
-                        <input type="number" className="form-control" id="amountOfFuel" value={reportDetails.amountOfFuel} onChange={(e) => setreportDetails({...reportDetails, amountOfFuel: e.target.value})} />
+                        <label htmlFor="fuelCost" className="form-label">Fuel Cost (LKR)</label>
+                        <input type="number" className="form-control" id="fuelCost" value={reportDetails.fuelCost} onChange={(e) => setreportDetails({...reportDetails, fuelCost: e.target.value})} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="serviceCharge" className="form-label">Phone Number</label>
+                        <label htmlFor="serviceCharge" className="form-label">Service Charge (LKR)</label>
                         <input type="number" className="form-control" id="serviceCharge" value={reportDetails.serviceCharge} onChange={(e) => setreportDetails({...reportDetails, serviceCharge: e.target.value})} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="totalCost" className="form-label">Email</label>
+                        <label htmlFor="totalCost" className="form-label">Total Cost (LKR)</label>
                         <input type="number" className="form-control" id="totalCost" value={reportDetails.totalCost} onChange={(e) => setreportDetails({...reportDetails, totalCost: e.target.value})} />
                     </div>
                 </div>

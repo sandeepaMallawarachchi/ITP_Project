@@ -5,7 +5,7 @@ router.route("/add").post((req,res)=>{
 
     const vehicleType = req.body.vehicleType;
     const monthlyDistance = req.body.monthlyDistance;
-    const amountOfFuel = req.body.amountOfFuel;
+    const fuelCost = req.body.fuelCost;
     const serviceCharge = req.body.serviceCharge;
     const totalCost = req.body.totalCost; 
     
@@ -14,7 +14,7 @@ router.route("/add").post((req,res)=>{
 
         vehicleType,
         monthlyDistance,
-        amountOfFuel,
+        fuelCost,
         serviceCharge,
         totalCost
        
@@ -41,12 +41,12 @@ router.route("/").get((req,res)=>{
 
  router.route("/update/:id").put(async(req, res) => {
     let userId = req.params.id;
-    const {vehicleType, monthlyDistance, amountOfFuel, serviceCharge, totalCost} = req.body;
+    const {vehicleType, monthlyDistance, fuelCost, serviceCharge, totalCost} = req.body;
 
     const updateReport = {
         vehicleType,
         monthlyDistance,
-        amountOfFuel,
+        fuelCost,
         serviceCharge,
         totalCost
         

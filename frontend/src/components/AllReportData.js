@@ -37,10 +37,10 @@ export default function AllReportData() {
                 <thead>
                     <tr>
                         <th scope="col">Vehicle Type</th>
-                        <th scope="col">Monthly Distance</th>
-                        <th scope="col">Amount of Fuel</th>
-                        <th scope="col">Service Charge</th>
-                        <th scope="col">Total Cost</th>
+                        <th scope="col">Monthly Distance (km)</th>
+                        <th scope="col">Fuel Cost (LKR)</th>
+                        <th scope="col">Service Charge (LKR)</th>
+                        <th scope="col">Total Cost (LKR)</th>
                       
                         
 
@@ -51,7 +51,7 @@ export default function AllReportData() {
                         <tr key={(report1._id)}>
                             <td>{report1.vehicleType}</td>
                             <td>{report1.monthlyDistance}</td>
-                            <td>{report1.amountOfFuel}</td>
+                            <td>{report1.fuelCost}</td>
                             <td>{report1.serviceCharge}</td>
                             <td>{report1.totalCost}</td>
                            
