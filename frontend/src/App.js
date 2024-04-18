@@ -34,6 +34,8 @@ import UpdateEmployee from './pages/staffManager/UpdateEmployee'
 import DeleteEmployee from './pages/staffManager/DeleteEmployee'
 import AllSalaries from './pages/staffManager/AllSalaries'
 import ManagerRegistration from './pages/staffManager/ManagerRegistration'
+import AddVacation from './pages/staffManager/AddVacation'
+import AllVacations from './pages/staffManager/AllVacations'
 import ManagerAccount from './components/ManagerAccount'
 
 //financial
@@ -236,6 +238,14 @@ function App() {
 
         <Routes>
           <Route path='/managerRegistration' element={<ManagerRegistration />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/addVacation' element={<AddVacation />} />
+        </Routes>
+
+        <Routes>
+          <Route path='/allVacations' element={<AllVacations />} />
         </Routes>
 
         {/* financial manager routes */}
