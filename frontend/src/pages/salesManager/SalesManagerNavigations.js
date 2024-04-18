@@ -94,7 +94,7 @@ export default function SalesManagerNavigations() {
     };
 
     const handleDashboard = () => {
-        navigate(`/salesManagerDashboard`);
+        navigate(`/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
