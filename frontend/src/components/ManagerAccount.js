@@ -7,14 +7,14 @@ import { HiInformationCircle } from "react-icons/hi";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from '../firebase';
 
-export default function SalesmenDashboard() {
+export default function ManagerAccount() {
     const { id } = useParams();
-    const [salesmanDetails, setSalesmanDetails] = useState({
-        name: "",
-        username: "",
+    const [managerDetails, setManagerDetails] = useState({
+        firstName: "",
+        lastName: "",
         dateOfBirth: "",
         email: "",
-        phone: "",
+        phoneNo: "",
         address: "",
     });
     const [successAlert, setSuccessAlert] = useState(false);
@@ -28,27 +28,26 @@ export default function SalesmenDashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchSalesmanDetails = async () => {
+        const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
                 console.log(res.data);
-
-                const salesmanData = res.data.salesman || res.data;
-                const { name, username, dateOfBirth, email, phone, address } = salesmanData;
-                setSalesmanDetails({ name, username, dateOfBirth, email, phone, address });
-                console.log(name)
+                const managerData = res.data.manager || res.data;
+                const { firstName, lastName, dateOfBirth, email, phoneNo, address } = managerData;
+                setManagerDetails({ firstName, lastName, dateOfBirth, email, phoneNo, address });
             } catch (error) {
-                console.log("Error fetching details", error.message);
+                console.log("error", error.message);
             }
         };
-        fetchSalesmanDetails();
+
+        fetchManagerDetails();
     }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
+            await axios.put(`http://localhost:8070/empLogin/updateManager/${id}`, managerDetails);
 
             setSuccessAlert(true);
 
@@ -56,7 +55,7 @@ export default function SalesmenDashboard() {
                 setSuccessAlert(false);
             }, 5000);
 
-            navigate(`/myAccount/${id}`);
+            navigate(`/managerAccount/${id}`);
         } catch (error) {
             console.log("Error!", error.message);
 
@@ -66,10 +65,6 @@ export default function SalesmenDashboard() {
                 setErrorAlert(false);
             }, 5000);
         }
-    };
-
-    const changePwBtn = () => {
-        navigate(`/changeSalesmanPassword/${id}`);
     };
 
     const handleLogout = async () => {
@@ -121,7 +116,7 @@ export default function SalesmenDashboard() {
                 return alert("Please wait for the upload to complete!");
             }
 
-            await axios.post(`http://localhost:8070/salesmen/uploadProfilePicture`, { imageURL, salespersonID: id });
+            await axios.post(`http://localhost:8070/empLogin/uploadProfilePicture`, { imageURL, empId: id });
 
             setImageURL('');
             setImage(null);
@@ -151,7 +146,7 @@ export default function SalesmenDashboard() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/changeProfilePicture/${id}`);
+                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
                 console.log(res.data);
 
                 const { imageURL } = res.data.image;
@@ -215,34 +210,34 @@ export default function SalesmenDashboard() {
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <label htmlFor="firtName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                         <input
                             type="text"
                             className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            id="name"
+                            id="firtName"
                             required
-                            value={salesmanDetails.name}
+                            value={managerDetails.firstName}
                             onChange={(e) => {
-                                setSalesmanDetails({
-                                    ...salesmanDetails,
-                                    name: e.target.value,
+                                setManagerDetails({
+                                    ...managerDetails,
+                                    firstName: e.target.value,
                                 });
                             }}
                         />
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                        <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
                         <input
                             type="text"
                             className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            id="username"
+                            id="lastName"
                             required
-                            value={salesmanDetails.username}
+                            value={managerDetails.lastName}
                             onChange={(e) => {
-                                setSalesmanDetails({
-                                    ...salesmanDetails,
-                                    username: e.target.value,
+                                setManagerDetails({
+                                    ...managerDetails,
+                                    lastName: e.target.value,
                                 });
                             }}
                         />
@@ -255,27 +250,28 @@ export default function SalesmenDashboard() {
                             className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             id="dateOfBirth"
                             required
-                            value={salesmanDetails.dateOfBirth}
+                            value={managerDetails.dateOfBirth}
                             onChange={(e) => {
-                                setSalesmanDetails({
-                                    ...salesmanDetails,
+                                setManagerDetails({
+                                    ...managerDetails,
                                     dateOfBirth: e.target.value,
                                 });
                             }}
                         />
                     </div>
 
+
                     <div className="mb-3">
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
                         <input
                             type="email"
                             className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             id="email"
                             required
-                            value={salesmanDetails.email}
+                            value={managerDetails.email}
                             onChange={(e) => {
-                                setSalesmanDetails({
-                                    ...salesmanDetails,
+                                setManagerDetails({
+                                    ...managerDetails,
                                     email: e.target.value,
                                 });
                             }}
@@ -289,11 +285,11 @@ export default function SalesmenDashboard() {
                             className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             id="phone"
                             required
-                            value={salesmanDetails.phone}
+                            value={managerDetails.phoneNo}
                             onChange={(e) => {
-                                setSalesmanDetails({
-                                    ...salesmanDetails,
-                                    phone: e.target.value,
+                                setManagerDetails({
+                                    ...managerDetails,
+                                    phoneNo: e.target.value,
                                 });
                             }}
                         />
@@ -306,10 +302,10 @@ export default function SalesmenDashboard() {
                             className="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             id="address"
                             required
-                            value={salesmanDetails.address}
+                            value={managerDetails.address}
                             onChange={(e) => {
-                                setSalesmanDetails({
-                                    ...salesmanDetails,
+                                setManagerDetails({
+                                    ...managerDetails,
                                     address: e.target.value,
                                 });
                             }}
@@ -325,11 +321,6 @@ export default function SalesmenDashboard() {
 
             <div id='profBtns' className='absolute ml-4 w-64 top-80 flex flex-col items-center'>
 
-                <button type="button"
-                    onClick={changePwBtn}
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Change Password
-                </button>
                 <button type="button"
                     onClick={handleLogout}
                     className="focus:outline-none mt-8 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">

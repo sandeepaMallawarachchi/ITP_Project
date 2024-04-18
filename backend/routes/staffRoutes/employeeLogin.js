@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 let Manager = require("../../models/staffModels/managerDetails");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
+let EmployeeProfilePicture = require("../../models/staffModels/profilePictureDetails");
 
 //register a new manager
 router.route('/managerRegister').post(async (req, res) => {
@@ -166,6 +167,79 @@ router.route("/getManager/:empId").get(async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+//update manager details
+router.route("/updateManager/:empId").put(async (req, res) => {
+
+    let empId = req.params.empId;
+    const { firstName, lastName, dateOfBirth, email, phoneNo, address } = req.body;
+    const updateManager = {
+        firstName,
+        lastName,
+        dateOfBirth,
+        email,
+        phoneNo,
+        address,
+    }
+
+    try {
+        const update = await Manager.findOneAndUpdate(empId, updateManager);
+        res.json({ status: "User updated" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+//upload profile picture
+router.route("/uploadProfilePicture").post(async (req, res) => {
+
+    const { imageURL, empId } = req.body;
+
+    if (!imageURL) {
+        res.status(400).send({ status: "Image url not found" });
+    }
+
+    try {
+
+        let profilePicture = await EmployeeProfilePicture.findOne({ empId });
+
+        if (profilePicture) {
+
+            profilePicture.imageURL = imageURL;
+            await profilePicture.save();
+        } else {
+
+            profilePicture = await EmployeeProfilePicture.create({ imageURL, empId });
+        }
+
+        res.status(200).send({ status: "image uploaded successfully", profilePicture });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error uploading image" });
+    }
+});
+
+//download monthly report
+router.route("/changeProfilePicture/:empId").get(async (req, res) => {
+
+    const { empId } = req.params;
+    try {
+
+        const image = await EmployeeProfilePicture.findOne({ empId: empId });
+
+        if (!image) {
+            return res.status(404).send({ status: "Image not found" });
+        }
+
+        res.status(200).send({ status: "image fetched successfully", image });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching image" });
     }
 });
 
