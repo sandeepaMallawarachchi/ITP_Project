@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 let Manager = require("../../models/staffModels/managerDetails");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
-let ProfilePicture = require("../../models/salesmenModels/profilePictureDetails");
+let EmployeeProfilePicture = require("../../models/staffModels/profilePictureDetails");
 
 //register a new manager
 router.route('/managerRegister').post(async (req, res) => {
@@ -170,7 +170,6 @@ router.route("/getManager/:empId").get(async (req, res) => {
     }
 });
 
-
 //update manager details
 router.route("/updateManager/:empId").put(async (req, res) => {
 
@@ -205,7 +204,7 @@ router.route("/uploadProfilePicture").post(async (req, res) => {
 
     try {
 
-        let profilePicture = await ProfilePicture.findOne({ empId });
+        let profilePicture = await EmployeeProfilePicture.findOne({ empId });
 
         if (profilePicture) {
 
@@ -213,7 +212,7 @@ router.route("/uploadProfilePicture").post(async (req, res) => {
             await profilePicture.save();
         } else {
 
-            profilePicture = await ProfilePicture.create({ imageURL, empId });
+            profilePicture = await EmployeeProfilePicture.create({ imageURL, empId });
         }
 
         res.status(200).send({ status: "image uploaded successfully", profilePicture });
@@ -230,7 +229,7 @@ router.route("/changeProfilePicture/:empId").get(async (req, res) => {
     const { empId } = req.params;
     try {
 
-        const image = await ProfilePicture.findOne({ empId: empId });
+        const image = await EmployeeProfilePicture.findOne({ empId: empId });
 
         if (!image) {
             return res.status(404).send({ status: "Image not found" });

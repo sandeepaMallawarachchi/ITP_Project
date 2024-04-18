@@ -31,6 +31,7 @@ export default function SalesManagerNavigations() {
     const [error, setError] = useState(false);
     const [errorGif, setErrorGif] = useState(false);
     const [errorsAlert, seErrorAlert] = useState(false);
+    const [profilePicture, setProfilePicture] = useState('');
 
     const navigate = useNavigate();
 
@@ -93,6 +94,21 @@ export default function SalesManagerNavigations() {
         }
     };
 
+    useEffect(() => {
+        const fetchProfilePicture = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
+                console.log(res.data);
+
+                const { imageURL } = res.data.image;
+                setProfilePicture(imageURL);
+            } catch (error) {
+                console.log("Error fetching image", error.message);
+            }
+        };
+        fetchProfilePicture();
+    }, [id]);
+
     const handleDashboard = () => {
         navigate(`/salesManagerDashboard/${id}`);
     };
@@ -154,7 +170,7 @@ export default function SalesManagerNavigations() {
                         </button>
                     </div>
                     <div className="flex md:order-2  mr-20 items-start">
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{manager.firstName}</span>
                             <span className='text-green-400 '>{manager.designation}</span>
