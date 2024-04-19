@@ -7,7 +7,7 @@ function AllSalaries() {
     const [salaries, setSalaries] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8070/netSalary/allSalaries`).then((res) => {
+        axios.get(`http://localhost:8070/staff/salary/allSalaries`).then((res) => {
             setSalaries(res.data);
         }).catch((error) => {
             alert(error.message);
