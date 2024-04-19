@@ -6,10 +6,7 @@ const balanceSh=new Schema({
         type:String,
         required:true
     },
-    qualities:{
-        type:String,
-        required:true
-    },
+
     description:{
         type:String,
         required:true
@@ -22,5 +19,5 @@ const balanceSh=new Schema({
 )
 
 
-const balance=mongoose.model("balance",balanceSh);
-module.exports=balance
+const libilities=mongoose.model("libilities",balanceSh);
+module.exports=libilities
