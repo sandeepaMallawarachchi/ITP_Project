@@ -15,38 +15,38 @@ function AllSalaries() {
     }, [])
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
-            <table class="table">
-                <thead>
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col">Employee ID</th>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col">Designation</th>
-                        <th scope="col">Month</th>
-                        <th scope="col">Year</th>
-                        <th scope="col">Basic Salary</th>
-                        <th scope="col">ETF Bonus Amount</th>
-                        <th scope="col">EPF Bonus Amount</th>
-                        <th scope="col">Net Bonus</th>
-                        <th scope="col">Net Salary</th>
+                        <th scope="col" className="px-6 py-3">Employee ID</th>
+                        <th scope="col" className="px-6 py-3">Employee Name</th>
+                        <th scope="col" className="px-6 py-3">Designation</th>
+                        <th scope="col" className="px-6 py-3">Month</th>
+                        <th scope="col" className="px-6 py-3">Year</th>
+                        <th scope="col" className="px-6 py-3">Basic Salary</th>
+                        <th scope="col" className="px-6 py-3">ETF Bonus Amount</th>
+                        <th scope="col" className="px-6 py-3">EPF Bonus Amount</th>
+                        <th scope="col" className="px-6 py-3">Net Bonus</th>
+                        <th scope="col" className="px-6 py-3">Net Salary</th>
                     </tr>
                 </thead>
                 <tbody>
                     {salaries.map((salaries) => (
-                    <tr key={(salaries._id)}>
-                        <td>{salaries.empId}</td>
-                        <td>{salaries.name}</td>
-                        <td>{salaries.designation}</td>
-                        <td>{salaries.month}</td>
-                        <td>{salaries.year}</td>
-                        <td>{salaries.basicSalary}</td>
-                        <td>{salaries.ETFbonus}</td>
-                        <td>{salaries.EPFbonus}</td>
-                        <td>{salaries.netBonus}</td>
-                        <td>{salaries.netSalary}</td>
-                    </tr>
+                        <tr key={(salaries._id)} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
+                            <td className="px-6 py-4">{salaries.empId}</td>
+                            <td className="px-6 py-4">{salaries.name}</td>
+                            <td className="px-6 py-4">{salaries.designation}</td>
+                            <td className="px-6 py-4">{salaries.month}</td>
+                            <td className="px-6 py-4">{salaries.year}</td>
+                            <td className="px-6 py-4">{salaries.basicSalary}</td>
+                            <td className="px-6 py-4">{salaries.ETFbonus}</td>
+                            <td className="px-6 py-4">{salaries.EPFbonus}</td>
+                            <td className="px-6 py-4">{salaries.netBonus}</td>
+                            <td className="px-6 py-4">{salaries.netSalary}</td>
+                        </tr>
                     ))}
-                    
+
                 </tbody>
             </table>
         </div>
