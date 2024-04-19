@@ -157,7 +157,7 @@ export default function SalesManagerNavigations() {
     };
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div>
             {/* header */}
             <div className="fixed top-0 left-0 w-full z-50">
                 <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>
