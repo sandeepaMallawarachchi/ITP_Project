@@ -1,11 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const financial = require('../../models/financialModels/financial');
+let teaPack = require("../../models/staffModels/salaryDetails");
+const Salary = require('../../models/staffModels/salaryDetails');
 
-router.post("/add", async (req, res) => {
-    const { date, category, description, amount } = req.body;
+router.post("/add/:id", async (req, res) => {
+    const { category, description } = req.body;
+    const date = new Date();
+    date.setUTCHours(0, 0, 0, 0); 
 
     try {
+        // Retrieve standard price based on the tea type selected
+        const priceDocument = await salaryDetails.findOne({ category: Salary });
+
+        if (!priceDocument) {
+            throw new Error("categorynot found");
+        }
+
         const newExpense = new financial({ date, category, description, amount });
         await newExpense.save();
         res.json("Expense Added");

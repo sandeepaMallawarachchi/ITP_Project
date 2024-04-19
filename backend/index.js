@@ -69,11 +69,13 @@ const expensesRouter = require("./routes/financialRoutes/financials.js");
 const incomeRouter = require("./routes/financialRoutes/incomesheet.js");
 const totalIncomRouter = require("./routes/financialRoutes/totalIncome.js");
 const balance = require("./routes/financialRoutes/balanceSheet.js");
+const totalSalary = require("./routes/financialRoutes/TotalSalary.js");
 
 app.use("/expenses", expensesRouter);
 app.use("/incomeRt", incomeRouter);
 app.use("/totalIncome", totalIncomRouter);
 app.use("/balanceRt", balance);
+app.use("/totalSalary", totalSalary);
 
 //supplier routes
 const supplier = require("./routes/supplierRoutes/supplier.js");

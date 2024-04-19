@@ -23,7 +23,7 @@ function SalaryReport() {
     }, [empId, month, year]);
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <h2>Salary Details</h2>
             <div>
                 {salaryDetails.map((detail, index) => (

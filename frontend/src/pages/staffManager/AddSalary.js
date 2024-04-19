@@ -62,7 +62,7 @@ function AddSalary() {
     };
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label htmlFor="empId" className="form-label">Enter Employee ID: </label>

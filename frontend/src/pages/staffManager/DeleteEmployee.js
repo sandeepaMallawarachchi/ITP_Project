@@ -20,7 +20,7 @@ function DeleteEmployee() {
     };
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
 
             <p>Are you sure you want to delete this employee?</p>
 
