@@ -80,6 +80,15 @@ const supplier = require("./routes/supplierRoutes/supplier.js");
 
 app.use("/supplier", supplier);
 
+//delivery routes
+const teaRouter = require("./routes/deliveryRoutes/Locations.js");
+const driverRouter = require("./routes/deliveryRoutes/driver.js");
+const reportRouter = require("./routes/deliveryRoutes/report.js");
+
+app.use("/tea",teaRouter);
+app.use("/driver",driverRouter);
+app.use("/report",reportRouter);
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });

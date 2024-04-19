@@ -41,7 +41,27 @@ export default function Login() {
                 navigate(`/inventory`);
                 return;
             }
-            
+          
+            else if (res.data.designation === 'Staff Manager') {
+                const empId = res.data.empId;
+                navigate(`/allEmployees/${empId}`);
+                return;
+            }
+
+            else if (res.data.designation === 'Supplier Manager') {
+                navigate(`/home`);
+                return;
+            }
+
+            else if (res.data.designation === 'Delivery Manager') {
+                navigate(`/alllocations`);
+                return;
+            }
+
+            else if (res.data.designation === 'Financial Manager') {
+                navigate(`/HomeIncome`);
+                return;
+            }
         } catch (error) {
             console.error("Error in salesmen login request:", error.message);
             if (error.response && error.response.status === 401) {
