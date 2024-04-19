@@ -23,7 +23,6 @@ export default function SalesManagerNavigations() {
         designation: "",
     });
 
-    // const [productName, setProductName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [employeeDetails, setEmployeeDetails] = useState([]);
     const [filteredEmployeeDetails, setFilteredEmployeeDetails] = useState([]);
@@ -158,7 +157,7 @@ export default function SalesManagerNavigations() {
     };
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             {/* header */}
             <div className="fixed top-0 left-0 w-full z-50">
                 <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>

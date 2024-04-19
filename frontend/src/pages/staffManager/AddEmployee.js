@@ -45,11 +45,11 @@ function AddEmployee() {
     }
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
-                <div class="mb-3">
-                    <label for="empId" class="form-label">Enter Employee ID: </label>
-                    <input type="text" class="form-control" id="empId" required onChange={(e) => {
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="empId"> Enter Employee ID: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empId" required onChange={(e) => {
                         setEmpId(e.target.value);
                     }} />
                 </div>
@@ -110,7 +110,7 @@ function AddEmployee() {
                     }} />
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="bg-blue-500">Submit</button>
             </form>
             <button type="submit" class="btn btn-success" onClick={handleAllEmployees}>All Employees</button>
         </div>
