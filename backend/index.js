@@ -54,11 +54,15 @@ app.use("/inventory/orders", orderRouter)
 app.use("/inventory/reorder", reorderRouter)
 
 //staff routes
-const salaryRouter = require("./routes/staffRoutes/salary.js")
+const salaryRouter = require("./routes/staffRoutes/salary.js");
 const StaffRouter = require("./routes/staffRoutes/staff.js");
+const VacationRouter = require("./routes/staffRoutes/vacation.js");
+const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
 
 app.use("/Staff", StaffRouter);
-app.use("/staff/salary", salaryRouter)
+app.use("/staff/salary", salaryRouter);
+app.use("/staff/vacation", VacationRouter);
+app.use("/empLogin", employeeLoginRouter);
 
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");
@@ -72,6 +76,20 @@ app.use("/incomeRt", incomeRouter);
 app.use("/totalIncome", totalIncomRouter);
 app.use("/balanceRt", balance);
 app.use("/totalSalary", totalSalary);
+
+//supplier routes
+const supplier = require("./routes/supplierRoutes/supplier.js");
+
+app.use("/supplier", supplier);
+
+//delivery routes
+const teaRouter = require("./routes/deliveryRoutes/Locations.js");
+const driverRouter = require("./routes/deliveryRoutes/driver.js");
+const reportRouter = require("./routes/deliveryRoutes/report.js");
+
+app.use("/tea",teaRouter);
+app.use("/driver",driverRouter);
+app.use("/report",reportRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);

@@ -1,14 +1,17 @@
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import SearchBar from "./inventorySearchBar";
-import { useState } from 'react';
+import logo from "../../images/logo.png"
 
 export default function Header(){
 
   
     return (
-        <div className="fixed top-0 left-0 w-full z-50">
+        <div className="fixed top-0 right-0 z-50 w-full" >
             <Navbar fluid rounded  style={{ backgroundColor: "#E5E5E5"}} >
+                <div className='ml-10'>
+                    <img src={logo} id='logo' alt="logo" width="150"  />
+                </div>
                 <SearchBar />
 
                 <div className="flex md:order-2  mr-20 items-start">

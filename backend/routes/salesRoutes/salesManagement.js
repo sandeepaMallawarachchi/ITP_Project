@@ -178,7 +178,7 @@ router.route("/getTotalSales").get(async (req, res) => {
 //upload monthly report
 router.route("/uploadReport").post(async (req, res) => {
 
-    const { downloadURL } = req.body;
+    const { downloadURL, year, month } = req.body;
 
     if (!downloadURL) {
         res.status(400).send({ status: "File url not found" });
@@ -186,13 +186,32 @@ router.route("/uploadReport").post(async (req, res) => {
 
     try {
 
-        const report = await SalesReport.create({ downloadURL });
+        const report = await SalesReport.create({ downloadURL, year, month });
 
         res.status(200).send({ status: "file uploaded successfully", report });
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ error: "Error uploading file" });
+    }
+});
+
+//download monthly report
+router.route("/downloadReport").get(async (req, res) => {
+
+    try {
+
+        const report = await SalesReport.find();
+
+        if (!report) {
+            return res.status(404).send({ status: "Report not found" });
+        }
+
+        res.status(200).send({ status: "file fetched successfully", report });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error fetching file" });
     }
 });
 

@@ -18,9 +18,9 @@ import notFoundError from '../../images/notFound.jpeg';
 
 export default function SalesManagerNavigations() {
     const { id } = useParams();
-    const [salesman, setSalesman] = useState({
-        name: "",
-        username: "",
+    const [manager, setManager] = useState({
+        firstName: "",
+        designation: "",
     });
 
     const [productName, setProductName] = useState("");
@@ -31,23 +31,24 @@ export default function SalesManagerNavigations() {
     const [error, setError] = useState(false);
     const [errorGif, setErrorGif] = useState(false);
     const [errorsAlert, seErrorAlert] = useState(false);
+    const [profilePicture, setProfilePicture] = useState('');
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchSalesmanDetails = async () => {
+        const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
                 console.log(res.data);
-                const salesmanData = res.data.salesman || res.data;
-                const { name, username } = salesmanData;
-                setSalesman({ name, username });
+                const managerData = res.data.manager || res.data;
+                const { firstName, designation } = managerData;
+                setManager({ firstName, designation });
             } catch (error) {
                 console.log("error", error.message);
             }
         };
 
-        fetchSalesmanDetails();
+        fetchManagerDetails();
     }, [id]);
 
     useEffect(() => {
@@ -93,28 +94,43 @@ export default function SalesManagerNavigations() {
         }
     };
 
+    useEffect(() => {
+        const fetchProfilePicture = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
+                console.log(res.data);
+
+                const { imageURL } = res.data.image;
+                setProfilePicture(imageURL);
+            } catch (error) {
+                console.log("Error fetching image", error.message);
+            }
+        };
+        fetchProfilePicture();
+    }, [id]);
+
     const handleDashboard = () => {
-        navigate(`/salesManagerDashboard`);
+        navigate(`/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/myAccount/${id}`);
+        navigate(`/managerAccount/${id}`);
     };
 
     const handleStock = () => {
-        navigate(`/addStock`);
+        navigate(`/addStock/${id}`);
     };
 
     const handleSalesPersonDetails = () => {
-        navigate(`/salesPersonDetails`);
+        navigate(`/salesPersonDetails/${id}`);
     };
 
     const handleRemainingInventoryStock = () => {
-        navigate(`/remainingInventoryStock`);
+        navigate(`/remainingInventoryStock/${id}`);
     };
 
     const handleMonthlyReport = () => {
-        navigate(`/monthlyReport`);
+        navigate(`/monthlyReport/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -154,10 +170,10 @@ export default function SalesManagerNavigations() {
                         </button>
                     </div>
                     <div className="flex md:order-2  mr-20 items-start">
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">
-                            <span className='text-green-500 font-bold'>{salesman.name}</span>
-                            <span className='text-green-400 '>{salesman.username}</span>
+                            <span className='text-green-500 font-bold'>{manager.firstName}</span>
+                            <span className='text-green-400 '>{manager.designation}</span>
                         </div>
                         <Navbar.Toggle />
                     </div>

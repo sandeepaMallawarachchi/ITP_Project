@@ -47,31 +47,31 @@ export default function Orders(){
         navigate("/inventory");
     }
     return (
+        <div style={{marginLeft:"40%",marginTop:"10rem"}}>
+        <form onSubmit={addOrder} className="flex w-3/5 flex-col gap-10">
         <div>
-      <form onSubmit={addOrder} className="flex max-w-md flex-col gap-4">
-      <div>
-        <div className="mb-2 block">
-          <Label>Product Name</Label>
+          <div className="mb-2 block">
+            <Label>Product Name</Label>
+          </div>
+          <TextInput  type="text" name="productName" value={order.productName} onChange={handleChange} required />
         </div>
-        <TextInput  type="text" name="productName" value={order.productName} onChange={handleChange} required />
-      </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Tea Type</Label>
+        <div>
+          <div className="mb-2 block">
+          <Label>Tea Type</Label>
+          </div>
+          <TextInput  type="text" name="teaType" value={order.teaType} onChange={handleChange} required />
         </div>
-        <TextInput  type="text" name="teaType" value={order.teaType} onChange={handleChange} required />
-      </div>
 
-      <div>
-        <div className="mb-2 block">
-        <Label>Quantity</Label>
+        <div>
+          <div className="mb-2 block">
+          <Label>Quantity</Label>
+          </div>
+          <TextInput  type="number" name="quantity" value={order.quantity} onChange={handleChange} required />
         </div>
-        <TextInput  type="number" name="quantity" value={order.quantity} onChange={handleChange} required />
-      </div>
 
-      <Button type="submit">Add Order</Button>
-      </form>
+        <Button type="submit" style={{width:"15rem",marginTop:"1rem"}} pill >Make an Order</Button>
+        </form>
         </div>
     )
  }

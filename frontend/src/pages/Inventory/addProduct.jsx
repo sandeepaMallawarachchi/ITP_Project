@@ -3,6 +3,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AddProduct() {
 
     const navigate = useNavigate();
@@ -57,7 +58,8 @@ export default function AddProduct() {
          try{
           //adding data to db
             await axios.post("http://localhost:8070/inventory/product/addTeaPack",newProduct);
-            alert("Products added successfully");
+            
+            
             //after adding the product, navigate to products page
             navigate("/inventory/products");
 
@@ -128,72 +130,79 @@ export default function AddProduct() {
     }
     
   return (
-    <div>
-    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
-      <div>
-        <div className="mb-2 block">
-          <Label>Product Name</Label>
-        </div>
-        <TextInput  type="text" name="name" value={productData.name} onChange={handleChange} required />
-        
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Tea Type</Label>
-        </div>
-        <TextInput  type="text" name="type" value={productData.type} onChange={handleChange} required />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Stock Level</Label>
-        </div>
-        <TextInput  type="number" name="stockLevel" value={productData.stockLevel} onChange={handleChange} required />
-        
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Reorder Level</Label>
-        </div>
-        <TextInput type="number" name="reorderLevel" value={productData.reorderLevel} onChange={handleChange} required />
-        <p className="text-sm text-red-700">{formErrors.reorderLevel}</p>
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Unit Price(Rs)</Label>
-        </div>
-        <TextInput type="number" name="price" value={productData.price} onChange={handleChange} required />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Weight(grams)</Label>
-        </div>
-        <TextInput type="number" name="weight" value={productData.weight} onChange={handleChange} required />
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Manufactured Date</Label>
-        </div>
-        <TextInput  type="text" name="manDate" value={productData.manDate} onChange={handleChange} placeholder="mm/dd/yyyy" required />
-         <p className="text-sm text-red-700">{formErrors.manDate}</p>
-      </div>
-
-      <div>
-        <div className="mb-2 block">
-        <Label>Expiry Date</Label>
-        </div>
-        <TextInput  type="text" name="expDate" value={productData.expDate} onChange={handleChange} placeholder="mm/dd/yyyy" required />
-      <p className="text-sm text-red-700">{formErrors.expDate}</p>
-      </div>
-
+      <div style={{marginLeft:"25%",marginTop:"10rem"}}>
+      <form onSubmit={handleSubmit} className="flex w-10/12 flex-col gap-4 ">
       
-      <Button type="submit">Add Product</Button>
-    </form>
-    </div>
-  );
+      <div className="flex justify-between">
+              <div className="flex-1">
+                <div className="mb-2 block">
+                  <Label>Product Name</Label>
+                </div>
+                <TextInput type="text" name="name" value={productData.name} onChange={handleChange} required />
+              </div>
+              <div className="flex-1 ml-20">
+                <div className="mb-2 block">
+                  <Label>Tea Type</Label>
+                </div>
+                <TextInput type="text" name="type" value={productData.type} onChange={handleChange} required />
+              </div>
+            </div>
+
+      <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+          <Label>Stock Level</Label>
+          </div>
+          <TextInput  type="number" name="stockLevel" value={productData.stockLevel} onChange={handleChange} required />
+      </div>
+
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Reorder Level</Label>
+          </div>
+          <TextInput type="number" name="reorderLevel" value={productData.reorderLevel} onChange={handleChange} required />
+          <p className="text-sm text-red-700 my-2 ml-3">{formErrors.reorderLevel}</p>
+        </div>
+  </div>
+
+      <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+          <Label>Unit Price(Rs)</Label>
+          </div>
+          <TextInput type="number" name="price" value={productData.price} onChange={handleChange} required />
+        </div>
+
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Weight(Gram)</Label>
+          </div>
+          <TextInput type="number" name="weight" value={productData.weight} onChange={handleChange} required />
+        </div>
+      </div>
+
+
+      <div className="flex justify-between">
+        <div className="flex-1">
+          <div className="mb-2 block">
+          <Label>Manufactured Date</Label>
+          </div>
+          <TextInput  type="text" name="manDate" value={productData.manDate} onChange={handleChange} placeholder="mm/dd/yyyy" className="" required />
+          <p className="text-sm text-red-700  my-2 ml-3">{formErrors.manDate}</p>
+        </div>
+
+        <div className="flex-1 ml-20">
+          <div className="mb-2 block">
+          <Label>Expiry Date</Label>
+          </div>
+          <TextInput  type="text" name="expDate" value={productData.expDate} onChange={handleChange} placeholder="mm/dd/yyyy" required />
+        <p className="text-sm text-red-700  my-2 ml-3">{formErrors.expDate}</p>
+        </div>
+      </div>
+
+        
+        <Button type="submit" style={{width:"15rem",marginTop:"3rem"}} pill>Add Product</Button>
+      </form>
+      </div>
+    );
 }

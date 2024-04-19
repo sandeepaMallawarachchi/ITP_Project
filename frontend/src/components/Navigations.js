@@ -32,6 +32,7 @@ export default function Navigations() {
     const [error, setError] = useState(false);
     const [errorGif, setErrorGif] = useState(false);
     const [errorsAlert, seErrorAlert] = useState(false);
+    const [profilePicture, setProfilePicture] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -94,6 +95,21 @@ export default function Navigations() {
         }
     };
 
+    useEffect(() => {
+        const fetchProfilePicture = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8070/salesmen/changeProfilePicture/${id}`);
+                console.log(res.data);
+
+                const { imageURL } = res.data.image;
+                setProfilePicture(imageURL);
+            } catch (error) {
+                console.log("Error fetching image", error.message);
+            }
+        };
+        fetchProfilePicture();
+    }, [id]);
+
     const handleDashboard = () => {
         navigate(`/salesmenDashboard/${id}`);
     };
@@ -135,7 +151,7 @@ export default function Navigations() {
             {/* header */}
             <div className="fixed top-0 left-0 w-full z-50">
                 <Navbar fluid rounded style={{ backgroundColor: "#E5E5E5" }}>
-                    <Navbar.Brand onClick={handleDashboard}  className='cursor-pointer w-32 ml-8'>
+                    <Navbar.Brand onClick={handleDashboard} className='cursor-pointer w-32 ml-8'>
                         <img src={logo} id='logo' alt="logo" />
                     </Navbar.Brand>
                     <div className="relative w-1/3">
@@ -157,7 +173,7 @@ export default function Navigations() {
                         </button>
                     </div>
                     <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleProfilePic} >
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{salesman.name}</span>
                             <span className='text-green-400 '>{salesman.email}</span>

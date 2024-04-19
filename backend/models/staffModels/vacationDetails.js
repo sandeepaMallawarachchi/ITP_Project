@@ -2,21 +2,17 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const staffManagerSchema = new Schema({
+const vacationSchema = new Schema({
 
-    empId : {
+    date : {
+        type : Date,
+        required : true
+    },
+    empName : {
         type : String,
         required : true
     },
-    firstName : {
-        type : String,
-        required : true
-    },
-    lastName : {
-        type : String,
-        required : true
-    },
-    gender : {
+    title : {
         type : String,
         required : true
     },
@@ -24,25 +20,29 @@ const staffManagerSchema = new Schema({
         type : String,
         required : true
     },
-    designation : {
-        type : String,
+    daysEarned : {
+        type : Number,
         required : true
     },
-    address : {
-        type : String,
+    reqDate : {
+        type : Date,
         required : true
     },
-    email : {
-        type : String,
+    returningDate : {
+        type : Date,
         required : true
     },
-    phoneNo : {
-        type : String,
+    totDays : {
+        type : Number,
         required : true
-    }
+    },
+    approvalDate : {
+        type : Date,
+        required : true
+    },
 
 })
 
-const StaffManager = mongoose.model("StaffManager",staffManagerSchema);
+const Vacation = mongoose.model("Vacation",vacationSchema);
 
-module.exports = StaffManager;
+module.exports = Vacation;

@@ -37,39 +37,43 @@ export default function SearchResult(){
     
     return (
             
-             <div style={{marginTop:"90px",marginLeft:"110px" }}>
+            <div style={{marginTop:"10rem",marginLeft:"23rem"}}>
             
              { 
              result.length === 0 ?
-             (<span> There is no such product in inventory</span>) :
+             (<span style={{marginLeft:"15rem",fontSize:"1.5rem"}}> There is no such product in inventory...</span>) :
              
-             (<table>
-                <thead>
+             (<table style={{width:"90%"}}>
+                <thead className="bg-blue-50 border-b-2 border-gray-200 ">
                     <tr>
-                        <th>Product name</th>
-                        <th>Tea type</th>
-                        <th>Stock Level</th>
-                        <th>Unit Price</th>
-                        <th>Weight</th>
-                        <th>manDate</th>
-                        <th>expDate</th>
-                        <th>Reorder Level</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left w-52">Product name</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">Tea type</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">Stock Level</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">Unit Price</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">Weight</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">manDate</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">expDate</th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">Reorder Level</th>
                         
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-gray-100">
                     {
                         result.map((item,index)=>{
+                            var toColor = false
+                            if(item.stockLevel <= item.reorderLevel){
+                                toColor = true;
+                            }
                             return(
-                            <tr key={index}>
-                                <td>{item.productName}</td>
-                                <td>{item.teaType}</td>
-                                <td>{item.stockLevel}</td>
-                                <td>{item.unitPrice}</td>
-                                <td>{item.weight}</td>
-                                <td>{new Date(item.manDate).toLocaleDateString()}</td>
-                                <td>{new Date(item.expDate).toLocaleDateString()}</td>
-                                <td>{item.reorderLevel}</td>
+                            <tr key={index} className="hover:bg-blue-50">
+                                <td className="p-3 text-sm text-gray-500 w-52">{item.productName.toUpperCase()}</td>
+                                <td className="p-3 text-sm text-gray-500">{item.teaType.toUpperCase()}</td>
+                                <td className="p-3 text-sm text-gray-500" style={{color : toColor ? "red" : "green"}}>{item.stockLevel}</td>
+                                <td className="p-3 text-sm text-gray-500">{item.unitPrice}</td>
+                                <td className="p-3 text-sm text-gray-500">{item.weight}</td>
+                                <td className="p-3 text-sm text-gray-500">{new Date(item.manDate).toLocaleDateString()}</td>
+                                <td className="p-3 text-sm text-gray-500">{new Date(item.expDate).toLocaleDateString()}</td>
+                                <td className="p-3 text-sm text-gray-500">{item.reorderLevel}</td>
                             </tr>)
                         })
                         
@@ -79,8 +83,11 @@ export default function SearchResult(){
             </table>)}
 
             
-        </div>
-    )
+            </div>
+         )
+   
+               
+          
 
     
 }

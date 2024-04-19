@@ -21,20 +21,49 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:8070/salesmen/login`, {
+            const res = await axios.post(`http://localhost:8070/empLogin/employeeLogin`, {
                 usernameOrPhone,
                 password
             });
 
-            const token = res.data.token;
-            const salespersonID = res.data.salespersonID;
-            const role = res.data.role;
-
-            if (role === 'salesperson') {
+            if (res.data.role === 'salesperson') {
+                const salespersonID = res.data.salespersonID;
                 navigate(`/salesmenDashboard/${salespersonID}`);
+                return;
+            }
+            else if (res.data.designation === 'Sales Manager') {
+                const empId = res.data.empId;
+                navigate(`/salesManagerDashboard/${empId}`);
+                return;
             }
 
+            else if (res.data.designation === 'Inventory Manager') {
+                navigate(`/inventory`);
+                return;
+            }
+          
+            else if (res.data.designation === 'Staff Manager') {
+                const empId = res.data.empId;
+                navigate(`/allEmployees/${empId}`);
+                return;
+            }
+
+            else if (res.data.designation === 'Supplier Manager') {
+                navigate(`/home`);
+                return;
+            }
+
+            else if (res.data.designation === 'Delivery Manager') {
+                navigate(`/alllocations`);
+                return;
+            }
+
+            else if (res.data.designation === 'Financial Manager') {
+                navigate(`/HomeIncome`);
+                return;
+            }
         } catch (error) {
+            console.error("Error in salesmen login request:", error.message);
             if (error.response && error.response.status === 401) {
                 setInvalidPassword(true);
                 setErrorPassword(true);
@@ -67,7 +96,7 @@ export default function Login() {
 
             <h1 className='absolute text-center text-5xl mt-48 ml-[45%] text-green-600 font-bold'>Login</h1>
 
-            <div className='absolute mt-72 left-1/3 w-1/3 bg-[#f9fafb] shadow-md sm:rounded-lg p-8 bg-cover bg-center'>
+            <div className='absolute mt-72 left-1/3 w-1/3 bg-gray-200 bg-opacity-60 shadow-md sm:rounded-lg p-8 bg-cover bg-center'>
 
                 <Alert color="failure" icon={HiInformationCircle} className={`absolute ${invalidUsernameOrPhone ? 'w-full text-center -mt-20 left-0' : 'hidden'}`}>
                     <span className="font-medium">Invalid username or phone!</span>
@@ -114,7 +143,7 @@ export default function Login() {
 
                     <div>
                         <Link to={`/forgetPassword`}
-                            className='text-sm font-italic hover:underline text-blue-700 text-right'>
+                            className='text-sm font-italic hover:underline text-blue-700'>
                             Forget Password
                         </Link>
                     </div>
