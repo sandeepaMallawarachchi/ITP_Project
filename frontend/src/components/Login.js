@@ -28,7 +28,7 @@ export default function Login() {
 
             if (res.data.role === 'salesperson') {
                 const salespersonID = res.data.salespersonID;
-                navigate(`/salesmenDashboard/${salespersonID}`);
+                navigate(`/sales/${salespersonID}`);
                 return;
             }
             else if (res.data.designation === 'Sales Manager') {
