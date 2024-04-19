@@ -1,13 +1,13 @@
 const router=require ("express").Router();
-const libilities = require("../../models/financialModels/libilities");
+const qualities = require("../../models/financialModels/qualities");
 
 // Route to create a new libilities
-router.post('/balances', async (req, res) => {
+router.post('/qualities', async (req, res) => {
     try {
-        const { liabilities,description, amount } = req.body;
-        const newBalance = new libilities({ liabilities,  description, amount });
+        const { qualities,description, amount } = req.body;
+        const newBalance = new qualities({ qualities,  description, amount });
         await newBalance.save();
-        res.status(201).json({ message: 'Balance created successfully', libilities: newBalance });
+        res.status(201).json({ message: 'Balance created successfully', qualities: newBalance });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
@@ -15,9 +15,9 @@ router.post('/balances', async (req, res) => {
 });
 
 // Route to get all libilities
-router.get('/balances', async (req, res) => {
+router.get('/qualities', async (req, res) => {
     try {
-        const balances = await libilities.find();
+        const balances = await qualities.find();
         res.status(200).json(balances);
     } catch (error) {
         console.error(error);
@@ -26,14 +26,14 @@ router.get('/balances', async (req, res) => {
 });
 
 // Route to update a libilities by ID
-router.put('/balances/:id', async (req, res) => {
+router.put('/qualities/:id', async (req, res) => {
     try {
-        const { liabilities,  description, amount } = req.body;
-        const updatedBalance = await libilities.findByIdAndUpdate(req.params.id, { liabilities, description, amount }, { new: true });
+        const { qualities,  description, amount } = req.body;
+        const updatedBalance = await qualities.findByIdAndUpdate(req.params.id, { qualities, description, amount }, { new: true });
         if (!updatedBalance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
-        res.status(200).json({ message: 'Balance updated successfully', libilities: updatedBalance });
+        res.status(200).json({ message: 'Balance updated successfully', qualities: updatedBalance });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
@@ -41,9 +41,9 @@ router.put('/balances/:id', async (req, res) => {
 });
 
 // Route to delete a libilities by ID
-router.delete('/balances/:id', async (req, res) => {
+router.delete('/qualities/:id', async (req, res) => {
     try {
-        const deletedBalance = await libilities.findByIdAndDelete(req.params.id);
+        const deletedBalance = await qualities.findByIdAndDelete(req.params.id);
         if (!deletedBalance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
@@ -55,9 +55,9 @@ router.delete('/balances/:id', async (req, res) => {
 });
 
 // Route to get a libilities by ID
-router.get('/balances/:id', async (req, res) => {
+router.get('/qualities/:id', async (req, res) => {
     try {
-        const balance = await libilities.findById(req.params.id);
+        const balance = await qualities.findById(req.params.id);
         if (!balance) {
             return res.status(404).json({ message: 'Balance not found' });
         }

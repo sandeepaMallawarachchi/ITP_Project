@@ -5,7 +5,7 @@ import axios from "axios";
 export default function AddDriver() {
     const [dname, setName] = useState("");
     const [age, setAge] = useState("");
-    const [address, setAddress] = useState(""); 
+    const [address, setAddress] = useState("");
     const [phone_number, setNumber] = useState("");
     const [email, setEmail] = useState("");
     const [duration_of_job, setDuration_of_job] = useState("");
@@ -58,9 +58,19 @@ export default function AddDriver() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="phone_number" className="form-label">Phone Number</label>
-                    <input type="number" className="form-control" id="phone_number" placeholder="Enter the Phone Number"
-                        onChange={(e) => setNumber(e.target.value)} />
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="phone_number"
+                        maxLength="10"
+                        pattern="[0-9]{10}"
+                        placeholder="Enter the Phone Number"
+                        onChange={(e) => setNumber(e.target.value)}
+                        title="Please enter exactly 10 digits"
+                        required  // Add required attribute if the field is mandatory
+                    />
                 </div>
+
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
                     <input type="email" className="form-control" id="email" placeholder="Enter the Email"
@@ -76,7 +86,7 @@ export default function AddDriver() {
             <li className="rty">
                 <Link to="/allDrivers" className="rty">All Drivers</Link>
             </li>
-          
+
         </div>
     );
 }

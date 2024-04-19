@@ -47,7 +47,7 @@ export default function Orders(){
         navigate("/inventory");
     }
     return (
-        <div style={{marginLeft:"40%",marginTop:"8rem"}}>
+        <div style={{marginLeft:"40%",marginTop:"10rem"}}>
         <form onSubmit={addOrder} className="flex w-3/5 flex-col gap-10">
         <div>
           <div className="mb-2 block">

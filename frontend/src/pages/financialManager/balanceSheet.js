@@ -29,18 +29,17 @@ export default function BalanceSheet() {
                 <thead>
                     <tr>
 
-                        <th scope="col">Date</th>
-                        <th scope="col">Category</th>
+                        <th scope="col">Libilities</th>
                         <th scope="col">Description</th>
                         <th scope="col">Amount</th>
-                        <th scope="col">Action</th>
+                     
                     </tr>
+                    
                 </thead>
                 <tbody>
                     {income.map((incomes) => (
                         <tr key={incomes._id}>
-                            <td>{incomes.date}</td>
-                            <td>{incomes.category}</td>
+                            <td>{incomes.libilities}</td>
                             <td>{incomes.description}</td>
                             <td>{incomes.amount}</td>
 
@@ -48,9 +47,12 @@ export default function BalanceSheet() {
                     ))}
 
                 </tbody>
+ 
             </table>
 
 
         </div>
+
+        
     )
 }
