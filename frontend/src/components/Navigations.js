@@ -111,23 +111,23 @@ export default function Navigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/salesmenDashboard/${id}`);
+        navigate(`/sales/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/myAccount/${id}`);
+        navigate(`/sales/myAccount/${id}`);
     };
 
     const handleAddSale = () => {
-        navigate(`/AddNewSale/${id}`);
+        navigate(`/sales/AddNewSale/${id}`);
     };
 
     const handleSalesSummary = () => {
-        navigate(`/SalesSummary/${id}`);
+        navigate(`/sales/SalesSummary/${id}`);
     };
 
     const handleRemainingStock = () => {
-        navigate(`/remainingStock/${id}`);
+        navigate(`/sales/remainingStock/${id}`);
     };
 
     const handleSearchClick = async () => {
