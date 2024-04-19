@@ -25,6 +25,7 @@
     "react-scripts": "^5.0.1",
     "react-to-print": "^2.15.1",
     "recharts": "^2.12.4",
+    "sweetalert2": "^11.10.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
