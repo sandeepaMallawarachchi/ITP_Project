@@ -17,7 +17,7 @@ function AddVacation() {
     function sendData(e) {
         e.preventDefault();
 
-        const newEmp = {
+        const newVac = {
             date,
             empName,
             title,
@@ -30,26 +30,26 @@ function AddVacation() {
         }
 
         try {
-            axios.post(`http://localhost:8070/staff/add`, newEmp);
-            alert("Success! Employee added");
+            axios.post(`http://localhost:8070/vacation/add`, newVac);
+            alert("Vacation Request Success! ");
         } catch (error) {
-            alert("Error! Failed to add employee");
+            alert("Error! Failed to request a vacation");
             console.error("Error:", error);
         }
     }
 
     const navigate = useNavigate();
 
-    const handleAllEmployees = () => {
-        navigate(`/allEmployees`);
+    const handleAllVacations = () => {
+        navigate(`/allVacations`);
     }
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div class="mb-3">
-                    <label for="empId" class="form-label">Enter Employee ID: </label>
-                    <input type="text" class="form-control" id="empId" required onChange={(e) => {
+                    <label for="date" class="form-label">Enter Date: </label>
+                    <input type="text" class="form-control" id="date" required onChange={(e) => {
                         setDate(e.target.value);
                     }} />
                 </div>
@@ -112,7 +112,7 @@ function AddVacation() {
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <button type="submit" class="btn btn-success" onClick={handleAllEmployees}>All Employees</button>
+            <button type="submit" class="btn btn-success" onClick={handleAllVacations}>All Employees</button>
         </div>
     )
 }

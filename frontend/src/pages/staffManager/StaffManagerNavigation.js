@@ -23,7 +23,6 @@ export default function SalesManagerNavigations() {
         designation: "",
     });
 
-    // const [productName, setProductName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [employeeDetails, setEmployeeDetails] = useState([]);
     const [filteredEmployeeDetails, setFilteredEmployeeDetails] = useState([]);

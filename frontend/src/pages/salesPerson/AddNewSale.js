@@ -106,7 +106,7 @@ export default function AddNewSale() {
                 <span className="font-medium">Error adding sale!</span>
             </Alert>
             <form onSubmit={handleSubmit}>
-                <div class="mb-6">
+                <div className="mb-3">
                     <label for="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
                     <input
                         type="text"
