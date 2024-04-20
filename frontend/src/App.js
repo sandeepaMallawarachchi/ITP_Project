@@ -77,7 +77,7 @@ function App() {
         
         {/* sales routes */}
         <Routes>
-          <Route path='/sales/:id/*' element={<SalesRoutes />} />
+          <Route path='/sales/*' element={<SalesRoutes />} />
         </Routes>
 
         {/* staff routes */}

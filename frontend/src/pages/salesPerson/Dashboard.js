@@ -4,6 +4,5 @@ export default function Dashboard() {
 
     return (
         <div><SalesmenDashboard /></div>
-
     )
 }
