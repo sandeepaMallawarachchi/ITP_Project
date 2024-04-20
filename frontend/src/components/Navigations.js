@@ -143,7 +143,7 @@ export default function Navigations() {
     };
 
     const handleProfilePic = () => {
-        navigate(`/myAccount/${id}`)
+        navigate(`/sales/myAccount/${id}`)
     };
 
     return (

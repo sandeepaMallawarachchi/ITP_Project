@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SalesLayout from './pages/salesPerson/SalesLayout'
+import SalesmenDashboard from "./pages/salesPerson/SalesmenDashboard";
 
 //sales person
 import Dashboard from './pages/salesPerson/Dashboard';
@@ -22,12 +23,13 @@ import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigation
 import ManagerAccount from './components/ManagerAccount'
 
 export default function SalesRoutes() {
+
     return (
         <Routes>
 
             {/* sales person routes */}
             <Route element={<SalesLayout />}>
-                <Route index element={<Dashboard />} />
+                <Route index element={<SalesmenDashboard />} />
                 <Route path='/changeSalesmanPassword/:id' element={<ChangeSalesmanPassword />} />
                 <Route path='/myAccount/:id' element={<MyAccount />} />
 
