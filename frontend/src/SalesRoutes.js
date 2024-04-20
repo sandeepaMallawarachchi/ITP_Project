@@ -27,9 +27,11 @@ export default function SalesRoutes() {
     return (
         <Routes>
 
-            {/* sales person routes */}
             <Route element={<SalesLayout />}>
-                <Route index element={<SalesmenDashboard />} />
+
+                <Route path='/salesmenDashboard/:id' element={<SalesmenDashboard />} />
+                
+                {/* sales person routes */}
                 <Route path='/changeSalesmanPassword/:id' element={<ChangeSalesmanPassword />} />
                 <Route path='/myAccount/:id' element={<MyAccount />} />
 

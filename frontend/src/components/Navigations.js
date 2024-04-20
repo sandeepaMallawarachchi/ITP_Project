@@ -111,7 +111,7 @@ export default function Navigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/sales/${id}`);
+        navigate(`/sales/salesmenDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
