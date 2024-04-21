@@ -181,11 +181,11 @@ router.route("/getManagers").get(async (req, res) => {
         // res.status(200).send({ status: "managers fetched", manager });
 
         const departmentDetails = [];
-        let totalEmployees = 0;
 
         for (const employee of employeeRecords) {
 
             const department = employee.department;
+            let totalEmployees = 0;
 
             const existingDepartment = departmentDetails.find(item => item.department === department);
 
@@ -197,12 +197,8 @@ router.route("/getManagers").get(async (req, res) => {
             } else {
                 existingDepartment.empId += employee.empId;
             }
-
-            totalEmployees += employee.empId;
         }
-
-        const totalEmployeesForDepartment = employeeRecords.length;
-        res.status(200).send({status:"Total employees for a department", totalEmployeesForDepartment});
+        res.status(200).send({status:"Total employees for a department", departmentDetails});
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
