@@ -65,8 +65,8 @@ function AddSalary() {
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div className="mb-3">
-                    <label htmlFor="empId" className="form-label">Enter Employee ID: </label>
-                    <input type="text" className="form-control" id="empId" value={empId} onChange={(e) => setEmpId(e.target.value)} />
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="empId">Enter Employee ID: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empId" value={empId} onChange={(e) => setEmpId(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
