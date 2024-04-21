@@ -198,15 +198,14 @@ export default function SalesManagerNavigations() {
                 <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50 mt-[111px]">
                     <Sidebar.Items className='pt-5'>
                         <Sidebar.ItemGroup className='cursor-pointer'>
+
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>
-                                All Employees
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>
-                                Add Employee
-                            </Sidebar.Item>
+                            <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
+                                <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
+                            </Sidebar.Collapse>
                             <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>
                                 All Salaries
                             </Sidebar.Item>
