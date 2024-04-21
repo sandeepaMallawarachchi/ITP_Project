@@ -23,6 +23,7 @@ import AddVacation from './pages/staffManager/AddVacation'
 import AllVacations from './pages/staffManager/AllVacations'
 import ManagerAccount from './components/ManagerAccount'
 import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
+import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
@@ -82,6 +83,14 @@ function App() {
         </Routes>
 
         {/* staff routes */}
+
+        <Routes>
+          <Route path='/staffManagerDashboard/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+        <Routes>
+          <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
+        </Routes>
+        
         <Routes>
           <Route path='/addSalary/:id' element={<StaffManagerNavigation />} />
         </Routes>
