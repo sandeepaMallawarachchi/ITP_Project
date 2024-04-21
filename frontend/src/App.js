@@ -3,13 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SalesRoutes from './SalesRoutes';
 
 //sales manager
-import AddDailyStock from './pages/salesManager/AddDailyStock';
-import SalesManagerDashboard from './pages/salesManager/SalesManagerDashboard';
-import SalesPersonDetails from './pages/salesManager/SalesPersonDetails';
-import RemainingInventoryStock from './pages/salesManager/RemainingInventoryStock';
-import MonthlySales from './pages/salesManager/MonthlySales';
-import MonthlyReport from './pages/salesManager/MonthlyReport';
-import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigations';
+
+//sales
+import SalesManagerRoutes from './SalesManagerRoutes';
 
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
@@ -78,6 +74,11 @@ function App() {
         {/* sales routes */}
         <Routes>
           <Route path='/sales/*' element={<SalesRoutes />} />
+        </Routes>
+
+        {/* sales manager routes */}
+        <Routes>
+          <Route path='/salesManager/*' element={<SalesManagerRoutes />} />
         </Routes>
 
         {/* staff routes */}
@@ -149,13 +150,6 @@ function App() {
         </Routes>
         <Routes>
           <Route path='/allVacations/:id' element={<AllVacations />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/managerAccount/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/managerAccount/:id' element={<ManagerAccount />} />
         </Routes>
 
         {/* financial manager routes */}

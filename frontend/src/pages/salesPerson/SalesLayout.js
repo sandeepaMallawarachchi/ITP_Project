@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import Navigations from "../../components/Navigations";
+import Navigations from "./SalesNavigations";
 
 export default function SalesLayout() {
 
