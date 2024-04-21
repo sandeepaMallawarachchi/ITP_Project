@@ -6,15 +6,16 @@ import { BiBuoy } from 'react-icons/bi';
 import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { MdFormatListBulleted } from "react-icons/md";
-import { HiOutlineDocumentReport } from "react-icons/hi";
-import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { FaUmbrellaBeach } from "react-icons/fa";
+import { MdAppRegistration } from "react-icons/md";
 
 export default function SalesManagerNavigations() {
     const { id } = useParams();
@@ -200,25 +201,25 @@ export default function SalesManagerNavigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleEmployees}>
+                            <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>
                                 All Employees
                             </Sidebar.Item>
                             <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>
                                 Add Employee
                             </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleSalaries}>
+                            <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>
                                 All Salaries
                             </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleAddSalary}>
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSalary}>
                                 Add Salary
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleVacations}>
+                            <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>
                                 All Vacations
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleAddVacation}>
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>
                                 Add Vacation
                             </Sidebar.Item>
-                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleRegistration}>
+                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
                                 Registration
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
