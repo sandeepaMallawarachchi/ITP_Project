@@ -68,6 +68,18 @@ router.get('/qualities/:id', async (req, res) => {
     }
 });
 
+// Route to create a new libilities
+router.post('/libilities', async (req, res) => {
+    try {
+        const { liabilities,description, amount } = req.body;
+        const newBalance = new libilities({ liabilities,  description, amount });
+        await newBalance.save();
+        res.status(201).json({ message: 'Balance created successfully', libilities: newBalance });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
 
 
 module.exports = router;

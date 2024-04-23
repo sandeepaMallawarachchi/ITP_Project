@@ -6,6 +6,10 @@ export default function Home() {
     const navigate = useNavigate();
     const [expenses, setExpenses] = useState([]);
     const [totalSalary, setTotalSalary] = useState(0);
+    const [totalExpenses, setTotalExpenses] = useState(0);
+
+
+
 
     useEffect(() => {
         axios.get("http://localhost:8070/expenses/display")
@@ -18,6 +22,8 @@ export default function Home() {
 
     }, []);
 
+  
+
     useEffect(() => {
         axios.get("http://localhost:8070/totalSalary/TotalSalary")
             .then((res) => {
@@ -28,6 +34,19 @@ export default function Home() {
                 alert(error.message);
             });
     }, []);
+
+
+    useEffect(() => {
+        axios.get("http://localhost:8070/getTotalExpenses/getTotalExpenses")
+            .then((res) => {
+                const totalExpenses = res.data.getTotalExpenses;
+                setTotalExpenses(totalExpenses);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }, [expenses]); 
+
 
     const addExpensesBtn = () => {
         navigate(`/add`);
@@ -41,7 +60,9 @@ export default function Home() {
         navigate(`/updateExpenses/${id}`);
     };
 
+
     return (
+        
         <div className="container mx-auto p-4">
             <h1 className="text-3xl mb-4">January (2024)</h1>
             <table className="table-auto border-collapse border border-gray-400 w-full">
@@ -84,6 +105,7 @@ export default function Home() {
                 </tbody>
             </table>
             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={addExpensesBtn}>Add Expenses</button>
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" >Total Expenses: {totalExpenses}</button>
         </div>
     );
 }

@@ -6,10 +6,6 @@ const balanceSh=new Schema({
         type:String,
         required:true
     },
-    qualities:{
-        type:String,
-        required:true
-    },
     description:{
         type:String,
         required:true

@@ -8,6 +8,7 @@ export default function AddNewSale() {
 
     const { id } = useParams();
     const [productName, setProductName] = useState("");
+    
     const [amount, setAmount] = useState("");
     const [sellingPrice, setSellingPrice] = useState("");
     const [unitPrice, setUnitPrice] = useState("");

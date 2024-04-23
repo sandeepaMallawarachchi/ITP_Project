@@ -6,6 +6,8 @@ export default function HomeIn() {
 
     const navigate = useNavigate();
     const [income, setIncome] = useState([]);
+    const [totalIncome, setTotalIncome] = useState([]);
+   
 
     useEffect(() => {
         axios.get("http://localhost:8070/incomeRt/displayIncome").then((res) => {
@@ -15,6 +17,17 @@ export default function HomeIn() {
         });
 
     }, []);
+
+    useEffect(() => {
+        axios.get("http://localhost:8070/getTotalIncome/getTotalIncome")
+            .then((res) => {
+                const totalIncome = res.data.getTotalIncome;
+                setTotalIncome(totalIncome);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }, [income]); 
 
     const addIncomeBtn = () => {
         navigate(`/addIncome`);
@@ -65,6 +78,7 @@ export default function HomeIn() {
                 </tbody>
             </table>
             <button type="button" class="btn btn-secondary btn-lg" onClick={addIncomeBtn}>Add Income</button>
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" >Total Income: {totalIncome}</button>
 
 
         </div>
