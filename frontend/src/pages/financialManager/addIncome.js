@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function AddIncome() {
@@ -6,6 +7,7 @@ export default function AddIncome() {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Set the current date when the component mounts
