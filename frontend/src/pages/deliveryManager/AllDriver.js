@@ -20,7 +20,6 @@ export default function AllDriver() {
             .then(response => {
                 setDriver(response.data);
                 setFilteredDriver(response.data);
-                console.log(filteredDriver)
             })
             .catch((err) => {
                 console.log(err);
@@ -49,53 +48,46 @@ export default function AllDriver() {
     }
 
     return (
-        <div>
-            <div style={{ marginLeft: 480 }}>
-                <br />
-                <div style={{ position: 'relative' }}>
-                    <input style={{ paddingLeft: '30px' }} placeholder='Search' onChange={(e) => {
-                        setSearchValue(e.target.value);
-                    }}></input>
-                    {/* SVG icon */}
+        <div className="flex justify-center items-center h-screen">
+            <div className="w-3/4 p-4 bg-gray-200 rounded-md mt-20 mb-20">
+                <h1 className="text-3xl font-bold mb-8">All Drivers</h1>
+                <div className="relative mb-4">
+                    <input className="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} />
                 </div>
-            </div>
-
-            {filteredDriver.length > 0 ? (
-                <div>
-                    <h1>All Drivers</h1>
-                    <table className="table">
+                {filteredDriver.length > 0 ? (
+                    <table className="w-full">
                         <thead>
                             <tr>
-                                <th scope="col">Driver Name</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Duration of Job</th>
-                                <th scope="col">Actions</th>
+                                <th className="px-4 py-2">Driver Name</th>
+                                <th className="px-4 py-2">Age</th>
+                                <th className="px-4 py-2">Address</th>
+                                <th className="px-4 py-2">Phone Number</th>
+                                <th className="px-4 py-2">Email</th>
+                                <th className="px-4 py-2">Duration of Job</th>
+                                <th className="px-4 py-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredDriver.map((driver1) => (
                                 <tr key={driver1._id}>
-                                    <td>{driver1.dname}</td>
-                                    <td>{driver1.age}</td>
-                                    <td>{driver1.address}</td>
-                                    <td>{driver1.phone_number}</td>
-                                    <td>{driver1.email}</td>
-                                    <td>{driver1.duration_of_job}</td>
-                                    <td>
-                                        <button type="button" className="btn btn-primary" onClick={() => handleUpdate(driver1._id)}>Update</button>
-                                        <button type="button" className="btn btn-danger" onClick={() => handleDelete(driver1._id)}>Delete</button>
+                                    <td className="border px-4 py-2">{driver1.dname}</td>
+                                    <td className="border px-4 py-2">{driver1.age}</td>
+                                    <td className="border px-4 py-2">{driver1.address}</td>
+                                    <td className="border px-4 py-2">{driver1.phone_number}</td>
+                                    <td className="border px-4 py-2">{driver1.email}</td>
+                                    <td className="border px-4 py-2">{driver1.duration_of_job}</td>
+                                    <td className="border px-4 py-2">
+                                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => handleUpdate(driver1._id)}>Update</button>
+                                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleDelete(driver1._id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                </div>
-            ) : (
-                <div>No results found</div>
-            )}
+                ) : (
+                    <div>No results found</div>
+                )}
+            </div>
         </div>
     );
 }

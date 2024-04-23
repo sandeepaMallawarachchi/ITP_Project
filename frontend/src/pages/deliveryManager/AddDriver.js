@@ -107,13 +107,6 @@ export default function AddDriver() {
 
     return (
         <div className="container">
-            <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center mt-5 left-0' : 'hidden'}`}>
-                <span className="font-medium">Report uploaded successfully</span>
-            </Alert>
-            <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center mt-5 left-0' : 'hidden'}`}>
-                <span className="font-medium">Error uploading report!</span>
-            </Alert>
-            <Spinner aria-label="Default status example" className={` ${uploading ? 'absolute mt-[280px] ml-40' : 'hidden'}`} />
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label htmlFor="dname" className="form-label">Driver Name</label>
