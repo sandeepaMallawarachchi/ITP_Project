@@ -41,7 +41,7 @@ export default function DeliveryRoutes(){
           <Route path="/deleteReportData/:id/:id" element={<DeleteReportData />} />
           <Route path="/deliveryStatus/:id" element={<DeliveryStatus />} />
           <Route path="/uploadVehicleDetails/:id" element={<UploadVehicleDetails />} />
-          <Route path="/managerAccount/:id/:id" element={<ManagerAccount />} />
+          <Route path="/managerAccount/:id" element={<ManagerAccount />} />
 
         </Route>
       </Routes>
