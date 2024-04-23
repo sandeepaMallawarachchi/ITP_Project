@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function AllEmployees() {
+function AllVacations() {
 
-    const [employees, setEmployees] = useState([]);
+    const [vacations, setVacations] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/staff/allEmployees").then((res) => {
-            setEmployees(res.data);
+        axios.get("http://localhost:8070/staff/vacation/allVacations").then((res) => {
+            setVacations(res.data.vacation);
+            console.log(res.data);
         }).catch((error) => {
             alert(error.message);
         });
@@ -16,15 +17,11 @@ function AllEmployees() {
 
     const navigate = useNavigate();
 
-    const handleAddEmployees = () => {
-        navigate(`/addEmployee`);
+    const handleApprove = () => {
+        navigate(`/vacationReport`);
     }
-    const handleUpdateEmployees = (id) => {
-        navigate(`/updateEmployee/${id}`);
-    }
-
-    const handleDeleteEmployees = (id) => {
-        navigate(`/deleteEmployee/${id}`);
+    const handleReject = (id) => {
+        navigate(`/vacationReport/${id}`);
     }
 
     return (
@@ -43,18 +40,18 @@ function AllEmployees() {
                     </tr>
                 </thead>
                 <tbody>
-                    {employees.map((employee) => (
-                        <tr key={(employee._id)}>
-                            <td>{employee.date}</td>
-                            <td>{employee.empName}</td>
-                            <td>{employee.title}</td>
-                            <td>{employee.department}</td>
-                            <td>{employee.daysEarned}</td>
-                            <td>{employee.reqDate}</td>
-                            <td>{employee.returningDate}</td>
-                            <td>{employee.totDays}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprove(employee.empId)}>Approve</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleReject(employee._id)}>Reject</button>
+                    {vacations.map((vacation) => (
+                        <tr key={(vacation._id)}>
+                            <td>{vacation.date}</td>
+                            <td>{vacation.empName}</td>
+                            <td>{vacation.title}</td>
+                            <td>{vacation.department}</td>
+                            <td>{vacation.daysEarned}</td>
+                            <td>{vacation.reqDate}</td>
+                            <td>{vacation.returningDate}</td>
+                            <td>{vacation.totDays}</td>
+                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprove(vacation.empId)}>Approve</button>
+                                <button type="submit" class="btn btn-danger" onClick={() => handleReject(vacation._id)}>Reject</button>
                             </td>
                         </tr>
                     ))}
