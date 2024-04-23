@@ -7,39 +7,76 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../../firebase';
 
 export default function UploadVehicleDetails() {
-    const [downloadURL, setDownloadURL] = useState('');
-    const [uploading, setUploading] = useState(false);
+    const [licenseDownloadURL, setLicenseDownloadURL] = useState('');
+    const [emissionDownloadURL, setEmissionDownloadURL] = useState('');
+    const [uploadingLicense, setUploadingLicense] = useState(false);
+    const [uploadingEmission, setUploadingEmission] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
-    const [licensevehicle, setLicensevehicle] = useState(null); // Define licensevehicle state
+    const [licenseFile, setLicenseFile] = useState(null);
+    const [emissionFile, setEmissionFile] = useState(null);
 
-    const handleFileChange = (e) => {
-        setLicensevehicle(e.target.files[0]);
+    const handleLicenseFileChange = (e) => {
+        setLicenseFile(e.target.files[0]);
     };
 
-    const handleUpload = () => {
-        if (!licensevehicle) {
-            return alert("Please select a file!");
+    const handleEmissionFileChange = (e) => {
+        setEmissionFile(e.target.files[0]);
+    };
+
+    const handleLicenseUpload = () => {
+        if (!licenseFile) {
+            return alert("Please select a license file!");
         }
 
         const storage = getStorage(app);
-        const fileName = new Date().getTime() + licensevehicle.name;
+        const fileName = new Date().getTime() + licenseFile.name;
         const storageRef = ref(storage, 'licensevehicle/' + fileName);
-        const uploadTask = uploadBytesResumable(storageRef, licensevehicle);
+        const uploadTask = uploadBytesResumable(storageRef, licenseFile);
 
-        setUploading(true);
+        setUploadingLicense(true);
 
         uploadTask.on('state_changed',
             (snapshot) => { },
             (error) => {
-                setUploading(false);
+                setUploadingLicense(false);
                 setErrorAlert(true);
-                console.log(error);
+                console.error("License upload error:", error);
+                alert("Failed to upload license file. Please try again later.");
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    setDownloadURL(url);
-                    setUploading(false);
+                    setLicenseDownloadURL(url);
+                    setUploadingLicense(false);
+                });
+            }
+        );
+    };
+
+    const handleEmissionUpload = () => {
+        if (!emissionFile) {
+            return alert("Please select an emission file!");
+        }
+
+        const storage = getStorage(app);
+        const fileName = new Date().getTime() + emissionFile.name;
+        const storageRef = ref(storage, 'vehicleemission/' + fileName);
+        const uploadTask = uploadBytesResumable(storageRef, emissionFile);
+
+        setUploadingEmission(true);
+
+        uploadTask.on('state_changed',
+            (snapshot) => { },
+            (error) => {
+                setUploadingEmission(false);
+                setErrorAlert(true);
+                console.error("Emission upload error:", error);
+                alert("Failed to upload emission file. Please try again later.");
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    setEmissionDownloadURL(url);
+                    setUploadingEmission(false);
                 });
             }
         );
@@ -49,26 +86,31 @@ export default function UploadVehicleDetails() {
         e.preventDefault();
 
         try {
-            if (!downloadURL) {
-                return alert("Please wait for the upload to complete!");
+            if (!licenseDownloadURL || !emissionDownloadURL) {
+                return alert("Please wait for the uploads to complete!");
             }
 
-            await axios.post(`http://localhost:8070/driver/uploadVehicleLicense`, { downloadURL });
+            await axios.post(`http://localhost:8070/driver/uploadVehicleDetails`, { licenseDownloadURL, emissionDownloadURL });
 
-            setDownloadURL('');
-            setLicensevehicle(null); // Reset licensevehicle state
+            setLicenseDownloadURL('');
+            setEmissionDownloadURL('');
+            setLicenseFile(null);
+            setEmissionFile(null);
             document.getElementById('license').value = '';
+            document.getElementById('emission').value = '';
 
             setSuccessAlert(true);
             setTimeout(() => {
                 setSuccessAlert(false);
             }, 5000);
+            alert('success')
         } catch (error) {
             setErrorAlert(true);
             setTimeout(() => {
                 setErrorAlert(false);
             }, 5000);
-            console.log(error);
+            console.error("Submit error:", error);
+            alert('error')
         }
     };
 
@@ -76,29 +118,47 @@ export default function UploadVehicleDetails() {
         <div>
             <form onSubmit={handleSubmit} className="mt-10">
                 <div className="mb-6">
-                    <label htmlFor="report" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Driver's license</label>
+                    <label htmlFor="license" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Driver's License</label>
                     <input
                         type="file"
                         id="license"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-5/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                         accept='license/'
-                        onChange={handleFileChange}
+                        onChange={handleLicenseFileChange}
                     />
                 </div>
                 <button
                     type="button"
-                    onClick={handleUpload}
+                    onClick={handleLicenseUpload}
                     className="absolute -mt-[75px] ml-[680px] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                 >
-                    Confirm
+                    Confirm License
+                </button>
+                <div className="mb-6">
+                    <label htmlFor="emission" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Vehicle Emission Test</label>
+                    <input
+                        type="file"
+                        id="emission"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-5/6 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required
+                        accept='emission/'
+                        onChange={handleEmissionFileChange}
+                    />
+                </div>
+                <button
+                    type="button"
+                    onClick={handleEmissionUpload}
+                    className="absolute -mt-[75px] ml-[680px] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                >
+                    Confirm Emission
                 </button>
                 <button
                     type="submit"
-                    className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    disabled={uploading}
+                    className={`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${uploadingLicense || uploadingEmission ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={uploadingLicense || uploadingEmission}
                 >
-                    {uploading ? "Confirming..." : "Upload report"}
+                    {uploadingLicense || uploadingEmission ? "Confirming..." : "Upload reports"}
                 </button>
             </form>
         </div>
