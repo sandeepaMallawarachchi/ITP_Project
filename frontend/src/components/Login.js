@@ -44,7 +44,7 @@ export default function Login() {
           
             else if (res.data.designation === 'Staff Manager') {
                 const empId = res.data.empId;
-                navigate(`/allEmployees/${empId}`);
+                navigate(`/staff/staffManagerDashboard/${empId}`);
                 return;
             }
 
@@ -55,7 +55,8 @@ export default function Login() {
             }
 
             else if (res.data.designation === 'Delivery Manager') {
-                navigate(`/alllocations`);
+                const empId = res.data.empId;
+                navigate(`/deliveryManager/alllocations/${empId}`);
                 return;
             }
 

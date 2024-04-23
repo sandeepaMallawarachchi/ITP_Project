@@ -13,12 +13,6 @@ import InventoryRoutes from "./InventoryRoutes";
 //supplier
 import SupplierRoutes from './SupplierRoutes';
 
-
-
-
-//financial
-import financialRoutes from './financialRoutes';
-
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
@@ -39,22 +33,6 @@ import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
 import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
 
 
-//delivery
-import AddLocation from "./pages/deliveryManager/AddLocation";
-import AllLocation from "./pages/deliveryManager/AllLocation";
-import UpdateLocation from "./pages/deliveryManager/UpdateLocation";
-import DeleteLocation from "./pages/deliveryManager/DeleteLocation";
-import AddDriver from "./pages/deliveryManager/AddDriver";
-import AllDriver from "./pages/deliveryManager/AllDriver";
-import UpdateDriver from "./pages/deliveryManager/UpdateDriver";
-import DeleteDriver from "./pages/deliveryManager/DeleteDriver";
-import UploadImage from "./pages/deliveryManager/UploadImage";
-import AddReportData from "./pages/deliveryManager/AddReportData";
-import AllReportData from "./pages/deliveryManager/AllReportData";
-import UpdateReportData from "./pages/deliveryManager/UpdateReportData";
-import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
-import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
-import UploadVehicleDetails from "./pages/deliveryManager/UploadVehicleDetails";
 
 function App() {
   return (
@@ -82,6 +60,24 @@ function App() {
         </Routes>
 
 
+
+
+
+
+
+
+
+
+
+
+
+        {/* delivery routes */}
+       <Routes>
+          <Route path='/deliveryManager/*' element={<DeliveryRoutes />} />
+        </Routes>
+
+
+
         {/* financial routes */}
         <Routes>
           <Route path='/financial/*' element={<financialRoutes />} />
@@ -89,83 +85,51 @@ function App() {
 
         {/* staff routes */}
         <Routes>
-          <Route path='/staffManagerDashboard/:id' element={<StaffManagerNavigation />} />
+          <Route path='/staff/*' element={<StaffRoutes />} />
         </Routes>
+
+        {/* financial manager routes */}
         <Routes>
-          <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
+          <Route path="/add" element={<AddExpenses />} />
         </Routes>
 
         <Routes>
-          <Route path='/addSalary/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/addSalary/:id' element={<AddSalary />} />
+          <Route path="/HomeExpenses" element={<Home />} />
         </Routes>
 
         <Routes>
-          <Route path='/salary/:empId/:month/:year' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
+          <Route path="/HomeIncome" element={<HomeIn />} />
         </Routes>
 
         <Routes>
-          <Route path='/addEmployee/:id' element={<StaffManagerNavigation />} />
+        <Route path="/addLiabilities" element={<AddLiabilities />} />
         </Routes>
+
+
         <Routes>
-          <Route path='/addEmployee/:id' element={<AddEmployee />} />
+          <Route path="/addIncome" element={<AddIncome />} />
         </Routes>
 
         <Routes>
-          <Route path='/allEmployees/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/allEmployees/:id' element={<AllEmployees />} />
+          <Route path="/deleteExpen/:id" element={<DeleteEx />} />
         </Routes>
 
         <Routes>
-          <Route path='/updateEmployee/:empId' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/updateEmployee/:empId' element={<UpdateEmployee />} />
+          <Route path="/updateExpenses/:id" element={<UpdateExpenses />} />
         </Routes>
 
         <Routes>
-          <Route path='/deleteEmployee/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
+          <Route path="/deleteIncome/:id" element={<DeleteIn />} />
         </Routes>
 
         <Routes>
-          <Route path='/allSalaries/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/allSalaries/:id' element={<AllSalaries />} />
+          <Route path="/updateIncome/:id" element={<UpdateIncome />} />
         </Routes>
 
         <Routes>
-          <Route path='/managerRegistration/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/managerRegistration/:id' element={<ManagerRegistration />} />
+          <Route path="/balanceSheetHome" element={<BalanceSheet />} />
         </Routes>
 
-        <Routes>
-          <Route path='/addVacation/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/addVacation/:id' element={<AddVacation />} />
-        </Routes>
-
-        <Routes>
-          <Route path='/allVacations/:id' element={<StaffManagerNavigation />} />
-        </Routes>
-        <Routes>
-          <Route path='/allVacations/:id' element={<AllVacations />} />
-        </Routes>
-
-      
         {/* delivery routes */}
         <Routes>
           <Route path="/addlocations" element={<AddLocation />} />
