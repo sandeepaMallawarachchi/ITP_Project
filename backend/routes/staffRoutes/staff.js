@@ -2,8 +2,8 @@ const router = require("express").Router();
 const { response } = require("express");
 let Staff = require("../../models/staffModels/staffDetails");
 let Manager = require("../../models/staffModels/managerDetails");
-let Salesmen = require("../../models/salesmenModels/Salesmen");
-let Driver = require("../../models/deliveryModels/Driver");
+let Salesmen = require("../../models/salesmenModels/salesmenDetails");
+let Driver = require("../../models/deliveryModels/driver");
 
 router.route("/add").post((req,res)=>{
 
@@ -49,9 +49,9 @@ router.route("/allEmployees").get((req,res)=>{
 
 })
 
-router.route("/allEmployees").get((req,res)=>{
+router.route("/allSalesmen").get((req,res)=>{
 
-    Manager.find().then((staff)=>{
+    Salesmen.find().then((staff)=>{
         res.json(staff)
     }).catch((err)=>{
         console.log(err)
@@ -59,9 +59,9 @@ router.route("/allEmployees").get((req,res)=>{
 
 })
 
-router.route("/allEmployees").get((req,res)=>{
+router.route("/allDrivers").get((req,res)=>{
 
-    Manager.find().then((staff)=>{
+    Driver.find().then((staff)=>{
         res.json(staff)
     }).catch((err)=>{
         console.log(err)
