@@ -1,23 +1,23 @@
 const router=require ("express").Router();
-const Balance = require("../../models/financialModels/balance");
+const libilities = require("../../models/financialModels/libilities");
 
-// Route to create a new balance
+// Route to create a new libilities
 router.post('/balances', async (req, res) => {
     try {
-        const { liabilities, qualities, description, amount } = req.body;
-        const newBalance = new Balance({ liabilities, qualities, description, amount });
+        const { liabilities,description, amount } = req.body;
+        const newBalance = new libilities({ liabilities,  description, amount });
         await newBalance.save();
-        res.status(201).json({ message: 'Balance created successfully', balance: newBalance });
+        res.status(201).json({ message: 'Balance created successfully', libilities: newBalance });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
     }
 });
 
-// Route to get all balances
+// Route to get all libilities
 router.get('/balances', async (req, res) => {
     try {
-        const balances = await Balance.find();
+        const balances = await libilities.find();
         res.status(200).json(balances);
     } catch (error) {
         console.error(error);
@@ -25,25 +25,25 @@ router.get('/balances', async (req, res) => {
     }
 });
 
-// Route to update a balance by ID
+// Route to update a libilities by ID
 router.put('/balances/:id', async (req, res) => {
     try {
-        const { liabilities, qualities, description, amount } = req.body;
-        const updatedBalance = await Balance.findByIdAndUpdate(req.params.id, { liabilities, qualities, description, amount }, { new: true });
+        const { liabilities,  description, amount } = req.body;
+        const updatedBalance = await libilities.findByIdAndUpdate(req.params.id, { liabilities, description, amount }, { new: true });
         if (!updatedBalance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
-        res.status(200).json({ message: 'Balance updated successfully', balance: updatedBalance });
+        res.status(200).json({ message: 'Balance updated successfully', libilities: updatedBalance });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
     }
 });
 
-// Route to delete a balance by ID
+// Route to delete a libilities by ID
 router.delete('/balances/:id', async (req, res) => {
     try {
-        const deletedBalance = await Balance.findByIdAndDelete(req.params.id);
+        const deletedBalance = await libilities.findByIdAndDelete(req.params.id);
         if (!deletedBalance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
@@ -54,10 +54,10 @@ router.delete('/balances/:id', async (req, res) => {
     }
 });
 
-// Route to get a balance by ID
+// Route to get a libilities by ID
 router.get('/balances/:id', async (req, res) => {
     try {
-        const balance = await Balance.findById(req.params.id);
+        const balance = await libilities.findById(req.params.id);
         if (!balance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
@@ -67,5 +67,7 @@ router.get('/balances/:id', async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
+
+
 
 module.exports = router;

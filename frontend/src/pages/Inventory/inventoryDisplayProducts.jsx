@@ -26,7 +26,7 @@ export default function DisplayProducts(){
     },[])
     
     return (
-       <div style={{marginTop:"6rem",marginLeft:"18rem"}} >
+       <div style={{marginTop:"9.5rem",marginLeft:"18rem"}} >
             <table>
               <thead className="bg-gray-50 border-b-2 border-gray-200 ">
                 <tr>

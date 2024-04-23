@@ -179,7 +179,7 @@ export default function SalesmenDashboard() {
                     onMouseLeave={handleMouseLeave} />
 
                 {isHovered && (
-                    <div className="absolute -mt-56 ml-10 w-3/4">
+                    <div className="absolute -mt-64 ml-10 w-3/4">
                         <input
                             type="file"
                             id="report"

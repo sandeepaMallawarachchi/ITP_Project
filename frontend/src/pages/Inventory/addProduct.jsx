@@ -3,6 +3,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AddProduct() {
 
     const navigate = useNavigate();
@@ -57,7 +58,8 @@ export default function AddProduct() {
          try{
           //adding data to db
             await axios.post("http://localhost:8070/inventory/product/addTeaPack",newProduct);
-            alert("Products added successfully");
+            
+            
             //after adding the product, navigate to products page
             navigate("/inventory/products");
 
@@ -128,7 +130,7 @@ export default function AddProduct() {
     }
     
   return (
-      <div style={{marginLeft:"25%",marginTop:"8rem"}}>
+      <div style={{marginLeft:"25%",marginTop:"10rem"}}>
       <form onSubmit={handleSubmit} className="flex w-10/12 flex-col gap-4 ">
       
       <div className="flex justify-between">
@@ -173,7 +175,7 @@ export default function AddProduct() {
 
         <div className="flex-1 ml-20">
           <div className="mb-2 block">
-          <Label>Weight(Grams)</Label>
+          <Label>Weight(Gram)</Label>
           </div>
           <TextInput type="number" name="weight" value={productData.weight} onChange={handleChange} required />
         </div>

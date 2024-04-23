@@ -48,7 +48,7 @@ export default function ManagerRegistration() {
     }
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div class="mb-3">
                     <label for="empId" class="form-label">Enter Employee ID: </label>

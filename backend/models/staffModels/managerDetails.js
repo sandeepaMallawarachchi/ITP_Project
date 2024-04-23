@@ -52,7 +52,7 @@ const managerSchema = new Schema({
     },
 
     dateOfBirth: {
-        type: Date,
+        type: String,
         required: true
     },
 })

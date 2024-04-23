@@ -1,49 +1,42 @@
-const router = require("express").Router();
+const express = require('express');
+const router = express.Router();
 const Sales = require('../../models/salesModels/salesDetails');
 
-router.route("/getMonthlyIncome").get(async (req, res) => {
+router.get("/getTotalSales", async (req, res) => {
     try {
-        const date = new Date();
-        date.setUTCHours(0, 0, 0, 0);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1; // Note: getMonth() returns 0-based month
-        const firstDayOfMonth = new Date(year, month - 1, 1); // Construct start of month
-        const lastDayOfMonth = new Date(year, month, 0); // Construct end of month
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
 
-        // Find all sales records within the current month
-        const incomeRecords = await Sales.find({
-            date: {
-                $gte: firstDayOfMonth,
-                $lte: lastDayOfMonth
+        const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
+        const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
+
+        const totalSales = await Sales.aggregate([
+            {
+                $match: {
+                    date: { $gte: firstDayOfMonth, $lte: lastDayOfMonth }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalSales: { $sum: "$totalPrice" }
+                }
             }
-        });
+        ]);
 
-        if (incomeRecords.length === 0) {
-            return res.status(404).send({ error: "No sales records found for the specified year and month", year, month });
+        if (totalSales.length === 0) {
+            return res.status(404).send({ error: "No sales records found for the current month and year" });
         }
 
-        const incomeDetails = {};
-        let totalIncome = 0;
+        const totalSalesAmount = totalSales[0].totalSales;
 
-        incomeRecords.forEach(sale => {
-            const category = sale.category; // Assuming category is available in salesDetails model
-            const amount = sale.totalPrice;
-            
-            if (!incomeDetails[category]) {
-                incomeDetails[category] = 0;
-            }
-            
-            incomeDetails[category] += amount;
-            totalIncome += amount;
-        });
-
-        res.status(200).send({ status: "Monthly income details fetched", incomeDetails, totalIncome });
+        res.status(200).send({ totalSales: totalSalesAmount });
 
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ error: "Error fetching details" });
+        console.error(error.message);
+        res.status(500).send({ error: "Error fetching total sales" });
     }
 });
 
 module.exports = router;
- 

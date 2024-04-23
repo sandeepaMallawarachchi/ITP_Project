@@ -11,6 +11,7 @@ router.route("/addSalary").post((req, res) => {
     const basicSalary = req.body.basicSalary;
     const ETFbonus = req.body.ETFbonus;
     const EPFbonus = req.body.EPFbonus;
+    const paymentDate = req.body.paymentDate;
 
     const netBonus = Number(ETFbonus) + Number(EPFbonus);
     const netSalary = Number(basicSalary) + netBonus;
@@ -26,7 +27,8 @@ router.route("/addSalary").post((req, res) => {
         ETFbonus,
         EPFbonus,
         netBonus,
-        netSalary
+        netSalary,
+        paymentDate
     })
 
     newSalary.save().then(() => {

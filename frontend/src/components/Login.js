@@ -28,12 +28,12 @@ export default function Login() {
 
             if (res.data.role === 'salesperson') {
                 const salespersonID = res.data.salespersonID;
-                navigate(`/salesmenDashboard/${salespersonID}`);
+                navigate(`/sales/salesmenDashboard/${salespersonID}`);
                 return;
             }
             else if (res.data.designation === 'Sales Manager') {
                 const empId = res.data.empId;
-                navigate(`/salesManagerDashboard/${empId}`);
+                navigate(`/salesManager/salesManagerDashboard/${empId}`);
                 return;
             }
 
@@ -41,14 +41,25 @@ export default function Login() {
                 navigate(`/inventory`);
                 return;
             }
-
+          
             else if (res.data.designation === 'Staff Manager') {
-                navigate(`/allEmployees`);
+                const empId = res.data.empId;
+                navigate(`/allEmployees/${empId}`);
                 return;
             }
 
             else if (res.data.designation === 'Supplier Manager') {
                 navigate(`/home`);
+                return;
+            }
+
+            else if (res.data.designation === 'Delivery Manager') {
+                navigate(`/alllocations`);
+                return;
+            }
+
+            else if (res.data.designation === 'Financial Manager') {
+                navigate(`/HomeIncome`);
                 return;
             }
         } catch (error) {

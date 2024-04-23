@@ -170,6 +170,41 @@ router.route("/getManager/:empId").get(async (req, res) => {
     }
 });
 
+//get all managers
+router.route("/getManagers").get(async (req, res) => {
+
+    try {
+        const employeeRecords = await Manager.find();
+        if (employeeRecords.length === 0) {
+            return res.status(404).send({ status: "Error!", message: "managers not found." });
+        }
+        // res.status(200).send({ status: "managers fetched", manager });
+
+        const departmentDetails = [];
+
+        for (const employee of employeeRecords) {
+
+            const department = employee.department;
+            let totalEmployees = 0;
+
+            const existingDepartment = departmentDetails.find(item => item.department === department);
+
+            if (!existingDepartment) {
+                departmentDetails.push({
+                    department,
+                    empId: employee.empId
+                });
+            } else {
+                existingDepartment.empId += employee.empId;
+            }
+        }
+        res.status(200).send({status:"Total employees for a department", departmentDetails});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
 //update manager details
 router.route("/updateManager/:empId").put(async (req, res) => {
 
