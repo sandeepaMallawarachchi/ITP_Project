@@ -34,6 +34,17 @@ router.route("/addIncome").post(async (req, res) => {
   }
 });
 
+router.get("/getTotalIncome", async (req, res) => {
+    try {
+        const totalIncome = await Income.aggregate([{ $group: { _id: null, totalIncome: { $sum: "$amount" } } }]);
+        res.status(200).json({ getTotalIncome: totalIncome[0].totalIncome });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error fetching total income" });
+    }
+});
+
+
 router.route("/displayIncome").get((req,res)=>{
     //body
     Income.find().then((incomeRt)=>{

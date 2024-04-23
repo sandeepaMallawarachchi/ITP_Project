@@ -36,16 +36,15 @@ router.route("/add").post(async (req, res) => {
     }
   });
   
-  router.route("/display").get((req,res)=>{
-      //body
-      financial.find().then((expenses)=>{
-          res.json(expenses)
-      }).catch((err)=>{
-          console.log(err)
-      })
-  
-  
-  })
+router.route("/display").get(async (req, res) => {
+    try {
+        const expenses = await financial.find();
+        res.json(expenses);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error fetching expenses" });
+    }
+});
   router.route("/update/:id").put(async(req,res)=>{
       let UserId=req.params.id;
       const { date,
