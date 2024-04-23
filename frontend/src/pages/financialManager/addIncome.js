@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function AddIncome() {
+    const [date, setDate] = useState(""); // State for date
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
@@ -10,14 +11,29 @@ export default function AddIncome() {
     useEffect(() => {
         const fetchTotalAmount = async () => {
             try {
-                const res = await.get(`http://localhost:8070/getMonthlyIncome/calculateTotalIncome` )
-            } catch (error) {
+                const currentDate = new Date();
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth() + 1;
 
+                console.log(year, month)
+
+                const res = await axios.get(`http://localhost:8070/getMonthlyIncome/calculateTotalIncome`, {
+                    params: {
+                        year,
+                        month
+                    }
+                });
+                console.log(res.data); // Log response for debugging
+                
+            } catch (error) {
+                console.error("Error fetching total amount:", error);
+                setError("Error fetching total amount"); // Set error state
             }
-        }
+        };
 
         fetchTotalAmount();
-    }, [date]);
+    }, []);
+
 
     // Validation for date
     const handleDateChange = (e) => {
@@ -40,7 +56,7 @@ export default function AddIncome() {
             setAmount(enterAmount);
             setError("");
         } else {
-            setError("Enter positive value");
+            setError("Enter a positive value");
         }
     };
 
