@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Salary = require("../../models/staffModels/salaryDetails");
+let Manager = require("../../models/staffModels/managerDetails");
 
 router.route("/addSalary").post((req, res) => {
 
@@ -64,9 +65,9 @@ router.route("/allSalaries").get((req, res) => {
 
 })
 
-router.route("/get/:id").get(async (req, res) => {
-    let id = req.params.id;
-    const emp = await Salary.findById(id).then((netSalary) => {
+router.route("/get/:empId").get(async (req, res) => {
+    let empId = req.params.empId;
+    const emp = await Manager.findOne({ empId: empId }).then((netSalary) => {
         res.status(200).send({ status: "User fetched", netSalary })
     }).catch((err) => {
         console.log(err.message);
