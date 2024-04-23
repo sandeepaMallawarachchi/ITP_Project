@@ -110,31 +110,31 @@ export default function DeliverymanagerNavigation() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/salesManager/salesManagerDashboard/${id}`);
+        navigate(`/deliveryManager/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/salesManager/managerAccount/${id}`);
+        navigate(`/deliveryManager/managerAccount/${id}`);
     };
 
     const handleCustomerRegistration = () => {
-        navigate(`/addlocations`);
+        navigate(`/deliveryManager/addlocations`);
     };
 
     const handleDeliveryStatus = () => {
-        navigate(`/deliveryStatus`);
+        navigate(`/deliveryManager/deliveryStatus`);
     };
 
     const handleDriverRegistration = () => {
-        navigate(`/addDrivers`);
+        navigate(`/deliveryManager/addDrivers`);
     };
 
     const handleCheckingVehicleCondition = () => {
-        navigate(`/uploadVehicleDetails`);
+        navigate(`/deliveryManager/uploadVehicleDetails`);
     };
 
     const handleGenerateReport = () => {
-        navigate(`/addReportData`);
+        navigate(`/deliveryManager/addReportData`);
     };
 
     const handleSearchClick = async () => {

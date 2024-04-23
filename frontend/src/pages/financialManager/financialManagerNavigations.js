@@ -110,23 +110,23 @@ export default function FinancialManagerNavigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/salesManager/salesManagerDashboard/${id}`);
+        navigate(`/financial/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/salesManager/managerAccount/${id}`);
+        navigate(`/financial/managerAccount/${id}`);
     };
 
     const handleIncomeSheet= () => {
-        navigate(`/HomeIncome`);
+        navigate(`/financial/HomeIncome`);
     };
 
     const handleExpenseSheet = () => {
-        navigate(`/HomeExpenses`);
+        navigate(`/financial/HomeExpenses`);
     };
 
     const handleBalanceSheet = () => {
-        navigate(`/balanceSheetHome`);
+        navigate(`/financial/balanceSheetHome`);
     };
 
 

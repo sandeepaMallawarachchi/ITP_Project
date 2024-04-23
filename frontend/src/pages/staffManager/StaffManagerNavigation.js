@@ -111,39 +111,39 @@ export default function SalesManagerNavigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/staffManagerDashboard/${id}`);
+        navigate(`/staff/staffManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/managerAccount/${id}`);
+        navigate(`/staff/managerAccount/${id}`);
     };
 
     const handleEmployees = () => {
-        navigate(`/allEmployees/${id}`);
+        navigate(`/staff/allEmployees/${id}`);
     };
 
     const handleAddEmployee = () => {
-        navigate(`/addEmployee/${id}`);
+        navigate(`/staff/addEmployee/${id}`);
     };
 
     const handleSalaries = () => {
-        navigate(`/allSalaries/${id}`);
+        navigate(`/staff/allSalaries/${id}`);
     };
 
     const handleAddSalary = () => {
-        navigate(`/addSalary/${id}`);
+        navigate(`/staff/addSalary/${id}`);
     };
 
     const handleVacations = () => {
-        navigate(`/allVacations/${id}`);
+        navigate(`/staff/allVacations/${id}`);
     };
 
     const handleAddVacation = () => {
-        navigate(`/addVacation/${id}`);
+        navigate(`/staff/addVacation/${id}`);
     };
 
     const handleRegistration = () => {
-        navigate(`/managerRegistration/${id}`);
+        navigate(`/staff/managerRegistration/${id}`);
     };
 
     const handleSearchClick = async () => {
