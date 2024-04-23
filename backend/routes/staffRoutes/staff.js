@@ -2,6 +2,8 @@ const router = require("express").Router();
 const { response } = require("express");
 let Staff = require("../../models/staffModels/staffDetails");
 let Manager = require("../../models/staffModels/managerDetails");
+let Salesmen = require("../../models/salesmenModels/Salesmen");
+let Driver = require("../../models/deliveryModels/Driver");
 
 router.route("/add").post((req,res)=>{
 
@@ -33,6 +35,26 @@ router.route("/add").post((req,res)=>{
        res.json("Staff Member Added") 
     }).catch((err)=>{
         console.log(err);
+    })
+
+})
+
+router.route("/allEmployees").get((req,res)=>{
+
+    Manager.find().then((staff)=>{
+        res.json(staff)
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+})
+
+router.route("/allEmployees").get((req,res)=>{
+
+    Manager.find().then((staff)=>{
+        res.json(staff)
+    }).catch((err)=>{
+        console.log(err)
     })
 
 })
