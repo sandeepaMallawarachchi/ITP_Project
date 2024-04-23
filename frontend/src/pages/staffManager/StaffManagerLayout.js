@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import StaffManagerNavigations from "./StaffManagerNavigations";
+import StaffManagerNavigations from "./StaffManagerNavigation";
 
 export default function StaffManagerLayout() {
 
