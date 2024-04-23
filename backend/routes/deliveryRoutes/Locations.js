@@ -49,7 +49,6 @@ router.route("/").get((req, res) => {
         console.log(err)
 
     })
-
 })
 
 router.route("/update/:id").put(async (req, res) => {
