@@ -39,54 +39,54 @@ export default function Update() {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
+    <div className="container mx-auto px-4 py-8">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
             name="name"
-            className="form-control"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="Enter name"
             value={values.name}
             onChange={(e) => setValues({ ...values, name: e.target.value })}
           />
         </div>
-        <div>
-          <label htmlFor="price">Price</label>
+        <div className="mb-4">
+          <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
           <input
             type="text"
             name="price"
-            className="form-control"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="Enter price"
             value={values.price}
             onChange={(e) => setValues({ ...values, price: e.target.value })}
           />
         </div>
-        <div>
-          <label htmlFor="type">Type</label>
+        <div className="mb-4">
+          <label htmlFor="type" className="block text-sm font-medium text-gray-700">Type</label>
           <input
             type="text"
             name="type"
-            className="form-control"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="Enter type"
             value={values.type}
             readOnly
            />
         </div>
-        <div>
-          <label htmlFor="quantity">Quantity</label>
+        <div className="mb-4">
+          <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">Quantity</label>
           <input
             type="text"
             name="quantity"
-            className="form-control"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             placeholder="Enter quantity"
             value={values.quantity}
             readOnly
            />
         </div>
         <br />
-        <button type="submit" className="btn btn-info">Update</button>
+        <button type="submit" className="bg-indigo-500 text-white font-semibold px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50">Update</button>
       </form>
     </div>
   );

@@ -44,23 +44,6 @@ import Update from './pages/supplierManager/update';
 import Supplierdetails from './pages/supplierManager/supplierdetails';
 import Search from './pages/supplierManager/serach';
 
-//delivery
-import AddLocation from "./pages/deliveryManager/AddLocation";
-import AllLocation from "./pages/deliveryManager/AllLocation";
-import UpdateLocation from "./pages/deliveryManager/UpdateLocation";
-import DeleteLocation from "./pages/deliveryManager/DeleteLocation";
-import AddDriver from "./pages/deliveryManager/AddDriver";
-import AllDriver from "./pages/deliveryManager/AllDriver";
-import UpdateDriver from "./pages/deliveryManager/UpdateDriver";
-import DeleteDriver from "./pages/deliveryManager/DeleteDriver";
-import UploadImage from "./pages/deliveryManager/UploadImage";
-import AddReportData from "./pages/deliveryManager/AddReportData";
-import AllReportData from "./pages/deliveryManager/AllReportData";
-import UpdateReportData from "./pages/deliveryManager/UpdateReportData";
-import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
-import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
-import UploadVehicleDetails from "./pages/deliveryManager/UploadVehicleDetails";
-
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
@@ -267,7 +250,6 @@ function App() {
         <Routes>
           <Route path="/uploadVehicleDetails" element={<UploadVehicleDetails />} />
         </Routes>
-
 
         {/* login routes */}
         <Routes>
