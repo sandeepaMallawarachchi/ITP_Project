@@ -11,7 +11,7 @@ const reportSchema = new Schema({
 
     date : {
         type : date,
-        required: true
+       // required: true
     },
     
     monthlyDistance : {
