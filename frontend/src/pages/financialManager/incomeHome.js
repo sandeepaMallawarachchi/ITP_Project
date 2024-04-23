@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useReactToPrint } from 'react-to-print';
+import { Button } from "flowbite-react";
 
 export default function HomeIn() {
 
@@ -29,6 +31,45 @@ export default function HomeIn() {
             });
     }, [income]); 
 
+    const componentRef = useRef();
+    
+    const handlePrint = useReactToPrint({
+        content :()=> componentRef.current,//specifies the content to be print
+        documentTitle : "Expenses Report",
+        pageStyle: `
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .document-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    `
+    })
+
+
     const addIncomeBtn = () => {
         navigate(`/addIncome`);
     };
@@ -49,6 +90,8 @@ export default function HomeIn() {
 
 
         <div>
+            <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
+                <div  ref={componentRef} >
             <h1>January ( 2024 )</h1>
             <table class="table">
                 <thead>
@@ -77,6 +120,7 @@ export default function HomeIn() {
 
                 </tbody>
             </table>
+            </div>
             <button type="button" class="btn btn-secondary btn-lg" onClick={addIncomeBtn}>Add Income</button>
             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" >Total Income: {totalIncome}</button>
 

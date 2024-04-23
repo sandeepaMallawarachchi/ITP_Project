@@ -30,9 +30,9 @@ export default function AddExpenses() {
 
     // Function to fetch total delivery
     const fetchTotalDelivery = () => {
-        axios.get("http://localhost:8070/totalDelivery/totalDelivery")
+        axios.get("http://localhost:8070/report/")
             .then(response => {
-                setTotalDelivery(response.data.totalDelivery);
+                setTotalDelivery(response.data.totalCostSum);
             })
             .catch(error => {
                 console.error("Error fetching total delivery:", error);
