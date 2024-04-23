@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { response } = require("express");
 let Staff = require("../../models/staffModels/staffDetails");
+let Manager = require("../../models/staffModels/managerDetails");
 
 router.route("/add").post((req,res)=>{
 
@@ -38,7 +39,7 @@ router.route("/add").post((req,res)=>{
 
 router.route("/allEmployees").get((req,res)=>{
 
-    Staff.find().then((staff)=>{
+    Manager.find().then((staff)=>{
         res.json(staff)
     }).catch((err)=>{
         console.log(err)

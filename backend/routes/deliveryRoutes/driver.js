@@ -2,32 +2,34 @@ const router = require("express").Router();
 let Driver = require("../../models/deliveryModels/driver");
 let DriverLicense = require("../../models/deliveryModels/license");
 
-router.route("/add").post((req,res)=>{
+router.route("/add").post(async (req, res) => {
+    try {
+        const { dname, age, address, phone_number, email, duration_of_job } = req.body;
 
-    const dname = req.body.dname;
-    const age = req.body.age;
-    const address = Number(req.body.address);
-    const phone_number = req.body.phone_number;
-    const email = req.body.email; 
-    const duration_of_job = req.body.duration_of_job;
+        // Check if the email already exists in the database
+        const existingDriver = await Driver.findOne({ email });
 
-    const newDriver = new Driver({
+        if (existingDriver) {
+            return res.status(400).json({ error: "Driver with this email already exists" });
+        }
 
-        dname,
-        age,
-        address,
-        phone_number,
-        email,
-        duration_of_job
-    })
+        const newDriver = new Driver({
+            dname,
+            age,
+            address,
+            phone_number,
+            email,
+            duration_of_job,
+        });
 
-    newDriver.save().then(()=>{
-        res.json("Driver Added")
-    }).catch((err)=>{
-        console.log(err);
-    })
-
-})
+        await newDriver.save();
+        
+        res.json("Driver Added");
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 router.route("/").get((req,res)=>{
 

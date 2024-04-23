@@ -35,6 +35,7 @@ import UpdateExpenses from './pages/financialManager/updateExpenses';
 import DeleteIn from './pages/financialManager/deleteIncome';
 import UpdateIncome from './pages/financialManager/updateIncome';
 import BalanceSheet from './pages/financialManager/balanceSheet';
+import Liability from './pages/financialManager/addLiabilities';
 
 //supplier
 import Details from './pages/supplierManager/details';
@@ -159,6 +160,11 @@ function App() {
         <Routes>
           <Route path="/HomeIncome" element={<HomeIn />} />
         </Routes>
+
+        <Routes>
+          <Route path="/addLiabilities" element={<Liability />} />
+        </Routes>
+
 
         <Routes>
           <Route path="/addIncome" element={<AddIncome />} />
