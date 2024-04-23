@@ -1,6 +1,6 @@
 const router = require("express").Router();
 let Driver = require("../../models/deliveryModels/driver");
-
+let DriverLicense = require("../../models/deliveryModels/license");
 
 router.route("/add").post((req,res)=>{
 
@@ -89,5 +89,25 @@ router.route("/").get((req,res)=>{
     })
  })
 
+ //upload driver license
+router.route("/uploadLicense").post(async (req, res) => {
+
+    const { downloadURL} = req.body;
+
+    if (!downloadURL) {
+        res.status(400).send({ status: "File url not found" });
+    }
+
+    try {
+
+        const license = await DriverLicense.create({ downloadURL });
+
+        res.status(200).send({ status: "file uploaded successfully", license });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error uploading file" });
+    }
+});
 
 module.exports = router;

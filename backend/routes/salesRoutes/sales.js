@@ -9,7 +9,8 @@ router.route("/addSale/:id").post(async (req, res) => {
     const salesPersonID = req.params.id;
     const { amount, sellingPrice, cusID, productName } = req.body;
     const date = new Date();
-    date.setUTCHours(0, 0, 0, 0);
+    date.setUTCHours(0, 0, 0, 0);   
+    
 
     try {
         // Retrieve standard price based on the tea type selected

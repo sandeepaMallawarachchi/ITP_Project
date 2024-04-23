@@ -67,13 +67,25 @@ app.use("/empLogin", employeeLoginRouter);
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");
 const incomeRouter = require("./routes/financialRoutes/incomesheet.js");
-const totalIncomRouter = require("./routes/financialRoutes/totalIncome.js");
+const getTotalIncome = require("./routes/financialRoutes/totalIncome.js");
 const balance = require("./routes/financialRoutes/balanceSheet.js");
+const totalSalary = require("./routes/financialRoutes/TotalSalary.js");
+const totalDelivery = require("./routes/financialRoutes/totalDelivery.js");
+const totalPrice = require("./routes/financialRoutes/totalSupplies.js");
+const getTotalExpenses = require("./routes/financialRoutes/totalExpenses.js");
+
+
 
 app.use("/expenses", expensesRouter);
 app.use("/incomeRt", incomeRouter);
-app.use("/totalIncome", totalIncomRouter);
+app.use("/getTotalIncome", getTotalIncome);
 app.use("/balanceRt", balance);
+app.use("/totalSalary", totalSalary);
+app.use("/totalDelivery", totalDelivery);
+app.use("/totalPrice", totalPrice);
+app.use("/getTotalExpenses", getTotalExpenses);
+
+
 
 //supplier routes
 const supplier = require("./routes/supplierRoutes/supplier.js");
