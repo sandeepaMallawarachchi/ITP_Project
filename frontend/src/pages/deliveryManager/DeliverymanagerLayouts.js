@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import DeliverymanagerNavigation from "./deliverymanagerNavigation"
+import DeliverymanagerNavigation from "./DeliverymanagerNavigation"
 
 export default function DeliverymanagerLayouts() {
 

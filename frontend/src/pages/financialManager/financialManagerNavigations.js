@@ -16,7 +16,7 @@ import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
 
-export default function financialManagerNavigations() {
+export default function FinancialManagerNavigations() {
     const { id } = useParams();
     const [manager, setManager] = useState({
         firstName: "",

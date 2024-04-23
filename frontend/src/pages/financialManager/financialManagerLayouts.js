@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom"
-import financialManagerNavigations from "./financialManagerNavigations";
+import FinancialManagerNavigations from "./financialManagerNavigations";
 
-export default function financialManagerLayout() {
+export default function FinancialManagerLayout() {
 
     return (
         <div>
-            <financialManagerNavigations />
+            <FinancialManagerNavigations />
             <Outlet />
         </div>
 
