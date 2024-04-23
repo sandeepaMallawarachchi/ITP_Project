@@ -49,7 +49,8 @@ export default function Login() {
             }
 
             else if (res.data.designation === 'Supplier Manager') {
-                navigate(`/home`);
+                const empId = res.data.empId;
+                navigate(`/supplierManager/home/${empId}`);
                 return;
             }
 
