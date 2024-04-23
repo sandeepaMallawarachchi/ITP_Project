@@ -17,7 +17,7 @@ import AddLiabilities from './pages/financialManager/addLiabilities';
 export default function financialRoutes({
     return(
         <Routes>
-        <Route element={<SalesManagerLayout />}>
+        <Route element={<financialManagerLayout />}>
         <Route path="/add" element={<AddExpenses />} />
         <Route path="/HomeExpenses/:id" element={<Home />} />
         <Route path="/HomeIncome/:id" element={<HomeIn />} />
