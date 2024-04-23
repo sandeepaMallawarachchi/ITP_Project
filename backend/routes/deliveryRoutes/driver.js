@@ -110,4 +110,45 @@ router.route("/uploadLicense").post(async (req, res) => {
     }
 });
 
+//upload vehicle certificate
+router.route("/uploadVehicleLicense").post(async (req, res) => {
+    const { downloadUrl } = req.body; // Update field name
+
+    if (!downloadUrl) {
+        res.status(400).send({ status: "File url not found" });
+    }
+
+    try {
+        const license = await DriverLicense.create({ downloadUrl }); // Use correct model name
+
+        res.status(200).send({ status: "file uploaded successfully", license });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error uploading file" });
+    }
+});
+
+//upload vehicle license
+router.route("/uploadVehicleLicense").post(async (req, res) => {
+
+    const { downloadURL} = req.body;
+
+    if (!downloadURL) {
+        res.status(400).send({ status: "File url not found" });
+    }
+
+    try {
+
+        const license = await VehicleLicense.create({ downloadURL });
+
+        res.status(200).send({ status: "file uploaded successfully", license });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ error: "Error uploading file" });
+    }
+});
+
+
+
 module.exports = router;
