@@ -11,7 +11,7 @@ function AddSalary() {
     const [basicSalary, setBasicSalary] = useState(0);
     const [ETFbonus, setETFbonus] = useState(0);
     const [EPFbonus, setEPFbonus] = useState(0);
-    const [paymentDate,setPaymentDate] = useState(0);
+    const [paymentDate, setPaymentDate] = useState("");
 
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -26,11 +26,10 @@ function AddSalary() {
 
     const fetchEmpDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:8070/staff/get/${empId}`);
-            const empData = response.data.staff[0]; // Access the first element of the staff array
-            const { firstName } = empData;
-            setName(firstName); // Set the name state with the first name
-            setDesignation(empData.designation); // Set the designation state
+            const response = await axios.get(`http://localhost:8070/staff/salary/get/${empId}`);
+            const { firstName, designation } = response.data.netSalary; // Adjust to your API response structure
+            setName(firstName);
+            setDesignation(designation);
         } catch (error) {
             console.error("Error fetching employee details", error.message);
         }
@@ -40,25 +39,24 @@ function AddSalary() {
 
     const sendData = async (e) => {
         e.preventDefault();
-
         const newSalary = {
             empId,
             name,
             designation,
             month,
             year,
-            basicSalary,
-            ETFbonus,
-            EPFbonus,
+            basicSalary: parseInt(basicSalary),
+            ETFbonus: parseInt(ETFbonus),
+            EPFbonus: parseInt(EPFbonus),
             paymentDate
         };
 
         try {
             await axios.post(`http://localhost:8070/staff/salary/addSalary`, newSalary);
             alert("Success! Salary added");
-            navigate(`/salary/${empId}/${month}/${year}`)
+            navigate(`/salary/${empId}/${month}/${year}`);
         } catch (error) {
-            alert("Error! Failed to add salary");
+            alert("Error! Failed to add salary: " + error.response.data.message); // More specific error handling
             console.error("Error:", error);
         }
     };
@@ -73,12 +71,14 @@ function AddSalary() {
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="name">Employee Name: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="name" value={name} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    type="text" id="name" value={name} />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="designation">Designation: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="designation" value={designation}/>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="designation" 
+                    value={designation}/>
                 </div>
 
                 <div className="mb-3">
