@@ -60,7 +60,8 @@ export default function Login() {
             }
 
             else if (res.data.designation === 'Financial Manager') {
-                navigate(`/HomeIncome`);
+                const empId = res.data.empId;
+                navigate(`/financial/HomeIncome/${empId}`);
                 return;
             }
         } catch (error) {

@@ -13,24 +13,10 @@ import InventoryRoutes from "./InventoryRoutes";
 //supplier
 import SupplierRoutes from './SupplierRoutes';
 
-//staff
-import StaffRoutes from './StaffRoutes';
-
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
 
-//financial
-import AddExpenses from './pages/financialManager/addExpenses';
-import Home from './pages/financialManager/expensesHome';
-import HomeIn from './pages/financialManager/incomeHome';
-import AddIncome from './pages/financialManager/addIncome';
-import DeleteEx from './pages/financialManager/deleteExpenses';
-import UpdateExpenses from './pages/financialManager/updateExpenses';
-import DeleteIn from './pages/financialManager/deleteIncome';
-import UpdateIncome from './pages/financialManager/updateIncome';
-import BalanceSheet from './pages/financialManager/balanceSheet';
-import AddLiabilities from './pages/financialManager/addLiabilities';
 
 //delivery
 import AddLocation from "./pages/deliveryManager/AddLocation";
@@ -74,53 +60,18 @@ function App() {
           <Route path='/supplierManager/*' element={<SupplierRoutes />} />
         </Routes>
 
+
+        {/* financial routes */}
+        <Routes>
+          <Route path='/financial/*' element={<financialRoutes />} />
+        </Routes>
+
         {/* staff routes */}
         <Routes>
           <Route path='/staff/*' element={<StaffRoutes />} />
         </Routes>
 
-        {/* financial manager routes */}
-        <Routes>
-          <Route path="/add" element={<AddExpenses />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/HomeExpenses" element={<Home />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/HomeIncome" element={<HomeIn />} />
-        </Routes>
-
-        <Routes>
-        <Route path="/addLiabilities" element={<AddLiabilities />} />
-        </Routes>
-
-
-        <Routes>
-          <Route path="/addIncome" element={<AddIncome />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/deleteExpen/:id" element={<DeleteEx />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/updateExpenses/:id" element={<UpdateExpenses />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/deleteIncome/:id" element={<DeleteIn />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/updateIncome/:id" element={<UpdateIncome />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/balanceSheetHome" element={<BalanceSheet />} />
-        </Routes>
-
+      
         {/* delivery routes */}
         <Routes>
           <Route path="/addlocations" element={<AddLocation />} />
