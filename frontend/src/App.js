@@ -71,6 +71,7 @@ import AddReportData from "./pages/deliveryManager/AddReportData";
 import AllReportData from "./pages/deliveryManager/AllReportData";
 import UpdateReportData from "./pages/deliveryManager/UpdateReportData";
 import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
+import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
 
 //login
 import Login from "./components/Login";
@@ -380,6 +381,10 @@ function App() {
         <Routes>
           <Route path="/deleteReportData/:id" element={<DeleteReportData />} />
         </Routes>
+        <Routes>
+          <Route path="/deliveryStatus" element={<DeliveryStatus />} />
+        </Routes>
+
 
         {/* login routes */}
         <Routes>
