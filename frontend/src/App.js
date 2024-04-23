@@ -13,6 +13,12 @@ import InventoryRoutes from "./InventoryRoutes";
 //supplier
 import SupplierRoutes from './SupplierRoutes';
 
+
+
+
+//financial
+import financialRoutes from './financialRoutes';
+
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
@@ -36,17 +42,6 @@ import ManagerAccount from './components/ManagerAccount'
 import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
 import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
 
-//financial
-import AddExpenses from './pages/financialManager/addExpenses';
-import Home from './pages/financialManager/expensesHome';
-import HomeIn from './pages/financialManager/incomeHome';
-import AddIncome from './pages/financialManager/addIncome';
-import DeleteEx from './pages/financialManager/deleteExpenses';
-import UpdateExpenses from './pages/financialManager/updateExpenses';
-import DeleteIn from './pages/financialManager/deleteIncome';
-import UpdateIncome from './pages/financialManager/updateIncome';
-import BalanceSheet from './pages/financialManager/balanceSheet';
-import AddLiabilities from './pages/financialManager/addLiabilities';
 
 
 function App() {
@@ -91,6 +86,12 @@ function App() {
           <Route path='/deliveryManager/*' element={<DeliveryRoutes />} />
         </Routes>
 
+
+
+        {/* financial routes */}
+        <Routes>
+          <Route path='/financial/*' element={<financialRoutes />} />
+        </Routes>
 
         {/* staff routes */}
         <Routes>
@@ -212,7 +213,52 @@ function App() {
           <Route path="/balanceSheetHome" element={<BalanceSheet />} />
         </Routes>
 
-        
+        {/* delivery routes */}
+        <Routes>
+          <Route path="/addlocations" element={<AddLocation />} />
+        </Routes>
+        <Routes>
+          <Route path="/alllocations" element={<AllLocation />} />
+        </Routes>
+        <Routes>
+          <Route path="/updatelocations/:id" element={<UpdateLocation />} />
+        </Routes>
+        <Routes>
+          <Route path="/deletelocations/:id" element={<DeleteLocation />} />
+        </Routes>
+        <Routes>
+          <Route path="/addDrivers" element={<AddDriver />} />
+        </Routes>
+        <Routes>
+          <Route path="/allDrivers" element={<AllDriver />} />
+        </Routes>
+        <Routes>
+          <Route path="/updateDrivers/:id" element={<UpdateDriver />} />
+        </Routes>
+        <Routes>
+          <Route path="/deleteDrivers/:id" element={<DeleteDriver />} />
+        </Routes>
+        <Routes>
+          <Route path="/uploadImage" element={<UploadImage />} />
+        </Routes>
+        <Routes>
+          <Route path="/addReportData" element={<AddReportData />} />
+        </Routes>
+        <Routes>
+          <Route path="/allReportData" element={<AllReportData />} />
+        </Routes>
+        <Routes>
+          <Route path="/updateReportData/:id" element={<UpdateReportData />} />
+        </Routes>
+        <Routes>
+          <Route path="/deleteReportData/:id" element={<DeleteReportData />} />
+        </Routes>
+        <Routes>
+          <Route path="/deliveryStatus" element={<DeliveryStatus />} />
+        </Routes>
+        <Routes>
+          <Route path="/uploadVehicleDetails" element={<UploadVehicleDetails />} />
+        </Routes>
 
         {/* login routes */}
         <Routes>
