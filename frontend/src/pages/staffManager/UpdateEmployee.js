@@ -49,7 +49,7 @@ function UpdateEmployee() {
 
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={handleSubmit}>
                 <div>
                     <div className="mb-3">

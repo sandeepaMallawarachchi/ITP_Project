@@ -28,12 +28,12 @@ export default function Login() {
 
             if (res.data.role === 'salesperson') {
                 const salespersonID = res.data.salespersonID;
-                navigate(`/salesmenDashboard/${salespersonID}`);
+                navigate(`/sales/salesmenDashboard/${salespersonID}`);
                 return;
             }
             else if (res.data.designation === 'Sales Manager') {
                 const empId = res.data.empId;
-                navigate(`/salesManagerDashboard/${empId}`);
+                navigate(`/salesManager/salesManagerDashboard/${empId}`);
                 return;
             }
 

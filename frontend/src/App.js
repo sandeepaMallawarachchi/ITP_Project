@@ -1,26 +1,11 @@
-// import React, { useState } from "react";
-//sales person
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SalesmenDashboard from './pages/salesPerson/SalesmenDashboard';
-import UpdateSalesmanDetails from './pages/salesPerson/UpdateSalesmanDetails';
-import DeleteSalesman from './pages/salesPerson/DeleteSalesman';
-import ChangeSalesmanPassword from './pages/salesPerson/ChangeSalesmanPassword';
-import AddNewSale from './pages/salesPerson/AddNewSale';
-import SalesSummary from './pages/salesPerson/SalesSummary';
-import CurrentSale from './pages/salesPerson/CurrentSale';
-import MyAccount from './components/MyAccount';
-import DeleteSale from './pages/salesPerson/DeleteSale';
-import RemainingStock from './pages/salesPerson/RemainingStock';
-import Navigations from './components/Navigations';
+//sales
+import SalesRoutes from './SalesRoutes';
 
 //sales manager
-import AddDailyStock from './pages/salesManager/AddDailyStock';
-import SalesManagerDashboard from './pages/salesManager/SalesManagerDashboard';
-import SalesPersonDetails from './pages/salesManager/SalesPersonDetails';
-import RemainingInventoryStock from './pages/salesManager/RemainingInventoryStock';
-import MonthlySales from './pages/salesManager/MonthlySales';
-import MonthlyReport from './pages/salesManager/MonthlyReport';
-import SalesManagerNavigations from './pages/salesManager/SalesManagerNavigations';
+
+//sales
+import SalesManagerRoutes from './SalesManagerRoutes';
 
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
@@ -38,6 +23,7 @@ import AddVacation from './pages/staffManager/AddVacation'
 import AllVacations from './pages/staffManager/AllVacations'
 import ManagerAccount from './components/ManagerAccount'
 import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
+import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
 
 //financial
 import AddExpenses from './pages/financialManager/addExpenses';
@@ -85,134 +71,29 @@ function App() {
         <Routes>
           <Route path="/inventory/*" element={<InventoryRoutes />} />
         </Routes>
-
-        {/* salesperson routes */}
-        <Routes>
-          <Route path="/salesmenDashboard/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/salesmenDashboard/:id' element={<SalesmenDashboard />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/updateSalesman/:salespersonID" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/updateSalesman/:salespersonID' element={<UpdateSalesmanDetails />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/deleteSalesman/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/deleteSalesman/:id' element={<DeleteSalesman />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/changeSalesmanPassword/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/changeSalesmanPassword/:id' element={<ChangeSalesmanPassword />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/myAccount/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/myAccount/:id' element={<MyAccount />} />
-        </Routes>
-
+        
         {/* sales routes */}
         <Routes>
-          <Route path="/addNewSale/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/addNewSale/:id' element={<AddNewSale />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/SalesSummary/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/SalesSummary/:id' element={<SalesSummary />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/currentSale/:id/:cusID" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/deleteSale/:id/:cusID/:saleID" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/deleteSale/:id/:cusID/:saleID' element={<DeleteSale />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/remainingStock/:id" element={<Navigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/remainingStock/:id' element={<RemainingStock />} />
+          <Route path='/sales/*' element={<SalesRoutes />} />
         </Routes>
 
         {/* sales manager routes */}
         <Routes>
-          <Route path="/addStock/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/addStock/:id' element={<AddDailyStock />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/salesManagerDashboard/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/salesManagerDashboard/:id' element={<SalesManagerDashboard />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/salesPersonDetails/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/salesPersonDetails/:id' element={<SalesPersonDetails />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/remainingInventoryStock/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/remainingInventoryStock/:id' element={<RemainingInventoryStock />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/monthlySales/:salesPersonID/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/monthlySales/:salesPersonID/:id' element={<MonthlySales />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/monthlyReport/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/monthlyReport/:id' element={<MonthlyReport />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/managerAccount/:id" element={<SalesManagerNavigations />} />
-        </Routes>
-        <Routes>
-          <Route path='/managerAccount/:id' element={<ManagerAccount />} />
+          <Route path='/salesManager/*' element={<SalesManagerRoutes />} />
         </Routes>
 
         {/* staff routes */}
+
+        <Routes>
+          <Route path='/staffManagerDashboard/:id' element={<StaffManagerNavigation />} />
+        </Routes>
+        <Routes>
+          <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
+        </Routes>
+        
         <Routes>
           <Route path='/addSalary/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/addSalary/:id' element={<AddSalary />} />
         </Routes>
@@ -220,7 +101,6 @@ function App() {
         <Routes>
           <Route path='/salary/:empId/:month/:year' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
         </Routes>
@@ -228,7 +108,6 @@ function App() {
         <Routes>
           <Route path='/addEmployee/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/addEmployee/:id' element={<AddEmployee />} />
         </Routes>
@@ -236,7 +115,6 @@ function App() {
         <Routes>
           <Route path='/allEmployees/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/allEmployees/:id' element={<AllEmployees />} />
         </Routes>
@@ -244,7 +122,6 @@ function App() {
         <Routes>
           <Route path='/updateEmployee/:empId' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/updateEmployee/:empId' element={<UpdateEmployee />} />
         </Routes>
@@ -252,7 +129,6 @@ function App() {
         <Routes>
           <Route path='/deleteEmployee/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
         </Routes>
@@ -260,7 +136,6 @@ function App() {
         <Routes>
           <Route path='/allSalaries/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/allSalaries/:id' element={<AllSalaries />} />
         </Routes>
@@ -268,7 +143,6 @@ function App() {
         <Routes>
           <Route path='/managerRegistration/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/managerRegistration/:id' element={<ManagerRegistration />} />
         </Routes>
@@ -276,7 +150,6 @@ function App() {
         <Routes>
           <Route path='/addVacation/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/addVacation/:id' element={<AddVacation />} />
         </Routes>
@@ -284,7 +157,6 @@ function App() {
         <Routes>
           <Route path='/allVacations/:id' element={<StaffManagerNavigation />} />
         </Routes>
-
         <Routes>
           <Route path='/allVacations/:id' element={<AllVacations />} />
         </Routes>

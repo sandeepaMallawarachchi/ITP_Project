@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Sidebar } from 'flowbite-react';
 import { BiBuoy } from 'react-icons/bi';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { MdFormatListBulleted } from "react-icons/md";
@@ -15,7 +15,7 @@ import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
-import notFoundError from '../images/notFound.jpeg';
+import notFoundError from '../../images/notFound.jpeg';
 
 export default function Navigations() {
     const { id } = useParams();
@@ -111,23 +111,23 @@ export default function Navigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/salesmenDashboard/${id}`);
+        navigate(`/sales/salesmenDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/myAccount/${id}`);
+        navigate(`/sales/myAccount/${id}`);
     };
 
     const handleAddSale = () => {
-        navigate(`/AddNewSale/${id}`);
+        navigate(`/sales/AddNewSale/${id}`);
     };
 
     const handleSalesSummary = () => {
-        navigate(`/SalesSummary/${id}`);
+        navigate(`/sales/SalesSummary/${id}`);
     };
 
     const handleRemainingStock = () => {
-        navigate(`/remainingStock/${id}`);
+        navigate(`/sales/remainingStock/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -143,7 +143,7 @@ export default function Navigations() {
     };
 
     const handleProfilePic = () => {
-        navigate(`/myAccount/${id}`)
+        navigate(`/sales/myAccount/${id}`)
     };
 
     return (
