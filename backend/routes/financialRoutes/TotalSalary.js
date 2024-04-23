@@ -4,8 +4,12 @@ const Salary = require('../../models/staffModels/salaryDetails');
 
 router.get("/totalSalary", async (req, res) => {
     try {
-        // Fetch all salary records
-        const salaries = await Salary.find();
+        const year = req.params.year;
+        const month = req.params.month;
+
+      
+         // Fetch salary records for the specified month
+         const salaries = await Salary.find({ year, month });
 
         if (salaries.length === 0) {
             return res.status(404).send({ error: "No salary records found" });

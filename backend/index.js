@@ -73,6 +73,7 @@ const totalSalary = require("./routes/financialRoutes/TotalSalary.js");
 const totalDelivery = require("./routes/financialRoutes/totalDelivery.js");
 const totalPrice = require("./routes/financialRoutes/totalSupplies.js");
 const getTotalExpenses = require("./routes/financialRoutes/totalExpenses.js");
+const getMonthlyIncome = require("./routes/financialRoutes/getMonthlyIncome.js");
 
 
 
@@ -84,6 +85,7 @@ app.use("/totalSalary", totalSalary);
 app.use("/totalDelivery", totalDelivery);
 app.use("/totalPrice", totalPrice);
 app.use("/getTotalExpenses", getTotalExpenses);
+app.use("/getMonthlyIncome", getMonthlyIncome);
 
 
 
