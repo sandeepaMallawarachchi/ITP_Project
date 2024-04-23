@@ -58,10 +58,12 @@ import AllReportData from "./pages/deliveryManager/AllReportData";
 import UpdateReportData from "./pages/deliveryManager/UpdateReportData";
 import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
 import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
+import UploadVehicleDetails from "./pages/deliveryManager/UploadVehicleDetails";
 
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
+
 
 function App() {
   return (
@@ -260,6 +262,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/deliveryStatus" element={<DeliveryStatus />} />
+        </Routes>
+        <Routes>
+          <Route path="/uploadVehicleDetails" element={<UploadVehicleDetails />} />
         </Routes>
 
 

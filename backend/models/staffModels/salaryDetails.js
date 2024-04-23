@@ -43,6 +43,10 @@ const netSalrySchema = new Schema({
     netSalary : {
         type : Number,
         required : true
+    },
+    paymentDate : {
+        type : Date,
+        required : true
     }
 
 })

@@ -202,25 +202,21 @@ export default function SalesManagerNavigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
+                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
+                                Registration
+                            </Sidebar.Item>
                             <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
                                 <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
                                 <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
                             </Sidebar.Collapse>
-                            <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>
-                                All Salaries
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSalary}>
-                                Add Salary
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>
-                                All Vacations
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>
-                                Add Vacation
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
-                                Registration
-                            </Sidebar.Item>
+                            <Sidebar.Collapse icon={GiTakeMyMoney} label="Salaries">
+                                <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>All Salaries</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSalary}>Add Salary</Sidebar.Item>
+                            </Sidebar.Collapse>
+                            <Sidebar.Collapse icon={FaUmbrellaBeach} label="Vacations">
+                                <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
+                            </Sidebar.Collapse>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
