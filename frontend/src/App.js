@@ -9,6 +9,7 @@ import SalesManagerRoutes from './SalesManagerRoutes';
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
+.
 
 //supplier
 import SupplierRoutes from './SupplierRoutes';
@@ -31,7 +32,6 @@ import AllVacations from './pages/staffManager/AllVacations'
 import ManagerAccount from './components/ManagerAccount'
 import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
 import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
-
 
 
 function App() {
