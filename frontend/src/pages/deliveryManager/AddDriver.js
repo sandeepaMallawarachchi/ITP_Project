@@ -106,7 +106,7 @@ export default function AddDriver() {
     };
 
     return (
-        <div className="container">
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div className="mb-6">
                     <label htmlFor="dname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Driver Name</label>
