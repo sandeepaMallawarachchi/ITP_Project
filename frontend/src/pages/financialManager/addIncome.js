@@ -1,64 +1,48 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function AddIncome() {
-    const [date, setDate] = useState(""); // State for date
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchTotalAmount = async () => {
-            try {
-                const currentDate = new Date();
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth() + 1;
-
-                console.log(year, month)
-
-                const res = await axios.get(`http://localhost:8070/getMonthlyIncome/calculateTotalIncome`, {
-                    params: {
-                        year,
-                        month
-                    }
-                });
-                console.log(res.data); // Log response for debugging
-                
-            } catch (error) {
-                console.error("Error fetching total amount:", error);
-                setError("Error fetching total amount"); // Set error state
-            }
-        };
-
-        fetchTotalAmount();
+        // Set the current date when the component mounts
+        const currentDate = new Date().toISOString().split('T')[0];
+        setDate(currentDate);
     }, []);
 
+    const [date, setDate] = useState(""); // Moved after useEffect
 
-    // Validation for date
-    const handleDateChange = (e) => {
-        const selectedDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
-
-        if (selectedDate > currentDate) {
-            setError("Selected date cannot be a future date.");
-        } else {
-            setDate(selectedDate);
-            setError(""); // Clear error if date is valid
-        }
+    const fetchTotalAmount = () => {
+        axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
+            .then(response => {
+                setAmount(response.data.totalSales);
+            })
+            .catch(error => {
+                console.error("Error fetching total amount:", error);
+            });
     };
+
+    useEffect(() => {
+        fetchTotalAmount();
+    }, []); // Empty dependency array to run once on component mount
 
     // Validation for amount
-    const handleAmountChange = (e) => {
-        const enterAmount = e.target.value;
+    // const handleAmountChange = (e) => {
+    //     const enterAmount = e.target.value;
 
-        if (enterAmount > 0) {
-            setAmount(enterAmount);
-            setError("");
-        } else {
-            setError("Enter a positive value");
-        }
-    };
+    //     if (!isNaN(enterAmount) && parseFloat(enterAmount) > 0) {
+    //         setAmount(enterAmount);
+    //         fetchTotalAmount(); // Fetch total amount when amount changes
+    //         setError("");
+    //     } else {
+    //         setError("Enter a valid positive number");
+    //     }
+    // };
 
     function setData(e) {
         e.preventDefault();
@@ -82,10 +66,11 @@ export default function AddIncome() {
     return (
         <div className="container">
             <form onSubmit={setData}>
+                {/* Date, category, description inputs */}
+                {/* Amount input with onChange for handleAmountChange */}
                 <div className="mb-3">
                     <label htmlFor="date" className="form-label">Date</label><br></br>
-                    <input type="date" className="form-control" id="date" onChange={handleDateChange} value={date} required />
-                    {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
+                    <input type="date" className="form-control" id="date" value={date} disabled />
                 </div>
                 <br></br>
 
@@ -100,16 +85,16 @@ export default function AddIncome() {
                     <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} />
                 </div>
                 <br></br>
-
                 <div className="mb-3">
                     <label htmlFor="amount" className="form-label">Amount</label><br></br>
-                    <input type="text" className="form-control" id="amount" placeholder="Enter amount" onChange={handleAmountChange} value={amount} />
-                    {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
+                    <input type="text" className="form-control" id="amount" placeholder="Enter amount" value={amount} />
+                    {error && <div className="text-danger">{error}</div>}
                 </div>
                 <br></br>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+
         </div>
     );
-} 
+}

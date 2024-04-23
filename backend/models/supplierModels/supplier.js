@@ -12,8 +12,11 @@ const   supplierSchema = new mongoose.Schema({
      address: {
         type:  String,
         required: true
-    } 
-       
+    },
+      email:{
+           type:String,
+           required:true
+     }
 });
 
 const    Suppliermodel = mongoose.model(  'suppliermodel',   supplierSchema); // The first argument should be the singular name of your collection in MongoDB

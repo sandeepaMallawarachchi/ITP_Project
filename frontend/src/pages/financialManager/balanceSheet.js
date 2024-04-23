@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function BalanceSheet() {
 
+    const navigate = useNavigate();
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
 
@@ -16,9 +18,9 @@ export default function BalanceSheet() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/getTotalIncome/getTotalIncome")
+        axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
             .then((res) => {
-                const totalIncome = res.data.getTotalIncome;
+                const totalIncome = res.data.totalSales;
                 setTotalIncome(totalIncome);
             })
             .catch((error) => {
@@ -26,7 +28,9 @@ export default function BalanceSheet() {
             });
     }, [income]); 
 
-
+    const addBtn = () => {
+        navigate(`/addLiabilities`);
+    };
 
 
 
@@ -50,7 +54,7 @@ export default function BalanceSheet() {
                     <tr>
                         <td className="border border-gray-400 px-4 py-2">BankLoan</td>
                         <td className="border border-gray-400 px-4 py-2">BankLoan</td>
-                        <td className="border border-gray-400 px-4 py-2">{totalIncome}</td>
+                        <td className="border border-gray-400 px-4 py-2"></td>
                     </tr>
                 {income.map((income) => (
                     <tr key={income._id} className="border-b border-black">
@@ -60,6 +64,7 @@ export default function BalanceSheet() {
                     </tr>
                 ))}
             </tbody>
+            <button type="button" class="btn btn-secondary btn-lg" onClick={addBtn}>Add libilities</button>
         </table>
         <table className="table-auto w-full border border-black">
             <thead>

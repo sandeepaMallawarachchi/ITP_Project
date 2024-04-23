@@ -10,11 +10,11 @@ const  teaSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: Number,
+        type:String  ,
         required: true
     },
     quantity: {
-        type: Number,
+        type:  String,
         required: true
     }
 });

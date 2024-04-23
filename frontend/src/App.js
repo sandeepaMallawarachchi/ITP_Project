@@ -35,13 +35,7 @@ import UpdateExpenses from './pages/financialManager/updateExpenses';
 import DeleteIn from './pages/financialManager/deleteIncome';
 import UpdateIncome from './pages/financialManager/updateIncome';
 import BalanceSheet from './pages/financialManager/balanceSheet';
-
-//supplier
-import Details from './pages/supplierManager/details';
-import SupplierHome from './pages/supplierManager/Home';
-import Update from './pages/supplierManager/update';
-import Supplierdetails from './pages/supplierManager/supplierdetails';
-import Search from './pages/supplierManager/serach';
+import Liability from './pages/financialManager/addLiabilities';
 
 //delivery
 import AddLocation from "./pages/deliveryManager/AddLocation";
@@ -58,10 +52,19 @@ import AllReportData from "./pages/deliveryManager/AllReportData";
 import UpdateReportData from "./pages/deliveryManager/UpdateReportData";
 import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
 import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
+import UploadVehicleDetails from "./pages/deliveryManager/UploadVehicleDetails";
+
+//supplier
+import Details from './pages/supplierManager/details';
+import SupplierHome from './pages/supplierManager/Home';
+import Update from './pages/supplierManager/update';
+import Supplierdetails from './pages/supplierManager/supplierdetails';
+import Search from './pages/supplierManager/serach';
 
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
+
 
 function App() {
   return (
@@ -176,6 +179,11 @@ function App() {
         </Routes>
 
         <Routes>
+          <Route path="/addLiabilities" element={<Liability />} />
+        </Routes>
+
+
+        <Routes>
           <Route path="/addIncome" element={<AddIncome />} />
         </Routes>
 
@@ -256,7 +264,9 @@ function App() {
         <Routes>
           <Route path="/deliveryStatus" element={<DeliveryStatus />} />
         </Routes>
-
+        <Routes>
+          <Route path="/uploadVehicleDetails" element={<UploadVehicleDetails />} />
+        </Routes>
 
         {/* login routes */}
         <Routes>

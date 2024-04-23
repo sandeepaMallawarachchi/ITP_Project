@@ -10,7 +10,7 @@ export default function Details() {
       const response = await axios.get(`http://localhost:8070/supplier/item`);
       console.log('Response:', response.data);
 
-      setItems(response.data.Item); // Accessing the "Item" array from the response
+      setItems(response.data.Item);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -23,7 +23,6 @@ export default function Details() {
   const handleDelete = async (itemId) => {
     try {
       await axios.delete(`http://localhost:8070/supplier/items/${itemId}`);
-      // After successful deletion, fetch items again to update the list
       fetchData();
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -31,34 +30,41 @@ export default function Details() {
   };
 
   return (
-    <div>
+    <div className='text-green-500'>
       <h1>Data Table</h1>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map(item => (
-            <tr key={item._id}>
-              <td>{item.type}</td>
-              <td>{item.name}</td>
-              <td>{item.price}</td>
-              <td>{item.quantity}</td>
-              <td>
-                <Link to={`/update/${item._id}`}>Update</Link>
-                <button onClick={() => handleDelete(item._id)}>Delete</button>
-              </td>
+      <div className="overflow-x-auto">
+        <table className="table-auto">
+          <thead>
+            <tr>
+              <th className="px-4 py-2">Type</th>
+              <th className="px-4 py-2">Name</th>
+              <th className="px-4 py-2">Price</th>
+              <th className="px-4 py-2">Quantity</th>
+              <th className="px-4 py-2">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {items.map(item => (
+              <tr key={item._id}>
+                <td className="border px-4 py-2">{item.type}</td>
+                <td className="border px-4 py-2">{item.name}</td>
+                <td className="border px-4 py-2">{item.price}</td>
+                <td className="border px-4 py-2">{item.quantity}</td>
+                <td className="border px-4 py-2">
+                  <div className="flex">
+                    <div className="mr-2">
+                      <Link to={`/update/${item._id}`} className="text-blue-500">Update</Link>
+                    </div>
+                    <div>
+                      <button onClick={() => handleDelete(item._id)} className="text-red-500">Delete</button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

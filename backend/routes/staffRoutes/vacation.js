@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { response } = require("express");
 let Vacation = require("../../models/staffModels/vacationDetails");
 
-router.route("/add").post((req,res)=>{
+router.route("/add").post((req, res) => {
 
     const date = req.body.date;
     const empName = req.body.empName;
@@ -28,21 +28,23 @@ router.route("/add").post((req,res)=>{
 
     })
 
-    newVac.save().then(()=>{
-       res.json("Vacation Added") 
-    }).catch((err)=>{
+    newVac.save().then(() => {
+        res.json("Vacation Added")
+    }).catch((err) => {
         console.log(err);
     })
 
 })
 
-router.route("/AllVacations").get((req,res)=>{
+router.route("/allVacations").get(async (req, res) => {
 
-    Vacation.find().then((vacation)=>{
-        res.json(staff)
-    }).catch((err)=>{
-        console.log(err)
-    })
+    try {
+        const vacation = await Vacation.find();
+        res.status(200).send({ status: "User fetched", vacation });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error with get employee", error: error.message });
+    }
 
 })
 

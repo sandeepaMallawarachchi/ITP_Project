@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddExpenses() {
+    const navigate = useNavigate();
     const [date, setDate] = useState("");
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
@@ -66,6 +68,9 @@ export default function AddExpenses() {
         }
     };
 
+    const addIncomeBtn = () => {
+        navigate(`/addIncome`);
+    };
 
     function setData(e) {
         e.preventDefault();
