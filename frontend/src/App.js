@@ -9,8 +9,6 @@ import SalesManagerRoutes from './SalesManagerRoutes';
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
-.
-
 //supplier
 import SupplierRoutes from './SupplierRoutes';
 
@@ -26,23 +24,6 @@ import FinancialRoutes from './financialRoutes';
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
-
-//staff
-import AddSalary from "./pages/staffManager/AddSalary";
-import SalaryReport from "./pages/staffManager/SalaryReport";
-import AddEmployee from './pages/staffManager/AddEmployee'
-import AllEmployees from './pages/staffManager/AllEmployees'
-import UpdateEmployee from './pages/staffManager/UpdateEmployee'
-import DeleteEmployee from './pages/staffManager/DeleteEmployee'
-import AllSalaries from './pages/staffManager/AllSalaries'
-import ManagerRegistration from './pages/staffManager/ManagerRegistration'
-import AddVacation from './pages/staffManager/AddVacation'
-import AllVacations from './pages/staffManager/AllVacations'
-import ManagerAccount from './components/ManagerAccount'
-import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
-import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
-
-
 
 function App() {
   return (
