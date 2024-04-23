@@ -54,7 +54,8 @@ import SupplierHome from './pages/supplierManager/Home';
 import Update from './pages/supplierManager/update';
 import Supplierdetails from './pages/supplierManager/supplierdetails';
 import Search from './pages/supplierManager/serach';
-
+import   Teadetails  from  './pages/supplierManager/inputteadetails';
+import    Suppliershowdetails  from  './pages/supplierManager/showsupplier';
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
@@ -281,7 +282,12 @@ function App() {
         <Routes>
           <Route path="/search" element={< Search />} ></Route >
         </Routes>
-
+        <Routes>
+          <Route path="/teadetails"     element={< Teadetails/>} ></Route >   
+        </Routes>
+        <Routes>
+          <Route path="/showsupplier"      element={< Suppliershowdetails/>} ></Route >   
+        </Routes>
         {/* login routes */}
         <Routes>
           <Route path='/' element={<Login />} />
