@@ -118,23 +118,23 @@ export default function DeliverymanagerNavigation() {
     };
 
     const handleCustomerRegistration = () => {
-        navigate(`/deliveryManager/addlocations`);
+        navigate(`/deliveryManager/addlocations/${id}`);
     };
 
     const handleDeliveryStatus = () => {
-        navigate(`/deliveryManager/deliveryStatus`);
+        navigate(`/deliveryManager/deliveryStatus/${id}`);
     };
 
     const handleDriverRegistration = () => {
-        navigate(`/deliveryManager/addDrivers`);
+        navigate(`/deliveryManager/addDrivers/${id}`);
     };
 
     const handleCheckingVehicleCondition = () => {
-        navigate(`/deliveryManager/uploadVehicleDetails`);
+        navigate(`/deliveryManager/uploadVehicleDetails/${id}`);
     };
 
     const handleGenerateReport = () => {
-        navigate(`/deliveryManager/addReportData`);
+        navigate(`/deliveryManager/addReportData/${id}`);
     };
 
     const handleSearchClick = async () => {

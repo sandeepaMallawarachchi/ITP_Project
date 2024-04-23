@@ -118,15 +118,15 @@ export default function FinancialManagerNavigations() {
     };
 
     const handleIncomeSheet= () => {
-        navigate(`/financial/HomeIncome`);
+        navigate(`/financial/HomeIncome/${id}`);
     };
 
     const handleExpenseSheet = () => {
-        navigate(`/financial/HomeExpenses`);
+        navigate(`/financial/HomeExpenses/${id}`);
     };
 
     const handleBalanceSheet = () => {
-        navigate(`/financial/balanceSheetHome`);
+        navigate(`/financial/balanceSheetHome/${id}`);
     };
 
 
