@@ -17,23 +17,22 @@ import SupplierRoutes from './SupplierRoutes';
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
 
+//staff
+import AddSalary from "./pages/staffManager/AddSalary";
+import SalaryReport from "./pages/staffManager/SalaryReport";
+import AddEmployee from './pages/staffManager/AddEmployee'
+import AllEmployees from './pages/staffManager/AllEmployees'
+import UpdateEmployee from './pages/staffManager/UpdateEmployee'
+import DeleteEmployee from './pages/staffManager/DeleteEmployee'
+import AllSalaries from './pages/staffManager/AllSalaries'
+import ManagerRegistration from './pages/staffManager/ManagerRegistration'
+import AddVacation from './pages/staffManager/AddVacation'
+import AllVacations from './pages/staffManager/AllVacations'
+import ManagerAccount from './components/ManagerAccount'
+import StaffManagerNavigation from './pages/staffManager/StaffManagerNavigation'
+import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
 
-//delivery
-import AddLocation from "./pages/deliveryManager/AddLocation";
-import AllLocation from "./pages/deliveryManager/AllLocation";
-import UpdateLocation from "./pages/deliveryManager/UpdateLocation";
-import DeleteLocation from "./pages/deliveryManager/DeleteLocation";
-import AddDriver from "./pages/deliveryManager/AddDriver";
-import AllDriver from "./pages/deliveryManager/AllDriver";
-import UpdateDriver from "./pages/deliveryManager/UpdateDriver";
-import DeleteDriver from "./pages/deliveryManager/DeleteDriver";
-import UploadImage from "./pages/deliveryManager/UploadImage";
-import AddReportData from "./pages/deliveryManager/AddReportData";
-import AllReportData from "./pages/deliveryManager/AllReportData";
-import UpdateReportData from "./pages/deliveryManager/UpdateReportData";
-import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
-import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
-import UploadVehicleDetails from "./pages/deliveryManager/UploadVehicleDetails";
+
 
 function App() {
   return (
@@ -61,6 +60,24 @@ function App() {
         </Routes>
 
 
+
+
+
+
+
+
+
+
+
+
+
+        {/* delivery routes */}
+       <Routes>
+          <Route path='/deliveryManager/*' element={<DeliveryRoutes />} />
+        </Routes>
+
+
+
         {/* financial routes */}
         <Routes>
           <Route path='/financial/*' element={<financialRoutes />} />
@@ -71,7 +88,48 @@ function App() {
           <Route path='/staff/*' element={<StaffRoutes />} />
         </Routes>
 
-      
+        {/* financial manager routes */}
+        <Routes>
+          <Route path="/add" element={<AddExpenses />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/HomeExpenses" element={<Home />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/HomeIncome" element={<HomeIn />} />
+        </Routes>
+
+        <Routes>
+        <Route path="/addLiabilities" element={<AddLiabilities />} />
+        </Routes>
+
+
+        <Routes>
+          <Route path="/addIncome" element={<AddIncome />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/deleteExpen/:id" element={<DeleteEx />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/updateExpenses/:id" element={<UpdateExpenses />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/deleteIncome/:id" element={<DeleteIn />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/updateIncome/:id" element={<UpdateIncome />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/balanceSheetHome" element={<BalanceSheet />} />
+        </Routes>
+
         {/* delivery routes */}
         <Routes>
           <Route path="/addlocations" element={<AddLocation />} />

@@ -55,7 +55,8 @@ export default function Login() {
             }
 
             else if (res.data.designation === 'Delivery Manager') {
-                navigate(`/alllocations`);
+                const empId = res.data.empId;
+                navigate(`/deliveryManager/alllocations/${empId}`);
                 return;
             }
 
