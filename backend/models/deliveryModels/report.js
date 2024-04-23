@@ -10,7 +10,7 @@ const reportSchema = new Schema({
     },
     
     date : {
-        type : date,
+        type : Date,
         required: true
     },
 
