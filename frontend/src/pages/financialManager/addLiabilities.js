@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 export default function AddIncome() {
@@ -6,9 +6,7 @@ export default function AddIncome() {
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
 
-   
-
-    function setData(e) {
+    const setData = async (e) => {
         e.preventDefault();
 
         const newLiabilities = {
@@ -17,36 +15,43 @@ export default function AddIncome() {
             amount
         };
 
-        axios.post("http://localhost:8070/incomeRt/addIncome", newLiabilities)
-            .then(() => {
-                alert("liabilities Added");
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    }
+        try {
+            await axios.post("http://localhost:8070/balanceRt/addbalances", newLiabilities);
+            alert("Liabilities Added");
+            // Optionally, you can reset the form fields after successful submission
+            setLiabilities("");
+            setDescription("");
+            setAmount("");
+        } catch (err) {
+            alert("Error adding liabilities");
+            console.error(err);
+        }
+    };
 
     return (
         <div className="container">
             <form onSubmit={setData}>
 
                 <div className="mb-3">
-                    <label htmlFor="description" className="form-label">liabilities</label><br></br>
-                    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setLiabilities(e.target.value)} />
+                    <label htmlFor="liabilities" className="form-label">Liabilities</label><br />
+                    <input type="text" className="form-control" id="liabilities" placeholder="Type liabilities"
+                        value={liabilities}
+                        onChange={(e) => setLiabilities(e.target.value)} required />
                 </div>
-                <br></br>
 
                 <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Description</label><br></br>
-                    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} />
+                    <label htmlFor="descriptionInput" className="form-label">Description</label><br />
+                    <input type="text" className="form-control" id="descriptionInput" placeholder="Type description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)} required />
                 </div>
-                <br></br>
 
                 <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Amount</label><br></br>
-                    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setAmount(e.target.value)} />
+                    <label htmlFor="amountInput" className="form-label">Amount</label><br />
+                    <input type="text" className="form-control" id="amountInput" placeholder="Type amount"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)} required />
                 </div>
-                <br></br>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

@@ -21,7 +21,7 @@ export default function HomeIn() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/getTotalIncome/getTotalIncome")
+        axios.get("http://localhost:8070/incomeRt/getTotalIncome")
             .then((res) => {
                 const totalIncome = res.data.getTotalIncome;
                 setTotalIncome(totalIncome);
@@ -30,6 +30,7 @@ export default function HomeIn() {
                 alert(error.message);
             });
     }, [income]);
+    
 
     const componentRef = useRef();
 

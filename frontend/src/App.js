@@ -4,7 +4,6 @@ import SalesRoutes from './SalesRoutes';
 
 //sales manager
 
-//sales
 import SalesManagerRoutes from './SalesManagerRoutes';
 
 //inventory
@@ -47,7 +46,7 @@ import UpdateExpenses from './pages/financialManager/updateExpenses';
 import DeleteIn from './pages/financialManager/deleteIncome';
 import UpdateIncome from './pages/financialManager/updateIncome';
 import BalanceSheet from './pages/financialManager/balanceSheet';
-import Liability from './pages/financialManager/addLiabilities';
+import AddLiabilities from './pages/financialManager/addLiabilities';
 
 
 function App() {
@@ -185,7 +184,7 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path="/addLiabilities" element={<Liability />} />
+        <Route path="/addLiabilities" element={<AddLiabilities />} />
         </Routes>
 
 
