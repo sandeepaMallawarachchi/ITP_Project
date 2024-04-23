@@ -4,8 +4,9 @@ import axios from "axios";
 
 export default function CustomerLocations() {
     const [name, setName] = useState("");
+    const [cusID, setCusID] = useState("");
     const [email, setEmail] = useState("");
-    const [phone_number, setNumber] = useState(""); 
+    const [phone_number, setNumber] = useState("");
     const [address, setAddress] = useState("");
     const [district, setDistrict] = useState("");
     const [delivery_code, setDelivery_code] = useState("");
@@ -15,6 +16,7 @@ export default function CustomerLocations() {
 
         const newCustomerLocation = {
             name,
+            cusID,
             email,
             phone_number,
             address,
@@ -27,6 +29,7 @@ export default function CustomerLocations() {
                 alert("customer location Added")
 
                 setName("");
+                setCusID("");
                 setEmail("");
                 setNumber("");
                 setAddress("");
@@ -47,12 +50,19 @@ export default function CustomerLocations() {
                         <input type="text" className="form-input" id="name" placeholder="Enter Customer Name"
                             onChange={(e) => setName(e.target.value)} />
                     </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="cusID" className="block text-gray-700 text-sm font-bold mb-2">Customer's ID</label>
+                        <input type="text" className="form-input" id="cusID" placeholder="Enter Customer ID"
+                            onChange={(e) => setCusID(e.target.value)} />
+                    </div>
+
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                         <input type="text" className="form-input" id="email" placeholder="Enter the Email"
                             onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                   
+
                     <div className="mb-4">
                         <label htmlFor="number" className="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
                         <input

@@ -32,32 +32,29 @@ function AllEmployees() {
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Employee ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Gender</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Title</th>
                         <th scope="col">Department</th>
-                        <th scope="col">Designation</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone No</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Vacation Days Earned</th>
+                        <th scope="col">Requesting Date</th>
+                        <th scope="col">Returning Date</th>
+                        <th scope="col">Total Days</th>
                     </tr>
                 </thead>
                 <tbody>
                     {employees.map((employee) => (
                         <tr key={(employee._id)}>
-                            <td>{employee.empId}</td>
-                            <td>{employee.firstName}</td>
-                            <td>{employee.lastName}</td>
-                            <td>{employee.gender}</td>
+                            <td>{employee.date}</td>
+                            <td>{employee.empName}</td>
+                            <td>{employee.title}</td>
                             <td>{employee.department}</td>
-                            <td>{employee.designation}</td>
-                            <td>{employee.address}</td>
-                            <td>{employee.email}</td>
-                            <td>{employee.phoneNo}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleUpdateEmployees(employee.empId)}>Update</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleDeleteEmployees(employee._id)}>Delete</button>
+                            <td>{employee.daysEarned}</td>
+                            <td>{employee.reqDate}</td>
+                            <td>{employee.returningDate}</td>
+                            <td>{employee.totDays}</td>
+                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprove(employee.empId)}>Approve</button>
+                                <button type="submit" class="btn btn-danger" onClick={() => handleReject(employee._id)}>Reject</button>
                             </td>
                         </tr>
                     ))}
@@ -65,10 +62,8 @@ function AllEmployees() {
                 </tbody>
             </table>
 
-            <button type="submit" class="btn btn-success" onClick={handleAddEmployees}>Add Employee</button>
-
         </div>
     )
 }
 
-export default AllEmployees;
+export default AllVacations;
