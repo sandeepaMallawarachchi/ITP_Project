@@ -28,7 +28,7 @@ const Teadetails = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-10">
-      <h2 className="text-2xl font-bold mb-4">Add New Supplier</h2>
+      <h2 className="text-2xl font-bold mb-4">Add New tea details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block font-medium text-gray-700">Name:</label>

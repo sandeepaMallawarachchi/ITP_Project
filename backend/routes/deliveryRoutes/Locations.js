@@ -1,7 +1,7 @@
 const router = require("express").Router();
 let Tea = require("../../models/deliveryModels/location");
 
-router.route("/add").post((req, res) => {
+router.route("/add").post(async (req, res) => {
     const name = req.body.name;
     const cusID = req.body.cusID;
     const email = req.body.email;
@@ -10,25 +10,33 @@ router.route("/add").post((req, res) => {
     const district = req.body.district;
     const delivery_code = req.body.delivery_code;
 
-    const newTea = new Tea({
-        name,
-        cusID,
-        email,
-        phone_number,
-        address,
-        district,
-        delivery_code
-    });
+    try {
+        // Check if a record with the same name or cusID already exists
+        const existingRecord = await Tea.findOne({ name, cusID });
 
-    newTea.save()
-        .then(() => {
-            res.json("location Added");
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(400).json('Error: ' + err);
+        if (existingRecord) {
+            return res.status(400).json({ message: 'A record with this name and cusID already exists' });
+        }
+
+        // If no duplicate record found, proceed to add the new record
+        const newTea = new Tea({
+            name,
+            cusID,
+            email,
+            phone_number,
+            address,
+            district,
+            delivery_code
         });
+
+        await newTea.save();
+        res.json("location Added");
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
+
 
 module.exports = router;
 
@@ -41,7 +49,6 @@ router.route("/").get((req, res) => {
         console.log(err)
 
     })
-
 })
 
 router.route("/update/:id").put(async (req, res) => {

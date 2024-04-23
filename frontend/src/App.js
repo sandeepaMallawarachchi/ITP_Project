@@ -10,6 +10,14 @@ import SalesManagerRoutes from './SalesManagerRoutes';
 //inventory
 import InventoryRoutes from "./InventoryRoutes";
 
+
+//supplier
+import SupplierRoutes from './SupplierRoutes';
+
+//login
+import Login from "./components/Login";
+import ForgetPassword from "./components/ForgetPassword";
+
 //staff
 import AddSalary from "./pages/staffManager/AddSalary";
 import SalaryReport from "./pages/staffManager/SalaryReport";
@@ -54,18 +62,6 @@ import DeleteReportData from "./pages/deliveryManager/DeleteReportData";
 import DeliveryStatus from "./pages/deliveryManager/DeliveryStatus";
 import UploadVehicleDetails from "./pages/deliveryManager/UploadVehicleDetails";
 
-//supplier
-import Details from './pages/supplierManager/details';
-import SupplierHome from './pages/supplierManager/Home';
-import Update from './pages/supplierManager/update';
-import Supplierdetails from './pages/supplierManager/supplierdetails';
-import Search from './pages/supplierManager/serach';
-
-//login
-import Login from "./components/Login";
-import ForgetPassword from "./components/ForgetPassword";
-
-
 function App() {
   return (
     <Router>
@@ -75,7 +71,7 @@ function App() {
         <Routes>
           <Route path="/inventory/*" element={<InventoryRoutes />} />
         </Routes>
-        
+
         {/* sales routes */}
         <Routes>
           <Route path='/sales/*' element={<SalesRoutes />} />
@@ -86,15 +82,19 @@ function App() {
           <Route path='/salesManager/*' element={<SalesManagerRoutes />} />
         </Routes>
 
-        {/* staff routes */}
+        {/* supplier routes */}
+        <Routes>
+          <Route path='/supplierManager/*' element={<SupplierRoutes />} />
+        </Routes>
 
+        {/* staff routes */}
         <Routes>
           <Route path='/staffManagerDashboard/:id' element={<StaffManagerNavigation />} />
         </Routes>
         <Routes>
           <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
         </Routes>
-        
+
         <Routes>
           <Route path='/addSalary/:id' element={<StaffManagerNavigation />} />
         </Routes>
@@ -206,20 +206,6 @@ function App() {
         <Routes>
           <Route path="/balanceSheetHome" element={<BalanceSheet />} />
         </Routes>
-
-        {/* supplier routes */}
-        <Routes>
-          <Route path="/details" element={<Details />}></Route>
-        </Routes>
-
-        <Routes>
-          <Route path="/home" element={<SupplierHome />}  ></Route >
-        </Routes>
-
-        <Routes>
-          <Route path="/update/:id" element={<Update />} ></Route >
-        </Routes>
-
 
         {/* delivery routes */}
         <Routes>
