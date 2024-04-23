@@ -2,48 +2,45 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function AddIncome() {
-    const [date, setDate] = useState(""); // State for date
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [error, setError] = useState("");
 
     useEffect(() => {
-        const fetchTotalAmount = async () => {
-            try {
-                const res = await.get(`http://localhost:8070/getMonthlyIncome/calculateTotalIncome` )
-            } catch (error) {
+        // Set the current date when the component mounts
+        const currentDate = new Date().toISOString().split('T')[0];
+        setDate(currentDate);
+    }, []);
 
-            }
-        }
+    const [date, setDate] = useState(""); // Moved after useEffect
 
-        fetchTotalAmount();
-    }, [date]);
-
-    // Validation for date
-    const handleDateChange = (e) => {
-        const selectedDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
-
-        if (selectedDate > currentDate) {
-            setError("Selected date cannot be a future date.");
-        } else {
-            setDate(selectedDate);
-            setError(""); // Clear error if date is valid
-        }
+    const fetchTotalAmount = () => {
+        axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
+            .then(response => {
+                setAmount(response.data.totalSales);
+            })
+            .catch(error => {
+                console.error("Error fetching total amount:", error);
+            });
     };
+
+    useEffect(() => {
+        fetchTotalAmount();
+    }, []); // Empty dependency array to run once on component mount
 
     // Validation for amount
     // const handleAmountChange = (e) => {
     //     const enterAmount = e.target.value;
 
-        if (enterAmount > 0) {
-            setAmount(enterAmount);
-            setError("");
-        } else {
-            setError("Enter positive value");
-        }
-    };
+    //     if (!isNaN(enterAmount) && parseFloat(enterAmount) > 0) {
+    //         setAmount(enterAmount);
+    //         fetchTotalAmount(); // Fetch total amount when amount changes
+    //         setError("");
+    //     } else {
+    //         setError("Enter a valid positive number");
+    //     }
+    // };
 
     function setData(e) {
         e.preventDefault();
@@ -98,4 +95,4 @@ export default function AddIncome() {
 
         </div>
     );
-} 
+}
