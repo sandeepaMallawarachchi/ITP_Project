@@ -27,7 +27,7 @@ export default function Home() {
   
 
     useEffect(() => {
-        axios.get("http://localhost:8070/totalSalary/TotalSalary")
+        axios.get("http://localhost:8070/totalSalary/totalSalary")
             .then((res) => {
                 const totalSalary = res.data.totalSalary;
                 setTotalSalary(totalSalary);
@@ -118,20 +118,7 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td className="border border-gray-400 px-4 py-2">2024/3/2</td>
-                        <td className="border border-gray-400 px-4 py-2">Salary</td>
-                        <td className="border border-gray-400 px-4 py-2">Salary of emp</td>
-                        <td className="border border-gray-400 px-4 py-2">{totalSalary}</td>
-                        <td className="border border-gray-400 px-4 py-2"></td>
-                    </tr>
-                    <tr>
-                        <td className="border border-gray-400 px-4 py-2">2024/3/2</td>
-                        <td className="border border-gray-400 px-4 py-2">Salary</td>
-                        <td className="border border-gray-400 px-4 py-2">Salary of emp</td>
-                        <td className="border border-gray-400 px-4 py-2">{totalSalary}</td>
-                        <td className="border border-gray-400 px-4 py-2"></td>
-                    </tr>
+                   
                     {expenses.map((expense, index) => {
                         return (
                         <tr key={expense.index}>

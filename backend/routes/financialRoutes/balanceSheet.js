@@ -1,26 +1,32 @@
-const router=require ("express").Router();
+const router = require("express").Router();
 const libilities = require("../../models/financialModels/libilities");
 
 // Route to create a new libilities
-router.post('/balances', async (req, res) => {
+router.post('/addbalances', async (req, res) => {
+
+    const { liabilities, description, amount } = req.body;
+
     try {
-        const { liabilities,description, amount } = req.body;
-        const newBalance = new libilities({ liabilities,  description, amount });
-        await newBalance.save();
-        res.status(201).json({ message: 'Balance created successfully', libilities: newBalance });
+        const newBalance = new libilities({
+            liabilities,
+            description,
+            amount
+        });
+        newBalance.save();
+        res.status(201).json({ message: 'Balance created successfully', liabilities: newBalance });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server Error' });
+        console.error('Error adding liabilities:', error);
+        res.status(500).json({ error: 'Error adding liabilities' });
     }
 });
 
-// Route to get all libilities
+// Route to get all liabilities
 router.get('/balances', async (req, res) => {
     try {
         const balances = await libilities.find();
         res.status(200).json(balances);
     } catch (error) {
-        console.error(error);
+        console.error('Error getting balances:', error);
         res.status(500).json({ message: 'Server Error' });
     }
 });
@@ -28,7 +34,7 @@ router.get('/balances', async (req, res) => {
 // Route to update a libilities by ID
 router.put('/balances/:id', async (req, res) => {
     try {
-        const { liabilities,  description, amount } = req.body;
+        const { liabilities, description, amount } = req.body;
         const updatedBalance = await libilities.findByIdAndUpdate(req.params.id, { liabilities, description, amount }, { new: true });
         if (!updatedBalance) {
             return res.status(404).json({ message: 'Balance not found' });
@@ -67,6 +73,21 @@ router.get('/balances/:id', async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
+
+// Route to calculate the total liabilities
+router.get('/totalLiabilities', async (req, res) => {
+    try {
+        const totalLiabilities = await libilities.aggregate([{ $group: { _id: null, total: { $sum: "$amount" } } }]);
+        if (totalLiabilities.length === 0) {
+            return res.status(404).json({ message: 'No liabilities found' });
+        }
+        res.status(200).json({ totalLiabilities: totalLiabilities[0].total });
+    } catch (error) {
+        console.error('Error calculating total liabilities:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
 
 
 
