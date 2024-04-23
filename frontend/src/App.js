@@ -4,7 +4,6 @@ import SalesRoutes from './SalesRoutes';
 
 //sales manager
 
-//sales
 import SalesManagerRoutes from './SalesManagerRoutes';
 
 //inventory
