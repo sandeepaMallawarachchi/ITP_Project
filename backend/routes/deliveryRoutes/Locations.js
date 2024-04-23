@@ -11,14 +11,14 @@ router.route("/add").post(async (req, res) => {
     const delivery_code = req.body.delivery_code;
 
     try {
-        // Check if a customer with the same cusID or email already exists
-        const existingCustomer = await Tea.findOne({ $or: [{ cusID }, { email }] });
+        // Check if a record with the same name or cusID already exists
+        const existingRecord = await Tea.findOne({ name, cusID });
 
-        if (existingCustomer) {
-            return res.status(400).json({ message: 'Customer with this ID or email already exists' });
+        if (existingRecord) {
+            return res.status(400).json({ message: 'A record with this name and cusID already exists' });
         }
 
-        // If no duplicate customer found, proceed to add the new customer
+        // If no duplicate record found, proceed to add the new record
         const newTea = new Tea({
             name,
             cusID,
