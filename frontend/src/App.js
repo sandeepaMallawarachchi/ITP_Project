@@ -176,6 +176,11 @@ function App() {
         </Routes>
 
         <Routes>
+          <Route path="/" element={<HomeIn />} />
+        </Routes>
+
+
+        <Routes>
           <Route path="/addIncome" element={<AddIncome />} />
         </Routes>
 
