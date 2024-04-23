@@ -8,12 +8,12 @@ const reportSchema = new Schema({
         type : String,
         required: true
     },
-
+    
     date : {
         type : date,
-       // required: true
+        required: true
     },
-    
+
     monthlyDistance : {
         type : Number,
         required: true

@@ -66,6 +66,9 @@ export default function AddExpenses() {
         }
     };
 
+    const addIncomeBtn = () => {
+        navigate(`/addIncome`);
+    };
 
     function setData(e) {
         e.preventDefault();
