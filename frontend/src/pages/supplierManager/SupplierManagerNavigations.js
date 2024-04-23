@@ -6,16 +6,15 @@ import { BiBuoy } from 'react-icons/bi';
 import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
+import { MdFormatListBulleted } from "react-icons/md";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
-import { HiMiniUserGroup } from "react-icons/hi2";
-import { GiTakeMyMoney } from "react-icons/gi";
-import { FaUmbrellaBeach } from "react-icons/fa";
-import { MdAppRegistration } from "react-icons/md";
 
 export default function SupplierManagerNavigations() {
     const { id } = useParams();
@@ -24,14 +23,14 @@ export default function SupplierManagerNavigations() {
         designation: "",
     });
 
-    const [firstName, setFirstName] = useState("");
-    const [employeeDetails, setEmployeeDetails] = useState([]);
-    const [filteredEmployeeDetails, setFilteredEmployeeDetails] = useState([]);
+    const [productName, setProductName] = useState("");
+    const [stockDetails, setStockDetails] = useState([]);
+    const [filteredStockDetails, setFilteredStockDetails] = useState([]);
     const [searchClicked, setSearchClicked] = useState(false);
     const [showTable, setShowTable] = useState(false);
     const [error, setError] = useState(false);
     const [errorGif, setErrorGif] = useState(false);
-    const [errorsAlert, setErrorAlert] = useState(false);
+    const [errorsAlert, seErrorAlert] = useState(false);
     const [profilePicture, setProfilePicture] = useState('');
 
     const navigate = useNavigate();
@@ -53,18 +52,18 @@ export default function SupplierManagerNavigations() {
     }, [id]);
 
     useEffect(() => {
-        filterEmployeeDetails();
-    }, [id]);
+        filterStockDetails();
+    }, [productName, stockDetails]);
 
-    const fetchEmployeeDetails = async () => {
+    const fetchStockDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+            const res = await axios.get(`http://localhost:8070/sales/searchStock/${id}/${productName}`);
 
             if (res.data.error) {
                 setError(true);
                 setErrorGif(true);
             } else {
-                setEmployeeDetails(res.data);
+                setStockDetails(res.data);
                 setShowTable(true);
                 setError(false);
                 setErrorGif(false);
@@ -73,25 +72,25 @@ export default function SupplierManagerNavigations() {
 
             setError(true);
             setErrorGif(true);
-            setErrorAlert(true);
+            seErrorAlert(true);
 
             setTimeout(() => {
                 setErrorGif(false);
-                setErrorAlert(false);
+                seErrorAlert(false);
             }, 5000);
 
             console.log("Error fetching details", error.message);
         }
     };
 
-    const filterEmployeeDetails = () => {
-        if (firstName.trim() === "") {
-            setFilteredEmployeeDetails(employeeDetails);
+    const filterStockDetails = () => {
+        if (productName.trim() === "") {
+            setFilteredStockDetails(stockDetails);
         } else {
-            const filteredData = employeeDetails.filter(employee =>
-                employee.firstName.toLowerCase().includes(firstName.toLowerCase())
+            const filteredData = stockDetails.filter(stock =>
+                stock.productName.toLowerCase().includes(productName.toLowerCase())
             );
-            setFilteredEmployeeDetails(filteredData);
+            setFilteredStockDetails(filteredData);
         }
     };
 
@@ -111,45 +110,41 @@ export default function SupplierManagerNavigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/staffManagerDashboard/${id}`);
+        navigate(`/supplierManager/supplierManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/managerAccount/${id}`);
+        navigate(`/supplierManager/managerAccount/${id}`);
     };
 
-    const handleEmployees = () => {
-        navigate(`/allEmployees/${id}`);
+    const handleAllProducts = () => {
+        navigate(`/supplierManager/details/${id}`);
     };
 
-    const handleAddEmployee = () => {
-        navigate(`/addEmployee/${id}`);
+    const handlePayment = () => {
+        navigate(`/supplierManager/home/${id}`);
     };
 
-    const handleSalaries = () => {
-        navigate(`/allSalaries/${id}`);
+    const handleAddProduct = () => {
+        navigate(`/supplierManager/addProduct/${id}`);
     };
 
-    const handleAddSalary = () => {
-        navigate(`/addSalary/${id}`);
+    const handleAllSuppliers = () => {
+        navigate(`/supplierManager/showSupplier/${id}`);
     };
 
-    const handleVacations = () => {
-        navigate(`/allVacations/${id}`);
+    const handleAddSuppliers = () => {
+        navigate(`/supplierManager/suppliers/${id}`);
     };
 
-    const handleAddVacation = () => {
-        navigate(`/addVacation/${id}`);
-    };
-
-    const handleRegistration = () => {
-        navigate(`/managerRegistration/${id}`);
+    const handleSearch = () => {
+        navigate(`/supplierManager/search/${id}`);
     };
 
     const handleSearchClick = async () => {
         setSearchClicked(true);
-        await fetchEmployeeDetails();
-        filterEmployeeDetails();
+        await fetchStockDetails();
+        filterStockDetails();
 
     };
 
@@ -169,10 +164,10 @@ export default function SupplierManagerNavigations() {
                         <input type="search"
                             id="location-search"
                             className={`block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
-                            placeholder="Search for Employee"
+                            placeholder="Search for Remaining stock"
                             required
                             onChange={(e) => {
-                                setFirstName(e.target.value);
+                                setProductName(e.target.value);
                             }} />
                         <button type="submit" className="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             onClick={handleSearchClick}>
@@ -198,25 +193,27 @@ export default function SupplierManagerNavigations() {
                 <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50 mt-[111px]">
                     <Sidebar.Items className='pt-5'>
                         <Sidebar.ItemGroup className='cursor-pointer'>
-
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
-                                Registration
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAllProducts}>
+                                All product details
                             </Sidebar.Item>
-                            <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
-                                <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
-                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
-                            </Sidebar.Collapse>
-                            <Sidebar.Collapse icon={GiTakeMyMoney} label="Salaries">
-                                <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>All Salaries</Sidebar.Item>
-                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSalary}>Add Salary</Sidebar.Item>
-                            </Sidebar.Collapse>
-                            <Sidebar.Collapse icon={FaUmbrellaBeach} label="Vacations">
-                                <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
-                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
-                            </Sidebar.Collapse>
+                            <Sidebar.Item icon={IoSearchSharp} onClick={handleAddProduct}>
+                                Add product details
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handlePayment}>
+                                Payment Details
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleAllSuppliers}>
+                                All supliers
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleAddSuppliers}>
+                                Add suplier
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleSearch}>
+                                Search Supplier
+                            </Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
@@ -234,38 +231,35 @@ export default function SupplierManagerNavigations() {
             {searchClicked && (
                 <div className={`fixed top-[133px] left-72 w-[76%] pt-10 ${showTable ? 'z-50 bg-white h-full' : 'hidden'}`}>
                     <button onClick={handleTableClose} className="absolute ml-[1070px] focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">close</button>
-                    {searchClicked && filteredEmployeeDetails.length === 0 && <span className="ml-64 px-6 py-4">No data found!</span>}
-                    {searchClicked && filteredEmployeeDetails.length !== 0 && (
+                    {searchClicked && filteredStockDetails.length === 0 && <span className="ml-64 px-6 py-4">No data found!</span>}
+                    {searchClicked && filteredStockDetails.length !== 0 && (
                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-
-                                        <th scope="col" className="px-6 py-3">Employee ID</th>
-                                        <th scope="col" className="px-6 py-3">First Name</th>
-                                        <th scope="col" className="px-6 py-3">Last Name</th>
-                                        <th scope="col" className="px-6 py-3">Gender</th>
-                                        <th scope="col" className="px-6 py-3">Department</th>
-                                        <th scope="col" className="px-6 py-3">Designation</th>
-                                        <th scope="col" className="px-6 py-3">Address</th>
-                                        <th scope="col" className="px-6 py-3">Email</th>
-                                        <th scope="col" className="px-6 py-3">Phone No</th>
-                                        <th scope="col" className="px-6 py-3">Action</th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Product name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Remaining Amount
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Status
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredEmployeeDetails.map((detail, index) => (
+                                    {filteredStockDetails.map((detail, index) => (
                                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
-                                            <td className="px-6 py-4">{detail.employeeId}</td>
-                                            <td className="px-6 py-4">{detail.firstName}</td>
-                                            <td className="px-6 py-4">{detail.lastName}</td>
-                                            <td className="px-6 py-4">{detail.gender}</td>
-                                            <td className="px-6 py-4">{detail.department}</td>
-                                            <td className="px-6 py-4">{detail.designation}</td>
-                                            <td className="px-6 py-4">{detail.address}</td>
-                                            <td className="px-6 py-4">{detail.email}</td>
-                                            <td className="px-6 py-4">{detail.phoneNo}</td>
-                                            <td className="px-6 py-4">{detail.action}</td>
+                                            <td className="px-6 py-4">{detail.productName}</td>
+                                            <td className="px-6 py-4">{detail.totalStock}</td>
+                                            {detail.totalStock === 0 ? (
+                                                <td className="px-6 py-4 text-red-600 font-bold">Out of stock</td>
+                                            ) : detail.totalStock < 50 ? (
+                                                <td className="px-6 py-4 text-yellow-400 font-bold">Low stock</td>
+                                            ) : (
+                                                <td className="px-6 py-4 text-green-500 font-bold">Available</td>
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>
