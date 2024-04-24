@@ -1,35 +1,60 @@
-import   { useState } from 'react';
- 
-function Search (){
-          const[value,setvalue]=useState ('');
-           const[data,setdata ]=useState ([]);
-           const onChange = async (e) => {
-               const searchValue = e.target.value;
-                 setvalue(searchValue);
-               try {
-                 const response = await fetch(`http://localhost:8070/supplier/search?q=${searchValue}`);
-                 const searchData = await response.json();
-                 console.log(searchData); // Log the data variable
-                    setdata(searchData);
-               } catch (error) {
-                 console.error('Error searching suppliers:', error);
-               }
-             };
-             
-             
-     return(
-      <div>
-      <div className='container'>
-          <input type="text" onChange={onChange} value={value} />
-          <button>Search</button>
+import { useState } from 'react';
+
+function Search() {
+  const [value, setValue] = useState('');
+  const [data, setData] = useState([]);
+
+  const onChange = async (e) => {
+    const searchValue = e.target.value;
+    setValue(searchValue);
+    try {
+      const response = await fetch(`http://localhost:8070/supplier/search?q=${searchValue}`);
+      const searchData = await response.json();
+      console.log(searchData); // Log the data variable
+      setData(searchData);
+    } catch (error) {
+      console.error('Error searching suppliers:', error);
+    }
+  };
+
+  const handleEmailClick = (email) => {
+    window.location.href = `mailto:${email}`; // Open default email client
+  };
+
+  return (
+    <div className="container mx-auto p-4">
+      <div className='mb-4'>
+        <input
+          type="text"
+          className="border border-gray-300 rounded px-4 py-2 w-full"
+          onChange={onChange}
+          value={value}
+          placeholder="Search Suppliers"
+        />
       </div>
       <div>
-          {data.map(item => (
-              <div key={item._id}>{item.name}<hr /></div>
-               
-          ))}
+        {data.map(item => (
+          <div key={item._id} className="border border-gray-300 rounded p-4 mb-4">
+            {item.name.includes(value) && (
+              <div>
+                <p className="text-lg font-bold">
+                  Name:{" "}
+                  <a
+                    href={`mailto:${item.email}`}
+                    onClick={() => handleEmailClick(item.email)}
+                    className="text-blue-500"
+                  >
+                    {item.name}
+                  </a>
+                </p>
+                <p className="text-gray-700">Address: {item.address}</p>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-  </div>
-     )
+    </div>
+  );
 }
-export default Search ;
+
+export default Search;

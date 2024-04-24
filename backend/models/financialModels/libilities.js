@@ -2,11 +2,7 @@ const mongoose=require("mongoose");
 const Schema= mongoose.Schema;
 
 const balanceSh=new Schema({
-    libilities:{
-        type:String,
-        required:true
-    },
-    qualities:{
+    liabilities:{
         type:String,
         required:true
     },

@@ -1,5 +1,5 @@
 const router=require ("express").Router();
-const qualities = require("../../models/financialModels/qualities");
+const liabilities = require("../../models/financialModels/qualities");
 
 // Route to create a new libilities
 router.post('/qualities', async (req, res) => {
@@ -17,7 +17,7 @@ router.post('/qualities', async (req, res) => {
 // Route to get all libilities
 router.get('/qualities', async (req, res) => {
     try {
-        const balances = await qualities.find();
+        const balances = await liabilities.find();
         res.status(200).json(balances);
     } catch (error) {
         console.error(error);
@@ -43,7 +43,7 @@ router.put('/qualities/:id', async (req, res) => {
 // Route to delete a libilities by ID
 router.delete('/qualities/:id', async (req, res) => {
     try {
-        const deletedBalance = await qualities.findByIdAndDelete(req.params.id);
+        const deletedBalance = await liabilities.findByIdAndDelete(req.params.id);
         if (!deletedBalance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
@@ -57,7 +57,7 @@ router.delete('/qualities/:id', async (req, res) => {
 // Route to get a libilities by ID
 router.get('/qualities/:id', async (req, res) => {
     try {
-        const balance = await qualities.findById(req.params.id);
+        const balance = await liabilities.findById(req.params.id);
         if (!balance) {
             return res.status(404).json({ message: 'Balance not found' });
         }
@@ -68,6 +68,18 @@ router.get('/qualities/:id', async (req, res) => {
     }
 });
 
+// Route to create a new libilities
+router.post('/libilities', async (req, res) => {
+    try {
+        const { liabilities,description, amount } = req.body;
+        const newBalance = new libilities({ liabilities,  description, amount });
+        await newBalance.save();
+        res.status(201).json({ message: 'Balance created successfully', libilities: newBalance });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
 
 
 module.exports = router;

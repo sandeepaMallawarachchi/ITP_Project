@@ -6,6 +6,7 @@ function UpdateReportData() {
     const { id } = useParams();
     const [reportDetails, setreportDetails] = useState({
         vehicleType: "",
+        date: "",
         monthlyDistance: "",
         fuelCost: "",
         serviceCharge: "",
@@ -43,6 +44,10 @@ function UpdateReportData() {
                     <div className="mb-3">
                         <label htmlFor="vehicleType" className="form-label">Vehicle Type</label>
                         <input type="text" className="form-control" id="vehicleType" value={reportDetails.vehicleType} onChange={(e) => setreportDetails({...reportDetails, vehicleType: e.target.value})} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="date" className="form-label">Date</label>
+                        <input type="date" className="form-control" id="date" value={reportDetails.date} onChange={(e) => setreportDetails({...reportDetails, date: e.target.value})} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="monthlyDistance" className="form-label">Monthly Distance (km)</label>

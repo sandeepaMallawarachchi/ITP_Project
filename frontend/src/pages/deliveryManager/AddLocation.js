@@ -4,17 +4,26 @@ import axios from "axios";
 
 export default function CustomerLocations() {
     const [name, setName] = useState("");
+    const [cusID, setCusID] = useState("");
     const [email, setEmail] = useState("");
-    const [phone_number, setNumber] = useState(""); 
+    const [phone_number, setNumber] = useState("");
     const [address, setAddress] = useState("");
     const [district, setDistrict] = useState("");
     const [delivery_code, setDelivery_code] = useState("");
+    const [error, setError] = useState("");
 
     function sendData(e) {
         e.preventDefault();
 
+        // Check if cusID is empty
+        if (!cusID) {
+            setError("Customer ID is required");
+            return;
+        }
+
         const newCustomerLocation = {
             name,
+            cusID,
             email,
             phone_number,
             address,
@@ -22,60 +31,88 @@ export default function CustomerLocations() {
             delivery_code
         }
 
+
         axios.post("http://localhost:8070/tea/add", newCustomerLocation)
             .then(() => {
-                alert("customer location Added")
+                alert("Customer location Added");
 
                 setName("");
+                setCusID("");
                 setEmail("");
                 setNumber("");
                 setAddress("");
                 setDistrict("");
                 setDelivery_code("");
+                setError(""); // Clear error message after successful submission
             })
             .catch((err) => {
-                alert(err)
+                alert(err);
             });
+
     }
 
     return (
-        <div className="container">
-            <form onSubmit={sendData}>
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Customer's Name</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter Customer Name"
-                        onChange={(e) => setName(e.target.value)} />
+        <div className="flex justify-center items-center h-screen">
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <form onSubmit={sendData}>
+                    <div className="mb-4">
+                        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Customer's Name</label>
+                        <input type="text" className="form-input" id="name" placeholder="Enter Customer Name"
+                            value={name} onChange={(e) => setName(e.target.value)} />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="cusID" className="block text-gray-700 text-sm font-bold mb-2">Customer's ID</label>
+                        <input type="text" className="form-input" id="cusID" placeholder="Enter Customer ID"
+                            value={cusID} onChange={(e) => setCusID(e.target.value)} />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="text" className="form-input" id="email" placeholder="Enter the Email"
+                            value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="phone_number" className="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+                        <input
+                            type="text"
+                            className="form-input"
+                            id="phone_number"
+                            maxLength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="Enter the Phone Number"
+                            value={phone_number} onChange={(e) => setNumber(e.target.value)}
+                            title="Please enter exactly 10 digits"
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
+                        <input type="text" className="form-input" id="address" placeholder="Enter the Address"
+                            value={address} onChange={(e) => setAddress(e.target.value)} />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="district" className="block text-gray-700 text-sm font-bold mb-2">District</label>
+                        <input type="text" className="form-input" id="district" placeholder="Enter District"
+                            value={district} onChange={(e) => setDistrict(e.target.value)} />
+                    </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="delivery_code" className="block text-gray-700 text-sm font-bold mb-2">Delivery Code</label>
+                        <input type="text" className="form-input" id="delivery_code" placeholder="Enter Delivery Code"
+                            value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
+                    </div>
+
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                </form>
+                <div className="mt-4">
+                    <Link to="/alllocations" className="text-blue-500 hover:text-blue-700 text-lg">All Customer Locations</Link>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input type="text" className="form-control" id="email" placeholder="Enter the Email"
-                        onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="number" className="form-label">Phone Number</label>
-                    <input type="text" className="form-control" id="number" placeholder="Enter the Phone Number"
-                        onChange={(e) => setNumber(parseInt(e.target.value, 10))} /> {/* Parse string to integer */}
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="address" className="form-label">Address</label>
-                    <input type="text" className="form-control" id="address" placeholder="Enter the Address"
-                        onChange={(e) => setAddress(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="district" className="form-label">District</label>
-                    <input type="text" className="form-control" id="district" placeholder="Enter District"
-                        onChange={(e) => setDistrict(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="delivery_code" className="form-label">Delivery Code</label>
-                    <input type="text" className="form-control" id="delivery_code" placeholder="Enter Delivery Code"
-                        onChange={(e) => setDelivery_code(e.target.value)} />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
-            <li className="rty">
-                <Link to="/alllocations" className="rty">All Customer Locations</Link>
-            </li>
+                {error && <p className="text-red-500">{error}</p>}
+            </div>
         </div>
     );
 }
