@@ -143,6 +143,7 @@ export default function ManagerAccount() {
         setIsHovered(false);
     };
 
+    //retrieving the profile picture
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {

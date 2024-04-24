@@ -38,7 +38,8 @@ export default function Login() {
             }
 
             else if (res.data.designation === 'Inventory Manager') {
-                navigate(`/inventory`);
+                const empId = res.data.empId;
+                navigate(`/inventory/dashboard/${empId}`);
                 return;
             }
           

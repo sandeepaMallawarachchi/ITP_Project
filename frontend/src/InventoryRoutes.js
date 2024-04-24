@@ -8,22 +8,26 @@ import Reports from "./pages/Inventory/inventoryReports";
 import DeleteProduct from "./pages/Inventory/DeleteProduct";
 import UpdateProduct from "./pages/Inventory/UpdateProduct";
 import SearchResult from "./pages/Inventory/commonSearch";
-
+import ManagerAccount from "./components/ManagerAccount";
 
 export default function InventoryRoutes() {
+
+
     return (
         <Routes>
             <Route element={<InventoryLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="products" element={<DisplayProducts />} />
-                <Route path="addProduct" element={<AddProduct />} />
-                <Route path="orders" element={<Orders />} />
-                <Route path="reports" element={<Reports />} />
-                <Route path="updateProduct/:id" element={<UpdateProduct />} />
-                <Route path="deleteProduct/:id" element={<DeleteProduct />} />
-                <Route path="searchResult" element={<SearchResult />} />
-                
-            </Route>
+                {/* <Route index element={<Dashboard />} /> */}
+                <Route path="dashboard/:id" element={<Dashboard/>}/>
+                <Route path="products/:id" element={<DisplayProducts />} />
+                <Route path="addProduct/:id" element={<AddProduct />} />
+                <Route path="orders/:id" element={<Orders />} />
+                <Route path="reports/:id" element={<Reports />} />
+                <Route path="updateProduct/:productId/:id" element={<UpdateProduct />} />
+                <Route path="deleteProduct/:productId/:id" element={<DeleteProduct />} />
+                <Route path="searchResult/:id" element={<SearchResult />} />
+                <Route path="account/:id" element={<ManagerAccount/>}/>
+            </Route>    
+           
         </Routes>
     );
 }

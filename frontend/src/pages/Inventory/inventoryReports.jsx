@@ -3,11 +3,13 @@ import axios from "axios";
 import { useReactToPrint } from 'react-to-print';
 import { useState,useEffect,useRef } from "react";
 import { Button } from "flowbite-react";
+import logo from "../../images/logo.png"
 
 
 export default function Reports(){
 
     const [data,setData] = useState([]);
+    const [showLogoAndTitle,setLogoAndTitle] = useState(false)
 
     useEffect(()=>{
 
@@ -16,6 +18,7 @@ export default function Reports(){
                 //get data from db
                 const res = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
                 setData(res.data)
+                setLogoAndTitle(true)
 
             }catch(err){
                 console.log(err);
@@ -32,6 +35,8 @@ export default function Reports(){
     const handlePrint = useReactToPrint({
         content :()=> componentRef.current,//specifies the content to be print
         documentTitle : "Inventory Stockcost Report",
+        onBeforeGetContent :()=> setLogoAndTitle(true),
+        onAfterPrint : ()=> setLogoAndTitle(false),
         pageStyle: `
         @page {
             size: A4;
@@ -44,6 +49,7 @@ export default function Reports(){
         table {
             width: 100%;
             border-collapse: collapse;
+            
         }
         th, td {
             border: 1px solid #dddddd;
@@ -56,11 +62,20 @@ export default function Reports(){
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        .document-title {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: bold;
+        .logo {
+        
+            top:0;
+            left:0;
+            z-index: 9999;
+            margin:10px;
+            content : url(${logo});
+            
+        }
+        .title{
+            text-align:center;
+            font-size:2rem;
+            font weight: bold;
+            
         }
     `
     })
@@ -70,8 +85,10 @@ export default function Reports(){
         <div >
             <div style={{marginTop:"10rem",marginLeft:"23rem"}} >
                 <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
+                {/* <div className="title" style={{marginLeft:"23rem",marginTop:"-5rem",fontWeight:"bold",fontSize:"1.5rem"}}>Inventory StockCost Report</div> */}
                 <div  ref={componentRef} >
-                <div className="document-title" style={{marginLeft:"23rem",marginTop:"-5rem",fontWeight:"bold",fontSize:"1.5rem"}}>Inventory StockCost Report</div>
+                <img className="ml-32 logo"/>
+                <h1 className="title" style={{marginLeft:"23rem",marginTop:"-5rem",fontWeight:"bold",fontSize:"1.5rem"}}>Inventory StockCost Report</h1>
                 <table style={{width:"60rem",marginLeft:"2rem",marginTop:"2.5rem"}} >
                     <thead className="bg-blue-50 border-b-2 border-gray-200 ">
                         <tr>

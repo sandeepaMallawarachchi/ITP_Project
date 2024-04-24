@@ -21,7 +21,7 @@ export default function UpdateProduct(){
     //state to store validation errors
     const [formErrors,setFormErrors] = useState({});
 
-    const id = useParams().id;
+    const {productId,id} = useParams();
     const navigate = useNavigate();
 
     //whenenver the id changes, useEffect runs
@@ -29,7 +29,7 @@ export default function UpdateProduct(){
     //fetch data of a particular product through an api
       const fetchData = async()=>{
         try{
-        const response = await axios.get(`http://localhost:8070/inventory/product/getPack/${id}`);
+        const response = await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`);
         console.log(response.data)
         const manDate = new Date(response.data.manDate).toLocaleDateString();
         const expDate = new Date(response.data.expDate).toLocaleDateString();
@@ -44,7 +44,7 @@ export default function UpdateProduct(){
       }
       fetchData()
 
-     },[id])
+     },[productId])
 
      //setting new data
     function handleChange(e){
@@ -61,7 +61,7 @@ export default function UpdateProduct(){
     //updating the new data through an api
     const updateData = async()=>{
        try{
-         const response = await axios.patch(`http://localhost:8070/inventory/product/updateTeaPack/${id}`,{
+         const response = await axios.patch(`http://localhost:8070/inventory/product/updateTeaPack/${productId}`,{
             productName : data.productName,
             teaType : data.teaType,
             stockLevel : data.stockLevel,
@@ -75,7 +75,7 @@ export default function UpdateProduct(){
           console.log(response.data)
           //alert("successfully updated")
           
-          navigate("/inventory/products")
+          navigate(`/inventory/products/${id}`)
             
           }catch(err){
             console.log(err);
