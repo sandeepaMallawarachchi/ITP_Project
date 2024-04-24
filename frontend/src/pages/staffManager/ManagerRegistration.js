@@ -70,29 +70,29 @@ export default function ManagerRegistration() {
     };
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div className='absolute mt-48 left-1/3 w-1/2'>
             <form onSubmit={sendData}>
                 <div className="mb-3">
-                    <label htmlFor="empId" className="form-label">Enter Employee ID:</label>
-                    <input type="text" className="form-control" id="empId" required
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="empId">Enter Employee ID:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empId" required
                         value={empId} onChange={(e) => setEmpId(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="firstName" className="form-label">Enter First Name:</label>
-                    <input type="text" className="form-control" id="firstName" required
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="firstName">Enter First Name:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="firstName" required
                         value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="lastName" className="form-label">Enter Last Name:</label>
-                    <input type="text" className="form-control" id="lastName" required
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="lastName">Enter Last Name:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="lastName" required
                         value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="username" className="form-label">Enter Username:</label>
-                    <input type="text" className="form-control" id="username" required
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="username">Enter Username:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="username" required
                         value={username} onChange={(e) => setUsername(e.target.value)} />
                 </div>
 
