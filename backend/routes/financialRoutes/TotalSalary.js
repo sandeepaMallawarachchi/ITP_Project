@@ -4,6 +4,7 @@ const Salary = require('../../models/staffModels/salaryDetails');
 
 router.get("/totalSalary", async (req, res) => {
     try {
+        
         // Fetch all salary records
         const salaries = await Salary.find();
 

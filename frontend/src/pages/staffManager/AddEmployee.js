@@ -83,36 +83,36 @@ function AddEmployee() {
                 </div>
 
                 <div class="mb-3">
-                    <label for="designation" class="form-label">Enter Designation: </label>
-                    <input type="text" class="form-control" id="designation" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="designation">Enter Designation: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="designation" required onChange={(e) => {
                         setDesignation(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="address" class="form-label">Enter Address: </label>
-                    <input type="text" class="form-control" id="address" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="address">Enter Address: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="address" required onChange={(e) => {
                         setAddress(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Enter Email: </label>
-                    <input type="text" class="form-control" id="email" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="email">Enter Email: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="email" required onChange={(e) => {
                         setEmail(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="phoneNo" class="form-label">Enter PhoneNo: </label>
-                    <input type="text" class="form-control" id="phoneNo" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="phoneNo">Enter PhoneNo: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="phoneNo" required onChange={(e) => {
                         setPhoneNo(e.target.value);
                     }} />
                 </div>
 
-                <button type="submit" className="bg-blue-500">Submit</button>
+                <button type="submit" className="bg-red-500">Submit</button>
             </form>
-            <button type="submit" class="btn btn-success" onClick={handleAllEmployees}>All Employees</button>
+            <button type="submit" className="bg-blue-500" onClick={handleAllEmployees}>All Employees</button>
         </div>
     )
 }

@@ -6,15 +6,16 @@ import { BiBuoy } from 'react-icons/bi';
 import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { MdFormatListBulleted } from "react-icons/md";
-import { HiOutlineDocumentReport } from "react-icons/hi";
-import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { FaUmbrellaBeach } from "react-icons/fa";
+import { MdAppRegistration } from "react-icons/md";
 
 export default function SalesManagerNavigations() {
     const { id } = useParams();
@@ -110,39 +111,39 @@ export default function SalesManagerNavigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/staffManagerDashboard/${id}`);
+        navigate(`/staff/staffManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/managerAccount/${id}`);
+        navigate(`/staff/managerAccount/${id}`);
     };
 
     const handleEmployees = () => {
-        navigate(`/allEmployees/${id}`);
+        navigate(`/staff/allEmployees/${id}`);
     };
 
     const handleAddEmployee = () => {
-        navigate(`/addEmployee/${id}`);
+        navigate(`/staff/addEmployee/${id}`);
     };
 
     const handleSalaries = () => {
-        navigate(`/allSalaries/${id}`);
+        navigate(`/staff/allSalaries/${id}`);
     };
 
     const handleAddSalary = () => {
-        navigate(`/addSalary/${id}`);
+        navigate(`/staff/addSalary/${id}`);
     };
 
     const handleVacations = () => {
-        navigate(`/allVacations/${id}`);
+        navigate(`/staff/allVacations/${id}`);
     };
 
     const handleAddVacation = () => {
-        navigate(`/addVacation/${id}`);
+        navigate(`/staff/addVacation/${id}`);
     };
 
     const handleRegistration = () => {
-        navigate(`/managerRegistration/${id}`);
+        navigate(`/staff/managerRegistration/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -197,30 +198,25 @@ export default function SalesManagerNavigations() {
                 <Sidebar aria-label="Sidebar with content separator example" className="fixed left-0 z-50 mt-[111px]">
                     <Sidebar.Items className='pt-5'>
                         <Sidebar.ItemGroup className='cursor-pointer'>
+
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleEmployees}>
-                                All Employees
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>
-                                Add Employee
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleSalaries}>
-                                All Salaries
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleAddSalary}>
-                                Add Salary
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleVacations}>
-                                All Vacations
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleAddVacation}>
-                                Add Vacation
-                            </Sidebar.Item>
-                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleRegistration}>
+                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
                                 Registration
                             </Sidebar.Item>
+                            <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
+                                <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
+                            </Sidebar.Collapse>
+                            <Sidebar.Collapse icon={GiTakeMyMoney} label="Salaries">
+                                <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>All Salaries</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSalary}>Add Salary</Sidebar.Item>
+                            </Sidebar.Collapse>
+                            <Sidebar.Collapse icon={FaUmbrellaBeach} label="Vacations">
+                                <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
+                            </Sidebar.Collapse>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>

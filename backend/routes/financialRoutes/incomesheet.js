@@ -6,6 +6,19 @@ router.route("/addIncome").post(async (req, res) => {
   try {
     const { date, category, description, amount } = req.body;
 
+    
+      // Validate date: Check if the entered date is not a future date
+      const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+      if (date > currentDate) {
+          return res.status(400).json({ error: "Selected date cannot be a future date." });
+      }
+
+
+     // Validate amount: Check if amount is a positive number
+     if (isNaN(amount) || amount <= 0) {
+        return res.status(400).json({ error: "Enter a positive number for the amount." });
+    }
+
     const newIncome = new Income({
       date,
       category,
@@ -20,6 +33,17 @@ router.route("/addIncome").post(async (req, res) => {
     res.status(500).send({ error: "Error adding income" });
   }
 });
+
+router.get("/getTotalIncome", async (req, res) => {
+    try {
+        const totalIncome = await Income.aggregate([{ $group: { _id: null, totalIncome: { $sum: "$amount" } } }]);
+        res.status(200).json({ getTotalIncome: totalIncome[0].totalIncome });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error fetching total income" });
+    }
+});
+
 
 router.route("/displayIncome").get((req,res)=>{
     //body

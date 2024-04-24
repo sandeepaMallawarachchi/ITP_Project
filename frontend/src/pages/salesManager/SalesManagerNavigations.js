@@ -110,27 +110,27 @@ export default function SalesManagerNavigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/salesManagerDashboard/${id}`);
+        navigate(`/salesManager/salesManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
-        navigate(`/managerAccount/${id}`);
+        navigate(`/salesManager/managerAccount/${id}`);
     };
 
     const handleStock = () => {
-        navigate(`/addStock/${id}`);
+        navigate(`/salesManager/addStock/${id}`);
     };
 
     const handleSalesPersonDetails = () => {
-        navigate(`/salesPersonDetails/${id}`);
+        navigate(`/salesManager/salesPersonDetails/${id}`);
     };
 
     const handleRemainingInventoryStock = () => {
-        navigate(`/remainingInventoryStock/${id}`);
+        navigate(`/salesManager/remainingInventoryStock/${id}`);
     };
 
     const handleMonthlyReport = () => {
-        navigate(`/monthlyReport/${id}`);
+        navigate(`/salesManager/monthlyReport/${id}`);
     };
 
     const handleSearchClick = async () => {

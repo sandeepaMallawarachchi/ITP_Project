@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get( `http://localhost:8070/supplier/get`  )   
+    axios.get(`http://localhost:8070/supplier/get`)
       .then(response => {
         setData(response.data);
       })
@@ -14,31 +14,31 @@ export default function Home() {
       });
   }, []);
 
-
-  
-    return (
-        <div>
-          <h1> Purchasing details </h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Date Of payment </th>
-                <th>Payment method </th>
-                <th>Quantity</th>
-                {/* Add more table headers if needed */}
+  return (
+    <div className="mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Purchasing details</h1>
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full">
+          <thead>
+            <tr>
+              <th className="px-4 py-2">Date Of payment</th>
+              <th className="px-4 py-2">Payment method</th>
+              <th className="px-4 py-2">Quantity</th>
+              {/* Add more table headers if needed */}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(item => (
+              <tr key={item.id}>
+                <td className="border px-4 py-2">{item.date}</td>
+                <td className="border px-4 py-2">{item.paymentmethod}</td>
+                <td className="border px-4 py-2">{item.quantity}</td>
+                {/* Render additional columns if needed */}
               </tr>
-            </thead>
-            <tbody>
-              {data.map(item => (
-                <tr key={item.id }>
-                  <td>{item.date }</td>
-                  <td>{item.paymentmethod }</td>      
-                  <td>{item.quantity}</td>
-                  {/* Render additional columns if needed */}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ); 
-              }
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

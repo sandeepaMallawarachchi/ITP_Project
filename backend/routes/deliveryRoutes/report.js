@@ -4,6 +4,7 @@ let Report = require("../../models/deliveryModels/report");
 router.route("/add").post((req, res) => {
 
     const vehicleType = req.body.vehicleType;
+    const date = req.body.date;
     const monthlyDistance = req.body.monthlyDistance;
     const fuelCost = req.body.fuelCost;
     const serviceCharge = req.body.serviceCharge;
@@ -13,6 +14,7 @@ router.route("/add").post((req, res) => {
     const newReport = new Report({
 
         vehicleType,
+        date,
         monthlyDistance,
         fuelCost,
         serviceCharge,
@@ -61,6 +63,7 @@ router.route("/update/:id").put(async (req, res) => {
 
     const updateReport = {
         vehicleType,
+        date,
         monthlyDistance,
         fuelCost,
         serviceCharge,
