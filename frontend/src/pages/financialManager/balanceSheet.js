@@ -7,19 +7,18 @@ export default function BalanceSheet() {
     const navigate = useNavigate();
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
-
+    const [totalLiabilities, setTotalLiabilities] = useState(0);
+    const [totalBalance, setTotalBalance] = useState(0);
+   
     useEffect(() => {
-        axios.get("http://localhost:8070/balanceRt/displayBalance")
-            .then((res) => {
-                setIncome(res.data);
-            })
-            .catch((error) => {
-                alert(error.message);
-            });
-    }, []);
-    
+        axios.get("http://localhost:8070/totalLiabilities/totalLiabilities").then((res) => {
+            setTotalLiabilities(res.data.totalLiabilities); // Ensure to access the correct property
+        }).catch((error) => {
+            alert(error.message);
+        });
 
-    //libilities
+    }, []);
+
     useEffect(() => {
         axios.get("http://localhost:8070/balanceRt/balances").then((res) => {
             setIncome(res.data);
@@ -28,7 +27,22 @@ export default function BalanceSheet() {
         });
 
     }, []);
-    
+
+    useEffect(() => {
+        axios.get("http://localhost:8070/getTotalBalance/totalBalance")
+            .then((res) => {
+                const totalBalance = res.data.totalBalance;
+                setTotalBalance(totalBalance);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }, [income]); 
+
+
+
+ 
+   
 
     useEffect(() => {
         axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
@@ -42,66 +56,65 @@ export default function BalanceSheet() {
     }, [income]); 
 
     const addBtn = () => {
-        navigate(`/addLiabilities`);
+        navigate('/addLiabilities'); // Correct the path string
     };
 
-
-
-
     return (
-
-
-
         <div>
-        <h1 className="text-3xl font-bold mb-4">January (2024)</h1>
-        <table className="table-auto w-full border border-black">
-            <thead>
-                <tr className="bg-gray-200">
-                    <th className="px-4 py-2 border border-black">Liabilities</th>
-                    <th className="px-4 py-2 border border-black">Description</th>
-                    <th className="px-4 py-2 border border-black">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
+            <h1 className="text-3xl font-bold mb-4">January (2024)</h1>
+            <div className="flex justify-center">
+                <table className="table-auto w-75%   border border-black mr-10 mt-28">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="px-4 py-2 border border-black">Liabilities</th>
+                            <th className="px-4 py-2 border border-black">Description</th>
+                            <th className="px-4 py-2 border border-black">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {income.map((income) => (
+                            <tr key={income._id} className="border-b border-black">
+                                <td className="px-4 py-2 border border-black">{income.liabilities}</td>
+                                <td className="px-4 py-2 border border-black">{income.description}</td>
+                                <td className="px-4 py-2 border border-black">{income.amount}</td>
+                            </tr>
+                        ))}
+                        <p >Total Liabilities: {totalLiabilities}</p>
+                    </tbody>
+                
+                </table>
+                <br></br>
+                <button type="button" className="btn btn-secondary btn-lg" onClick={addBtn}>Add liabilities</button>
+                
+            </div>
+            
            
-                    
-                {income.map((income) => (
-                    <tr key={income._id} className="border-b border-black">
-                        <td className="px-4 py-2 border border-black">{income.liabilities}</td>
-                        <td className="px-4 py-2 border border-black">{income.description}</td>
-                        <td className="px-4 py-2 border border-black">{income.amount}</td>
-                    </tr>
-                ))}
-            </tbody>
-            <button type="button" class="btn btn-secondary btn-lg" onClick={addBtn}>Add libilities</button>
-        </table>
-        <table className="table-auto w-full border border-black">
-            <thead>
-                <tr className="bg-gray-200">
-                    <th className="px-4 py-2 border border-black">Assets</th>
-                    <th className="px-4 py-2 border border-black">Description</th>
-                    <th className="px-4 py-2 border border-black">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-           
-                    <tr>
-                        <td className="border border-gray-400 px-4 py-2">Income</td>
-                        <td className="border border-gray-400 px-4 py-2">Income</td>
-                        <td className="border border-gray-400 px-4 py-2">{totalIncome}</td>
-                    </tr>
-                {income.map((income) => (
-                    <tr key={income._id} className="border-b border-black">
-                        <td className="px-4 py-2 border border-black">{income.liabilities}</td>
-                        <td className="px-4 py-2 border border-black">{income.description}</td>
-                        <td className="px-4 py-2 border border-black">{income.amount}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </div>
-    
+            <div className="flex justify-center">
+                <table className="table-auto w-75%   border border-black mr-10 mt-28">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="px-4 py-2 border border-black">Assets</th>
+                            <th className="px-4 py-2 border border-black">Description</th>
+                            <th className="px-4 py-2 border border-black">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className="border border-gray-400 px-4 py-2">Income</td>
+                            <td className="border border-gray-400 px-4 py-2">Income</td>
+                            <td className="border border-gray-400 px-4 py-2">{totalIncome}</td>
+                        </tr>
+                        
+                        <p >Total Assets: {totalIncome}</p>
+                    </tbody>
+                </table>
+                <div className="flex justify-center">
+    <p>
+        {totalBalance < 0 ? 'Loss' : 'Profit'}: {Math.abs(totalBalance)}
+    </p>
+</div>
+            </div>
 
-        
-    )
+        </div>
+    );
 }

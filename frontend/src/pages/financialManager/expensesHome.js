@@ -107,6 +107,7 @@ export default function Home() {
             <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
                 <div  ref={componentRef} >
             <h1 className="text-3xl mb-4">January (2024)</h1>
+            <div className="flex justify-center ml-64">
             <table className="table-auto border-collapse border border-gray-400 w-full">
                 <thead>
                     <tr>
@@ -136,8 +137,9 @@ export default function Home() {
                 </tbody>
             </table>
             </div>
-            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={addExpensesBtn}>Add Expenses</button>
-            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" >Total Expenses: {totalExpenses}</button>
+            </div>
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64" onClick={addExpensesBtn}>Add Expenses</button>
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64" >Total Expenses: {totalExpenses}</button>
         </div>
     );
 }

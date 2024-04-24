@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import FinancialManagerLayout from './pages/financialManager/financialManagerLayouts'
-import ManagerAccount from "./components/ManagerAccount";
+import FinancialManagerLayout from '../pages/financialManager/financialManagerLayouts'
+import ManagerAccount from "../components/ManagerAccount";
 
 //financial
-import AddExpenses from './pages/financialManager/addExpenses';
-import Home from './pages/financialManager/expensesHome';
-import HomeIn from './pages/financialManager/incomeHome';
-import AddIncome from './pages/financialManager/addIncome';
-import DeleteEx from './pages/financialManager/deleteExpenses';
-import UpdateExpenses from './pages/financialManager/updateExpenses';
-import DeleteIn from './pages/financialManager/deleteIncome';
-import UpdateIncome from './pages/financialManager/updateIncome';
-import BalanceSheet from './pages/financialManager/balanceSheet';
-import AddLiabilities from './pages/financialManager/addLiabilities';
+import AddExpenses from '../pages/financialManager/addExpenses';
+import Home from '../pages/financialManager/expensesHome';
+import HomeIn from '../pages/financialManager/incomeHome';
+import AddIncome from '../pages/financialManager/addIncome';
+import DeleteEx from '../pages/financialManager/deleteExpenses';
+import UpdateExpenses from '../pages/financialManager/updateExpenses';
+import DeleteIn from '../pages/financialManager/deleteIncome';
+import UpdateIncome from '../pages/financialManager/updateIncome';
+import BalanceSheet from '../pages/financialManager/balanceSheet';
+import AddLiabilities from '../pages/financialManager/addLiabilities';
 
 export default function financialRoutes() {
     return (
