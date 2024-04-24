@@ -23,8 +23,8 @@ export default function StaffRoutes() {
                 <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
                 <Route path='/addEmployee/:id' element={<AddEmployee />} />
                 <Route path='/allEmployees/:id' element={<AllEmployees />} />
-                <Route path='/updateEmployee/:empId' element={<UpdateEmployee />} />
-                <Route path='/deleteEmployee/:id' element={<DeleteEmployee />} />
+                <Route path='/updateEmployee/:empId/:id' element={<UpdateEmployee />} />
+                <Route path='/deleteEmployee/:empId/:id' element={<DeleteEmployee />} />
                 <Route path='/allSalaries/:id' element={<AllSalaries />} />
                 <Route path='/managerRegistration/:id' element={<ManagerRegistration />} />
                 <Route path='/addVacation/:id' element={<AddVacation />} />
