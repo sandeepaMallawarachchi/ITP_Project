@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 
 export default function AllReportData() {
+    const {id} = useParams();
     const [report, setReport] = useState([]);
     const [totalCostSum, setTotalCostSum] = useState(0);
 
@@ -22,55 +23,61 @@ export default function AllReportData() {
             });
     }    
 
-    const calculateTotalCostSum = (reports) => {
-        const sum = reports.reduce((total, report) => total + report.totalCost, 0);
-        setTotalCostSum(sum);
-    }
-
     const navigate = useNavigate();
-    const handleUpdate = (id) => {
-        navigate(`/updateReportData/${id}`);
+
+    const handleUpdate = () => {
+        navigate(`/deliveryManager/updateReportData/${id}`);
     }
 
-
-
-    const handleDelete = (id) => {
-        navigate(`/deleteReportData/${id}`);
+    const handleDelete = () => {
+        navigate(`/deliveryManager/deleteReportData/${id}`);
     }
 
     return (
-        <div>
-            <h1>All Report Details</h1>
-            <div>Total Cost of All Reports: {totalCostSum} LKR</div>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Vehicle Type</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Monthly Distance (km)</th>
-                        <th scope="col">Fuel Cost (LKR)</th>
-                        <th scope="col">Service Charge (LKR)</th>
-                        <th scope="col">Total Cost (LKR)</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {report.map((report1) => (
-                        <tr key={report1._id}>
-                            <td>{report1.vehicleType}</td>
-                            <td>{report1.date}</td>
-                            <td>{report1.monthlyDistance}</td>
-                            <td>{report1.fuelCost}</td>
-                            <td>{report1.serviceCharge}</td>
-                            <td>{report1.totalCost}</td>
-                            <td>
-                                <button type="button" className="btn btn-primary" onClick={() => handleUpdate(report1._id)}>Update</button>
-                                <button type="button" className="btn btn-danger" onClick={() => handleDelete(report1._id)}>Delete</button>
-                            </td>
+        <div className="container mx-auto px-4 py-8 absolute mt-48 left-1/4 w-1/2">
+            <h1 className="text-2xl font-bold mb-4">All Report Details</h1>
+            <div className="mb-4 text-center font-bold text-lg">Total Cost of All Reports: {totalCostSum} LKR</div>
+            <div className="overflow-x-auto">
+                <table className="table-auto w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Vehicle Type</th>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Date</th>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Monthly Distance (km)</th>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Fuel Cost (LKR)</th>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Service Charge (LKR)</th>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Total Cost (LKR)</th>
+                            <th className="px-4 py-2 bg-blue-500 text-white">Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {report.map((reportItem) => (
+                            <tr key={reportItem._id}>
+                                <td className="border px-4 py-2">{reportItem.vehicleType}</td>
+                                <td className="border px-4 py-2">{reportItem.date}</td>
+                                <td className="border px-4 py-2">{reportItem.monthlyDistance}</td>
+                                <td className="border px-4 py-2">{reportItem.fuelCost}</td>
+                                <td className="border px-4 py-2">{reportItem.serviceCharge}</td>
+                                <td className="border px-4 py-2">{reportItem.totalCost}</td>
+                                <td className="border px-4 py-2">
+                                    <button 
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
+                                        onClick={() => handleUpdate(reportItem._id)}
+                                    >
+                                        Update
+                                    </button>
+                                    <button 
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                        onClick={() => handleDelete(reportItem._id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

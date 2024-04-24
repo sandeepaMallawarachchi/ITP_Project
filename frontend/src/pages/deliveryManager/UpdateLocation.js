@@ -3,9 +3,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function UpdateLocation() {
-    const { id } = useParams();
+    const { locId,id} = useParams();
     const [locDetails, setlocDetails] = useState({
         name: "",
+        cusID: "",
         email: "",
         phone_number: "",
         address: "",
@@ -17,7 +18,7 @@ function UpdateLocation() {
     useEffect(() => {
         const fetchlocDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/tea/get/${id}`);
+                const response = await axios.get(`http://localhost:8070/tea/get/${locId}`);
                 setlocDetails(response.data.tea);
             } catch (error) {
                 console.error("Error fetching customer location details", error.message);
@@ -30,7 +31,7 @@ function UpdateLocation() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/tea/update/${id}`, locDetails);
+            await axios.put(`http://localhost:8070/tea/update/${locId}`, locDetails);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating location details", error.message);
@@ -39,11 +40,15 @@ function UpdateLocation() {
 
     return (
         <div className="container" style={{ width: "600px" }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{marginLeft:"20rem"}}>
                 <div>
                     <div className="mb-3">
                         <label htmlFor="cName" className="form-label">Customer Name</label>
                         <input type="text" className="form-control" id="cName" value={locDetails.name} onChange={(e) => setlocDetails({...locDetails, name: e.target.value})} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="cusID" className="form-label">Customer's ID</label>
+                        <input type="text" className="form-control" id="cusID" value={locDetails.cusID} onChange={(e) => setlocDetails({...locDetails, cusID: e.target.value})} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">Email</label>
