@@ -69,30 +69,31 @@ export default function AddIncome() {
                 {/* Date, category, description inputs */}
                 {/* Amount input with onChange for handleAmountChange */}
                 <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date</label><br></br>
-                    <input type="date" className="form-control" id="date" value={date} disabled />
+                    <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label><br></br>
+                    <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="date" value={date} disabled />
                 </div>
                 <br></br>
 
                 <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label><br></br>
-                    <input type="text" className="form-control" id="category" placeholder="Enter expense category" onChange={(e) => setCategory(e.target.value)} />
+                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label><br></br>
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="category" placeholder="Enter expense category" onChange={(e) => setCategory(e.target.value)} />
                 </div>
                 <br></br>
 
                 <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Description</label><br></br>
-                    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} />
+                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label><br></br>
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} />
                 </div>
                 <br></br>
                 <div className="mb-3">
-                    <label htmlFor="amount" className="form-label">Amount</label><br></br>
-                    <input type="text" className="form-control" id="amount" placeholder="Enter amount" value={amount} />
+                    <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br></br>
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amount" placeholder="Enter amount" value={amount} />
                     {error && <div className="text-danger">{error}</div>}
                 </div>
                 <br></br>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64">Submit</button>
             </form>
 
         </div>

@@ -108,15 +108,15 @@ export default function AddExpenses() {
             <form onSubmit={setData}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date</label><br />
-                    <input type="date" className="form-control" id="date" onChange={handleDateChange} value={date} required />
+                    <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label><br />
+                    <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="date" onChange={handleDateChange} value={date} required />
                     {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label><br />
+                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label><br />
                     <select
-                        className="form-control"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
@@ -131,21 +131,21 @@ export default function AddExpenses() {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Description</label><br />
-                    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} value={description} required />
+                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label><br />
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} value={description} required />
                 </div>
 
                 {/* Conditionally render the input field based on the selected category */}
                 {["Water Bill", "Electricity Bill", "Other"].includes(category) ? (
                     <div className="mb-3">
-                        <label htmlFor="amount" className="form-label">Amount</label><br />
-                        <input type="number" className="form-control" id="amount" placeholder="Amount" onChange={handleAmountChange} value={amount} required />
+                        <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
+                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amount" placeholder="Amount" onChange={handleAmountChange} value={amount} required />
                         {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
                     </div>
                 ) : (
                     <div className="mb-3">
-                        <label htmlFor="amount" className="form-label">Amount</label><br />
-                        <input type="number" className="form-control" id="amount" placeholder="Amount" value={category === "salary" ? totalSalary : category === "delivery" ? totalDelivery : amount} readOnly required />
+                        <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
+                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amount" placeholder="Amount" value={category === "salary" ? totalSalary : category === "delivery" ? totalDelivery : amount} readOnly required />
                     </div>
                 )}
 
