@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function UpdateDriver() {
-    const { driverId } = useParams();
+    const { id, driverId } = useParams();
     const [driverDetails, setdriverDetails] = useState({
         dname: "",
         age: "",
@@ -27,12 +27,15 @@ function UpdateDriver() {
         fetchdriverDetails();
     }, [driverId]);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await axios.put(`http://localhost:8070/driver/update/${driverId}`, driverDetails);
             alert("Details Updated!");
+            navigate(`/deliverymanager/addDrivers/${id}`);
         } catch (error) {
             console.error("Error updating driver details", error.message);
         }

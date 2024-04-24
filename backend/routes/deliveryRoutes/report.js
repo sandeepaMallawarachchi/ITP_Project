@@ -63,7 +63,6 @@ router.route("/update/:id").put(async (req, res) => {
 
     const updateReport = {
         vehicleType,
-        date,
         monthlyDistance,
         fuelCost,
         serviceCharge,
