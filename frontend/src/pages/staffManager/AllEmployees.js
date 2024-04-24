@@ -90,29 +90,29 @@ function AllEmployees() {
                 </tbody>
             </table>
 
-            <h1>All Salespersons</h1>
+            <h1 className="text-green-500 font-bold">All Salespersons</h1>
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">Salesperson ID</th>
-                        <th scope="col">Salesperson Name</th>
-                        <th scope="col">Date of Birth</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone No</th>
-                        <th scope="col">Address</th>
+                        <th scope="col" className="px-6 py-3">Salesperson ID</th>
+                        <th scope="col" className="px-6 py-3">Salesperson Name</th>
+                        <th scope="col" className="px-6 py-3">Date of Birth</th>
+                        <th scope="col" className="px-6 py-3">Gender</th>
+                        <th scope="col" className="px-6 py-3">Email</th>
+                        <th scope="col" className="px-6 py-3">Phone No</th>
+                        <th scope="col" className="px-6 py-3">Address</th>
                     </tr>
                 </thead>
                 <tbody>
                     {salespersons.filter(salesperson => salesperson.name?.toLowerCase().includes(searchTerm.toLowerCase())).map((salesperson) => (
-                        <tr key={salesperson._id}>
-                            <td>{salesperson.salespersonID}</td>
-                            <td>{salesperson.name}</td>
-                            <td>{salesperson.dateOfBirth}</td>
-                            <td>{salesperson.gender}</td>
-                            <td>{salesperson.email}</td>
-                            <td>{salesperson.phone}</td>
-                            <td>{salesperson.address}</td>
+                        <tr key={salesperson._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
+                            <td className="px-6 py-4">{salesperson.salespersonID}</td>
+                            <td className="px-6 py-4">{salesperson.name}</td>
+                            <td className="px-6 py-4">{salesperson.dateOfBirth}</td>
+                            <td className="px-6 py-4">{salesperson.gender}</td>
+                            <td className="px-6 py-4">{salesperson.email}</td>
+                            <td className="px-6 py-4">{salesperson.phone}</td>
+                            <td className="px-6 py-4">{salesperson.address}</td>
                             <td>
                                 <button className="btn btn-success" onClick={() => handleUpdateEmployees(salesperson.salespersonID)}>Update</button>
                                 <button className="btn btn-danger" onClick={() => handleDeleteEmployees(salesperson.salespersonID)}>Delete</button>
