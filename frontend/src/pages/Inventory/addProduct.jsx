@@ -2,11 +2,13 @@ import React,{useState,useEffect} from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 export default function AddProduct() {
 
     const navigate = useNavigate();
+    const {id} = useParams();
 
     //state to store product data
     const [productData,setProductData] = useState({
@@ -61,7 +63,7 @@ export default function AddProduct() {
             
             
             //after adding the product, navigate to products page
-            navigate("/inventory/products");
+            navigate(`/inventory/products/${id}`);
 
           }catch(err){
             console.log(err);
