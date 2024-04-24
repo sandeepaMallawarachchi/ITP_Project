@@ -96,6 +96,7 @@ export default function DeliveryStatus() {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="w-1/2 p-10 ml-60"> {/* Increase left border by 60px */}
+            <h1 className="text-2xl mb-4">Customer Details</h1>
                 <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-14' : 'hidden'}`}>
                     <span className="font-medium">Invalid customer ID!</span>
                 </Alert>
@@ -139,7 +140,7 @@ export default function DeliveryStatus() {
             </div>
             <div className="w-1/2 p-10">
                 <div className="mt-10">
-                    <h1 className='text-2xl mb-10'>Delivery Status</h1>
+                    <h1 className='text-2xl font-bold mb-10'>Delivery Status</h1>
 
                     <Timeline className="w-100">
                         <Timeline.Item>

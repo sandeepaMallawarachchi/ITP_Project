@@ -35,8 +35,8 @@ export default function AllReportData() {
 
     return (
         <div className="container mx-auto px-4 py-8 absolute mt-48 left-1/4 w-1/2">
-            <h1 className="text-2xl font-bold mb-4">All Report Details</h1>
-            <div className="mb-4 text-center font-bold text-lg">Total Cost of All Reports: {totalCostSum} LKR</div>
+            <h1 className="text-2xl font-bold mb-4">Delivery Report</h1>
+            <div className="mb-4 text-center font-bold text-lg"style={{ color: 'green' }}>Total Cost of All Reports: {totalCostSum} LKR</div>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse">
                     <thead>

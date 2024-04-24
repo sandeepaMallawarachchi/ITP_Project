@@ -74,7 +74,7 @@ function UpdateDriver() {
                         <input type="text" className="form-control" id="duration_of_job" value={driverDetails.duration_of_job} onChange={(e) => setdriverDetails({...driverDetails, duration_of_job: e.target.value})} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Update</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
             </form>
         </div>
     );

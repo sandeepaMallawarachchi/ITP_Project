@@ -117,7 +117,8 @@ export default function AddDriver() {
 
     return (
         
-        <div className="container absolute mt-36 ml-80">
+        <div className="absolute mt-48 left-1/3 w-1/2">
+            <h1 className="text-2xl font-bold mb-4">Driver Registration form</h1>
             <form onSubmit={sendData}>
                 {/* <div className="mb-3">
                     <label htmlFor="dname" className="form-label">Driver Name</label>
@@ -210,9 +211,7 @@ export default function AddDriver() {
                         <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" maxLength="10" pattern="[0-9]{10}" placeholder="Enter duration of job" value={duration_of_job} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
                     </div>
 
-
-
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
             </form>
             <div className="mt-4">
                     <button onClick={handleAllDrivers} className="text-blue-500 hover:text-blue-700 text-lg">All Drivers</button>

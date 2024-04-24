@@ -75,7 +75,8 @@ function UpdateLocation() {
                         <input type="text" className="form-control" id="dCode" value={locDetails.delivery_code} onChange={(e) => setlocDetails({...locDetails, delivery_code: e.target.value})} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Update</button>
+                
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
             </form>
         </div>
     );

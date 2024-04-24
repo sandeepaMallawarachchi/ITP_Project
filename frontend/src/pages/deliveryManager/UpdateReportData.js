@@ -64,7 +64,7 @@ function UpdateReportData() {
                         <input type="number" className="form-control" id="totalCost" value={reportDetails.totalCost} onChange={(e) => setreportDetails({ ...reportDetails, totalCost: e.target.value })} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Update</button>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
             </form>
         </div>
     );
