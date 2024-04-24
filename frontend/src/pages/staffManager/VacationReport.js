@@ -37,7 +37,7 @@ function VacationReport() {
                         <p>Returning Date: {detail.ETFbonus}</p>
                         <p>Total Number of Days Requested: {detail.EPFbonus}</p>
                         <p>Employer's Descision: {detail.netBonus}</p>
-                        <p>Approval/Rejected Date: {detail.netSalary}</p>
+                        <p>Approved/Rejected Date: {detail.netSalary}</p>
                         <hr />
                     </div>
                 ))}
