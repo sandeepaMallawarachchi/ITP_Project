@@ -37,7 +37,7 @@ function UpdateEmployee() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/staff/update/${empId}`, empDetails);
+            await axios.put(`http://localhost:8070/empLogin/updateManager/${empId}`, empDetails);
             alert("Details Updated!");
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {
