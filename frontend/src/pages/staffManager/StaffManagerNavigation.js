@@ -123,7 +123,7 @@ export default function SalesManagerNavigations() {
     };
 
     const handleAddEmployee = () => {
-        navigate(`/staff/addEmployee/${id}`);
+        navigate(`/staff/managerRegistration/${id}`);
     };
 
     const handleSalaries = () => {
