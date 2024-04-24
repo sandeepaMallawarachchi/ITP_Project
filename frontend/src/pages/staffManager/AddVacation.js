@@ -51,15 +51,15 @@ function AddVacation() {
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div class="mb-3">
-                    <label for="date" class="form-label">Enter Date: </label>
-                    <input type="date" class="form-control" id="date" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="date">Enter Date: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="date" id="date" required onChange={(e) => {
                         setDate(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="empName" class="form-label">Enter Employee Name: </label>
-                    <input type="text" class="form-control" id="empName" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="empName">Enter Employee Name: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empName" required onChange={(e) => {
                         setEmpName(e.target.value);
                     }} />
                 </div>
@@ -76,41 +76,41 @@ function AddVacation() {
                 </div>
 
                 <div class="mb-3">
-                    <label for="department" class="form-label">Enter Department: </label>
-                    <input type="text" class="form-control" id="department" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="department">Enter Department: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="department" required onChange={(e) => {
                         setDepartment(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="daysEarned" class="form-label">Enter Vacation Days Earned: </label>
-                    <input type="text" class="form-control" id="daysEarned" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="daysEarned">Enter Vacation Days Earned: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="daysEarned" required onChange={(e) => {
                         setDaysEarned(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="reqDate" class="form-label">Enter Requesting Date: </label>
-                    <input type="date" class="form-control" id="reqDate" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="reqDate">Enter Requesting Date: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="date" id="reqDate" required onChange={(e) => {
                         setReqDate(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="returningDate" class="form-label">Enter Returning Date: </label>
-                    <input type="date" class="form-control" id="returningDate" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="returningDate">Enter Returning Date: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="date" id="returningDate" required onChange={(e) => {
                         setReturningDate(e.target.value);
                     }} />
                 </div>
 
                 <div class="mb-3">
-                    <label for="totDays" class="form-label">Enter Total Days: </label>
-                    <input type="text" class="form-control" id="totDays" required onChange={(e) => {
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="totDays">Enter Total Days: </label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="totDays" required onChange={(e) => {
                         setTotDays(e.target.value);
                     }} />
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Request for Vacation</button>
             </form>
 
         </div>

@@ -23,32 +23,32 @@ function AllVacations() {
     }
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
-            <table class="table">
-                <thead>
+        <div className='absolute mt-36 left-80 w-3/4 '>
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Vacation Days Earned</th>
-                        <th scope="col">Requesting Date</th>
-                        <th scope="col">Returning Date</th>
-                        <th scope="col">Total Days</th>
+                        <th scope="col" className="px-6 py-3">Date</th>
+                        <th scope="col" className="px-6 py-3">Employee Name</th>
+                        <th scope="col" className="px-6 py-3">Title</th>
+                        <th scope="col" className="px-6 py-3">Department</th>
+                        <th scope="col" className="px-6 py-3">Vacation Days Earned</th>
+                        <th scope="col" className="px-6 py-3">Requesting Date</th>
+                        <th scope="col" className="px-6 py-3">Returning Date</th>
+                        <th scope="col" className="px-6 py-3">Total Days</th>
                     </tr>
                 </thead>
                 <tbody>
                     {vacations.map((vacation) => (
-                        <tr key={(vacation._id)}>
-                            <td>{vacation.date}</td>
-                            <td>{vacation.empName}</td>
-                            <td>{vacation.title}</td>
-                            <td>{vacation.department}</td>
-                            <td>{vacation.daysEarned}</td>
-                            <td>{vacation.reqDate}</td>
-                            <td>{vacation.returningDate}</td>
-                            <td>{vacation.totDays}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprOrRej(vacation._id, id)}>Approve or Reject</button>
+                        <tr key={(vacation._id)} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
+                            <td className="px-6 py-4">{vacation.date}</td>
+                            <td className="px-6 py-4">{vacation.empName}</td>
+                            <td className="px-6 py-4">{vacation.title}</td>
+                            <td className="px-6 py-4">{vacation.department}</td>
+                            <td className="px-6 py-4">{vacation.daysEarned}</td>
+                            <td className="px-6 py-4">{vacation.reqDate}</td>
+                            <td className="px-6 py-4">{vacation.returningDate}</td>
+                            <td className="px-6 py-4">{vacation.totDays}</td>
+                            <td><button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => handleApprOrRej(vacation._id, id)}>Approve or Reject</button>
                             </td>
                         </tr>
                     ))}
