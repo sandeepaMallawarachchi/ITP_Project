@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SalesManagerLayout from './pages/salesManager/SalesManagerLayout'
-import SalesManagerDashboard from "./pages/salesManager/SalesManagerDashboard";
+import SalesManagerLayout from '../pages/salesManager/SalesManagerLayout'
+import SalesManagerDashboard from "../pages/salesManager/SalesManagerDashboard";
 
 //sales manager
-import AddDailyStock from './pages/salesManager/AddDailyStock';
-import SalesPersonDetails from './pages/salesManager/SalesPersonDetails';
-import RemainingInventoryStock from './pages/salesManager/RemainingInventoryStock';
-import MonthlySales from './pages/salesManager/MonthlySales';
-import MonthlyReport from './pages/salesManager/MonthlyReport';
-import ManagerAccount from './components/ManagerAccount'
+import AddDailyStock from '../pages/salesManager/AddDailyStock';
+import SalesPersonDetails from '../pages/salesManager/SalesPersonDetails';
+import RemainingInventoryStock from '../pages/salesManager/RemainingInventoryStock';
+import MonthlySales from '../pages/salesManager/MonthlySales';
+import MonthlyReport from '../pages/salesManager/MonthlyReport';
+import ManagerAccount from '../components/ManagerAccount'
 
 export default function SalesManagerRoutes() {
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function UpdateExpenses() {
-    const { id } = useParams();
+    const { expenseID } = useParams();
     const [details, setDetails] = useState({
         date: "",
         category: "",
@@ -14,26 +14,31 @@ function UpdateExpenses() {
     useEffect(() => {
         const fetchExpenses = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/expenses/get/${id}`);
-                const expenseData = response.data.expense; // Assuming the response has an 'expense' property
-                setDetails({
-                    date: expenseData.date || "",
-                    category: expenseData.category || "",
-                    description: expenseData.description || "",
-                    amount: expenseData.amount || "",
-                });
+                const response = await axios.get(`http://localhost:8070/expenses/get/${expenseID}`);
+                const expenseData = response.data.financial; // Assuming the response has a 'financial' property
+
+                if (expenseData && Object.keys(expenseData).length > 0) {
+                    setDetails({
+                        date: expenseData.date || "",
+                        category: expenseData.category || "",
+                        description: expenseData.description || "",
+                        amount: expenseData.amount || "",
+                    });
+                } else {
+                    console.error("Expense data is undefined or empty");
+                }
             } catch (error) {
                 console.error("Error fetching expenses details", error.message);
             }
         };
         fetchExpenses();
-    }, [id]);
+    }, [expenseID]);    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/expenses/update/${id}`, details);
+            await axios.put(`http://localhost:8070/expenses/update/${expenseID}`, details);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating expenses details", error.message);
@@ -41,7 +46,7 @@ function UpdateExpenses() {
     };
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="date" className="form-label">Date</label>

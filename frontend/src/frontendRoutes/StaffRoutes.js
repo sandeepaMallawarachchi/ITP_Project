@@ -1,17 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AddSalary from "./pages/staffManager/AddSalary";
-import SalaryReport from "./pages/staffManager/SalaryReport";
-import AddEmployee from './pages/staffManager/AddEmployee'
-import AllEmployees from './pages/staffManager/AllEmployees'
-import UpdateEmployee from './pages/staffManager/UpdateEmployee'
-import DeleteEmployee from './pages/staffManager/DeleteEmployee'
-import AllSalaries from './pages/staffManager/AllSalaries'
-import ManagerRegistration from './pages/staffManager/ManagerRegistration'
-import AddVacation from './pages/staffManager/AddVacation'
-import AllVacations from './pages/staffManager/AllVacations'
-import ManagerAccount from './components/ManagerAccount'
-import StaffManagerDashboard from './pages/staffManager/StaffManagerDashboard'
-import StaffManagerLayout from './pages/staffManager/StaffManagerLayout'
+import AddSalary from "../pages/staffManager/AddSalary";
+import SalaryReport from "../pages/staffManager/SalaryReport";
+import AddEmployee from '../pages/staffManager/AddEmployee'
+import AllEmployees from '../pages/staffManager/AllEmployees'
+import UpdateEmployee from '../pages/staffManager/UpdateEmployee'
+import DeleteEmployee from '../pages/staffManager/DeleteEmployee'
+import AllSalaries from '../pages/staffManager/AllSalaries'
+import ManagerRegistration from '../pages/staffManager/ManagerRegistration'
+import AddVacation from '../pages/staffManager/AddVacation'
+import AllVacations from '../pages/staffManager/AllVacations'
+import ManagerAccount from '../components/ManagerAccount'
+import StaffManagerDashboard from '../pages/staffManager/StaffManagerDashboard'
+import StaffManagerLayout from '../pages/staffManager/StaffManagerLayout'
+import VacationReport from '../pages/staffManager/VacationReport'
 
 export default function StaffRoutes() {
     return (
@@ -29,7 +30,7 @@ export default function StaffRoutes() {
                 <Route path='/addVacation/:id' element={<AddVacation />} />
                 <Route path='/allVacations/:id' element={<AllVacations />} />
                 <Route path='/managerAccount/:id' element={<ManagerAccount />} />
-
+                <Route path='/vacationReport/:id' element={<VacationReport />} />
 
             </Route>
         </Routes>

@@ -58,11 +58,13 @@ const salaryRouter = require("./routes/staffRoutes/salary.js");
 const StaffRouter = require("./routes/staffRoutes/staff.js");
 const VacationRouter = require("./routes/staffRoutes/vacation.js");
 const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
+const VacationStatusRouter = require("./routes/staffRoutes/vacationStatus.js");
 
 app.use("/Staff", StaffRouter);
 app.use("/staff/salary", salaryRouter);
 app.use("/staff/vacation", VacationRouter);
 app.use("/empLogin", employeeLoginRouter);
+app.use("/staff/vacationStatus", VacationStatusRouter);
 
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");
@@ -75,8 +77,8 @@ const totalPrice = require("./routes/financialRoutes/totalSupplies.js");
 const getTotalExpenses = require("./routes/financialRoutes/totalExpenses.js");
 const getMonthlyIncome = require("./routes/financialRoutes/getMonthlyIncome.js");
 const totalLiabilities = require("./routes/financialRoutes/balanceSheet.js");
-
-
+const totalAssets = require("./routes/financialRoutes/balanceSheet.js");
+const getTotalBalance = require("./routes/financialRoutes/balanceSheet.js");
 
 app.use("/expenses", expensesRouter);
 app.use("/incomeRt", incomeRouter);
@@ -88,6 +90,8 @@ app.use("/totalPrice", totalPrice);
 app.use("/getTotalExpenses", getTotalExpenses);
 app.use("/getMonthlyIncome", getMonthlyIncome);
 app.use("/totalLiabilities", totalLiabilities);
+app.use("/totalAssets", totalAssets);
+app.use("/getTotalBalance", getTotalBalance);
 
 
 
