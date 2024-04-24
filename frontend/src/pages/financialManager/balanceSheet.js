@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link,useParams,useNavigate } from "react-router-dom";
+import { useReactToPrint } from 'react-to-print';
+import { Button } from "flowbite-react";
 
 export default function BalanceSheet() {
 
+    const {id}=useParams();
     const navigate = useNavigate();
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
@@ -59,8 +62,54 @@ export default function BalanceSheet() {
         navigate('/addLiabilities'); // Correct the path string
     };
 
+    const handleAddLiabilities= () => {
+        navigate(`/financial/addLiabilities/${id}`);
+    }
+
+
+    const componentRef = useRef();
+    
+    const handlePrint = useReactToPrint({
+        content :()=> componentRef.current,//specifies the content to be print
+        documentTitle : "Expenses Report",
+        pageStyle: `
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .document-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    `
+    })
+
+
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
+            <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
+                <div  ref={componentRef} >
             <h1 className="text-3xl font-bold mb-4">January (2024)</h1>
             <div className="flex justify-center">
                 <table className="table-auto w-75%   border border-black mr-10 mt-28">
@@ -84,7 +133,7 @@ export default function BalanceSheet() {
                 
                 </table>
                 <br></br>
-                <button type="button" className="btn btn-secondary btn-lg" onClick={addBtn}>Add liabilities</button>
+                <button type="button" className="btn btn-secondary btn-lg" onClick={handleAddLiabilities}>Add liabilities</button>
                 
             </div>
             
@@ -115,6 +164,7 @@ export default function BalanceSheet() {
 </div>
             </div>
 
+        </div>
         </div>
     );
 }

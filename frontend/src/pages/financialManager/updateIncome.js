@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function UpdateIncome() {
-    const { id } = useParams();
+    const { incomeID } = useParams();
     const [details, setDetails] = useState({
         date: "",
         category: "",
@@ -14,7 +14,7 @@ function UpdateIncome() {
     useEffect(() => {
         const fetchIncome = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/incomeRt/get/${id}`);
+                const response = await axios.get(`http://localhost:8070/incomeRt/get/${incomeID}`);
                 const incomeData = response.data.income; // Assuming the response has an 'income' property
                 setDetails({
                     date: incomeData.date || "",
@@ -27,13 +27,13 @@ function UpdateIncome() {
             }
         };
         fetchIncome();
-    }, [id]);
+    }, [incomeID]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/incomeRt/update/${id}`, details);
+            await axios.put(`http://localhost:8070/incomeRt/update/${incomeID}`, details);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating income details", error.message);
@@ -41,7 +41,7 @@ function UpdateIncome() {
     };
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="date" className="form-label">Date</label>

@@ -11,7 +11,7 @@ export default function AddExpenses() {
     const [error, setError] = useState("");
     const [totalSalary, setTotalSalary] = useState(0); // State to store total salary
     const [totalDelivery, setTotalDelivery] = useState(0); // State to store total delivery
-    
+
 
     // Fetch total salary and total delivery when component mounts
     useEffect(() => {
@@ -54,23 +54,21 @@ export default function AddExpenses() {
         }
     };
 
-     //validation for amount
-     const handleAmountChange = (e) => {
+    //validation for amount
+    const handleAmountChange = (e) => {
         const enterAmount = e.target.value;
 
 
         if (enterAmount > 0) {
             setAmount(enterAmount);
-            setError(""); 
-            
+            setError("");
+
         } else {
             setError("Enter positive value");
         }
     };
 
-    const addIncomeBtn = () => {
-        navigate(`/addIncome`);
-    };
+
 
     function setData(e) {
         e.preventDefault();
@@ -106,14 +104,14 @@ export default function AddExpenses() {
     }
 
     return (
-        <div className="container">
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={setData}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div className="mb-3">
-            <label htmlFor="date" className="form-label">Date</label><br />
-            <input type="date" className="form-control" id="date" onChange={handleDateChange} value={date} required />
-            {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
-        </div>
+                    <label htmlFor="date" className="form-label">Date</label><br />
+                    <input type="date" className="form-control" id="date" onChange={handleDateChange} value={date} required />
+                    {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
+                </div>
 
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label><br />
