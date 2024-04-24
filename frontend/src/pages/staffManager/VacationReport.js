@@ -6,38 +6,38 @@ function VacationReport() {
     const { empId } = useParams();
     const { month } = useParams();
     const { year } = useParams();
-    const [salaryDetails, setSalaryDetails] = useState([]);
+    const [vacationDetails, setVacationDetails] = useState([]);
 
     useEffect(() => {
-        const fetchSalaryDetails = async () => {
+        const fetchVacationDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/staff/salary/salaryDetails/${empId}/${month}/${year}`);
-                setSalaryDetails(response.data);
+                const response = await axios.get(`http://localhost:8070/staff/vacation/vacationDetails/${empId}/${month}/${year}`);
+                setVacationDetails(response.data);
                 console.log(response.data);
             } catch (error) {
-                console.error("Error fetching salary details:", error.message);
+                console.error("Error fetching vacation details:", error.message);
             }
         };
 
-        fetchSalaryDetails();
+        fetchVacationDetails();
     }, [empId, month, year]);
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
-            <h2>Salary Details</h2>
+            <h2>Vacation Details</h2>
             <div>
-                {salaryDetails.map((detail, index) => (
+                {vacationDetails.map((detail, index) => (
                     <div key={index}>
-                        <p>Employee ID: {detail.empId}</p>
-                        <p>Name: {detail.name}</p>
-                        <p>Designation: {detail.designation}</p>
-                        <p>Month: {detail.month}</p>
-                        <p>Year: {detail.year}</p>
-                        <p>Basic Salary: {detail.basicSalary}</p>
-                        <p>ETF Bonus: {detail.ETFbonus}</p>
-                        <p>EPF Bonus: {detail.EPFbonus}</p>
-                        <p>Net Bonus: {detail.netBonus}</p>
-                        <p>Net Salary: {detail.netSalary}</p>
+                        <p>Date: {detail.empId}</p>
+                        <p>Employee Name: {detail.name}</p>
+                        <p>Title: {detail.designation}</p>
+                        <p>Department: {detail.month}</p>
+                        <p>Vacation Days Earned: {detail.year}</p>
+                        <p>Requested Date: {detail.basicSalary}</p>
+                        <p>Returning Date: {detail.ETFbonus}</p>
+                        <p>Total Number of Days Requested: {detail.EPFbonus}</p>
+                        <p>Employer's Descision: {detail.netBonus}</p>
+                        <p>Approval/Rejected Date: {detail.netSalary}</p>
                         <hr />
                     </div>
                 ))}
@@ -46,4 +46,4 @@ function VacationReport() {
     );
 }
 
-export default SalaryReport;
+export default VacationReport;

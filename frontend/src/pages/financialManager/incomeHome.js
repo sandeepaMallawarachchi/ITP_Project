@@ -122,7 +122,7 @@ export default function HomeIn() {
                     </tbody>
                 </table>
             </div>
-            <button type="button" class="btn btn-secondary btn-lg" onClick={addIncomeBtn}>Add Income</button>
+            <button type="button" class="btn btn-secondary btn-lg ml-64" onClick={addIncomeBtn}>Add Income</button>
             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" >Total Income: {totalIncome}</button>
 
 

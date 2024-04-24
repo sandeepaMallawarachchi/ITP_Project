@@ -76,7 +76,7 @@ const getTotalExpenses = require("./routes/financialRoutes/totalExpenses.js");
 const getMonthlyIncome = require("./routes/financialRoutes/getMonthlyIncome.js");
 const totalLiabilities = require("./routes/financialRoutes/balanceSheet.js");
 const totalAssets = require("./routes/financialRoutes/balanceSheet.js");
-
+const getTotalBalance = require("./routes/financialRoutes/balanceSheet.js");
 
 app.use("/expenses", expensesRouter);
 app.use("/incomeRt", incomeRouter);
@@ -89,6 +89,7 @@ app.use("/getTotalExpenses", getTotalExpenses);
 app.use("/getMonthlyIncome", getMonthlyIncome);
 app.use("/totalLiabilities", totalLiabilities);
 app.use("/totalAssets", totalAssets);
+app.use("/getTotalBalance", getTotalBalance);
 
 
 

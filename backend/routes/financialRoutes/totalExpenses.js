@@ -5,7 +5,7 @@ const ex = require('../../models/financialModels/financial');
 
     router.get("/getTotalExpenses", async (req, res) => {
         try {
-            // Fetch all delivery records
+            
             const exepen = await ex.find();
     
             if (exepen.length === 0) {
@@ -15,7 +15,7 @@ const ex = require('../../models/financialModels/financial');
             let totalExpenses = 0;
     
             exepen.forEach(expenses => {
-                totalExpenses += expenses.amount; // Add each delivery's totalCost to the totalDelivery variable
+                totalExpenses += expenses.amount; 
             });
     
             res.status(200).send({ getTotalExpenses: totalExpenses });
