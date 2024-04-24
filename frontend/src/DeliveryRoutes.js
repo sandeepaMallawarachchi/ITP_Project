@@ -28,17 +28,17 @@ export default function DeliveryRoutes(){
         
           <Route path="/addlocations/:id" element={<AddLocation />} />
           <Route path="/alllocations/:id" element={<AllLocation />} />
-          <Route path="/updatelocations/:id/:id" element={<UpdateLocation />} />
-          <Route path="/deletelocations/:id/:id" element={<DeleteLocation />} />
+          <Route path="/updatelocations/:locId/:id" element={<UpdateLocation />} />
+          <Route path="/deletelocations/:locId/:id" element={<DeleteLocation />} />
           <Route path="/addDrivers/:id" element={<AddDriver />} />
           <Route path="/allDrivers/:id" element={<AllDriver />} />
-          <Route path="/updateDrivers/:id/:id" element={<UpdateDriver />} />
-          <Route path="/deleteDrivers/:id/:id" element={<DeleteDriver />} />
+          <Route path="/updateDrivers/:driverId/:id" element={<UpdateDriver />} />
+          <Route path="/deleteDrivers/:driverId/:id" element={<DeleteDriver />} />
           <Route path="/uploadImage/:id" element={<UploadImage />} />
           <Route path="/addReportData/:id" element={<AddReportData />} />
           <Route path="/allReportData/:id" element={<AllReportData />} />
-          <Route path="/updateReportData/:id/:id" element={<UpdateReportData />} />
-          <Route path="/deleteReportData/:id/:id" element={<DeleteReportData />} />
+          <Route path="/updateReportData/:id" element={<UpdateReportData />} />
+          <Route path="/deleteReportData/:id" element={<DeleteReportData />} />
           <Route path="/deliveryStatus/:id" element={<DeliveryStatus />} />
           <Route path="/uploadVehicleDetails/:id" element={<UploadVehicleDetails />} />
           <Route path="/managerAccount/:id" element={<ManagerAccount />} />
