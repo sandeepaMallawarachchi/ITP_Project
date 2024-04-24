@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SupplierManagerLayout from './pages/supplierManager/SupplierManagerLayout'
+import SupplierManagerLayout from '../pages/supplierManager/SupplierManagerLayout'
 
-import Details from './pages/supplierManager/details';
-import SupplierHome from './pages/supplierManager/Home';
-import Update from './pages/supplierManager/update';
-import Supplierdetails from './pages/supplierManager/supplierdetails';
-import Showsupplier from './pages/supplierManager/showsupplier';
-import Search from './pages/supplierManager/serach';
-import Teadetails from './pages/supplierManager/inputteadetails';
-import ManagerAccount from './components/ManagerAccount'
+import Details from '../pages/supplierManager/details';
+import SupplierHome from '../pages/supplierManager/Home';
+import Update from '../pages/supplierManager/update';
+import Supplierdetails from '../pages/supplierManager/supplierdetails';
+import Showsupplier from '../pages/supplierManager/showsupplier';
+import Search from '../pages/supplierManager/serach';
+import Teadetails from '../pages/supplierManager/inputteadetails';
+import ManagerAccount from '../components/ManagerAccount'
 
 export default function SalesManagerRoutes() {
 

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { useReactToPrint } from 'react-to-print';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
+import logo from '../../images/logo.png';
 
 function SalesSummary() {
     const [cusID, setCusID] = useState("");
@@ -12,6 +14,7 @@ function SalesSummary() {
     });
     const [error, setError] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
+    const [showLogoAndTitle, setShowLogoAndTitle] = useState(false);
 
     useEffect(() => {
         const fetchSaleDetails = async () => {
@@ -30,15 +33,11 @@ function SalesSummary() {
                     const { subTotal, date, salesDetails } = saleData;
                     setSalesSummary({ subTotal, date, salesDetails });
                     setError(false);
+                    setShowLogoAndTitle(true)
                 }
             } catch (error) {
                 setError(true);
                 setErrorAlert(true);
-
-                // setTimeout(() => {
-                //     setErrorAlert(false);
-                // }, 3000);
-
                 console.log("Error fetching details", error.message);
             }
         };
@@ -65,13 +64,62 @@ function SalesSummary() {
         }
     };
 
+    const componentRef = useRef();
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        onBeforeGetContent: () => setShowLogoAndTitle(true),
+        onAfterPrint: () => setShowLogoAndTitle(false),
+        pageStyle: `
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 50px;
+            }
+            th, td {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            .logo {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 9999;
+                margin: 10px;
+                content: url(${logo});
+            }
+            .title {
+                text-align: center;
+                font-size: 2rem;
+                font-weight: bold;
+                color: green;
+                margin-top: 170px
+            }
+        `
+    });
+
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-full text-center -mt-14' : 'hidden'}`}>
                 <span className="font-medium">Invalid customer ID!</span>
             </Alert>
             <div className="mb-6">
-                <label for="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
+                <label htmlFor="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
                 <input
                     type="text"
                     id="cusID"
@@ -81,10 +129,9 @@ function SalesSummary() {
                     onChange={handleChangeCusID}
                 />
             </div>
-
             <form>
                 <div className="mb-6">
-                    <label for="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current date</label>
+                    <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current date</label>
                     <input
                         type="text"
                         id="date"
@@ -95,7 +142,7 @@ function SalesSummary() {
                     />
                 </div>
                 <div className="mb-6">
-                    <label for="total" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total price (LKR)</label>
+                    <label htmlFor="total" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total price (LKR)</label>
                     <input
                         type="text"
                         id="total"
@@ -106,7 +153,19 @@ function SalesSummary() {
                     />
                 </div>
 
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
+                <button
+                    type="button"
+                    onClick={handlePrint}
+                    id='title'
+                    className="mt-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    Download sales summary
+                </button>
+
+                <div ref={componentRef} className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+
+                    <img className='ml-56 logo' />
+                    <h1 className='text-center text-2xl font-bold text-green-500 title'>Sales Summary</h1>
+
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -136,7 +195,6 @@ function SalesSummary() {
                         </tbody>
                     </table>
                 </div>
-
             </form>
         </div>
     )
