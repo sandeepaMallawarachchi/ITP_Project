@@ -17,7 +17,7 @@ import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
 import { FaSheetPlastic } from "react-icons/fa6";
 import { BsFileEarmarkSpreadsheetFill } from "react-icons/bs";
-import { FaBalanceScale } from "react-icons/fa";
+import { FaBalanceScaleLeft } from "react-icons/fa";
 
 export default function FinancialManagerNavigations() {
     const { id } = useParams();
@@ -194,7 +194,7 @@ export default function FinancialManagerNavigations() {
                             <Sidebar.Item icon={BsFileEarmarkSpreadsheetFill} onClick={handleExpenseSheet}>
                                Expenses sheet
                             </Sidebar.Item>
-                            <Sidebar.Item icon={FaBalanceScale} onClick={handleBalanceSheet}>
+                            <Sidebar.Item icon={FaBalanceScaleLeft} onClick={handleBalanceSheet}>
                                 Balance Sheet
                             </Sidebar.Item>
             
