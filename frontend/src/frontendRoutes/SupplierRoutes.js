@@ -22,7 +22,7 @@ export default function SalesManagerRoutes() {
                 {/* supplier manager routes */}
                 <Route path="/details/:id" element={<Details />}></Route>
                 <Route path="/home/:id" element={<SupplierHome />}  ></Route >
-                <Route path="/update/:tid/:id" element={<Update />} ></Route >
+                <Route path="/update/:itemId/:id" element={<Update />} ></Route >
                 <Route path="/suppliers/:id" element={<Supplierdetails />} ></Route >
                 <Route path="/search/:id" element={<Search />} ></Route >
                 <Route path="/showSupplier/:id" element={<Showsupplier />} ></Route >

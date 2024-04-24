@@ -4,37 +4,38 @@ const Delivery = require('../../models/deliveryModels/report');
 
 router.get("/totalDelivery", async (req, res) => {
     try {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
 
-        const year = parseInt(req.params.year);
-        const month = parseInt(req.params.month);
+        const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
+        const lastDayOfMonth = new Date(currentYear, currentMonth, 0);
 
-        // Calculate start and end dates for the specified month
-        const startDate = new Date(year, month - 1, 1); // Month is 0-indexed
-        const endDate = new Date(year, month, 0); // Last day of the month
-
-        // Fetch delivery records for the specified month
-        const deliveries = await Delivery.find({
-            createdAt: {
-                $gte: startDate,
-                $lte: endDate
+        const totalCost = await Report.aggregate([
+            {
+                $match: {
+                    date: { $gte: firstDayOfMonth, $lte: lastDayOfMonth }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalCostSum: { $sum: "$totalCost" }
+                }
             }
-        });
+        ]);
 
-        if (deliveries.length === 0) {
-            return res.status(404).send({ error: "No delivery records found" });
+        if (totalCost.length === 0) {
+            return res.status(404).send({ error: "No cost records found for the current month and year" });
         }
 
-        let totalDelivery = 0;
+        const totalCostAmount = totalCost[0].totalCostSum;
 
-        deliveries.forEach(delivery => {
-            totalDelivery += delivery.totalCost; // Add each delivery's totalCost to the totalDelivery variable
-        });
-
-        res.status(200).send({ totalDelivery });
+        res.status(200).send({ totalCost: totalCostAmount });
 
     } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ error: "Error fetching total delivery cost" });
+        console.error("Error fetching total cost:", error);
+        res.status(500).send({ error: "Error fetching total cost" });
     }
 });
 
