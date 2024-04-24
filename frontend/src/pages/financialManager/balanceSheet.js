@@ -8,7 +8,7 @@ export default function BalanceSheet() {
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
     const [totalLiabilities, setTotalLiabilities] = useState(0);
-
+    
     useEffect(() => {
         axios.get("http://localhost:8070/totalLiabilities/totalLiabilities").then((res) => {
             setTotalLiabilities(res.data.totalLiabilities); // Ensure to access the correct property
@@ -62,13 +62,18 @@ export default function BalanceSheet() {
                                 <td className="px-4 py-2 border border-black">{income.amount}</td>
                             </tr>
                         ))}
+                        <p >Total Liabilities: {totalLiabilities}</p>
                     </tbody>
-                    <button type="button" className="btn btn-secondary btn-lg" onClick={addBtn}>Add liabilities</button>
+                
                 </table>
-                <p className="ml-64">Total Liabilities: {totalLiabilities}</p>
+                <br></br>
+                <button type="button" className="btn btn-secondary btn-lg" onClick={addBtn}>Add liabilities</button>
+                
             </div>
+            
+           
             <div className="flex justify-center">
-                <table className="table-auto w-full border border-black mr-10 w-75% ">
+                <table className="table-auto w-75%   border border-black mr-10 mt-28">
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="px-4 py-2 border border-black">Assets</th>
@@ -89,6 +94,7 @@ export default function BalanceSheet() {
                                 <td className="px-4 py-2 border border-black">{income.amount}</td>
                             </tr>
                         ))}
+                        <p >Total Assets: {totalIncome}</p>
                     </tbody>
                 </table>
             </div>
