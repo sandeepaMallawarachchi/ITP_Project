@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 function UpdateLocation() {
     const { locId,id} = useParams();
@@ -27,19 +27,23 @@ function UpdateLocation() {
         fetchlocDetails();
     }, [id]);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await axios.put(`http://localhost:8070/tea/update/${locId}`, locDetails);
             alert("Details Updated!");
+            navigate(`/deliverymanager/alllocations/${id}`);
         } catch (error) {
             console.error("Error updating location details", error.message);
         }
     };
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+    
+        <div className="absolute mt-48 left-1/4 w-1/2" style={{ width: "600px" }}>
             <form onSubmit={handleSubmit} style={{marginLeft:"20rem"}}>
                 <div>
                     <div className="mb-3">

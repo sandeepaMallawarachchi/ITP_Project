@@ -25,12 +25,12 @@ export default function AllReportData() {
 
     const navigate = useNavigate();
 
-    const handleUpdate = () => {
-        navigate(`/deliveryManager/updateReportData/${id}`);
+    const handleUpdate = (rId) => {
+        navigate(`/deliveryManager/updateReportData/${rId}/${id}`);
     }
 
-    const handleDelete = () => {
-        navigate(`/deliveryManager/deleteReportData/${id}`);
+    const handleDelete = (rId) => {
+        navigate(`/deliveryManager/deleteReportData/${rId}/${id}`);
     }
 
     return (
@@ -62,13 +62,13 @@ export default function AllReportData() {
                                 <td className="border px-4 py-2">
                                     <button 
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
-                                        onClick={() => handleUpdate(reportItem._id)}
+                                        onClick={() => handleUpdate(reportItem._id, id)}
                                     >
                                         Update
                                     </button>
                                     <button 
                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                                        onClick={() => handleDelete(reportItem._id)}
+                                        onClick={() => handleDelete(reportItem._id, id)}
                                     >
                                         Delete
                                     </button>

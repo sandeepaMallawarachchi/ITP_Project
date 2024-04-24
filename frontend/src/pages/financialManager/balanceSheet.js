@@ -133,13 +133,14 @@ export default function BalanceSheet() {
                 
                 </table>
                 <br></br>
-                <button type="button" className="btn btn-secondary btn-lg" onClick={handleAddLiabilities}>Add liabilities</button>
+                
                 
             </div>
-            
+            <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64" onClick={handleAddLiabilities}>Add liabilities</button>
            
             <div className="flex justify-center">
-                <table className="table-auto w-75%   border border-black mr-10 mt-28">
+                <table className="table-auto w-75%   border border-black mr-10 mt-24">
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="px-4 py-2 border border-black">Assets</th>
@@ -159,9 +160,10 @@ export default function BalanceSheet() {
                 </table>
                 <div className="flex justify-center">
     <p>
-        {totalBalance < 0 ? 'Loss' : 'Profit'}: {Math.abs(totalBalance)}
+        {totalBalance < 0 ? 'Loss' : 'Profit' }: {Math.abs(totalBalance)}
     </p>
 </div>
+
             </div>
 
         </div>

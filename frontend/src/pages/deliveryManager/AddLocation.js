@@ -81,6 +81,7 @@ export default function CustomerLocations() {
     }
 
     return (
+    
         <div className="flex justify-center items-center h-screen">
             <div className="bg-white shadow-md rounded px-8 pt-80 pb-8 mb-4 w-1/2">
                 <form onSubmit={sendData} className="space-y-6">

@@ -3,13 +3,13 @@ import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 function DeleteReportData() {
-    const { id } = useParams();
+    const { id, rId } = useParams();
     const navigate = useNavigate();
 
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/report/delete/${id}`);
-            navigate(`/deleverymanager/allReportData/${id}`);
+            await axios.delete(`http://localhost:8070/report/delete/${rId}`);
+            navigate(`/deliverymanager/allReportData/${id}`);
         } catch (error) {
             console.error("Error deleting data", error.message);
             alert("Error deleting data. Please try again.");

@@ -37,8 +37,8 @@ export default function DeliveryRoutes(){
           <Route path="/uploadImage/:id" element={<UploadImage />} />
           <Route path="/addReportData/:id" element={<AddReportData />} />
           <Route path="/allReportData/:id" element={<AllReportData />} />
-          <Route path="/updateReportData/:id" element={<UpdateReportData />} />
-          <Route path="/deleteReportData/:id" element={<DeleteReportData />} />
+          <Route path="/updateReportData/:rId/:id" element={<UpdateReportData />} />
+          <Route path="/deleteReportData/:rId/:id" element={<DeleteReportData />} />
           <Route path="/deliveryStatus/:id" element={<DeliveryStatus />} />
           <Route path="/uploadVehicleDetails/:id" element={<UploadVehicleDetails />} />
           <Route path="/managerAccount/:id" element={<ManagerAccount />} />

@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const Teamodel = require("../../models/supplierModels/teadetail");
 const usermodels = require("../../models/supplierModels/user");
-const suppliermodels  = require("../../models/supplierModels/supplier");  
+const suppliermodels = require("../../models/supplierModels/supplier");
 
-router.route( '/fetch/:id'  ).get((req, res) => {
-    const { id } = req.params;      
+router.route('/fetch/:id').get((req, res) => {
+    const { id } = req.params;
     console.log("Fetching tea with ID:", id);
-    Teamodel.findById (id)       
+    Teamodel.findById(id)
         .then(tea => {
             if (tea) {
                 console.log("Found tea:", tea);
@@ -91,18 +91,18 @@ router.route("/addPurchase").post(async (req, res) => {
         res.status(500).json({ error: "Error adding purchase" });
     }
 });
-router.route("/adddetails").post(async  (req,res)=>{
-    const {  type,name,price, quantity } = req.body;
+router.route("/adddetails").post(async (req, res) => {
+    const { type, name, price, quantity } = req.body;
 
     try {
-        const newDetails  = await  Teamodel.create({
-             type,
-             name,
-             price,
-             quantity // Set date to today's date with time set to 00:00:00
+        const newDetails = await Teamodel.create({
+            type,
+            name,
+            price,
+            quantity // Set date to today's date with time set to 00:00:00
         });
 
-        res.json({ status: "Purchase added", purchase: newDetails   });
+        res.json({ status: "Purchase added", purchase: newDetails });
     } catch (error) {
         console.error("Error adding purchase:", error.message);
         res.status(500).json({ error: "Error adding purchase" });
@@ -110,19 +110,19 @@ router.route("/adddetails").post(async  (req,res)=>{
 
 })
 
-router.route("/addsuppliers"   ).post(async  (req,res)=>{
-    const { name,age,address,email   } = req.body;
+router.route("/addsuppliers").post(async (req, res) => {
+    const { name, age, address, email } = req.body;
 
     try {
-        const newDetails  = await   suppliermodels.create({
-               
-             name,
-              age,
-              address,
-              email // Set date to today's date with time set to 00:00:00
+        const newDetails = await suppliermodels.create({
+
+            name,
+            age,
+            address,
+            email // Set date to today's date with time set to 00:00:00
         });
 
-        res.json({ status: " suppliers added", purchase: newDetails   });
+        res.json({ status: " suppliers added", purchase: newDetails });
     } catch (error) {
         console.error("Error adding suppliers :", error.message);
         res.status(500).json({ error: "Error adding purchase" });
@@ -130,7 +130,7 @@ router.route("/addsuppliers"   ).post(async  (req,res)=>{
 
 })
 router.get('/search', async (req, res) => {
-    const { q  } = req.query;   
+    const { q } = req.query;
     try {
         let results;
 
@@ -142,227 +142,109 @@ router.get('/search', async (req, res) => {
             results = await suppliermodels.find();
         }
 
-        res.json(results);} catch (error) {
-      console.error('Error searching for suppliers:', error);
-      res.status(500).json({ error: 'Error searching for suppliers' });
+        res.json(results);
+    } catch (error) {
+        console.error('Error searching for suppliers:', error);
+        res.status(500).json({ error: 'Error searching for suppliers' });
     }
-  });
-  router.delete('/items/:id', async (req, res) => {
+});
+router.delete('/items/:id', async (req, res) => {
     const itemId = req.params.id;
-  
+
     try {
-      // Find the item by ID and delete it
-      const deletedItem = await Teamodel.findByIdAndDelete(itemId);
-  
-      if (!deletedItem) {
-        return res.status(404).json({ error: 'Item not found' });
-      }
-  
-      res.json({ message: 'Item deleted successfully' });
+        // Find the item by ID and delete it
+        const deletedItem = await Teamodel.findByIdAndDelete(itemId);
+
+        if (!deletedItem) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        res.json({ message: 'Item deleted successfully' });
     } catch (error) {
-      console.error('Error deleting item:', error);
-      res.status(500).json({ error: 'Error deleting item' });
+        console.error('Error deleting item:', error);
+        res.status(500).json({ error: 'Error deleting item' });
     }
-  });
-  router.get('/item' , async (req, res) => {       
-     
-  
+});
+router.get('/item', async (req, res) => {
+
+
     try {
-      // Find the item by ID and delete it
-      const  Item = await Teamodel.find ( );  
-  
+        // Find the item by ID and delete it
+        const Item = await Teamodel.find();
+
         if (!Item) {
-        return res.status(404).json({ error: 'Item not found' });
-      }
-  
-      res.json({ message: 'Items deleted successfully', Item });
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        res.json({ message: 'Items deleted successfully', Item });
     } catch (error) {
-      console.error('Error deleting item:', error);
-      res.status(500).json({ error: 'Error deleting item' });
+        console.error('Error deleting item:', error);
+        res.status(500).json({ error: 'Error deleting item' });
     }
-  });
-//   import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+});
+   
+router.route('/supplierdetails').get(async (req, res) => {
 
-// export default function  Showsupplier() {
-//   const [data, setData] = useState([]);
+    try {
+        const supplierProducts = await suppliermodels.find();
+        res.json(supplierProducts);
+    } catch (error) {
+        console.log("error:", err);
+        res.status(500).json({ error: "An error occurred while fetching data" });
+    }
+});
+router.delete('/supp/:id', async (req, res) => {
+    const itemId = req.params.id;
 
-//   useEffect(() => {
-//     axios.get( `http://localhost:8087/supplier/supplierdetails`)          
-//       .then(response => {
-//         setData(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching data:', error);
-//       });
-//   }, []);
-//   const handleDelete = async (itemId) => {
-//     try {
-//       await axios.delete(`http://localhost:8087/supplier/supp/${itemId}`);  
-//       // After successful deletion, fetch items again to update the list
-       
-//     } catch (error) {
-//       console.error('Error deleting item:', error);
-//     }
-//   };
+    try {
+        // Find the item by ID and delete it
+        const deletedItem = await suppliermodels.findByIdAndDelete(itemId);
 
-  
-//     return (
-//         <div>
-//           <h1> Purchasing details </h1>
-//           <table>
-//             <thead>
-//               <tr>
-//                 <th>Name</th>   
-//                 <th>Age</th>   
-//                 <th>Address</th>   
-//                 {/* Add more table headers if needed */}
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {data.map(item => (
-//                 <tr key={item.id }>
-//                   <td>{item.name }</td>  
-//                   <td>{item.age }</td>         
-//                   <td>{item.address }</td>
-//                   {/* Render additional columns if needed */}
-//                   <td>
-                 
-//                 <button onClick={() => handleDelete(item._id)}>Delete</button>
-//               </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       ); 
-//               }
-            //   import React, { useState, useEffect } from 'react';
-            //   import axios from 'axios';
-              
-            //   export default function  Showsupplier() {
-            //     const [data, setData] = useState([]);
-              
-            //     useEffect(() => {
-            //       axios.get( `http://localhost:8087/supplier/supplierdetails`)          
-            //         .then(response => {
-            //           setData(response.data);
-            //         })
-            //         .catch(error => {
-            //           console.error('Error fetching data:', error);
-            //         });
-            //     }, []);
-            //     const handleDelete = async (itemId) => {
-            //       try {
-            //         await axios.delete(`http://localhost:8087/supplier/supp/${itemId}`);  
-            //         // After successful deletion, fetch items again to update the list
-                     
-            //       } catch (error) {
-            //         console.error('Error deleting item:', error);
-            //       }
-            //     };
-              
-                
-            //       return (
-            //           <div>
-            //             <h1> Purchasing details </h1>
-            //             <table>
-            //               <thead>
-            //                 <tr>
-            //                   <th>Name</th>   
-            //                   <th>Age</th>   
-            //                   <th>Address</th>   
-            //                   {/* Add more table headers if needed */}
-            //                 </tr>
-            //               </thead>
-            //               <tbody>
-            //                 {data.map(item => (
-            //                   <tr key={item.id }>
-            //                     <td>{item.name }</td>  
-            //                     <td>{item.age }</td>         
-            //                     <td>{item.address }</td>
-            //                     {/* Render additional columns if needed */}
-            //                     <td>
-                               
-            //                   <button onClick={() => handleDelete(item._id)}>Delete</button>
-            //                 </td>
-            //                   </tr>
-            //                 ))}
-            //               </tbody>
-            //             </table>
-            //           </div>
-            //         ); 
-            //                 }      
-            router.route('/supplierdetails').get(async (req, res) => {  
-                // usermodels.find()
-                //     .then(purchasing => {
-                //         res.json(purchasing);
-                //     })
-                //     .catch(err => {
-                //         console.log("error:", err);
-                //         res.status(500).json({ error: "An error occurred while fetching data" });
-                //     });
-            
-                try {
-                    const  supplierProducts = await suppliermodels.find();
-                    res.json( supplierProducts);
-                } catch (error) {
-                    console.log("error:", err);
-                    res.status(500).json({ error: "An error occurred while fetching data" });
-                }
-            });
-            router.delete('/supp/:id', async (req, res) => {  
-                const itemId = req.params.id;
-              
-                try {
-                  // Find the item by ID and delete it
-                  const deletedItem = await suppliermodels.findByIdAndDelete(itemId);
-              
-                  if (!deletedItem) {
-                    return res.status(404).json({ error: 'Item not found' });
-                  }
-              
-                  res.json({ message: 'Item deleted successfully' });
-                } catch (error) {
-                  console.error('Error deleting item:', error);
-                  res.status(500).json({ error: 'Error deleting item' });
-                }
-              });
-              router.route("/addteadetails" ).post(async  (req,res)=>{     
-                const { name,type,price,quantity} = req.body;     
-            
-                try {
-                    const newDetails  = await   teadetailsmodels.create({
-                           
-                         name,
-                          type,
-                           price,
-                           quantity // Set date to today's date with time set to 00:00:00
-                    });
-            
-                    res.json({ status: " suppliers added", purchase: newDetails   });
-                } catch (error) {
-                    console.error("Error adding suppliers :", error.message);
-                    res.status(500).json({ error: "Error adding purchase" });
-                }
-            
-            })
-            router.route("/addrecording" ).post(async  (req,res)=>{     
-                const { paymentmethod,quantity,date   } = req.body;
-            
-                try {
-                    const newDetails  = await   usermodels.create({
-                        paymentmethod,
-                         quantity,
-                         date  
-                           // Set date to today's date with time set to 00:00:00
-                    });
-            
-                    res.json({ status: "  Details added", purchase: newDetails   });
-                } catch (error) {
-                    console.error("Error adding details  :", error.message);
-                    res.status(500).json({ error: "Error adding purchase" });
-                }
-            
-            })
+        if (!deletedItem) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+
+        res.json({ message: 'Item deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting item:', error);
+        res.status(500).json({ error: 'Error deleting item' });
+    }
+});
+router.route("/addteadetails").post(async (req, res) => {
+    const { name, type, price, quantity } = req.body;
+
+    try {
+        const newDetails = await teadetailsmodels.create({
+
+            name,
+            type,
+            price,
+            quantity // Set date to today's date with time set to 00:00:00
+        });
+
+        res.json({ status: " suppliers added", purchase: newDetails });
+    } catch (error) {
+        console.error("Error adding suppliers :", error.message);
+        res.status(500).json({ error: "Error adding purchase" });
+    }
+
+})
+router.route("/addrecording").post(async (req, res) => {
+    const { paymentmethod, quantity, date } = req.body;
+
+    try {
+        const newDetails = await usermodels.create({
+            paymentmethod,
+            quantity,
+            date
+            // Set date to today's date with time set to 00:00:00
+        });
+
+        res.json({ status: "  Details added", purchase: newDetails });
+    } catch (error) {
+        console.error("Error adding details  :", error.message);
+        res.status(500).json({ error: "Error adding purchase" });
+    }
+
+})
 module.exports = router;
