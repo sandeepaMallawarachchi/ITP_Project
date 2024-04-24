@@ -111,14 +111,15 @@ router.route("/adddetails").post(async  (req,res)=>{
 })
 
 router.route("/addsuppliers"   ).post(async  (req,res)=>{
-    const { name,age,address   } = req.body;
+    const { name,age,address,email   } = req.body;
 
     try {
         const newDetails  = await   suppliermodels.create({
                
              name,
               age,
-              address // Set date to today's date with time set to 00:00:00
+              address,
+              email // Set date to today's date with time set to 00:00:00
         });
 
         res.json({ status: " suppliers added", purchase: newDetails   });
@@ -346,5 +347,22 @@ router.get('/search', async (req, res) => {
                 }
             
             })
+            router.route("/addrecording" ).post(async  (req,res)=>{     
+                const { paymentmethod,quantity,date   } = req.body;
             
+                try {
+                    const newDetails  = await   usermodels.create({
+                        paymentmethod,
+                         quantity,
+                         date  
+                           // Set date to today's date with time set to 00:00:00
+                    });
+            
+                    res.json({ status: "  Details added", purchase: newDetails   });
+                } catch (error) {
+                    console.error("Error adding details  :", error.message);
+                    res.status(500).json({ error: "Error adding purchase" });
+                }
+            
+            })
 module.exports = router;

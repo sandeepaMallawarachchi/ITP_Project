@@ -22,7 +22,7 @@ function Search() {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className='absolute mt-40 left-1/3 w-1/2'>
       <div className='mb-4'>
         <input
           type="text"
