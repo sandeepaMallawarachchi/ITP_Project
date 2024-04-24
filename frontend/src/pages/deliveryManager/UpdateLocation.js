@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 function UpdateLocation() {
     const { locId,id} = useParams();
@@ -27,12 +27,15 @@ function UpdateLocation() {
         fetchlocDetails();
     }, [id]);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await axios.put(`http://localhost:8070/tea/update/${locId}`, locDetails);
             alert("Details Updated!");
+            navigate(`/deliverymanager/alllocations/${id}`);
         } catch (error) {
             console.error("Error updating location details", error.message);
         }
