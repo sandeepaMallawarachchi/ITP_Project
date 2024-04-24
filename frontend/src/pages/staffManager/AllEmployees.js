@@ -91,8 +91,8 @@ function AllEmployees() {
             </table>
 
             <h1 className="text-green-500 font-bold">All Salespersons</h1>
-            <table className="table">
-                <thead>
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">Salesperson ID</th>
                         <th scope="col" className="px-6 py-3">Salesperson Name</th>
@@ -114,42 +114,42 @@ function AllEmployees() {
                             <td className="px-6 py-4">{salesperson.phone}</td>
                             <td className="px-6 py-4">{salesperson.address}</td>
                             <td>
-                                <button className="btn btn-success" onClick={() => handleUpdateEmployees(salesperson.salespersonID)}>Update</button>
-                                <button className="btn btn-danger" onClick={() => handleDeleteEmployees(salesperson.salespersonID)}>Delete</button>
+                                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => handleUpdateEmployees(salesperson.salespersonID)}>Update</button>
+                                <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" onClick={() => handleDeleteEmployees(salesperson.salespersonID)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <h1>All Drivers</h1>
-            <table className="table">
-                <thead>
+            <h1 className="text-green-500 font-bold">All Drivers</h1>
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th className="px-4 py-2">Driver Name</th>
-                        <th className="px-4 py-2">Driver ID</th>
-                        <th className="px-4 py-2">Age</th>
-                        <th className="px-4 py-2">Address</th>
-                        <th className="px-4 py-2">Phone Number</th>
-                        <th className="px-4 py-2">Email</th>
-                        <th className="px-4 py-2">Duration of Job</th>
-                        <th className="px-4 py-2">Actions</th>
+                        <th className="px-6 py-3">Driver Name</th>
+                        <th className="px-6 py-3">Driver ID</th>
+                        <th className="px-6 py-3">Age</th>
+                        <th className="px-6 py-3">Address</th>
+                        <th className="px-6 py-3">Phone Number</th>
+                        <th className="px-6 py-3">Email</th>
+                        <th className="px-6 py-3">Duration of Job</th>
+                        <th className="px-6 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {drivers.filter(driver => driver.dname?.toLowerCase().includes(searchTerm.toLowerCase())).map((driver) => (
-                        <tr key={driver._id}>
-                            <td className="border px-4 py-2">{driver.dname}</td>
-                            <td className="border px-4 py-2">{driver.dID}</td>
-                            <td className="border px-4 py-2">{driver.age}</td>
-                            <td className="border px-4 py-2">{driver.address}</td>
-                            <td className="border px-4 py-2">{driver.phone_number}</td>
-                            <td className="border px-4 py-2">{driver.email}</td>
-                            <td className="border px-4 py-2">{driver.duration_of_job}</td>
-                            <td className="border px-4 py-2">
+                        <tr key={driver._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-black">
+                            <td className="px-6 py-4">{driver.dname}</td>
+                            <td className="px-6 py-4">{driver.dID}</td>
+                            <td className="px-6 py-4">{driver.age}</td>
+                            <td className="px-6 py-4">{driver.address}</td>
+                            <td className="px-6 py-4">{driver.phone_number}</td>
+                            <td className="px-6 py-4">{driver.email}</td>
+                            <td className="px-6 py-4">{driver.duration_of_job}</td>
+                            <td>
 
-                                <button className="btn btn-success" onClick={() => handleUpdateEmployees(driver.driverID)}>Update</button>
-                                <button className="btn btn-danger" onClick={() => handleDeleteEmployees(driver.driverID)}>Delete</button>
+                                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={() => handleUpdateEmployees(driver.driverID)}>Update</button>
+                                <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" onClick={() => handleDeleteEmployees(driver.driverID)}>Delete</button>
                             </td>
                         </tr>
                     ))}
