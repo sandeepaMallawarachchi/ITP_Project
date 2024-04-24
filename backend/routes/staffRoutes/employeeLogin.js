@@ -228,6 +228,23 @@ router.route("/updateManager/:empId").put(async (req, res) => {
     }
 });
 
+
+//delete
+router.delete("/delete/:empId", async (req, res) => {
+    const empId = req.params.empId;
+
+    try {
+        const deleted = await Manager.findOneAndDelete({ empId: empId });
+        if (!deleted) {
+            return res.status(404).send({ status: "Employee not found" });
+        }
+        res.status(200).send({ status: "Employee Deleted" });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send({ status: "Error with delete employee", error: err.message });
+    }
+});
+
 //upload profile picture
 router.route("/uploadProfilePicture").post(async (req, res) => {
 

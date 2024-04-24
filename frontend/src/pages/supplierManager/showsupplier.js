@@ -5,7 +5,7 @@ export default function Showsupplier() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8087/supplier/supplierdetails`)
+    axios.get(`http://localhost:8070/supplier/supplierdetails`)
       .then(response => {
         setData(response.data);
       })
@@ -16,8 +16,8 @@ export default function Showsupplier() {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:8087/supplier/supp/${itemId}`);
-      // After successful deletion, fetch items again to update the list
+      await axios.delete(`http://localhost:8070/supplier/supp/${itemId}`);
+      alert('Supplier deleted!');
     } catch (error) {
       console.error('Error deleting item:', error);
     }
