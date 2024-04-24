@@ -39,7 +39,7 @@ function UpdateEmployee() {
         try {
             await axios.put(`http://localhost:8070/staff/update/${empId}`, empDetails);
             alert("Details Updated!");
-            navigate(`/staff/allEmployees/${id}`);
+            // navigate(`/staff/allEmployees/${id}`);
         } catch (error) {
             console.error("Error updating employee details", error);
         }

@@ -42,7 +42,20 @@ export default function ManagerRegistration() {
         try {
             axios.post(`http://localhost:8070/empLogin/managerRegister`, newManager);
             alert("Success! Manager added");
-            navigate("/"); // Navigate to a different route upon success
+            setEmpId('');
+            setFirstName('');
+            setLastName('');
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
+            setGender('');
+            setDepartment('');
+            setDesignation('');
+            setAddress('');
+            setEmail('');
+            setPhoneNo('');
+            setDateOfBirth('');
+
         } catch (error) {
             alert("Error! Failed to add manager");
             console.error("Error:", error);
