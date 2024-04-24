@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Supplierdetails = () => {
+const  Recording = () => {
   const [supplier, setSupplier] = useState({
     name: '',
-    age: '',
-    address: '',
-    email: ''
+     quantity:'',
+     date:''
   });
   const [emailError, setEmailError] = useState('');
 
@@ -15,29 +14,29 @@ const Supplierdetails = () => {
     setSupplier({ ...supplier, [name]: value });
 
     // Validate email format as the user types
-    if (name === 'email') {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(value)) {
-        setEmailError('Invalid email format');
-      } else {
-        setEmailError('');
-      }
-    } else if (name !== 'email' && emailError) {
-      // If the user is typing in other fields and there's an email error, clear it
-      setEmailError('');
-    }
+    // if (name === 'email') {
+    //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //   if (!emailPattern.test(value)) {
+    //     setEmailError('Invalid email format');
+    //   } else {
+    //     setEmailError('');
+    //   }
+    // }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Check if there's an email error before submitting
-    if (emailError) {
-      return;
-    }
+    // if (!emailPattern.test(supplier.email)) {
+    //   setEmailError('Invalid email format');
+    //   return;
+    // } else {
+    //   setEmailError('');
+    // }
 
     try {
-      const response = await axios.post(`http://localhost:8070/supplier/addsuppliers`, supplier);
+      const response = await axios.post(`http://localhost:8070/supplier/addrecording`  , supplier);
       console.log(response.data);
       // Optionally, you can redirect to another page after successful submission
       // Insert navigation logic here
@@ -47,24 +46,24 @@ const Supplierdetails = () => {
   };
 
   return (
-    <div className='absolute mt-40 left-1/3 w-1/2'>
+    <div className='absolute mt-40  left-1/3 w-1/2 '>       
       <h2 className="text-2xl font-bold mb-4">Add New Supplier</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block">Name:</label>
+          <label htmlFor="name" className="block">Payment Method :</label>
           <input type="text" id="name" name="name" value={supplier.name} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
         <div>
-          <label htmlFor="age" className="block">Age:</label>
-          <input type="number" id="age" name="age" value={supplier.age} onChange={handleChange} required
+          <label htmlFor="age" className="block">Quantity :</label>
+          <input type="number" id="quantity"   name="quantity" value={supplier.quantity} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
         <div>
-          <label htmlFor="address" className="block">Address:</label>
-          <input type="text" id="address" name="address" value={supplier.address} onChange={handleChange} required
+          <label htmlFor="address" className="block"> Date:</label>
+          <input type="date"   id="date" name="date" value={supplier.date} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
@@ -83,4 +82,4 @@ const Supplierdetails = () => {
   );
 };
 
-export default Supplierdetails;
+export default Recording;
