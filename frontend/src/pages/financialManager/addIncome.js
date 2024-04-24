@@ -64,7 +64,7 @@ export default function AddIncome() {
     }
 
     return (
-        <div className="container">
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={setData}>
                 {/* Date, category, description inputs */}
                 {/* Amount input with onChange for handleAmountChange */}

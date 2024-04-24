@@ -3,47 +3,71 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 function VacationReport() {
-    const { empId } = useParams();
-    const { month } = useParams();
-    const { year } = useParams();
-    const [salaryDetails, setSalaryDetails] = useState([]);
+    const { vacID } = useParams();
+    const [vacationDetails, setVacationDetails] = useState(null);
+    const [error, setError] = useState('');
+    const [approved, setApproved] = useState(false);
+    const [rejected, setRejected] = useState(false);
 
     useEffect(() => {
-        const fetchSalaryDetails = async () => {
+        const fetchVacationDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/staff/salary/salaryDetails/${empId}/${month}/${year}`);
-                setSalaryDetails(response.data);
-                console.log(response.data);
+                const response = await axios.get(`http://localhost:8070/staff/vacation/vacationDetails/${vacID}`);
+                setVacationDetails(response.data.vacation);
             } catch (error) {
-                console.error("Error fetching salary details:", error.message);
+                console.error("Error fetching vacation details:", error.message);
+                setError('Failed to fetch vacation details.');
             }
         };
 
-        fetchSalaryDetails();
-    }, [empId, month, year]);
+        fetchVacationDetails();
+    }, [vacID]);
+
+    const handleApprove = () => {
+        setApproved(true);
+        setRejected(false); // Ensure we clear the rejected status if previously set
+    };
+
+    const handleReject = () => {
+        setRejected(true);
+        setApproved(false); // Ensure we clear the approved status if previously set
+    };
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
-            <h2>Salary Details</h2>
-            <div>
-                {salaryDetails.map((detail, index) => (
-                    <div key={index}>
-                        <p>Employee ID: {detail.empId}</p>
-                        <p>Name: {detail.name}</p>
-                        <p>Designation: {detail.designation}</p>
-                        <p>Month: {detail.month}</p>
-                        <p>Year: {detail.year}</p>
-                        <p>Basic Salary: {detail.basicSalary}</p>
-                        <p>ETF Bonus: {detail.ETFbonus}</p>
-                        <p>EPF Bonus: {detail.EPFbonus}</p>
-                        <p>Net Bonus: {detail.netBonus}</p>
-                        <p>Net Salary: {detail.netSalary}</p>
-                        <hr />
-                    </div>
-                ))}
+        <div className='absolute mt-48 left-1/3 w-1/2'>
+            <h2>Vacation Details</h2>
+            {vacationDetails ? (
+                <div>
+                    <p>Date: {vacationDetails.date}</p>
+                    <p>Employee Name: {vacationDetails.empName}</p>
+                    <p>Title: {vacationDetails.title}</p>
+                    <p>Department: {vacationDetails.department}</p>
+                    <p>Vacation Days Earned: {vacationDetails.daysEarned}</p>
+                    <p>Requested Date: {vacationDetails.reqDate}</p>
+                    <p>Returning Date: {vacationDetails.returningDate}</p>
+                    <p>Total Number of Days Requested: {vacationDetails.totDays}</p>
+                    <hr />
+                    {approved &&
+                        <h1 className='text-2xl text-green-600 font-bold'>Approved</h1>
+                    }
+                    {rejected &&
+                        <h1 className='text-2xl text-red-600 font-bold'>Rejected</h1>
+                    }
+                </div>
+            ) : (
+                <div>Loading vacation details...</div>
+            )}
+
+            <div className='mt-20'>
+                <button type='button' className="btn btn-success" onClick={handleApprove}>Approve</button>
+                <button type='button' className="btn btn-danger ml-5" onClick={handleReject}>Reject</button>
             </div>
         </div>
     );
 }
 
-export default SalaryReport;
+export default VacationReport;

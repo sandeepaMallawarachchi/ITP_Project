@@ -8,7 +8,6 @@ export default function AddNewSale() {
 
     const { id } = useParams();
     const [productName, setProductName] = useState("");
-    
     const [amount, setAmount] = useState("");
     const [sellingPrice, setSellingPrice] = useState("");
     const [unitPrice, setUnitPrice] = useState("");
@@ -47,6 +46,13 @@ export default function AddNewSale() {
             }
         };
         fetchStandardPrice();
+    };
+
+    const handleNumericInput = (value, setter) => {
+        const regex = /^[0-9\b]+$/; 
+        if (regex.test(value) || value === "") {
+            setter(value);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -108,17 +114,15 @@ export default function AddNewSale() {
             </Alert>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label for="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
+                    <label htmlFor="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
                     <input
                         type="text"
                         id="cusID"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="c123"
                         required
-                        onChange={(e) => {
-
-                            setCusID(e.target.value);
-                        }}
+                        value={cusID}
+                        onChange={(e) => setCusID(e.target.value)}
                     />
                 </div>
                 <div className="mb-3">
@@ -144,7 +148,7 @@ export default function AddNewSale() {
                         value={amount}
                         placeholder='100 KG'
                         id="amount"
-                        onChange={(e) => setAmount(e.target.value)}
+                        onChange={(e) => handleNumericInput(e.target.value, setAmount)}
                     />
                 </div>
                 <div className="mb-3">
@@ -168,7 +172,7 @@ export default function AddNewSale() {
                         value={sellingPrice}
                         placeholder='LKR 1000'
                         id="sellingPrice"
-                        onChange={(e) => setSellingPrice(e.target.value)}
+                        onChange={(e) => handleNumericInput(e.target.value, setSellingPrice)}
                     />
                 </div>
 

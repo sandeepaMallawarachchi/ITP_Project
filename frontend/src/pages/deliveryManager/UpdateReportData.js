@@ -38,7 +38,7 @@ function UpdateReportData() {
     };
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+        <div className="absolute mt-48 left-1/3 w-1/2" style={{ width: "600px" }}>
             <form onSubmit={handleSubmit}>
                 <div>
                     <div className="mb-3">

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function AllVacations() {
 
     const [vacations, setVacations] = useState([]);
+    const { id } = useParams();
 
     useEffect(() => {
         axios.get("http://localhost:8070/staff/vacation/allVacations").then((res) => {
@@ -17,11 +18,11 @@ function AllVacations() {
 
     const navigate = useNavigate();
 
-    const handleApprove = () => {
-        navigate(`/vacationReport`);
+    const handleApprove = (vacID) => {
+        navigate(`/staff/vacationReport/${vacID}/${id}`);
     }
-    const handleReject = (id) => {
-        navigate(`/vacationReport/${id}`);
+    const handleReject = (vacID) => {
+        navigate(`/staff/vacationReport/${vacID}/${id}`);
     }
 
     return (
@@ -50,8 +51,8 @@ function AllVacations() {
                             <td>{vacation.reqDate}</td>
                             <td>{vacation.returningDate}</td>
                             <td>{vacation.totDays}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprove(vacation.empId)}>Approve</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleReject(vacation._id)}>Reject</button>
+                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprove(vacation._id, id)}>Approve</button>
+                                <button type="submit" class="btn btn-danger" onClick={() => handleReject(vacation._id, id)}>Reject</button>
                             </td>
                         </tr>
                     ))}

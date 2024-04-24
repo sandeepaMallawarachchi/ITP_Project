@@ -3,10 +3,11 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function UpdateDriver() {
-    const { id } = useParams();
+    const { driverId } = useParams();
     const [driverDetails, setdriverDetails] = useState({
         dname: "",
         age: "",
+        dID: "",
         address: "",
         phone_number: "",
         email: "",
@@ -17,20 +18,20 @@ function UpdateDriver() {
     useEffect(() => {
         const fetchdriverDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/driver/get/${id}`);
+                const response = await axios.get(`http://localhost:8070/driver/get/${driverId}`);
                 setdriverDetails(response.data.driver);
             } catch (error) {
                 console.error("Error fetching driver details", error.message);
             }
         };
         fetchdriverDetails();
-    }, [id]);
+    }, [driverId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/driver/update/${id}`, driverDetails);
+            await axios.put(`http://localhost:8070/driver/update/${driverId}`, driverDetails);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating driver details", error.message);
@@ -38,12 +39,16 @@ function UpdateDriver() {
     };
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+        <div className="absolute mt-48 left-1/3 w-1/2" style={{ width: "600px" }}>
             <form onSubmit={handleSubmit}>
                 <div>
                     <div className="mb-3">
                         <label htmlFor="dname" className="form-label">Driver Name</label>
                         <input type="text" className="form-control" id="dname" value={driverDetails.dname} onChange={(e) => setdriverDetails({...driverDetails, dname: e.target.value})} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="dID" className="form-label">Driver ID</label>
+                        <input type="text" className="form-control" id="dID" value={driverDetails.dID} onChange={(e) => setdriverDetails({...driverDetails, dID: e.target.value})} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="age" className="form-label">Age</label>

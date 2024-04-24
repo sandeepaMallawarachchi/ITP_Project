@@ -85,7 +85,7 @@ function AllEmployees() {
                 </tbody>
             </table>
 
-            <button type="submit" class="btn btn-success" onClick={handleAddEmployees}>Add Employee</button>
+            {/* <button type="submit" class="btn btn-success" onClick={handleAddEmployees}>Add Employee</button> */}
 
             <h1>All Salespersons</h1>
             <table class="table">
