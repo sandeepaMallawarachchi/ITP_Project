@@ -30,7 +30,7 @@ export default function StaffRoutes() {
                 <Route path='/addVacation/:id' element={<AddVacation />} />
                 <Route path='/allVacations/:id' element={<AllVacations />} />
                 <Route path='/managerAccount/:id' element={<ManagerAccount />} />
-                <Route path='/vacationReport/:id' element={<VacationReport />} />
+                <Route path='/vacationReport/:vacID/:id' element={<VacationReport />} />
 
             </Route>
         </Routes>
