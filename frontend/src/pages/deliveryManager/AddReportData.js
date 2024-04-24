@@ -32,6 +32,20 @@ export default function AddReportData() {
         }
     };
 
+    const handleDateChange = (e) => {
+        const selectedDate = new Date(e.target.value);
+        const currentDate = new Date();
+
+        if (selectedDate > currentDate) {
+            // If selected date is in the future, set the input value to the current date
+            alert("You cannot select a future date.");
+            setDate(currentDate.toISOString().split('T')[0]);
+        } else {
+            // If selected date is valid, update the state with the selected date
+            setDate(e.target.value);
+        }
+    };
+
     function sendData(e) {
         e.preventDefault();
 
@@ -82,7 +96,7 @@ export default function AddReportData() {
                             onChange={(e) => setVehicleType(e.target.value)}
                         />
                     </div>
-                    <div className="mb-4">
+                     <div className="mb-4">
                         <label htmlFor="date" className="block text-gray-700 text-sm font-bold mb-2">Date</label>
                         <input
                             type="date"
@@ -90,9 +104,11 @@ export default function AddReportData() {
                             id="date"
                             placeholder="Enter date"
                             value={date}
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={handleDateChange}
                         />
                     </div>
+
+
                     <div className="mb-4">
                         <label htmlFor="monthlyDistance" className="block text-gray-700 text-sm font-bold mb-2">Monthly Distance (km)</label>
                         <input
