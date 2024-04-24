@@ -33,10 +33,10 @@ export default function Update() {
       .put(`http://localhost:8070/supplier/update/${itemId}`, values)
       .then((res) => {
         alert("Updated successfully");
-        navigate(`supplierManager/details/${id}`);
+        navigate(`/supplierManager/details/${id}`);
       })
       .catch((err) => console.log(err));
-  };
+};
 
   return (
     <div className="container mx-auto px-4 py-8">
