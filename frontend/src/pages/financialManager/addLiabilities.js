@@ -28,27 +28,29 @@ export default function AddIncome() {
         }
     };
 
+    
+
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={setData}>
 
                 <div className="mb-3">
-                    <label htmlFor="liabilities" className="form-label">Liabilities</label><br />
-                    <input type="text" className="form-control" id="liabilities" placeholder="Type liabilities"
+                    <label htmlFor="liabilities" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Liabilities</label><br />
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="liabilities" placeholder="Type liabilities"
                         value={liabilities}
                         onChange={(e) => setLiabilities(e.target.value)} required />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="descriptionInput" className="form-label">Description</label><br />
-                    <input type="text" className="form-control" id="descriptionInput" placeholder="Type description"
+                    <label htmlFor="descriptionInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label><br />
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="descriptionInput" placeholder="Type description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} required />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="amountInput" className="form-label">Amount</label><br />
-                    <input type="text" className="form-control" id="amountInput" placeholder="Type amount"
+                    <label htmlFor="amountInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amountInput" placeholder="Type amount"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)} required />
                 </div>
