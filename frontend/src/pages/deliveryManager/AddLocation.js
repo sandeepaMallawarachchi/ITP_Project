@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function CustomerLocations() {
@@ -11,14 +11,34 @@ export default function CustomerLocations() {
     const [address, setAddress] = useState("");
     const [district, setDistrict] = useState("");
     const [delivery_code, setDelivery_code] = useState("");
-    const [error, setError] = useState("");
+    const [errors, setErrors] = useState({});
+
+    function validateInputs() {
+        const errors = {};
+
+        if (!cusID) {
+            errors.cusID = "Customer ID is required";
+        } else {
+            const cusIdPattern = /^cusID-CID\d{4}$/;
+            if (!cusIdPattern.test(cusID)) {
+                errors.cusID = "Customer ID must be in the format 'cusID-CID1234'";
+            }
+        }
+
+        const deliveryCodePattern = /^delivery_code-D\d{3}$/;
+        if (!deliveryCodePattern.test(delivery_code)) {
+            errors.delivery_code = "Delivery code must be in the format 'delivery_code-D123'";
+        }
+
+        return errors;
+    }
 
     function sendData(e) {
         e.preventDefault();
 
-        // Check if cusID is empty
-        if (!cusID) {
-            setError("Customer ID is required");
+        const errors = validateInputs();
+        if (Object.keys(errors).length > 0) {
+            setErrors(errors);
             return;
         }
 
@@ -43,7 +63,7 @@ export default function CustomerLocations() {
                 setAddress("");
                 setDistrict("");
                 setDelivery_code("");
-                setError(""); // Clear error message after successful submission
+                setErrors({}); // Clear errors after successful submission
             })
             .catch((err) => {
                 if (err.response && err.response.status === 400) {
@@ -52,7 +72,6 @@ export default function CustomerLocations() {
                     alert(err.message);
                 }
             });
-
     }
 
     const navigate = useNavigate();
@@ -72,7 +91,8 @@ export default function CustomerLocations() {
 
                     <div>
                         <label htmlFor="cusID" className="block text-sm font-medium text-gray-700">Customer's ID</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="cusID" placeholder="Enter Customer ID" value={cusID} onChange={(e) => setCusID(e.target.value)} />
+                        <input type="text" placeholder="CID1234" className={`mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${errors.cusID && 'border-red-500'}`} id="cusID" placeholder="Enter Customer ID" value={cusID} onChange={(e) => setCusID(e.target.value)} />
+                        {errors.cusID && <p className="text-red-500">{errors.cusID}</p>}
                     </div>
 
                     <div>
@@ -97,7 +117,8 @@ export default function CustomerLocations() {
 
                     <div>
                         <label htmlFor="delivery_code" className="block text-sm font-medium text-gray-700">Delivery Code</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="delivery_code" placeholder="Enter Delivery Code" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
+                        <input type="text" placeholder="D123" className={`mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${errors.delivery_code && 'border-red-500'}`} id="delivery_code" placeholder="Enter Delivery Code" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
+                        {errors.delivery_code && <p className="text-red-500">{errors.delivery_code}</p>}
                     </div>
 
                     <div>
@@ -107,7 +128,6 @@ export default function CustomerLocations() {
                 <div className="mt-4">
                     <button onClick={handleAllLocations} className="text-blue-500 hover:text-blue-700 text-lg">All Customer Locations</button>
                 </div>
-                {error && <p className="text-red-500">{error}</p>}
             </div>
         </div>
     );
