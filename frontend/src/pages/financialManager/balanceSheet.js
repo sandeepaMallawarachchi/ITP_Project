@@ -107,12 +107,12 @@ export default function BalanceSheet() {
 
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div className='absolute mt-40 left-1/3 w-1/2 '>
             <Button onClick={handlePrint} color="blue" className="my-10 " style={{marginLeft:"2rem"}}> Download Report</Button>
                 <div  ref={componentRef} >
             <h1 className="text-3xl font-bold mb-4">January (2024)</h1>
             <div className="flex justify-center">
-                <table className="table-auto w-75%   border border-black mr-10 mt-28">
+                <table className="table-auto w-75%   border border-black mr-10 mt-18">
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="px-4 py-2 border border-black">Liabilities</th>
@@ -140,7 +140,7 @@ export default function BalanceSheet() {
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64" onClick={handleAddLiabilities}>Add liabilities</button>
            
             <div className="flex justify-center">
-                <table className="table-auto w-75%   border border-black mr-10 mt-24">
+                <table className="table-auto w-75%   border border-black mr-10 mt-20">
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="px-4 py-2 border border-black">Assets</th>
@@ -159,13 +159,13 @@ export default function BalanceSheet() {
                     </tbody>
                 </table>
                 <div className="flex justify-center">
-    <p>
-        {totalBalance < 0 ? 'Loss' : 'Profit' }: {Math.abs(totalBalance)}
-    </p>
+   
 </div>
 
             </div>
-
+            <p className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 ml-60 mr-60" >
+        {totalBalance < 0 ? 'Loss' : 'Profit' }: {Math.abs(totalBalance)}
+    </p>
         </div>
         </div>
     );
