@@ -13,8 +13,7 @@ router.route("/add").post((req, res) => {
     const returningDate = req.body.returningDate;
     const totDays = req.body.totDays;
     const status = req.body.status;
-    const approvedDate = req.body.approvedDate;
-    const rejectedDate = req.body.rejectedDate;
+    const statusDate = req.body.statusDate;
 
     const newVacStatus = new VacationStatus({
 
@@ -27,8 +26,7 @@ router.route("/add").post((req, res) => {
         returningDate,
         totDays,
         status,
-        approvedDate,
-        rejectedDate
+        statusDate,
 
     })
 

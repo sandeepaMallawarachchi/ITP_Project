@@ -12,6 +12,7 @@ import AllVacations from '../pages/staffManager/AllVacations'
 import ManagerAccount from '../components/ManagerAccount'
 import StaffManagerDashboard from '../pages/staffManager/StaffManagerDashboard'
 import StaffManagerLayout from '../pages/staffManager/StaffManagerLayout'
+import VacationReport from '../pages/staffManager/VacationReport'
 
 export default function StaffRoutes() {
     return (
@@ -29,7 +30,7 @@ export default function StaffRoutes() {
                 <Route path='/addVacation/:id' element={<AddVacation />} />
                 <Route path='/allVacations/:id' element={<AllVacations />} />
                 <Route path='/managerAccount/:id' element={<ManagerAccount />} />
-
+                <Route path='/vacationReport/:id' element={<VacationReport />} />
 
             </Route>
         </Routes>

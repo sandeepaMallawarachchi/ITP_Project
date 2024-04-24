@@ -40,11 +40,9 @@ const vacationStatusSchema = new Schema({
         type : String,
         required : true
     },
-    apprDate : {
+    statusDate : {
         type : Date,
-    },
-    rejDate : {
-        type : Date,
+        required : true
     },
 
 })
