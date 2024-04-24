@@ -7,7 +7,7 @@ const userSchema = new Schema({
         required: true
     },
     quantity: {
-        type: Number,
+        type: String,
         required: true
     },
     date: {
