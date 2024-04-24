@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 
 export default function AllLocation() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [searchValue, setSearchValue] = useState("");
     const [tea, setTea] = useState([]);
     const [filteredTea, setFilteredTea] = useState([]);
@@ -11,10 +11,6 @@ export default function AllLocation() {
     useEffect(() => {
         fetchTea();
     }, []);
-
-    useEffect(() => {
-        filterTea();
-    }, [searchValue, tea]);
 
     const fetchTea = () => {
         axios.get("http://localhost:8070/tea/")
@@ -27,12 +23,17 @@ export default function AllLocation() {
             });
     }
 
+    useEffect(() => {
+        filterTea();
+    }, [searchValue]);
+
     const filterTea = () => {
-        if (searchValue.trim() === "") {
+        const trimmedSearchValue = searchValue.trim().toLowerCase();
+        if (trimmedSearchValue === "") {
             setFilteredTea(tea);
         } else {
             const filteredData = tea.filter(tea1 =>
-                tea1.name && tea1.name.toLowerCase().includes(searchValue.toLowerCase())
+                tea1.name && tea1.name.toLowerCase().includes(trimmedSearchValue)
             );
             setFilteredTea(filteredData);
         }

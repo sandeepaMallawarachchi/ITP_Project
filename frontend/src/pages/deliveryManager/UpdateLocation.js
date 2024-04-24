@@ -39,7 +39,8 @@ function UpdateLocation() {
     };
 
     return (
-        <div className="container" style={{ width: "600px" }}>
+    
+        <div className="absolute mt-48 left-1/4 w-1/2" style={{ width: "600px" }}>
             <form onSubmit={handleSubmit} style={{marginLeft:"20rem"}}>
                 <div>
                     <div className="mb-3">
