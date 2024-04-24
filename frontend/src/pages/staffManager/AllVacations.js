@@ -18,10 +18,7 @@ function AllVacations() {
 
     const navigate = useNavigate();
 
-    const handleApprove = (vacID) => {
-        navigate(`/staff/vacationReport/${vacID}/${id}`);
-    }
-    const handleReject = (vacID) => {
+    const handleApprOrRej = (vacID) => {
         navigate(`/staff/vacationReport/${vacID}/${id}`);
     }
 
@@ -51,8 +48,7 @@ function AllVacations() {
                             <td>{vacation.reqDate}</td>
                             <td>{vacation.returningDate}</td>
                             <td>{vacation.totDays}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprove(vacation._id, id)}>Approve</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleReject(vacation._id, id)}>Reject</button>
+                            <td><button type="submit" class="btn btn-success" onClick={() => handleApprOrRej(vacation._id, id)}>Approve or Reject</button>
                             </td>
                         </tr>
                     ))}
