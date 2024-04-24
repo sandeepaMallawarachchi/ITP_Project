@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Update() {
-  const { id, tid } = useParams();
+  const { id, itemId } = useParams();
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
-    id: tid,
+    id: itemId,
     name: '',
     price: '',
     type: '',
@@ -16,27 +16,27 @@ export default function Update() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8070/supplier/fetch/${tid}`)
+      .get(`http://localhost:8070/supplier/fetch/${itemId}`)
       .then((res) => {
         setValues({
           ...res.data,
-          id: tid // Ensure id remains unchanged
+          id: itemId // Ensure id remains unchanged
         });
       })
       .catch((err) => console.log(err));
-  }, [tid]);
+  }, [itemId]);
   
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8070/supplier/update/${tid}`, values)
+      .put(`http://localhost:8070/supplier/update/${itemId}`, values)
       .then((res) => {
         alert("Updated successfully");
-        navigate(`supplierManager/details/${id}`);
+        navigate(`/supplierManager/details/${id}`);
       })
       .catch((err) => console.log(err));
-  };
+};
 
   return (
     <div className="container mx-auto px-4 py-8">

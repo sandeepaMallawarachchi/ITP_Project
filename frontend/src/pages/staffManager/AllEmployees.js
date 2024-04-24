@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function AllEmployees() {
-
     const [employees, setEmployees] = useState([]);
     const [salespersons, setSalesPersons] = useState([]);
     const [drivers, setDrivers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         axios.get("http://localhost:8070/staff/allEmployees").then((res) => {
@@ -14,7 +14,7 @@ function AllEmployees() {
         }).catch((error) => {
             alert(error.message);
         });
-    }, [])
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:8070/staff/allSalesmen").then((res) => {
@@ -22,7 +22,7 @@ function AllEmployees() {
         }).catch((error) => {
             alert(error.message);
         });
-    }, [])
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:8070/staff/allDrivers").then((res) => {
@@ -30,26 +30,29 @@ function AllEmployees() {
         }).catch((error) => {
             alert(error.message);
         });
-    }, [])
+    }, []);
 
     const navigate = useNavigate();
 
-    const handleAddEmployees = () => {
-        navigate(`/addEmployee`);
-    }
-    const handleUpdateEmployees = (id) => {
-        navigate(`/updateEmployee/${id}`);
-    }
+    const handleUpdateEmployees = (empId) => {
+        navigate(`/staff/updateEmployee/${empId}`);
+    };
 
-    const handleDeleteEmployees = (id) => {
-        navigate(`/deleteEmployee/${id}`);
-    }
+    const handleDeleteEmployees = (empId) => {
+        navigate(`/staff/deleteEmployee/${empId}`);
+    };
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
-            
+            <input
+                type="text"
+                placeholder="Search by First Name"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="form-control mb-3"
+            />
+
             <h1>All Managers</h1>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">Employee ID</th>
@@ -65,8 +68,8 @@ function AllEmployees() {
                     </tr>
                 </thead>
                 <tbody>
-                    {employees.map((employee) => (
-                        <tr key={(employee._id)}>
+                    {employees.filter(employee => employee.firstName?.toLowerCase().includes(searchTerm.toLowerCase())).map((employee) => (
+                        <tr key={employee._id}>
                             <td>{employee.empId}</td>
                             <td>{employee.firstName}</td>
                             <td>{employee.lastName}</td>
@@ -76,19 +79,17 @@ function AllEmployees() {
                             <td>{employee.address}</td>
                             <td>{employee.email}</td>
                             <td>{employee.phoneNo}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleUpdateEmployees(employee.empId)}>Update</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleDeleteEmployees(employee._id)}>Delete</button>
+                            <td>
+                                <button className="btn btn-success" onClick={() => handleUpdateEmployees(employee.empId)}>Update</button>
+                                <button className="btn btn-danger" onClick={() => handleDeleteEmployees(employee.empId)}>Delete</button>
                             </td>
                         </tr>
                     ))}
-
                 </tbody>
             </table>
 
-            {/* <button type="submit" class="btn btn-success" onClick={handleAddEmployees}>Add Employee</button> */}
-
             <h1>All Salespersons</h1>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">Salesperson ID</th>
@@ -101,54 +102,57 @@ function AllEmployees() {
                     </tr>
                 </thead>
                 <tbody>
-                    {salespersons.map((salesperson) => (
-                        <tr key={(salesperson._id)}>
+                    {salespersons.filter(salesperson => salesperson.name?.toLowerCase().includes(searchTerm.toLowerCase())).map((salesperson) => (
+                        <tr key={salesperson._id}>
                             <td>{salesperson.salespersonID}</td>
                             <td>{salesperson.name}</td>
-                            <td>{salesperson.gender}</td>
                             <td>{salesperson.dateOfBirth}</td>
-                            <td>{salesperson.address}</td>
+                            <td>{salesperson.gender}</td>
                             <td>{salesperson.email}</td>
                             <td>{salesperson.phone}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleUpdateEmployees(salesperson.empId)}>Update</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleDeleteEmployees(salesperson._id)}>Delete</button>
+                            <td>{salesperson.address}</td>
+                            <td>
+                                <button className="btn btn-success" onClick={() => handleUpdateEmployees(salesperson.salespersonID)}>Update</button>
+                                <button className="btn btn-danger" onClick={() => handleDeleteEmployees(salesperson.salespersonID)}>Delete</button>
                             </td>
                         </tr>
                     ))}
-
                 </tbody>
             </table>
 
             <h1>All Drivers</h1>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">Driver Name</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Duration of Job</th>
+                        <th className="px-4 py-2">Driver Name</th>
+                        <th className="px-4 py-2">Driver ID</th>
+                        <th className="px-4 py-2">Age</th>
+                        <th className="px-4 py-2">Address</th>
+                        <th className="px-4 py-2">Phone Number</th>
+                        <th className="px-4 py-2">Email</th>
+                        <th className="px-4 py-2">Duration of Job</th>
+                        <th className="px-4 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {drivers.map((driver) => (
-                        <tr key={(driver._id)}>
-                            <td>{driver.dname}</td>
-                            <td>{driver.age}</td>
-                            <td>{driver.address}</td>
-                            <td>{driver.phone_number}</td>
-                            <td>{driver.email}</td>
-                            <td>{driver.duration_of_job}</td>
-                            <td><button type="submit" class="btn btn-success" onClick={() => handleUpdateEmployees(driver.empId)}>Update</button>
-                                <button type="submit" class="btn btn-danger" onClick={() => handleDeleteEmployees(driver._id)}>Delete</button>
+                    {drivers.filter(driver => driver.dname?.toLowerCase().includes(searchTerm.toLowerCase())).map((driver) => (
+                        <tr key={driver._id}>
+                        <td className="border px-4 py-2">{driver.dname}</td>
+                        <td className="border px-4 py-2">{driver.dID}</td>
+                        <td className="border px-4 py-2">{driver.age}</td>
+                        <td className="border px-4 py-2">{driver.address}</td>
+                        <td className="border px-4 py-2">{driver.phone_number}</td>
+                        <td className="border px-4 py-2">{driver.email}</td>
+                        <td className="border px-4 py-2">{driver.duration_of_job}</td>
+                        <td className="border px-4 py-2">
+                            
+                                <button className="btn btn-success" onClick={() => handleUpdateEmployees(driver.driverID)}>Update</button>
+                                <button className="btn btn-danger" onClick={() => handleDeleteEmployees(driver.driverID)}>Delete</button>
                             </td>
                         </tr>
                     ))}
-
                 </tbody>
             </table>
-
         </div>
     )
 }
