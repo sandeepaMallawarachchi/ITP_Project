@@ -1,25 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //sales
-import SalesRoutes from './SalesRoutes';
+import SalesRoutes from './frontendRoutes/SalesRoutes';
 
 //sales manager
 
-import SalesManagerRoutes from './SalesManagerRoutes';
+import SalesManagerRoutes from './frontendRoutes/SalesManagerRoutes';
 
 //inventory
-import InventoryRoutes from "./InventoryRoutes";
+import InventoryRoutes from "./frontendRoutes/InventoryRoutes";
 
 //supplier
-import SupplierRoutes from './SupplierRoutes';
+import SupplierRoutes from './frontendRoutes/SupplierRoutes';
 
 //staff
-import StaffRoutes from './StaffRoutes';
+import StaffRoutes from './frontendRoutes/StaffRoutes';
 
 //delivery
-import DeliveryRoutes from './DeliveryRoutes';
+import DeliveryRoutes from './frontendRoutes/DeliveryRoutes';
 
 //financial
-import FinancialRoutes from './financialRoutes';
+import FinancialRoutes from './frontendRoutes/financialRoutes';
 
 //login
 import Login from "./components/Login";
