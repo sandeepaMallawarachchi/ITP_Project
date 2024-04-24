@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function UpdateEmployee() {
-
-    const { empId } = useParams();
-
+    const { empId, id } = useParams();
     const [empDetails, setEmpDetails] = useState({
         firstName: "",
         lastName: "",
@@ -20,17 +18,18 @@ function UpdateEmployee() {
     useEffect(() => {
         const fetchEmpDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/staff/get/${empId}`);
-                const empData = response.data.staff || response.data;
+                const response = await axios.get(`http://localhost:8070/empLogin/getManager/${empId}`);
+                // Accessing nested manager data correctly
+                const empData = response.data.manager;
                 const { firstName, lastName, gender, department, designation, address, email, phoneNo } = empData;
                 setEmpDetails({ firstName, lastName, gender, department, designation, address, email, phoneNo });
                 console.log("Employee Data:", empData);
             } catch (error) {
-                console.error("Error fetching employee details", error.message);
+                console.error("Error fetching employee details", error);
             }
         };
         fetchEmpDetails();
-    }, [empId]);    
+    }, [empId]);
 
     const navigate = useNavigate();
 
@@ -39,23 +38,17 @@ function UpdateEmployee() {
 
         try {
             await axios.put(`http://localhost:8070/staff/update/${empId}`, empDetails);
-            navigate(`/allEmployees`);
             alert("Details Updated!");
+            navigate(`/staff/allEmployees/${id}`);
         } catch (error) {
-            console.error("Error updating employee details", error.message);
+            console.error("Error updating employee details", error);
         }
     };
-
-
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <div className="mb-3">
-                        <label htmlFor="empId" className="form-label">Employee ID</label>
-                        <input type="text" className="form-control" id="empId" value={empId} onChange={(e) => setEmpDetails({ ...empDetails, empId: e.target.value })} />
-                    </div>
                     <div className="mb-3">
                         <label htmlFor="firstName" className="form-label">First Name</label>
                         <input type="text" className="form-control" id="firstName" value={empDetails.firstName} onChange={(e) => setEmpDetails({ ...empDetails, firstName: e.target.value })} />
@@ -91,7 +84,6 @@ function UpdateEmployee() {
                 </div>
                 <button type="submit" className="btn btn-primary">Update</button>
             </form>
-
         </div>
     );
 }

@@ -7,6 +7,7 @@ function AllEmployees() {
     const [salespersons, setSalesPersons] = useState([]);
     const [drivers, setDrivers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const { id } = useParams();
 
     useEffect(() => {
         axios.get("http://localhost:8070/staff/allEmployees").then((res) => {
@@ -35,11 +36,11 @@ function AllEmployees() {
     const navigate = useNavigate();
 
     const handleUpdateEmployees = (empId) => {
-        navigate(`/staff/updateEmployee/${empId}`);
+        navigate(`/staff/updateEmployee/${empId}/${id}`);
     };
 
     const handleDeleteEmployees = (empId) => {
-        navigate(`/staff/deleteEmployee/${empId}`);
+        navigate(`/staff/deleteEmployee/${empId}/${id}`);
     };
 
     return (
@@ -137,15 +138,15 @@ function AllEmployees() {
                 <tbody>
                     {drivers.filter(driver => driver.dname?.toLowerCase().includes(searchTerm.toLowerCase())).map((driver) => (
                         <tr key={driver._id}>
-                        <td className="border px-4 py-2">{driver.dname}</td>
-                        <td className="border px-4 py-2">{driver.dID}</td>
-                        <td className="border px-4 py-2">{driver.age}</td>
-                        <td className="border px-4 py-2">{driver.address}</td>
-                        <td className="border px-4 py-2">{driver.phone_number}</td>
-                        <td className="border px-4 py-2">{driver.email}</td>
-                        <td className="border px-4 py-2">{driver.duration_of_job}</td>
-                        <td className="border px-4 py-2">
-                            
+                            <td className="border px-4 py-2">{driver.dname}</td>
+                            <td className="border px-4 py-2">{driver.dID}</td>
+                            <td className="border px-4 py-2">{driver.age}</td>
+                            <td className="border px-4 py-2">{driver.address}</td>
+                            <td className="border px-4 py-2">{driver.phone_number}</td>
+                            <td className="border px-4 py-2">{driver.email}</td>
+                            <td className="border px-4 py-2">{driver.duration_of_job}</td>
+                            <td className="border px-4 py-2">
+
                                 <button className="btn btn-success" onClick={() => handleUpdateEmployees(driver.driverID)}>Update</button>
                                 <button className="btn btn-danger" onClick={() => handleDeleteEmployees(driver.driverID)}>Delete</button>
                             </td>
