@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { response } = require("express");
-let Vacation = require("../../models/staffModels/vacationDetails");
+let VacationStatus = require("../../models/staffModels/vacationStatus");
 
 router.route("/add").post((req, res) => {
 
@@ -12,8 +12,11 @@ router.route("/add").post((req, res) => {
     const reqDate = req.body.reqDate;
     const returningDate = req.body.returningDate;
     const totDays = req.body.totDays;
+    const status = req.body.status;
+    const approvedDate = req.body.approvedDate;
+    const rejectedDate = req.body.rejectedDate;
 
-    const newVac = new Vacation({
+    const newVacStatus = new VacationStatus({
 
         date,
         empName,
@@ -23,36 +26,39 @@ router.route("/add").post((req, res) => {
         reqDate,
         returningDate,
         totDays,
+        status,
+        approvedDate,
+        rejectedDate
 
     })
 
-    newVac.save().then(() => {
-        res.json("Vacation Added")
+    newVacStatus.save().then(() => {
+        res.json("Vacation Status Updated",newVacStatus)
     }).catch((err) => {
         console.log(err);
     })
 
 })
 
-router.route("/allVacations").get(async (req, res) => {
+router.route("/vacationReport").get(async (req, res) => {
 
     try {
-        const vacation = await Vacation.find();
-        res.status(200).send({ status: "User fetched", vacation });
+        const vacationStatus = await VacationStatus.find();
+        res.status(200).send({ status: "User fetched", vacationStatus });
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({ status: "Error with get employee", error: error.message });
+        res.status(500).send({ status: "Error with update status", error: error.message });
     }
 
 })
 
 router.route("/get/:empId").get(async (req, res) => {
     const empId = req.params.empId;
-    const vac = await Vacation.find({ empId: empId }).then((vacation) => {
+    const vac = await VacationStatus.find({ empId: empId }).then((vacationStatus) => {
         res.status(200).send({ status: "User fetched", vacation });
     }).catch((err) => {
         console.log(err.message);
-        res.status(500).send({ status: "Error with get employee", error: err.message });
+        res.status(500).send({ status: "Error with update status", error: err.message });
     });
 });
 
