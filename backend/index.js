@@ -58,11 +58,13 @@ const salaryRouter = require("./routes/staffRoutes/salary.js");
 const StaffRouter = require("./routes/staffRoutes/staff.js");
 const VacationRouter = require("./routes/staffRoutes/vacation.js");
 const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
+const VacationStatusRouter = require("./routes/staffRoutes/vacationStatus.js");
 
 app.use("/Staff", StaffRouter);
 app.use("/staff/salary", salaryRouter);
 app.use("/staff/vacation", VacationRouter);
 app.use("/empLogin", employeeLoginRouter);
+app.use("/staff/vacationStatus", VacationStatusRouter);
 
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");

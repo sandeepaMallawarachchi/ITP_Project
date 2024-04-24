@@ -4,14 +4,14 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 export default function DeleteIn() {
 
-    const { id } = useParams();
+    const { id , incomeID} = useParams();
     const navigate = useNavigate();
 
 
     const yesBtn = async () => {
-        axios.delete(`http://localhost:8070/incomeRt/delete/${id}`).then(() => {
+        axios.delete(`http://localhost:8070/incomeRt/delete/${incomeID}`).then(() => {
             alert("Income delete")
-            navigate("/HomeIncome")
+            navigate(`/financial/HomeIncome/${id}`)
         }).catch((err) => {
             alert(err)
         })
@@ -19,7 +19,7 @@ export default function DeleteIn() {
 
 
     return (
-        <div>
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
 
             <p>Are you sure you want to delete this employee?</p>
 

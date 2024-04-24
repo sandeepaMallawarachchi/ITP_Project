@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import FinancialManagerNavigations from "./FinancialManagerNavigations";
+import FinancialManagerNavigations from "./financialManagerNavigations";
 
 export default function FinancialManagerLayout() {
 

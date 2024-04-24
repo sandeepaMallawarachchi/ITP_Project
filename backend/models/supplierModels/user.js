@@ -13,8 +13,14 @@ const userSchema = new Schema({
     date: {
         type: Date,
         default: Date.now // Use Date.now() to get the current date
+    } ,
+     teatype: {
+        type: String,
+        required: true
+    } 
     }
-});
+    
+ );
 
 const userModel = mongoose.model('userModel', userSchema);
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Alert, Spinner } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
@@ -7,7 +7,9 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../../firebase';
 
 export default function AddDriver() {
+    const {id} = useParams();
     const [dname, setName] = useState("");
+    const [dID, setdID] = useState("");
     const [age, setAge] = useState("");
     const [address, setAddress] = useState("");
     const [phone_number, setNumber] = useState("");
@@ -56,6 +58,7 @@ export default function AddDriver() {
 
         const newAddDriver = {
             dname,
+            dID,
             age,
             address,
             phone_number,
@@ -68,6 +71,7 @@ export default function AddDriver() {
             alert("Driver Added");
 
             setName("");
+            setdID("");
             setAge("");
             setAddress("");
             setNumber("");
@@ -105,13 +109,24 @@ export default function AddDriver() {
         }
     };
 
+    const navigate = useNavigate();
+
+    const handleAllDrivers = () => {
+        navigate(`/deliveryManager/allDrivers/${id}`);
+    }
+
     return (
-        <div className="container">
+        <div className="container absolute mt-36 ml-80">
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label htmlFor="dname" className="form-label">Driver Name</label>
                     <input type="text" className="form-control" id="dname" placeholder="Enter Driver Name"
                         onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="dID" className="form-label">Driver ID</label>
+                    <input type="text" className="form-control" id="dID" placeholder="Enter the Driver ID"
+                        onChange={(e) => setdID(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="age" className="form-label">Age</label>
@@ -121,7 +136,7 @@ export default function AddDriver() {
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label">Address</label>
                     <input type="text" className="form-control" id="address" placeholder="Enter the Address"
-                        onChange={(e) => setAddress(parseInt(e.target.value, 10))} /> {/* Parse string to integer */}
+                        onChange={(e) => setAddress(e.target.value, 10)} /> {/* Parse string to integer */}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="phone_number" className="form-label">Phone Number</label>
@@ -150,9 +165,9 @@ export default function AddDriver() {
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            <li className="rty">
-                <Link to="/allDrivers" className="rty">All Drivers</Link>
-            </li>
+            <div className="mt-4">
+                    <button onClick={handleAllDrivers} className="text-blue-500 hover:text-blue-700 text-lg">All Drivers</button>
+                </div>
 
             <form onSubmit={handleSubmit} className="mt-10">
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const vacationSchema = new Schema({
+const vacationStatusSchema = new Schema({
 
     date : {
         type : Date,
@@ -36,9 +36,17 @@ const vacationSchema = new Schema({
         type : Number,
         required : true
     },
+    status : {
+        type : String,
+        required : true
+    },
+    statusDate : {
+        type : Date,
+        required : true
+    },
 
 })
 
-const Vacation = mongoose.model("Vacation",vacationSchema);
+const VacationStatus = mongoose.model("VacationStatus",vacationStatusSchema);
 
-module.exports = Vacation;
+module.exports = VacationStatus;
