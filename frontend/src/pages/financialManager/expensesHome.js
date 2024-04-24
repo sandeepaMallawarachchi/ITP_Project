@@ -140,8 +140,7 @@ export default function Home() {
                                     <td className="border border-gray-400 px-4 py-2">{expense.amount}</td>
                                     <td className="border border-gray-400 px-4 py-2">{expense.action}
                                         <button
-                                            type="button"
-                                            className="btn btn-secondary btn-lg"
+                                            className="mt-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                             onClick={() => handleUpdateExpensesBtn(expense._id, id)}
                                         >
                                             Update

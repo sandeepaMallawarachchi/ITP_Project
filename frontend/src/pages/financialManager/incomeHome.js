@@ -90,30 +90,35 @@ export default function HomeIn() {
 
 
 
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
-            <Button onClick={handlePrint} color="blue" className="my-10 " style={{ marginLeft: "2rem" }}> Download Report</Button>
+        <div className="container mx-auto p-4 mr-64">
+            <Button 
+            onClick={handlePrint}
+            color="blue"
+            className="mt-24 ml-64" > Download Report</Button>
             <div ref={componentRef} >
                 <h1>January ( 2024 )</h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-
-                            <th scope="col">Date</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
+                <table className="table-auto border-collapse border border-gray-400 w-full">
+                <thead>
+                            <tr>
+                                <th className="border border-gray-400 px-4 py-2">Date</th>
+                                <th className="border border-gray-400 px-4 py-2">Category</th>
+                                <th className="border border-gray-400 px-4 py-2">Description</th>
+                                <th className="border border-gray-400 px-4 py-2">Amount</th>
+                                <th className="border border-gray-400 px-4 py-2">Action</th>
+                            </tr>
+                        </thead>
                     <tbody>
                         {income.map((incomes) => (
                             <tr key={incomes._id}>
-                                <td>{incomes.date}</td>
-                                <td>{incomes.category}</td>
-                                <td>{incomes.description}</td>
-                                <td>{incomes.amount}</td>
+                                <td className="border border-gray-400 px-4 py-2">{incomes.date}</td>
+                                <td className="border border-gray-400 px-4 py-2">{incomes.category}</td>
+                                <td className="border border-gray-400 px-4 py-2">{incomes.description}</td>
+                                <td className="border border-gray-400 px-4 py-2">{incomes.amount}</td>
                                 <td>
-                                    <button type="button" class="btn btn-secondary btn-lg" onClick={() => handleUpdateIncomeBtn(incomes._id, id)}>Update Income</button>
+                                <button
+                                            className="mt-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                             onClick={() => handleUpdateIncomeBtn(incomes._id, id)}>Update Income
+                                </button>
                                     <button type="button" class="btn btn-secondary btn-lg" onClick={() => handleDeleteIncomeBtn(incomes._id, id)}>Delete Income</button>
                                 </td>
                             </tr>
