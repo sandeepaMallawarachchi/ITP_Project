@@ -8,7 +8,8 @@ export default function BalanceSheet() {
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
     const [totalLiabilities, setTotalLiabilities] = useState(0);
-    
+    const [totalBalance, setTotalBalance] = useState(0);
+   
     useEffect(() => {
         axios.get("http://localhost:8070/totalLiabilities/totalLiabilities").then((res) => {
             setTotalLiabilities(res.data.totalLiabilities); // Ensure to access the correct property
@@ -26,6 +27,22 @@ export default function BalanceSheet() {
         });
 
     }, []);
+
+    useEffect(() => {
+        axios.get("http://localhost:8070/getTotalBalance/totalBalance")
+            .then((res) => {
+                const totalBalance = res.data.totalBalance;
+                setTotalBalance(totalBalance);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }, [income]); 
+
+
+
+ 
+   
 
     useEffect(() => {
         axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
@@ -87,17 +104,17 @@ export default function BalanceSheet() {
                             <td className="border border-gray-400 px-4 py-2">Income</td>
                             <td className="border border-gray-400 px-4 py-2">{totalIncome}</td>
                         </tr>
-                        {income.map((income) => (
-                            <tr key={income._id} className="border-b border-black">
-                                <td className="px-4 py-2 border border-black">{income.liabilities}</td>
-                                <td className="px-4 py-2 border border-black">{income.description}</td>
-                                <td className="px-4 py-2 border border-black">{income.amount}</td>
-                            </tr>
-                        ))}
+                        
                         <p >Total Assets: {totalIncome}</p>
                     </tbody>
                 </table>
+                <div className="flex justify-center">
+    <p>
+        {totalBalance < 0 ? 'Loss' : 'Profit'}: {Math.abs(totalBalance)}
+    </p>
+</div>
             </div>
+
         </div>
     );
 }
