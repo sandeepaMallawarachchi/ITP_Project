@@ -5,9 +5,7 @@ import { Sidebar } from 'flowbite-react';
 import { BiBuoy } from 'react-icons/bi';
 import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { MdFormatListBulleted } from "react-icons/md";
-import { HiOutlineDocumentReport } from "react-icons/hi";
+
 import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
