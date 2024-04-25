@@ -19,10 +19,10 @@ export default function InventoryRoutes() {
                 <Route path="addProduct/:id" element={<AddProduct />} />
                 <Route path="orders/:id" element={<Orders />} />
                 <Route path="reports/:id" element={<Reports />} />
-                <Route path="updateProduct/:id/:id" element={<UpdateProduct />} />
-                <Route path="deleteProduct/:id/:id" element={<DeleteProduct />} />
+                <Route path="updateProduct/:productId/:id" element={<UpdateProduct />} />
+                <Route path="deleteProduct/:productId/:id" element={<DeleteProduct />} />
                 <Route path="searchResult/:id" element={<SearchResult />} />
-                <Route path="managerAcount/:id" element={<ManagerAccount />} />
+                <Route path="account/:id" element={<ManagerAccount />} />
             </Route>
         </Routes>
     );
