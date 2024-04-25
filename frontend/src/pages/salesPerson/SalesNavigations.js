@@ -172,7 +172,7 @@ export default function Navigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleProfilePic} >
+                    <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleMyAccount} >
                         <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{salesman.name}</span>

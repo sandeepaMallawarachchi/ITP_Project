@@ -112,6 +112,7 @@ export default function UploadVehicleDetails() {
 
     return (
         <div className="absolute mt-36 ml-80">
+            <h1 className="text-2xl font-bold mb-4">Checking Vehicle Conditions</h1>
             <form onSubmit={handleSubmit} className="mt-10">
                 <div className="mb-6">
                     <label htmlFor="license" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Driver's License</label>
