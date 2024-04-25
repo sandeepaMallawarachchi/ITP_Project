@@ -82,38 +82,37 @@ export default function AddReportData() {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen absolute mt-48 left-1/3 w-1/2">
-            <div className="w-1/2 p-10">
-                <form onSubmit={sendData} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="flex justify-center items-center h-screen">
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mt-48 mb-4 w-1/2">
+                <h1 className="text-2xl font-bold mb-4">Add Report Data</h1>
+                <form onSubmit={sendData} className="space-y-6">
                     <div className="mb-4">
-                        <label htmlFor="vehicleType" className="block text-gray-700 text-sm font-bold mb-2">Vehicle Type</label>
+                        <label htmlFor="vehicleType" className="block text-sm font-medium text-gray-700">Vehicle Type</label>
                         <input
                             type="text"
-                            className="form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             id="vehicleType"
                             placeholder="Enter vehicle type"
                             value={vehicleType}
                             onChange={(e) => setVehicleType(e.target.value)}
                         />
                     </div>
-                     <div className="mb-4">
-                        <label htmlFor="date" className="block text-gray-700 text-sm font-bold mb-2">Date</label>
+                    <div className="mb-4">
+                        <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
                         <input
                             type="date"
-                            className="form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             id="date"
                             placeholder="Enter date"
                             value={date}
                             onChange={handleDateChange}
                         />
                     </div>
-
-
                     <div className="mb-4">
-                        <label htmlFor="monthlyDistance" className="block text-gray-700 text-sm font-bold mb-2">Monthly Distance (km)</label>
+                        <label htmlFor="monthlyDistance" className="block text-sm font-medium text-gray-700">Monthly Distance (km)</label>
                         <input
                             type="number"
-                            className="form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             id="monthlyDistance"
                             placeholder="Enter monthly distance"
                             value={monthlyDistance}
@@ -121,10 +120,10 @@ export default function AddReportData() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="fuelCost" className="block text-gray-700 text-sm font-bold mb-2">Fuel Cost (LKR)</label>
+                        <label htmlFor="fuelCost" className="block text-sm font-medium text-gray-700">Fuel Cost (LKR)</label>
                         <input
                             type="number"
-                            className="form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             id="fuelCost"
                             placeholder="Enter fuel cost"
                             value={fuelCost}
@@ -132,10 +131,10 @@ export default function AddReportData() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="serviceCharge" className="block text-gray-700 text-sm font-bold mb-2">Service Charge (LKR)</label>
+                        <label htmlFor="serviceCharge" className="block text-sm font-medium text-gray-700">Service Charge (LKR)</label>
                         <input
                             type="number"
-                            className="form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             id="serviceCharge"
                             placeholder="Enter service charge"
                             value={serviceCharge}
@@ -143,10 +142,10 @@ export default function AddReportData() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="totalCost" className="block text-gray-700 text-sm font-bold mb-2">Total Cost (LKR)</label>
+                        <label htmlFor="totalCost" className="block text-sm font-medium text-gray-700">Total Cost (LKR)</label>
                         <input
                             type="number"
-                            className="form-input mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             id="totalCost"
                             placeholder="Enter total cost"
                             value={totalCost}

@@ -37,52 +37,52 @@ function UpdateEmployee() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/staff/update/${empId}`, empDetails);
+            await axios.put(`http://localhost:8070/empLogin/updateManager/${empId}`, empDetails);
             alert("Details Updated!");
-            navigate(`/staff/allEmployees/${id}`);
+            // navigate(`/staff/allEmployees/${id}`);
         } catch (error) {
             console.error("Error updating employee details", error);
         }
     };
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div className='absolute mt-48 left-1/3 w-1/2'>
             <form onSubmit={handleSubmit}>
                 <div>
                     <div className="mb-3">
-                        <label htmlFor="firstName" className="form-label">First Name</label>
-                        <input type="text" className="form-control" id="firstName" value={empDetails.firstName} onChange={(e) => setEmpDetails({ ...empDetails, firstName: e.target.value })} />
+                        <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="firstName" value={empDetails.firstName} onChange={(e) => setEmpDetails({ ...empDetails, firstName: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="lastName" className="form-label">Last Name</label>
-                        <input type="text" className="form-control" id="lastName" value={empDetails.lastName} onChange={(e) => setEmpDetails({ ...empDetails, lastName: e.target.value })} />
+                        <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="lastName" value={empDetails.lastName} onChange={(e) => setEmpDetails({ ...empDetails, lastName: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="gender" className="form-label">Gender</label>
-                        <input type="text" className="form-control" id="gender" value={empDetails.gender} onChange={(e) => setEmpDetails({ ...empDetails, gender: e.target.value })} />
+                        <label htmlFor="gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="gender" value={empDetails.gender} onChange={(e) => setEmpDetails({ ...empDetails, gender: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="department" className="form-label">Department</label>
-                        <input type="text" className="form-control" id="department" value={empDetails.department} onChange={(e) => setEmpDetails({ ...empDetails, department: e.target.value })} />
+                        <label htmlFor="department" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="department" value={empDetails.department} onChange={(e) => setEmpDetails({ ...empDetails, department: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="designation" className="form-label">Designation</label>
-                        <input type="text" className="form-control" id="designation" value={empDetails.designation} onChange={(e) => setEmpDetails({ ...empDetails, designation: e.target.value })} />
+                        <label htmlFor="designation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Designation</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="designation" value={empDetails.designation} onChange={(e) => setEmpDetails({ ...empDetails, designation: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="address" className="form-label">Address</label>
-                        <input type="text" className="form-control" id="address" value={empDetails.address} onChange={(e) => setEmpDetails({ ...empDetails, address: e.target.value })} />
+                        <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="address" value={empDetails.address} onChange={(e) => setEmpDetails({ ...empDetails, address: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="text" className="form-control" id="email" value={empDetails.email} onChange={(e) => setEmpDetails({ ...empDetails, email: e.target.value })} />
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="email" value={empDetails.email} onChange={(e) => setEmpDetails({ ...empDetails, email: e.target.value })} />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="phoneNo" className="form-label">Phone Number</label>
-                        <input type="text" className="form-control" id="phoneNo" value={empDetails.phoneNo} onChange={(e) => setEmpDetails({ ...empDetails, phoneNo: e.target.value })} />
+                        <label htmlFor="phoneNo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="phoneNo" value={empDetails.phoneNo} onChange={(e) => setEmpDetails({ ...empDetails, phoneNo: e.target.value })} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Update</button>
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update Employee</button>
             </form>
         </div>
     );
