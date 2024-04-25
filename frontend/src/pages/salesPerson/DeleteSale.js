@@ -12,7 +12,7 @@ function DeleteSale() {
 
             await axios.delete(`http://localhost:8070/sales/deleteSale/${saleID}`);
             alert("Sale deleted!");
-            navigate(`/salesManager/currentSale/${id}/${cusID}`);
+            navigate(`/sales/currentSale/${id}/${cusID}`);
         } catch (error) {
             console.log("Error!", error.message);
             alert('Error deleting sale, Please try again.');
@@ -20,7 +20,7 @@ function DeleteSale() {
     };
 
     const handleCancel = () => {
-        navigate(`/salesManager/currentSale/${id}/${cusID}`);
+        navigate(`/sales/currentSale/${id}/${cusID}`);
     };
 
     return (

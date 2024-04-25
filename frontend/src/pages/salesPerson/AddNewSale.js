@@ -113,7 +113,7 @@ export default function AddNewSale() {
     };
 
     const handleSalesSummary = () => {
-        navigate(`/salesManager/currentSale/${id}/${cusID}`);
+        navigate(`/sales/currentSale/${id}/${cusID}`);
     };
 
     return (
