@@ -7,129 +7,126 @@ import { useParams } from "react-router-dom";
 
 export default function AddProduct() {
 
-    const navigate = useNavigate();
-    const {id} = useParams();
+  const navigate = useNavigate();
+  const {id} = useParams();
 
-    //state to store product data
-    const [productData,setProductData] = useState({
-        name : "",
-        type : "",
-        stockLevel : 0,
-        reorderLevel : 0,
-        price : 0,
-        weight : 0,
-        manDate :"" ,
-        expDate : ""
-    });
+  //state to store product data
+  const [productData,setProductData] = useState({
+      name : "",
+      type : "",
+      stockLevel : 0,
+      reorderLevel : 0,
+      price : 0,
+      weight : 0,
+      manDate :"" ,
+      expDate : ""
+  });
 
-    //state to store validation errors
-    const [formErrors,setFormErrors] = useState({});
+  //state to store validation errors
+  const [formErrors,setFormErrors] = useState({});
+
+  function handleChange(e){
+
+    const {name,value} = e.target;
+
+    //perform validation for the specific field changed
+    const error = validate({...productData, [name] : value});
     
-
-    function handleChange(e){
-       setProductData((prevItem)=>(
-        {
-            ...prevItem,
-            [e.target.name] : e.target.value
-        }
-       )
-    )
+    //update formError state with validation result
+    setFormErrors((prevErrors)=>(
+      {
+        ...prevErrors,
+        [name] : error[name]
+      }
+    ))
+    
+    //Prevent the user from entering negative numbers
+    if((name === "stockLevel" || name === "reorderLevel" || name === "price" || name === "weight") && parseFloat(value)<0){
+      return ;
     }
+    //update productData state with new data
+    setProductData((prevItem)=>(
+      {
+          ...prevItem,
+          [name] : value
+      }
+      )
+   )
+  }
 
-    //when validation errors updates the useeffect will run
-    useEffect(()=>{
-      console.log(formErrors);
+  async function addProduct(){
+       try{
+          //adding new tea product to inventory
+          await axios.post("http://localhost:8070/inventory/product/addTeaPack",{
+            productName : productData.name,
+            teaType : productData.type,
+            stockLevel : productData.stockLevel,
+            reorderLevel : productData.reorderLevel,
+            unitPrice : productData.price,
+            weight : productData.weight,
+            manDate : productData.manDate,
+            expDate: productData.expDate
+          })
+          alert("successfully added the product")
+          navigate(`/inventory/products/${id}`)
 
-      //if there are no error, add the products
-      if(Object.keys(formErrors).length === 0){
+       }catch(err){
+        console.log(err)
+       }
+  }
 
-        //creating a new product
-        const newProduct = {
-          productName : productData.name,
-          teaType : productData.type,
-          stockLevel : productData.stockLevel,
-          reorderLevel : productData.reorderLevel,
-          unitPrice : productData.price,
-          weight : productData.weight,
-          manDate : productData.manDate,
-          expDate : productData.expDate
-        }
-        
-        const addProducts = async()=>{
 
-         try{
-          //adding data to db
-            await axios.post("http://localhost:8070/inventory/product/addTeaPack",newProduct);
-            
-            
-            //after adding the product, navigate to products page
-            navigate(`/inventory/products/${id}`);
+  async function handleSubmit(e){
+      e.preventDefault()
 
-          }catch(err){
-            console.log(err);
-          }
-        }
-        addProducts();
-        
-        
-        setProductData({
-          name : "",
-          type : "",
-          stockLevel : 0,
-          reorderLevel : 0,
-          price : 0,
-          weight : 0,
-          manDate : "",
-          expDate : ""
-        });
+      const error = validate(productData)
+      //if no validation errors, can submit the form
+      if(Object.keys(error).length === 0){
+        await addProduct()
+          
+      }else{
+        setFormErrors(error)
+      }
+
+
+  }
   
-      }
-      
-      
-    },[formErrors] )
+
+  
+  //validation rules
+
+  function validate(value){
+
+    const errors = {}
+    const dateRegex = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/
+
+    const manufacturedDate = new Date(value.manDate).setHours(0,0,0,0);
+    const expiryDate = new Date(value.expDate).setHours(0,0,0,0);
     
-    async function handleSubmit(e){
-
-      e.preventDefault();
-
-      //setting state of validation errors 
-      setFormErrors(validate(productData));
-      
+    //checking if stocklevel is lesser than reorder level
+    if(parseInt(value.stockLevel) <= parseInt(value.reorderLevel)){
+      errors.reorderLevel = "Reorder Level should be less than Stock Level !";
     }
     
-    //validation rules
-
-    function validate(value){
-
-      const errors = {}
-      const dateRegex = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/
-
-      const manufacturedDate = new Date(value.manDate).setHours(0,0,0,0);
-      const expiryDate = new Date(value.expDate).setHours(0,0,0,0);
-      
-      //checking if stocklevel is lesser than reorder level
-      if(parseInt(value.stockLevel) <= parseInt(value.reorderLevel)){
-        errors.reorderLevel = "Reorder Level should be less than Stock Level !";
-      }
-      
-      //checking if manufactured date is in the correct format 
-      if(!dateRegex.test(value.manDate)){
-        errors.manDate = "Manufactured Date is not in the correct format !";
-      }
-      
-      //checking if the expiry date is in the correct format
-      if(!dateRegex.test(value.expDate)){
-        errors.expDate = "Expiry Date is not in the correct format !";
-      }
-
-      //checking if the expiry date has passed the manufactured date
-      if(expiryDate <= manufacturedDate){
-        errors.expDate = "Entered date has passed manufactured date !";
-      }
-
-
-      return errors;
+    //checking if manufactured date is in the correct format 
+    if(!dateRegex.test(value.manDate)){
+      errors.manDate = "Manufactured Date is not in the correct format !";
     }
+    
+    //checking if the expiry date is in the correct format
+    if(!dateRegex.test(value.expDate)){
+      errors.expDate = "Expiry Date is not in the correct format !";
+    }
+
+    //checking if the expiry date has passed the manufactured date
+    if(expiryDate <= manufacturedDate){
+      errors.expDate = "Entered date has passed manufactured date !";
+    }
+
+
+    return errors;
+  }
+   
     
   return (
       <div style={{marginLeft:"25%",marginTop:"10rem"}}>

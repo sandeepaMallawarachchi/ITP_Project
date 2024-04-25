@@ -1,11 +1,12 @@
 import React,{useState} from "react";
 import axios from "axios";
 import { Button, Label, TextInput } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Orders(){
 
     const navigate = useNavigate();
+    const {id} = useParams();
 
     //initialize state to store order form data
     const [order,setOrder] = useState({
@@ -15,9 +16,15 @@ export default function Orders(){
     });
 
     function handleChange(e){
+        
+        const {name,value} = e.target;
+        if(name === "quantity" && parseFloat(value)<0){
+            return ;
+        }
+
         setOrder((item)=>({
             ...item,
-            [e.target.name] : e.target.value
+            [name] : value
         }))
     }
 
@@ -33,6 +40,7 @@ export default function Orders(){
          })
         .then(()=>{
             alert("Order added successfully")
+            // navigate(`inventory/dashboard/${id}`);
         }).catch((err)=>{
             console.log(err)
         })
@@ -44,7 +52,7 @@ export default function Orders(){
             quantity : 0
         })
 
-        navigate("/inventory");
+        
     }
     return (
         <div style={{marginLeft:"40%",marginTop:"10rem"}}>
@@ -67,7 +75,7 @@ export default function Orders(){
           <div className="mb-2 block">
           <Label>Quantity</Label>
           </div>
-          <TextInput  type="number" name="quantity" value={order.quantity} onChange={handleChange} required />
+          <TextInput  type="number" name="quantity" value={order.quantity} onChange={handleChange} onWheel={(e) => e.preventDefault()} required />
         </div>
 
         <Button type="submit" style={{width:"15rem",marginTop:"1rem"}} pill >Make an Order</Button>

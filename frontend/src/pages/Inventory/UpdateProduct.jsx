@@ -7,131 +7,148 @@ import { Button, Label, TextInput } from "flowbite-react";
 
 export default function UpdateProduct(){
 
-    const [data,setData] = useState({
-        productName : "",
-        teaType : "",
-        stockLevel : 0,
-        reorderLevel : 0,
-        unitPrice : 0,
-        weight : 0,
-        manDate : "",
-        expDate : ""
-    })
+  const [data,setData] = useState({
+    productName : "",
+    teaType : "",
+    stockLevel : 0,
+    reorderLevel : 0,
+    unitPrice : 0,
+    weight : 0,
+    manDate : "",
+    expDate : ""
+})
 
-    //state to store validation errors
-    const [formErrors,setFormErrors] = useState({});
+//state to store validation errors
+const [formErrors,setFormErrors] = useState({});
 
-    const {productId,id} = useParams();
-    const navigate = useNavigate();
+const {productId,id} = useParams();
+const navigate = useNavigate();
 
-    //whenenver the id changes, useEffect runs
-   useEffect(()=>{
-    //fetch data of a particular product through an api
-      const fetchData = async()=>{
-        try{
-        const response = await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`);
-        console.log(response.data)
-        const manDate = new Date(response.data.manDate).toLocaleDateString();
-        const expDate = new Date(response.data.expDate).toLocaleDateString();
-        //set the response to setData() and update the state of data
-        setData({...response.data,
-                   manDate : manDate,
-                   expDate : expDate}
-                );
-         }catch(err){
-         console.log(err);
-       }
-      }
-      fetchData()
+//whenenver the id changes, useEffect runs
+useEffect(()=>{
+//fetch data of a particular product through an api
+  const fetchData = async()=>{
+    try{
+    const response = await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`);
+    console.log(response.data)
+    const manDate = new Date(response.data.manDate).toLocaleDateString();
+    const expDate = new Date(response.data.expDate).toLocaleDateString();
+    //set the response to setData() and update the state of data
+    setData({...response.data,
+               manDate : manDate,
+               expDate : expDate}
+            );
+     }catch(err){
+     console.log(err);
+   }
+  }
+  fetchData()
 
-     },[productId])
+ },[productId])
 
-     //setting new data
-    function handleChange(e){
-        setData((prevItem)=>(
-        {
-            ...prevItem,
-            [e.target.name] : e.target.value
-        }
-        )
-     )
+ //setting new data
+function handleChange(e){
+  const {name,value} = e.target;
 
+  //perform validation for the specific field changed
+  const error = validate({...data, [name] : value});
+  
+  //update formError state with validation result
+  setFormErrors((prevErrors)=>(
+    {
+      ...prevErrors,
+      [name] : error[name]
     }
+  ))
 
-    //updating the new data through an api
-    const updateData = async()=>{
-       try{
-         const response = await axios.patch(`http://localhost:8070/inventory/product/updateTeaPack/${productId}`,{
-            productName : data.productName,
-            teaType : data.teaType,
-            stockLevel : data.stockLevel,
-            reorderLevel : data.reorderLevel,
-            weight : data.weight,
-            unitPrice : data.unitPrice,
-            manDate: data.manDate,
-            expDate : data.expDate
-          });
-            
-          console.log(response.data)
-          //alert("successfully updated")
-          
-          navigate(`/inventory/products/${id}`)
-            
-          }catch(err){
-            console.log(err);
-          }
-     }
-    
-    //validation rules
+  //Prevent the user from entering negative numbers
+  if((name === "stockLevel" || name === "reorderLevel" || name === "price" || name === "weight") && parseFloat(value)<0){
+    return ;
+  }
 
-     function validate(value){
-
-      const errors = {}
-      const dateRegex = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/
-
-      const manufacturedDate = new Date(value.manDate).setHours(0,0,0,0);
-      const expiryDate = new Date(value.expDate).setHours(0,0,0,0);
-      
-      //checking if stocklevel is lesser than reorder level
-      if(parseInt(value.stockLevel) <= parseInt(value.reorderLevel)){
-        errors.reorderLevel = "Reorder Level should be less than Stock Level !";
-      }
-      
-      //checking if manufactured date is in the correct format 
-      if(!dateRegex.test(value.manDate)){
-        errors.manDate = "Manufactured Date is not in the correct format !";
-      }
-      
-      //checking if the expiry date is in the correct format
-      if(!dateRegex.test(value.expDate)){
-        errors.expDate = "Expiry Date is not in the correct format !";
-      }
-
-      //checking if the expiry date has passed the manufactured date
-      if(expiryDate <= manufacturedDate){
-        errors.expDate = "Entered date has passed manufactured date !";
-      }
-
-
-      return errors;
+    setData((prevItem)=>(
+    {
+        ...prevItem,
+        [name] : value
     }
-    
+    )
+ )
 
-    async function handleSubmit(e){
-        e.preventDefault();
+}
+
+//updating the new data through an api
+const updateData = async()=>{
+   try{
+     const response = await axios.patch(`http://localhost:8070/inventory/product/updateTeaPack/${productId}`,{
+        productName : data.productName,
+        teaType : data.teaType,
+        stockLevel : data.stockLevel,
+        reorderLevel : data.reorderLevel,
+        weight : data.weight,
+        unitPrice : data.unitPrice,
+        manDate: data.manDate,
+        expDate : data.expDate
+      });
         
-        const errors = validate(data)
-        console.log(errors)
-        //if no errors , update the data into db
-        if(Object.keys(errors).length === 0){
-          await updateData();
-        }else{
-          //set the errors into formErrors
-          setFormErrors(errors)
-          
-        }
+      console.log(response.data)
+      alert("successfully updated")
+      navigate(`/inventory/products/${id}`)
+        
+      }catch(err){
+        console.log(err);
+      }
+ }
 
+//validation rules
+
+ function validate(value){
+
+  const errors = {}
+  const dateRegex = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/
+
+  const manufacturedDate = new Date(value.manDate).setHours(0,0,0,0);
+  const expiryDate = new Date(value.expDate).setHours(0,0,0,0);
+  
+  //checking if stocklevel is lesser than reorder level
+  if(parseInt(value.stockLevel) <= parseInt(value.reorderLevel)){
+    errors.reorderLevel = "Reorder Level should be less than Stock Level !";
+  }
+  
+  //checking if manufactured date is in the correct format 
+  if(!dateRegex.test(value.manDate)){
+    errors.manDate = "Manufactured Date is not in the correct format !";
+  }
+  
+  //checking if the expiry date is in the correct format
+  if(!dateRegex.test(value.expDate)){
+    errors.expDate = "Expiry Date is not in the correct format !";
+  }
+
+  //checking if the expiry date has passed the manufactured date
+  if(expiryDate <= manufacturedDate){
+    errors.expDate = "Entered date has passed manufactured date !";
+  }
+
+
+  return errors;
+}
+
+
+async function handleSubmit(e){
+    e.preventDefault();
+    
+    const errors = validate(data)
+    console.log(errors)
+    //if no errors , update the data into db
+    if(Object.keys(errors).length === 0){
+      await updateData();
+    }else{
+      //set the errors into formErrors
+      setFormErrors(errors)
+      
     }
+
+}
 
 
     return(
