@@ -106,6 +106,9 @@ export default function AddReportData() {
                             placeholder="Enter date"
                             value={date}
                             onChange={handleDateChange}
+                            max={
+                                new Date().toISOString().split('T')[0]
+                              }
                         />
                     </div>
                     <div className="mb-4">
