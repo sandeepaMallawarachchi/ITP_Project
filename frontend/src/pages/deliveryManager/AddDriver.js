@@ -208,7 +208,7 @@ export default function AddDriver() {
 
                     <div>
                         <label htmlFor="duration_of_job" className="block text-sm font-medium text-gray-700">Duration of Job</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" maxLength="10" pattern="[0-9]{10}" placeholder="Enter duration of job" value={duration_of_job} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" placeholder="Enter duration of job" value={duration_of_job} onChange={(e) => setDuration_of_job(e.target.value)} />
                     </div>
 
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
