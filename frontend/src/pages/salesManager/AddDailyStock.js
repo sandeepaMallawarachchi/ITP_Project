@@ -10,6 +10,8 @@ export default function AddDailyStock() {
     const [selectedTeaType, setSelectedTeaType] = useState("");
     const [totalStock, setTotalStock] = useState("");
     const [error, setError] = useState(false);
+    const [errStock, setErrStock] = useState(false);
+    const [errSalesPersonId, setErrSalesPersonId] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
 
@@ -37,13 +39,13 @@ export default function AddDailyStock() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!selectedTeaType || !totalStock || parseInt(totalStock) <= 0) {
+        if (!selectedTeaType) {
             setError(true);
-            setErrorAlert(true);
+            return;
+        }
 
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 5000);
+        if (!totalStock || parseInt(totalStock) <= 0) {
+            setErrStock(true);
             return;
         }
 
@@ -79,10 +81,13 @@ export default function AddDailyStock() {
         }
     };
 
-    const handleTotalStockChange = (e) => {
-        const value = e.target.value;
-        if (!isNaN(value) && parseInt(value) >= 0) {
-            setTotalStock(value);
+    const handleSalesPersonIDChange = (value) => {
+        const regex = /^s\d*$/;
+        if (regex.test(value) || value === "") {
+            setSalesPersonID(value);
+            setErrSalesPersonId(false);
+        } else {
+            setErrSalesPersonId(true);
         }
     };
 
@@ -101,11 +106,12 @@ export default function AddDailyStock() {
                         type="text"
                         id="salesPersonID"
                         placeholder="s123"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errSalesPersonId ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         required
                         value={salesPersonID}
-                        onChange={(e) => setSalesPersonID(e.target.value)}
+                        onChange={(e) => handleSalesPersonIDChange(e.target.value)}
                     />
+                    {errSalesPersonId && <p className="text-red-600 text-sm mt-1">Salesperson ID must start with 's' followed by numbers.</p>}
                 </div>
 
                 <div className="mb-6">
@@ -142,10 +148,10 @@ export default function AddDailyStock() {
                         type="number"
                         id="amount"
                         placeholder="1000 KG"
-                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
+                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errStock ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         required
                         value={totalStock}
-                        onChange={handleTotalStockChange}
+                        onChange={(e) => setTotalStock(e.target.value)}
                     />
                 </div>
 

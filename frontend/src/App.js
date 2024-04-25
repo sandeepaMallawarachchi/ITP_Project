@@ -73,6 +73,8 @@ function App() {
         <Routes>
           <Route path='/forgetPassword' element={<ForgetPassword />} />
         </Routes>
+
+        
       </div>
     </Router>
   );
