@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function AddLocation() {
@@ -11,34 +11,28 @@ export default function AddLocation() {
     const [address, setAddress] = useState("");
     const [district, setDistrict] = useState("");
     const [delivery_code, setDelivery_code] = useState("");
-    const [errors, setErrors] = useState({});
-
-    function validateInputs() {
-        const errors = {};
-
-        if (!cusID) {
-            errors.cusID = "Customer ID is required";
-        } else {
-            const cusIdPattern = /^cusID-CID\d{4}$/;
-            if (!cusIdPattern.test(cusID)) {
-                errors.cusID = "Customer ID must be in the format 'cusID-CID1234'";
-            }
-        }
-
-        const deliveryCodePattern = /^delivery_code-D\d{3}$/;
-        if (!deliveryCodePattern.test(delivery_code)) {
-            errors.delivery_code = "Delivery code must be in the format 'delivery_code-D123'";
-        }
-
-        return errors;
-    }
+    const [error, setError] = useState("");
 
     function sendData(e) {
         e.preventDefault();
 
-        const errors = validateInputs();
-        if (Object.keys(errors).length > 0) {
-            setErrors(errors);
+        // Check if cusID is empty
+        if (!cusID) {
+            setError("Customer ID is required");
+            return;
+        }
+
+        // Validate cusID format
+        const cusIDRegex = /^CID\d{4}$/;
+        if (!cusID.match(cusIDRegex)) {
+            setError("Customer ID should be in the format CIDXXXX, where X represents a digit");
+            return;
+        }
+
+        // Validate delivery_code format
+        const deliveryCodeRegex = /^D\d{3}$/;
+        if (!delivery_code.match(deliveryCodeRegex)) {
+            setError("Delivery Code should be in the format DXXX, where X represents a digit");
             return;
         }
 
@@ -63,7 +57,7 @@ export default function AddLocation() {
                 setAddress("");
                 setDistrict("");
                 setDelivery_code("");
-                setErrors({}); // Clear errors after successful submission
+                setError(""); // Clear error message after successful submission
             })
             .catch((err) => {
                 if (err.response && err.response.status === 400) {
@@ -81,7 +75,6 @@ export default function AddLocation() {
     }
 
     return (
-    
         <div className="flex justify-center items-center h-screen">
             <div className="bg-white shadow-md rounded px-8 pt-80 pb-8 mb-4 w-1/2">
             <h1 className="text-2xl font-bold mb-4">Customer Registration form</h1>
@@ -93,8 +86,7 @@ export default function AddLocation() {
 
                     <div>
                         <label htmlFor="cusID" className="block text-sm font-medium text-gray-700">Customer's ID</label>
-                        <input type="text" placeholder="CID1234" className={`mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${errors.cusID && 'border-red-500'}`} id="cusID" placeholder="Enter Customer ID" value={cusID} onChange={(e) => setCusID(e.target.value)} />
-                        {errors.cusID && <p className="text-red-500">{errors.cusID}</p>}
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="cusID" placeholder="Enter Customer ID" value={cusID} onChange={(e) => setCusID(e.target.value)} />
                     </div>
 
                     <div>
@@ -119,8 +111,7 @@ export default function AddLocation() {
 
                     <div>
                         <label htmlFor="delivery_code" className="block text-sm font-medium text-gray-700">Delivery Code</label>
-                        <input type="text" placeholder="D123" className={`mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${errors.delivery_code && 'border-red-500'}`} id="delivery_code" placeholder="Enter Delivery Code" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
-                        {errors.delivery_code && <p className="text-red-500">{errors.delivery_code}</p>}
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="delivery_code" placeholder="Enter Delivery Code" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
                     </div>
 
                     <div>
@@ -130,6 +121,7 @@ export default function AddLocation() {
                 <div className="mt-4">
                     <button onClick={handleAllLocations} className="text-blue-500 hover:text-blue-700 text-lg">All Customer Locations</button>
                 </div>
+                {error && <p className="text-red-500">{error}</p>}
             </div>
         </div>
     );

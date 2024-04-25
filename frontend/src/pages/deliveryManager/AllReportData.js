@@ -36,18 +36,18 @@ export default function AllReportData() {
     return (
         <div className="container mx-auto px-4 py-8 absolute mt-48 left-1/4 w-1/2">
             <h1 className="text-2xl font-bold mb-4">Delivery Report</h1>
-            <div className="mb-4 text-center font-bold text-lg"style={{ color: 'green' }}>Total Cost of All Reports: {totalCostSum} LKR</div>
-            <div className="overflow-x-auto">
-                <table className="table-auto w-full border-collapse">
+            <div className="mb-4 text-center font-bold text-lg"style={{ color: 'green' }}>Monthly Delivery Total Cost of All Reports: {totalCostSum} LKR</div>
+
+                 <table className="table-auto w-full border-collapse">
                     <thead>
                         <tr>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Vehicle Type</th>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Date</th>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Monthly Distance (km)</th>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Fuel Cost (LKR)</th>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Service Charge (LKR)</th>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Total Cost (LKR)</th>
-                            <th className="px-4 py-2 bg-blue-500 text-white">Actions</th>
+                            <th className="px-4 py-2 text-black">Vehicle Type</th>
+                            <th className="px-4 py-2 text-black">Date</th>
+                            <th className="px-4 py-2 text-black">Monthly Distance (km)</th>
+                            <th className="px-4 py-2 text-black">Fuel Cost (LKR)</th>
+                            <th className="px-4 py-2 text-black">Service Charge (LKR)</th>
+                            <th className="px-4 py-2 text-black">Total Cost (LKR)</th>
+                            <th className="px-4 py-2 text-black">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +60,7 @@ export default function AllReportData() {
                                 <td className="border px-4 py-2">{reportItem.serviceCharge}</td>
                                 <td className="border px-4 py-2">{reportItem.totalCost}</td>
                                 <td className="border px-4 py-2">
+                                    <div className = 'flex'>
                                     <button 
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
                                         onClick={() => handleUpdate(reportItem._id, id)}
@@ -72,12 +73,13 @@ export default function AllReportData() {
                                     >
                                         Delete
                                     </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-        </div>
+       
     );
 }

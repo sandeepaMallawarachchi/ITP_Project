@@ -162,7 +162,7 @@ export default function AddDriver() {
                  */}
 
                     <div>
-                        <label htmlFor="address" className="block text-sm font-medium text-gray-700">Age</label>
+                        <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
                         <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
                     </div>
 
