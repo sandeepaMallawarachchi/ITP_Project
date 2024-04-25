@@ -29,7 +29,7 @@ export default function SalesRoutes() {
                 <Route path='/SalesSummary/:id' element={<SalesSummary />} />
                 <Route path='/deleteSale/:id/:cusID/:saleID' element={<DeleteSale />} />
                 <Route path='/remainingStock/:id' element={<RemainingStock />} />
-                <Route path='/currentSale/:id' element={<CurrentSale />} />
+                <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
             </Route>
 
         </Routes>
