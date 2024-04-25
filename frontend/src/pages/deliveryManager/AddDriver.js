@@ -79,6 +79,7 @@ export default function AddDriver() {
             setDuration_of_job("");
         } catch (err) {
             alert(err.message);
+            console.log(err)
         }
     }
 

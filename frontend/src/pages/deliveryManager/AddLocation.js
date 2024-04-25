@@ -36,6 +36,13 @@ export default function AddLocation() {
             return;
         }
 
+        // Check if name contains special characters
+        const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+        if (specialCharsRegex.test(name)) {
+            setError("Customer name cannot contain special characters");
+            return;
+        }
+
         const newCustomerLocation = {
             name,
             cusID,
@@ -44,7 +51,7 @@ export default function AddLocation() {
             address,
             district,
             delivery_code
-        }
+        };
 
         axios.post("http://localhost:8070/tea/add", newCustomerLocation)
             .then(() => {
@@ -72,12 +79,12 @@ export default function AddLocation() {
 
     const handleAllLocations = () => {
         navigate(`/deliveryManager/alllocations/${id}`);
-    }
+    };
 
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="bg-white shadow-md rounded px-8 pt-80 pb-8 mb-4 w-1/2">
-            <h1 className="text-2xl font-bold mb-4">Customer Registration form</h1>
+                <h1 className="text-2xl font-bold mb-4">Customer Registration form</h1>
                 <form onSubmit={sendData} className="space-y-6">
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Customer's Name</label>
