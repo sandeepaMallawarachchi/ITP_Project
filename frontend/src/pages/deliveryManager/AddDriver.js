@@ -116,29 +116,57 @@ export default function AddDriver() {
     }
 
     return (
-        <div className="container absolute mt-36 ml-80">
+        
+        <div className="absolute mt-48 left-1/3 w-1/2">
+            <h1 className="text-2xl font-bold mb-4">Driver Registration form</h1>
             <form onSubmit={sendData}>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label htmlFor="dname" className="form-label">Driver Name</label>
                     <input type="text" className="form-control" id="dname" placeholder="Enter Driver Name"
                         onChange={(e) => setName(e.target.value)} />
-                </div>
-                <div className="mb-3">
+                </div> */}
+                    <div>
+                        <label htmlFor="dname" className="block text-sm font-medium text-gray-700">Driver Name</label>
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dname" placeholder="Enter driver Name" value={dname} onChange={(e) => setName(e.target.value)} />
+                    </div>
+
+                {/* <div className="mb-3">
                     <label htmlFor="dID" className="form-label">Driver ID</label>
                     <input type="text" className="form-control" id="dID" placeholder="Enter the Driver ID"
                         onChange={(e) => setdID(e.target.value)} />
-                </div>
-                <div className="mb-3">
+                </div> */}
+                <div>
+                        <label htmlFor="dID" className="block text-sm font-medium text-gray-700">Driver ID</label>
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dID" placeholder="Enter driver ID" value={dID} onChange={(e) => setdID(e.target.value)} />
+                    </div>
+
+
+                {/* <div className="mb-3">
                     <label htmlFor="age" className="form-label">Age</label>
                     <input type="number" className="form-control" id="age" placeholder="Enter the Age"
                         onChange={(e) => setAge(e.target.value)} />
-                </div>
-                <div className="mb-3">
+                </div> */}
+
+                    <div>
+                        <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
+                        <input type="number" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="age" placeholder="Enter the Age" value={age} onChange={(e) => setAge(e.target.value)} />
+                    </div>
+
+
+
+                {/* <div className="mb-3">
                     <label htmlFor="address" className="form-label">Address</label>
                     <input type="text" className="form-control" id="address" placeholder="Enter the Address"
-                        onChange={(e) => setAddress(e.target.value, 10)} /> {/* Parse string to integer */}
+                        onChange={(e) => setAddress(e.target.value, 10)} /> 
                 </div>
-                <div className="mb-3">
+                 */}
+
+                    <div>
+                        <label htmlFor="address" className="block text-sm font-medium text-gray-700">Age</label>
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                    </div>
+
+                {/* <div className="mb-3">
                     <label htmlFor="phone_number" className="form-label">Phone Number</label>
                     <input
                         type="text"
@@ -151,19 +179,39 @@ export default function AddDriver() {
                         title="Please enter exactly 10 digits"
                         required  // Add required attribute if the field is mandatory
                     />
-                </div>
+                </div> */}
 
-                <div className="mb-3">
+                
+                    <div>
+                        <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
+                    </div>
+
+
+                {/* <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
                     <input type="email" className="form-control" id="email" placeholder="Enter the Email"
                         onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="mb-3">
+                </div> */}
+
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+
+
+                {/* <div className="mb-3">
                     <label htmlFor="duration_of_job" className="form-label">Duration of Job</label>
                     <input type="text" className="form-control" id="duration_of_job" placeholder="Enter duration of job"
                         onChange={(e) => setDuration_of_job(e.target.value)} />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                </div> */}
+
+                    <div>
+                        <label htmlFor="duration_of_job" className="block text-sm font-medium text-gray-700">Duration of Job</label>
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" maxLength="10" pattern="[0-9]{10}" placeholder="Enter duration of job" value={duration_of_job} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
+                    </div>
+
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
             </form>
             <div className="mt-4">
                     <button onClick={handleAllDrivers} className="text-blue-500 hover:text-blue-700 text-lg">All Drivers</button>
@@ -198,5 +246,6 @@ export default function AddDriver() {
                 </button>
             </form>
         </div>
+    
     );
 }

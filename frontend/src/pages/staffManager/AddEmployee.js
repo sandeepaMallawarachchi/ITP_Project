@@ -45,7 +45,7 @@ function AddEmployee() {
     }
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div className='absolute mt-48 left-1/3 w-1/2'>
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="empId"> Enter Employee ID: </label>
@@ -110,9 +110,9 @@ function AddEmployee() {
                     }} />
                 </div>
 
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Employee</button>
             </form>
-            <button type="submit" className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" onClick={handleAllEmployees}>All Employees</button>
+
         </div>
     )
 }

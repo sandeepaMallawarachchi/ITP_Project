@@ -25,18 +25,18 @@ export default function AllReportData() {
 
     const navigate = useNavigate();
 
-    const handleUpdate = () => {
-        navigate(`/deliveryManager/updateReportData/${id}`);
+    const handleUpdate = (rId) => {
+        navigate(`/deliveryManager/updateReportData/${rId}/${id}`);
     }
 
-    const handleDelete = () => {
-        navigate(`/deliveryManager/deleteReportData/${id}`);
+    const handleDelete = (rId) => {
+        navigate(`/deliveryManager/deleteReportData/${rId}/${id}`);
     }
 
     return (
         <div className="container mx-auto px-4 py-8 absolute mt-48 left-1/4 w-1/2">
-            <h1 className="text-2xl font-bold mb-4">All Report Details</h1>
-            <div className="mb-4 text-center font-bold text-lg">Total Cost of All Reports: {totalCostSum} LKR</div>
+            <h1 className="text-2xl font-bold mb-4">Delivery Report</h1>
+            <div className="mb-4 text-center font-bold text-lg"style={{ color: 'green' }}>Total Cost of All Reports: {totalCostSum} LKR</div>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse">
                     <thead>
@@ -62,13 +62,13 @@ export default function AllReportData() {
                                 <td className="border px-4 py-2">
                                     <button 
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
-                                        onClick={() => handleUpdate(reportItem._id)}
+                                        onClick={() => handleUpdate(reportItem._id, id)}
                                     >
                                         Update
                                     </button>
                                     <button 
                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                                        onClick={() => handleDelete(reportItem._id)}
+                                        onClick={() => handleDelete(reportItem._id, id)}
                                     >
                                         Delete
                                     </button>

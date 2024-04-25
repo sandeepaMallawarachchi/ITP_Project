@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function CustomerLocations() {
+export default function AddLocation() {
     const { id } = useParams();
     const [name, setName] = useState("");
     const [cusID, setCusID] = useState("");
@@ -81,8 +81,10 @@ export default function CustomerLocations() {
     }
 
     return (
+    
         <div className="flex justify-center items-center h-screen">
             <div className="bg-white shadow-md rounded px-8 pt-80 pb-8 mb-4 w-1/2">
+            <h1 className="text-2xl font-bold mb-4">Customer Registration form</h1>
                 <form onSubmit={sendData} className="space-y-6">
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Customer's Name</label>
