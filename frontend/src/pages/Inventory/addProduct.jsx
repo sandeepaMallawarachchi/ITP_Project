@@ -29,7 +29,7 @@ export default function AddProduct() {
 
     const {name,value} = e.target;
 
-    //perform validation for the specific field changed
+    // perform validation for the specific field changed
     const error = validate({...productData, [name] : value});
     
     //update formError state with validation result
@@ -49,6 +49,7 @@ export default function AddProduct() {
       {
           ...prevItem,
           [name] : value
+             
       }
       )
    )
@@ -90,6 +91,9 @@ export default function AddProduct() {
 
 
   }
+
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
   
 
   
@@ -98,33 +102,15 @@ export default function AddProduct() {
   function validate(value){
 
     const errors = {}
-    const dateRegex = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/
-
-    const manufacturedDate = new Date(value.manDate).setHours(0,0,0,0);
-    const expiryDate = new Date(value.expDate).setHours(0,0,0,0);
-    
+   
     //checking if stocklevel is lesser than reorder level
     if(parseInt(value.stockLevel) <= parseInt(value.reorderLevel)){
       errors.reorderLevel = "Reorder Level should be less than Stock Level !";
     }
+
+    // if(productData.stockLevel.toString().length <= productData.reorderLevel.toString().length){ }
     
-    //checking if manufactured date is in the correct format 
-    if(!dateRegex.test(value.manDate)){
-      errors.manDate = "Manufactured Date is not in the correct format !";
-    }
-    
-    //checking if the expiry date is in the correct format
-    if(!dateRegex.test(value.expDate)){
-      errors.expDate = "Expiry Date is not in the correct format !";
-    }
-
-    //checking if the expiry date has passed the manufactured date
-    if(expiryDate <= manufacturedDate){
-      errors.expDate = "Entered date has passed manufactured date !";
-    }
-
-
-    return errors;
+   return errors;
   }
    
     
@@ -137,13 +123,13 @@ export default function AddProduct() {
                 <div className="mb-2 block">
                   <Label>Product Name</Label>
                 </div>
-                <TextInput type="text" name="name" value={productData.name} onChange={handleChange} required />
+                <TextInput type="text" name="name" value={productData.name.replace(/[^a-zA-Z\s]/g, '')} onChange={handleChange} required />
               </div>
               <div className="flex-1 ml-20">
                 <div className="mb-2 block">
                   <Label>Tea Type</Label>
                 </div>
-                <TextInput type="text" name="type" value={productData.type} onChange={handleChange} required />
+                <TextInput type="text" name="type" value={productData.type.replace(/[^a-zA-Z\s]/g, '')} onChange={handleChange} required />
               </div>
             </div>
 
@@ -174,7 +160,7 @@ export default function AddProduct() {
 
         <div className="flex-1 ml-20">
           <div className="mb-2 block">
-          <Label>Weight(Gram)</Label>
+          <Label>Packet Size(Gram)</Label>
           </div>
           <TextInput type="number" name="weight" value={productData.weight} onChange={handleChange} required />
         </div>
@@ -186,16 +172,20 @@ export default function AddProduct() {
           <div className="mb-2 block">
           <Label>Manufactured Date</Label>
           </div>
-          <TextInput  type="text" name="manDate" value={productData.manDate} onChange={handleChange} placeholder="mm/dd/yyyy" className="" required />
-          <p className="text-sm text-red-700  my-2 ml-3">{formErrors.manDate}</p>
+          <TextInput  type="date" name="manDate" value={productData.manDate} onChange={handleChange} placeholder="mm/dd/yyyy" max={
+                        new Date().toISOString().split('T')[0]
+                      } required />
+          
         </div>
 
         <div className="flex-1 ml-20">
           <div className="mb-2 block">
           <Label>Expiry Date</Label>
           </div>
-          <TextInput  type="text" name="expDate" value={productData.expDate} onChange={handleChange} placeholder="mm/dd/yyyy" required />
-        <p className="text-sm text-red-700  my-2 ml-3">{formErrors.expDate}</p>
+          <TextInput  type="date" name="expDate" value={productData.expDate} onChange={handleChange} placeholder="mm/dd/yyyy" min={
+                      today.toISOString().split('T')[0]
+                      } required />
+        
         </div>
       </div>
 
