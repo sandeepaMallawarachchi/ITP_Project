@@ -44,13 +44,13 @@ export default function AddExpenses() {
      //validation for date
      const handleDateChange = (e) => {
          const selectedDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+        const currentDate = new Date().toISOString().split('T')[0]; 
 
         if (selectedDate > currentDate) {
              setError("Selected date cannot be a future date.");
          } else {
             setDate(selectedDate);
-             setError(""); // Clear error if date is valid
+             setError(""); 
          }
      };
 
@@ -84,7 +84,7 @@ export default function AddExpenses() {
         }
 
         const newExpense = {
-            date,
+            // date,
             category,
             description,
             amount: newAmount
