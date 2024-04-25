@@ -4,6 +4,8 @@ import { Link,useParams,useNavigate } from "react-router-dom";
 import { useReactToPrint } from 'react-to-print';
 import { Button } from "flowbite-react";
 
+
+
 export default function BalanceSheet() {
 
     const {id}=useParams();
@@ -15,7 +17,7 @@ export default function BalanceSheet() {
    
     useEffect(() => {
         axios.get("http://localhost:8070/totalLiabilities/totalLiabilities").then((res) => {
-            setTotalLiabilities(res.data.totalLiabilities); // Ensure to access the correct property
+            setTotalLiabilities(res.data.totalLiabilities); 
         }).catch((error) => {
             alert(error.message);
         });
@@ -59,7 +61,7 @@ export default function BalanceSheet() {
     }, [income]); 
 
     const addBtn = () => {
-        navigate('/addLiabilities'); // Correct the path string
+        navigate('/addLiabilities'); 
     };
 
     const handleAddLiabilities= () => {
@@ -70,7 +72,7 @@ export default function BalanceSheet() {
     const componentRef = useRef();
     
     const handlePrint = useReactToPrint({
-        content :()=> componentRef.current,//specifies the content to be print
+        content :()=> componentRef.current,
         documentTitle : "Expenses Report",
         pageStyle: `
         @page {
@@ -78,6 +80,7 @@ export default function BalanceSheet() {
             margin: 1cm;
         }
         body {
+            
             font-family: Arial, sans-serif;
             font-size: 12px;
         }
