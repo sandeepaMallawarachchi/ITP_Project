@@ -9,6 +9,7 @@ const Supplierdetails = () => {
     email: ''
   });
   const [emailError, setEmailError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +40,7 @@ const Supplierdetails = () => {
     try {
       const response = await axios.post(`http://localhost:8070/supplier/addsuppliers`, supplier);
       console.log(response.data);
+      setSuccessMessage('Supplier added successfully!');
       // Optionally, you can redirect to another page after successful submission
       // Insert navigation logic here
     } catch (error) {
@@ -49,6 +51,11 @@ const Supplierdetails = () => {
   return (
     <div className='absolute mt-40 left-1/3 w-1/2'>
       <h2 className="text-2xl font-bold mb-4">Add New Supplier</h2>
+      {successMessage && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md mb-4">
+          {successMessage}
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block">Name:</label>
