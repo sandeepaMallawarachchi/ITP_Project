@@ -84,7 +84,7 @@ export default function AddExpenses() {
         }
 
         const newExpense = {
-            // date,
+            date,
             category,
             description,
             amount: newAmount
