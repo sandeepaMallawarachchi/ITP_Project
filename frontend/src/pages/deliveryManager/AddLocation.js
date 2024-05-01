@@ -75,6 +75,14 @@ export default function AddLocation() {
             });
     }
 
+    const handleNameChange = (value) => {
+        const regex = /^[a-zA-Z\s]+$/;
+        if (regex.test(value) || value === "") {
+            setName(value);
+        }
+        
+    };
+
     const navigate = useNavigate();
 
     const handleAllLocations = () => {
@@ -84,11 +92,11 @@ export default function AddLocation() {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="bg-white shadow-md rounded px-8 pt-80 pb-8 mb-4 w-1/2">
-                <h1 className="text-2xl font-bold mb-4">Customer Registration form</h1>
+                <h1 className="text-2xl font-bold mb-4">Customer Registration</h1>
                 <form onSubmit={sendData} className="space-y-6">
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Customer's Name</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="name" placeholder="Enter Customer Name" value={name} onChange={(e) => setName(e.target.value)} />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="name" placeholder="Enter Customer Name" value={name} onChange={(e) => handleNameChange(e.target.value)} />
                     </div>
 
                     <div>
@@ -132,4 +140,4 @@ export default function AddLocation() {
             </div>
         </div>
     );
-}
+ }
