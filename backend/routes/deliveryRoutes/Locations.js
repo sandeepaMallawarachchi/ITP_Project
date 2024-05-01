@@ -4,6 +4,14 @@ let Tea = require("../../models/deliveryModels/location");
 router.route("/add").post(async (req, res) => {
     const { name, cusID, email, phone_number, address, district, delivery_code } = req.body;
 
+    // Regular expression to check for special characters
+    const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+    // Check if name contains special characters
+    if (specialCharsRegex.test(name)) {
+        return res.status(400).json({ message: 'Customer name cannot contain special characters' });
+    }
+
     try {
         // Check if a record with the same cusID already exists
         const existingRecord = await Tea.findOne({ cusID });
@@ -12,7 +20,7 @@ router.route("/add").post(async (req, res) => {
             return res.status(400).json({ message: 'A record with this cusID already exists' });
         }
 
-        // If no duplicate record found, proceed to add the new record
+        // If no duplicate record found and name doesn't contain special characters, proceed to add the new record
         const newTea = new Tea({
             name,
             cusID,
@@ -30,6 +38,8 @@ router.route("/add").post(async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
 
 
 module.exports = router;

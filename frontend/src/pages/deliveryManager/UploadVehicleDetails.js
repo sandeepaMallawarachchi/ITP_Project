@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { Alert, Spinner } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
@@ -24,62 +23,56 @@ export default function UploadVehicleDetails() {
         setEmissionFile(e.target.files[0]);
     };
 
-    const handleLicenseUpload = () => {
+    const handleLicenseUpload = async () => {
         if (!licenseFile) {
             return alert("Please select a license file!");
         }
 
         const storage = getStorage(app);
         const fileName = new Date().getTime() + licenseFile.name;
-        const storageRef = ref(storage, 'licensevehicle/' + fileName);
+        const storageRef = ref(storage, 'vehicleLicense/' + fileName);
         const uploadTask = uploadBytesResumable(storageRef, licenseFile);
 
         setUploadingLicense(true);
 
-        uploadTask.on('state_changed',
-            (snapshot) => { },
-            (error) => {
-                setUploadingLicense(false);
-                setErrorAlert(true);
-                console.error("License upload error:", error);
-                alert("Failed to upload license file. Please try again later.");
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    setLicenseDownloadURL(url);
-                    setUploadingLicense(false);
-                });
-            }
-        );
+        try {
+            await uploadTask;
+
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            setLicenseDownloadURL(downloadURL);
+            setUploadingLicense(false);
+        } catch (error) {
+            setUploadingLicense(false);
+            setErrorAlert(true);
+            console.error("License upload error:", error);
+            alert("Failed to upload license file. Please try again later.");
+        }
     };
 
-    const handleEmissionUpload = () => {
+    const handleEmissionUpload = async () => {
         if (!emissionFile) {
             return alert("Please select an emission file!");
         }
 
         const storage = getStorage(app);
         const fileName = new Date().getTime() + emissionFile.name;
-        const storageRef = ref(storage, 'vehicleemission/' + fileName);
+        const storageRef = ref(storage, 'vehicleEmission/' + fileName);
         const uploadTask = uploadBytesResumable(storageRef, emissionFile);
 
         setUploadingEmission(true);
 
-        uploadTask.on('state_changed',
-            (snapshot) => { },
-            (error) => {
-                setUploadingEmission(false);
-                setErrorAlert(true);
-                console.error("Emission upload error:", error);
-                alert("Failed to upload emission file. Please try again later.");
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    setEmissionDownloadURL(url);
-                    setUploadingEmission(false);
-                });
-            }
-        );
+        try {
+            await uploadTask;
+
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            setEmissionDownloadURL(downloadURL);
+            setUploadingEmission(false);
+        } catch (error) {
+            setUploadingEmission(false);
+            setErrorAlert(true);
+            console.error("Emission upload error:", error);
+            alert("Failed to upload emission file. Please try again later.");
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -90,7 +83,10 @@ export default function UploadVehicleDetails() {
                 return alert("Please wait for the uploads to complete!");
             }
 
-            await axios.post(`http://localhost:8070/driver/uploadVehicleDetails`, { licenseDownloadURL, emissionDownloadURL });
+            await Promise.all([
+                axios.post(`http://localhost:8070/driver/uploadVehicleLicense`, { downloadURL: licenseDownloadURL }),
+                axios.post(`http://localhost:8070/driver/uploadVehicleEmssion`, { downloadURL: emissionDownloadURL })
+            ]);
 
             setLicenseDownloadURL('');
             setEmissionDownloadURL('');
@@ -115,7 +111,8 @@ export default function UploadVehicleDetails() {
     };
 
     return (
-        <div>
+        <div className="absolute mt-36 ml-80">
+            <h1 className="text-2xl font-bold mb-4">Checking Vehicle Conditions</h1>
             <form onSubmit={handleSubmit} className="mt-10">
                 <div className="mb-6">
                     <label htmlFor="license" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Driver's License</label>

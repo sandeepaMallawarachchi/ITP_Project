@@ -123,7 +123,7 @@ export default function SalesManagerNavigations() {
     };
 
     const handleAddEmployee = () => {
-        navigate(`/staff/addEmployee/${id}`);
+        navigate(`/staff/managerRegistration/${id}`);
     };
 
     const handleSalaries = () => {
@@ -165,7 +165,7 @@ export default function SalesManagerNavigations() {
                     <Navbar.Brand onClick={handleDashboard} className='cursor-pointer w-32 ml-8'>
                         <img src={logo} id='logo' alt="logo" />
                     </Navbar.Brand>
-                    <div className="relative w-1/3">
+                    {/* <div className="relative w-1/3">
                         <input type="search"
                             id="location-search"
                             className={`block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 ${error ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
@@ -181,7 +181,7 @@ export default function SalesManagerNavigations() {
                             </svg>
                             <span className="sr-only">Search</span>
                         </button>
-                    </div>
+                    </div> */}
                     <div className="flex md:order-2  mr-20 items-start">
                         <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">

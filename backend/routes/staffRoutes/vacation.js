@@ -12,7 +12,6 @@ router.route("/add").post((req, res) => {
     const reqDate = req.body.reqDate;
     const returningDate = req.body.returningDate;
     const totDays = req.body.totDays;
-    const approvalDate = req.body.totDays;
 
     const newVac = new Vacation({
 
@@ -24,7 +23,6 @@ router.route("/add").post((req, res) => {
         reqDate,
         returningDate,
         totDays,
-        approvalDate
 
     })
 
@@ -48,14 +46,20 @@ router.route("/allVacations").get(async (req, res) => {
 
 })
 
-router.route("/get/:empId").get(async (req, res) => {
-    const empId = req.params.empId;
-    const vac = await Vacation.find({ empId: empId }).then((vacation) => {
-        res.status(200).send({ status: "User fetched", vacation });
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({ status: "Error with get employee", error: err.message });
-    });
+router.route("/vacationDetails/:id").get(async (req, res) => {
+    const { id } = req.params; 
+    try {
+        const vacation = await Vacation.findById(id); 
+        if (vacation) {
+            res.status(200).send({ status: "Vacation details fetched", vacation });
+        } else {
+            res.status(404).send({ status: "Not Found", message: "No vacation found with this ID" });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ status: "Error fetching vacation", error: err.message });
+    }
 });
+
 
 module.exports = router;

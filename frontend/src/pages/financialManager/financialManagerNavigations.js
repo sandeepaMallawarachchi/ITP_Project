@@ -5,9 +5,7 @@ import { Sidebar } from 'flowbite-react';
 import { BiBuoy } from 'react-icons/bi';
 import logo from '../../images/logo.png';
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { MdFormatListBulleted } from "react-icons/md";
-import { HiOutlineDocumentReport } from "react-icons/hi";
+
 import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { Navbar } from 'flowbite-react';
@@ -15,6 +13,9 @@ import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
+import { FaSheetPlastic } from "react-icons/fa6";
+import { BsFillFileEarmarkSpreadsheetFill } from "react-icons/bs";
+import { FaBalanceScaleLeft } from "react-icons/fa";
 
 export default function FinancialManagerNavigations() {
     const { id } = useParams();
@@ -185,13 +186,13 @@ export default function FinancialManagerNavigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleIncomeSheet}>
+                            <Sidebar.Item icon={FaSheetPlastic} onClick={handleIncomeSheet}>
                                 Income Sheet
                             </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleExpenseSheet}>
+                            <Sidebar.Item icon={BsFillFileEarmarkSpreadsheetFill} onClick={handleExpenseSheet}>
                                Expenses sheet
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleBalanceSheet}>
+                            <Sidebar.Item icon={FaBalanceScaleLeft} onClick={handleBalanceSheet}>
                                 Balance Sheet
                             </Sidebar.Item>
             

@@ -8,6 +8,10 @@ const driverSchema = new Schema({
         type : String,
         required: true
     },
+    dID : {
+        type : String,
+        required: true
+    },
     age : {
         type : Number,
         required: true

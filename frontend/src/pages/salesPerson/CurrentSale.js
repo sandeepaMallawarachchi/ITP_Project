@@ -44,11 +44,11 @@ function CurrentSale() {
     // };
 
     const handleAddMoreSale = () => {
-        navigate(`/AddNewSale/${id}`);
+        navigate(`/sales/AddNewSale/${id}`);
     };
 
     const deleteBtn = (saleID) => {
-        navigate(`/deleteSale/${id}/${cusID}/${saleID}`);
+        navigate(`/sales/deleteSale/${id}/${cusID}/${saleID}`);
     };
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function AddSalary() {
     const [empId, setEmpId] = useState("");
@@ -12,6 +12,8 @@ function AddSalary() {
     const [ETFbonus, setETFbonus] = useState(0);
     const [EPFbonus, setEPFbonus] = useState(0);
     const [paymentDate, setPaymentDate] = useState("");
+
+    const { id } = useParams();
 
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -54,7 +56,7 @@ function AddSalary() {
         try {
             await axios.post(`http://localhost:8070/staff/salary/addSalary`, newSalary);
             alert("Success! Salary added");
-            navigate(`/salary/${empId}/${month}/${year}`);
+            // navigate(`staff/salary/${empId}/${month}/${year}/${id}`);
         } catch (error) {
             alert("Error! Failed to add salary: " + error.response.data.message); // More specific error handling
             console.error("Error:", error);
@@ -71,14 +73,14 @@ function AddSalary() {
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="name">Employee Name: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    type="text" id="name" value={name} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="text" id="name" value={name} />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="designation">Designation: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="designation" 
-                    value={designation}/>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="designation"
+                        value={designation} />
                 </div>
 
                 <div className="mb-3">
@@ -116,7 +118,7 @@ function AddSalary() {
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="date" id="paymentDate" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Add Salary</button>
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Salary</button>
             </form>
         </div>
     );

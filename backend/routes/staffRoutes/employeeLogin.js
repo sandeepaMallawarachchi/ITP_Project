@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
 let Manager = require("../../models/staffModels/managerDetails");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
 let EmployeeProfilePicture = require("../../models/staffModels/profilePictureDetails");
@@ -58,10 +59,116 @@ router.route('/managerRegister').post(async (req, res) => {
             dateOfBirth,
         });
 
+        // Create a transporter object
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.REGISTRATION_EMAIL,
+                pass: process.env.REGISTRATION_PASSWORD
+            }
+        });
+
+        const resetPasswordLink = `http://localhost:3000`;
+        const mailOptions = {
+            from: process.env.REGISTRATION_EMAIL,
+            to: email,
+            subject: 'Hendriks Tea User Registration',
+            text: `You are receiving this email because you have registered to Hendriks Tea.\n\nPlease click on the following link, or paste this into your browser to login to your account:\n\n${resetPasswordLink}`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).send({ status: "Error!", error: "Failed to send email" });
+            } else {
+                console.log("Registration email sent: " + info.response);
+                return res.status(200).send({ status: "Success", message: "Email sent successfully" });
+            }
+        });
+
         res.json({ status: "Manager added", manager: newManager });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+//change password
+router.route("/changePassword/:salespersonID").put(async (req, res) => {
+
+    let salespersonID = req.params.salespersonID;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+
+    // Password validation
+    if (password !== confirmPassword) {
+        return res.status(400).json({ error: "Passwords do not match" });
+    }
+
+    try {
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update password in the database
+        await Salesmen.findOneAndUpdate(salespersonID, { password: hashedPassword });
+
+        res.status(200).send({ status: "Password changed" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+//registration email
+router.route("/forgetPassword").post(async (req, res) => {
+
+    let { usernameOrPhone } = req.body;
+    const isPhone = !isNaN(usernameOrPhone);
+    const email = req.body.email;
+
+    // Create a transporter object
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    try {
+
+        let salesPerson;
+        if (isPhone) {
+            salesPerson = await Salesmen.findOne({ phone: usernameOrPhone });
+        } else {
+            salesPerson = await Salesmen.findOne({ username: usernameOrPhone });
+        }
+
+        if (!salesPerson) {
+            return res.status(404).send({ status: "Error!", error: "Salesperson not found" });
+        }
+
+        const resetPasswordLink = `http://localhost:3000/changeSalesmanPassword/${salesPerson.salespersonID}`;
+        const mailOptions = {
+            from: process.env.EMAIL_USERNAME,
+            to: email,
+            subject: 'Reset Your Password',
+            text: `You are receiving this email because you have requested to reset the password for your account.\n\nPlease click on the following link, or paste this into your browser to reset your password:\n\n${resetPasswordLink}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).send({ status: "Error!", error: "Failed to send reset password email" });
+            } else {
+                console.log("Reset password email sent: " + info.response);
+                return res.status(200).send({ status: "Success", message: "Reset password email sent successfully" });
+            }
+        });
+
+    } catch (error) {
+        res.status(404).send({ status: "Error!", error: error.message });
     }
 });
 
@@ -198,7 +305,7 @@ router.route("/getManagers").get(async (req, res) => {
                 existingDepartment.empId += employee.empId;
             }
         }
-        res.status(200).send({status:"Total employees for a department", departmentDetails});
+        res.status(200).send({ status: "Total employees for a department", departmentDetails });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
@@ -209,22 +316,42 @@ router.route("/getManagers").get(async (req, res) => {
 router.route("/updateManager/:empId").put(async (req, res) => {
 
     let empId = req.params.empId;
-    const { firstName, lastName, dateOfBirth, email, phoneNo, address } = req.body;
+    const { firstName, lastName, gender, department, designation, address, email, phoneNo, dateOfBirth } = req.body;
     const updateManager = {
         firstName,
         lastName,
-        dateOfBirth,
+        gender,
+        department,
+        designation,
+        address,
         email,
         phoneNo,
-        address,
+        dateOfBirth,
     }
 
     try {
         const update = await Manager.findOneAndUpdate(empId, updateManager);
-        res.json({ status: "User updated" });
+        res.json({ status: "User updated", update: updateManager });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
+    }
+});
+
+
+//delete
+router.delete("/delete/:empId", async (req, res) => {
+    const empId = req.params.empId;
+
+    try {
+        const deleted = await Manager.findOneAndDelete({ empId: empId });
+        if (!deleted) {
+            return res.status(404).send({ status: "Employee not found" });
+        }
+        res.status(200).send({ status: "Employee Deleted" });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send({ status: "Error with delete employee", error: err.message });
     }
 });
 
