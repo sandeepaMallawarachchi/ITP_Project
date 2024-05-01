@@ -55,8 +55,6 @@ function AddEmployee() {
         }
     };
 
-    const navigate = useNavigate();
-
     const handleAllEmployees = () => {
         navigate(`/allEmployees`);
     };

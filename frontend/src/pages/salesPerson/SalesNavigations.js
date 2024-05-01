@@ -130,6 +130,10 @@ export default function Navigations() {
         navigate(`/sales/remainingStock/${id}`);
     };
 
+    const handleLocations = () => {
+        navigate(`/sales/locations/${id}`);
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchStockDetails();
@@ -203,7 +207,7 @@ export default function Navigations() {
                             <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingStock}>
                                 Remaining Stock
                             </Sidebar.Item>
-                            <Sidebar.Item icon={FiMapPin}>
+                            <Sidebar.Item icon={FiMapPin} onClick={handleLocations}>
                                 Locations
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
