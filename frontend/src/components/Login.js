@@ -66,6 +66,13 @@ export default function Login() {
                 navigate(`/financial/HomeIncome/${empId}`);
                 return;
             }
+
+            else if (res.data.designation === 'Payment Manager') {
+                const empId = res.data.empId;
+                navigate(`/payment/paymentadminhome/${empId}`);
+                return;
+            }
+
         } catch (error) {
             console.error("Error in salesmen login request:", error.message);
             if (error.response && error.response.status === 401) {
