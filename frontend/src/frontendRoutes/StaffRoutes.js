@@ -20,7 +20,7 @@ export default function StaffRoutes() {
             <Route element={<StaffManagerLayout />}>
                 <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
                 <Route path='/addSalary/:id' element={<AddSalary />} />
-                <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
+                <Route path='/salary/:empId/:month/:year/:id' element={<SalaryReport />} />
                 <Route path='/addEmployee/:id' element={<AddEmployee />} />
                 <Route path='/allEmployees/:id' element={<AllEmployees />} />
                 <Route path='/updateEmployee/:empId/:id' element={<UpdateEmployee />} />
