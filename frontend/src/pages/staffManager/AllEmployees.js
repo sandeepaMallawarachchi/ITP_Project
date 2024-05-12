@@ -44,7 +44,7 @@ function AllEmployees() {
     };
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div className='absolute mt-48 left-80 w-1/2 '>
             <input
                 type="text"
                 placeholder="Search by First Name"

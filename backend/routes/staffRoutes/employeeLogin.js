@@ -316,7 +316,7 @@ router.route("/getManagers").get(async (req, res) => {
 router.route("/updateManager/:empId").put(async (req, res) => {
 
     let empId = req.params.empId;
-    const { firstName, lastName, gender, department, designation, address, email, phoneNo, dateOfBirth } = req.body;
+    const { firstName, lastName, gender, department, designation, address, email, phoneNo } = req.body;
     const updateManager = {
         firstName,
         lastName,
@@ -326,18 +326,16 @@ router.route("/updateManager/:empId").put(async (req, res) => {
         address,
         email,
         phoneNo,
-        dateOfBirth,
     }
 
     try {
-        const update = await Manager.findOneAndUpdate(empId, updateManager);
+        await Manager.findOneAndUpdate(empId, updateManager);
         res.json({ status: "User updated", update: updateManager });
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ status: "Error!", error: error.message });
     }
 });
-
 
 //delete
 router.delete("/delete/:empId", async (req, res) => {
