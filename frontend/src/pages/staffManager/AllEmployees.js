@@ -47,6 +47,10 @@ function AllEmployees() {
         navigate(`/staff/updateSalesperson/${salesPersonId}/${id}`);
     };
 
+    const handleDeleteSalesperson = (salesPersonId) => {
+        navigate(`/staff/deleteSalesperson/${salesPersonId}/${id}`);
+    };
+
     return (
         <div className='absolute mt-48 left-80 w-1/2 '>
             <input

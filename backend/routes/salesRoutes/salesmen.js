@@ -103,13 +103,13 @@ router.route("/updateSalesmen/:salespersonID").put(async (req, res) => {
 });
 
 //delete salesmen
-router.route("/deleteSalesmen/:id").delete(async (req, res) => {
+router.route("/deleteSalesmen/:salesPersonId").delete(async (req, res) => {
 
-    let userId = req.params.id;
+    let salesPersonId = req.params.salesPersonId;
 
     try {
 
-        await Salesmen.findByIdAndDelete(userId);
+        await Salesmen.findOneAndDelete(salesPersonId);
         res.status(200).send({ status: "User deleted" });
     } catch (error) {
         console.log(error.message);

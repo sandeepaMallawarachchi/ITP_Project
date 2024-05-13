@@ -17,6 +17,7 @@ import EmpCategory from '../pages/staffManager/EmpCategory'
 import AddSalesPerson from '../pages/staffManager/AddSalesPerson'
 import AddDriver from '../pages/staffManager/AddDriver'
 import UpdateSalesPerson from '../pages/staffManager/UpdateSalesPerson'
+import DeleteSalesPerson from '../pages/staffManager/DeleteSalesPerson'
 
 export default function StaffRoutes() {
     return (
@@ -39,6 +40,7 @@ export default function StaffRoutes() {
                 <Route path='/addSalesPerson/:id' element={<AddSalesPerson />} />
                 <Route path='/addDriver/:id' element={<AddDriver />} />
                 <Route path='/updateSalesperson/:salesPersonId/:id' element={<UpdateSalesPerson />} />
+                <Route path='/deleteSalesperson/:salesPersonId/:id' element={<DeleteSalesPerson />} />
             </Route>
         </Routes>
 
