@@ -11,7 +11,7 @@ function EmpCategory() {
     const {id} = useParams();
 
     const handleAddEmployee = () => {
-        navigate(`/staff/addEmployee/${id}`);
+        navigate(`/staff/managerRegistration/${id}`);
     };
 
     const handleAddSalesPerson = () => {

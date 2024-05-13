@@ -34,6 +34,15 @@ function AddEmployee() {
         try {
             await axios.post(`http://localhost:8070/staff/add`, newEmp);
             alert("Success! Employee added");
+
+            setFirstName("")
+            setLastName("")
+            setGender("")
+            setDesignation("")
+            setDepartment("")
+            setAddress("")
+            setEmail("")
+            setPhoneNo("")
         } catch (error) {
             alert("Error! Failed to add employee");
             console.error("Error:", error);
