@@ -109,7 +109,7 @@ router.route("/deleteSalesmen/:salespersonID").delete(async (req, res) => {
 
     try {
 
-        await Salesmen.findOneAndDelete(salespersonID);
+        await Salesmen.findOneAndDelete({salespersonID});
         res.status(200).send({ status: "User deleted" });
     } catch (error) {
         console.log(error.message);
