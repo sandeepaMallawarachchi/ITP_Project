@@ -143,7 +143,7 @@ export default function SalesManagerNavigations() {
     };
 
     const handleAllEmployees = () => {
-        navigate(`/staff/EmpCategory/${id}`);
+        navigate(`/staff/empCategory/${id}`);
     };
 
     const handleSearchClick = async () => {

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import managersImg from '../../images/managersImg.jpg'
+import salesPersonsImg from '../../images/salesPersonsImg.jpg'
+import driversImg from '../../images/driversImg.jpg'
 
 function EmpCategory() {
 
@@ -11,29 +14,29 @@ function EmpCategory() {
         navigate(`/staff/addEmployee/${id}`);
     };
 
-    // const handleAddSalesPerson = () => {
-    //     navigate(`/staff/EmpCategory/${id}`);
-    // };
+    const handleAddSalesPerson = () => {
+        navigate(`/staff/addSalesPerson/${id}`);
+    };
 
     const handleAddDriver = () => {
-        navigate(`/deliveryManager/addDrivers/${id}`);
+        navigate(`/staff/addDriver/${id}`);
     };
 
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2'>
-                <div>
-                    <img src="managers.jpg" alt="managers" />
-                    <button>Managers</button>
+        <div className='absolute mt-48 left-72 w-3/4 flex justify-center cursor-pointer'>
+                <div onClick={handleAddEmployee} className='w-1/3 mr-7 transform transition-transform hover:scale-110'>
+                    <img src={managersImg} alt="managers" />
+                    <p className='text-center'>Managers</p>
                 </div>
 
-                <div>
-                    <img src="salesPersons.jpg" alt="salesPersons" />
-                    <button>Sales Persons</button>
+                <div className='w-1/3 mr-7 transform transition-transform hover:scale-110' onClick={handleAddSalesPerson}>
+                    <img src={salesPersonsImg} alt="salesPersons" />
+                    <p className='text-center'>Sales Persons</p>
                 </div>
 
-                <div>
-                    <img src="drivers.jpg" alt="drivers" />
-                    <button>Drivers</button>
+                <div className='w-1/3 transform transition-transform hover:scale-110' onClick={handleAddDriver}>
+                    <img src={driversImg} alt="drivers" />
+                    <p className='text-center'>Drivers</p>
                 </div>
 
         </div>

@@ -14,6 +14,9 @@ import StaffManagerDashboard from '../pages/staffManager/StaffManagerDashboard'
 import StaffManagerLayout from '../pages/staffManager/StaffManagerLayout'
 import VacationReport from '../pages/staffManager/VacationReport'
 import EmpCategory from '../pages/staffManager/EmpCategory'
+import AddSalesPerson from '../pages/staffManager/AddSalesPerson'
+import AddDriver from '../pages/staffManager/AddDriver'
+import UpdateSalesPerson from '../pages/staffManager/UpdateSalesPerson'
 
 export default function StaffRoutes() {
     return (
@@ -32,8 +35,10 @@ export default function StaffRoutes() {
                 <Route path='/allVacations/:id' element={<AllVacations />} />
                 <Route path='/managerAccount/:id' element={<ManagerAccount />} />
                 <Route path='/vacationReport/:vacID/:id' element={<VacationReport />} />
-                <Route path='/EmpCategory/:id' element={<EmpCategory />} />
-
+                <Route path='/empCategory/:id' element={<EmpCategory />} />
+                <Route path='/addSalesPerson/:id' element={<AddSalesPerson />} />
+                <Route path='/addDriver/:id' element={<AddDriver />} />
+                <Route path='/updateSalesperson/:salesPersonId/:id' element={<UpdateSalesPerson />} />
             </Route>
         </Routes>
 
