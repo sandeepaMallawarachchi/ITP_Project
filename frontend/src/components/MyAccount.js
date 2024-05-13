@@ -56,7 +56,6 @@ export default function SalesmenDashboard() {
                 setSuccessAlert(false);
             }, 5000);
 
-            navigate(`/myAccount/${id}`);
         } catch (error) {
             console.log("Error!", error.message);
 

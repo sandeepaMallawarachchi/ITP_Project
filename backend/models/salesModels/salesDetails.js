@@ -32,6 +32,11 @@ const salesSchema = new Schema({
         required: true
     },
 
+    cusName: {
+        type: String,
+        required: true
+    },
+
     salesPersonID: {
         type: String,
         required: true
