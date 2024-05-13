@@ -76,29 +76,25 @@ router.route("/salesmenDashboard/:id").get(async (req, res) => {
 });
 
 
-//update salesmen details
 router.route("/updateSalesmen/:salespersonID").put(async (req, res) => {
-
     let salespersonID = req.params.salespersonID;
-    const name = req.body.name;
-    const username = req.body.username;
-    const dateOfBirth = req.body.dateOfBirth;
-    const gender = req.body.gender;
-    const email = req.body.email;
-    const phone = Number(req.body.phone);
-    const address = req.body.address;
+    const { name, username, dateOfBirth, email, phone, address } = req.body;
+
     const updateSalesmen = {
         name,
         username,
         dateOfBirth,
-        gender,
         email,
-        phone,
+        phone: Number(phone),
         address,
-    }
+    };
 
     try {
-        const update = await Salesmen.findOneAndUpdate(salespersonID, updateSalesmen);
+  
+        await Salesmen.findOne({ salespersonID });
+
+        await Salesmen.findOneAndUpdate({ salespersonID }, updateSalesmen);
+
         res.json({ status: "User updated" });
     } catch (error) {
         console.log(error.message);
