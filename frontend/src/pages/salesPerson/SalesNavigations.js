@@ -134,6 +134,11 @@ export default function Navigations() {
         navigate(`/sales/locations/${id}`);
     };
 
+    
+    const handlePayment = () => {
+        navigate(`/payment/cash/${id}`)
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchStockDetails();
@@ -144,10 +149,6 @@ export default function Navigations() {
     const handleTableClose = () => {
         setShowTable(false);
         setProductName("");
-    };
-
-    const handleProfilePic = () => {
-        navigate(`/sales/myAccount/${id}`)
     };
 
     return (
@@ -198,7 +199,7 @@ export default function Navigations() {
                             <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
                                 New sale
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlinePayment}>
+                            <Sidebar.Item icon={MdOutlinePayment} onClick={handlePayment}>
                                 Payment
                             </Sidebar.Item>
                             <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesSummary}>
