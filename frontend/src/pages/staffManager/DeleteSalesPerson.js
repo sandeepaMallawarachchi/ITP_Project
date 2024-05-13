@@ -3,13 +3,13 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 function DeleteSalesPerson() {
-    const { id, salesPersonId } = useParams();
+    const { id, salespersonID } = useParams();
     
     const navigate = useNavigate();
     
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/salesmen/deleteSalesmen/${salesPersonId}`);
+            await axios.delete(`http://localhost:8070/salesmen/deleteSalesmen/${salespersonID}`);
             alert("Salesperson deleted!");
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {
