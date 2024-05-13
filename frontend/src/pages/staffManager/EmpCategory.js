@@ -22,7 +22,6 @@ function EmpCategory() {
                 </div>
             </Link>
 
-
             <Link to="/http://localhost:8070/driver/add/${id}">
                 <div>
                     <img src="drivers.jpg" alt="drivers" />
