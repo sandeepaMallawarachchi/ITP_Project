@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function AddEmployee() {
+    // const { id } = useParams();
     const [empId, setEmpId] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -43,7 +44,7 @@ function AddEmployee() {
         const regex = /^[a-zA-Z\s]+$/;
         if (regex.test(value) || value === "") {
             setFirstName(value);
-        
+
         }
     };
 
@@ -51,13 +52,13 @@ function AddEmployee() {
         const regex = /^[a-zA-Z\s]+$/;
         if (regex.test(value) || value === "") {
             setLastName(value);
-        
+
         }
     };
 
-    const handleAllEmployees = () => {
-        navigate(`/allEmployees`);
-    };
+    // const handleAllEmployees = () => {
+    //     navigate(`/EmpCategory/${}`);
+    // };
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2'>
@@ -69,16 +70,16 @@ function AddEmployee() {
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="firstName">Enter First Name: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="firstName" required 
-                    onChange={(e) => 
-                        handleFirstName(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="firstName" required
+                        onChange={(e) =>
+                            handleFirstName(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="lastName">Enter Last Name: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="lastName" required 
-                    onChange={(e) =>
-                        handleLastName(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="lastName" required
+                        onChange={(e) =>
+                            handleLastName(e.target.value)} />
                 </div>
 
                 <div className="mb-3">

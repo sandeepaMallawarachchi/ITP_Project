@@ -142,6 +142,10 @@ export default function SalesManagerNavigations() {
         navigate(`/staff/addVacation/${id}`);
     };
 
+    const handleAllEmployees = () => {
+        navigate(`/staff/EmpCategory/${id}`);
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchEmployeeDetails();
@@ -200,7 +204,7 @@ export default function SalesManagerNavigations() {
                             </Sidebar.Item>
                             <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
                                 <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
-                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAllEmployees}>Add Employee</Sidebar.Item>
                             </Sidebar.Collapse>
                             <Sidebar.Collapse icon={GiTakeMyMoney} label="Salaries">
                                 <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>All Salaries</Sidebar.Item>
