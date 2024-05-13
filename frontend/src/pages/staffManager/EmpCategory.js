@@ -1,33 +1,40 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 
 function EmpCategory() {
 
     const navigate = useNavigate();
+    const {id} = useParams();
+
+    const handleAddEmployee = () => {
+        navigate(`/staff/addEmployee/${id}`);
+    };
+
+    // const handleAddSalesPerson = () => {
+    //     navigate(`/staff/EmpCategory/${id}`);
+    // };
+
+    const handleAddDriver = () => {
+        navigate(`/deliveryManager/addDrivers/${id}`);
+    };
 
     return (
-        <div>
-            <Link to="/http://localhost:8070/staff/add/${id}">
+        <div className='absolute mt-48 left-1/3 w-1/2'>
                 <div>
                     <img src="managers.jpg" alt="managers" />
-                    <p>Managers</p>
+                    <button>Managers</button>
                 </div>
-            </Link>
 
-            <Link to="/http://localhost:8070/salesmen/addSalesmen/${id}">
                 <div>
                     <img src="salesPersons.jpg" alt="salesPersons" />
-                    <p>Sales Persons</p>
+                    <button>Sales Persons</button>
                 </div>
-            </Link>
 
-            <Link to="/http://localhost:8070/driver/add/${id}">
                 <div>
                     <img src="drivers.jpg" alt="drivers" />
-                    <p>Drivers</p>
+                    <button>Drivers</button>
                 </div>
-            </Link>
 
         </div>
     );
