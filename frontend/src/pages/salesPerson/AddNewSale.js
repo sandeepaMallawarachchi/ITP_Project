@@ -125,7 +125,7 @@ export default function AddNewSale() {
     };
 
     const handleSalesSummary = () => {
-        navigate(`/sales/currentSale/${id}/${cusID}`);
+        navigate(`/sales/currentSale/${id}/${cusID}/${cusName}`);
     };
 
     return (
