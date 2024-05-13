@@ -56,7 +56,7 @@ function AddSalary() {
         try {
             await axios.post(`http://localhost:8070/staff/salary/addSalary`, newSalary);
             alert("Success! Salary added");
-            // navigate(`staff/salary/${empId}/${month}/${year}/${id}`);
+            navigate(`/staff/salary/${empId}/${month}/${year}/${id}`);
         } catch (error) {
             alert("Error! Failed to add salary: " + error.response.data.message); // More specific error handling
             console.error("Error:", error);

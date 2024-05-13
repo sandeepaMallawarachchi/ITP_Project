@@ -13,6 +13,7 @@ import ManagerAccount from '../components/ManagerAccount'
 import StaffManagerDashboard from '../pages/staffManager/StaffManagerDashboard'
 import StaffManagerLayout from '../pages/staffManager/StaffManagerLayout'
 import VacationReport from '../pages/staffManager/VacationReport'
+import EmpCategory from '../pages/staffManager/EmpCategory'
 
 export default function StaffRoutes() {
     return (
@@ -20,7 +21,7 @@ export default function StaffRoutes() {
             <Route element={<StaffManagerLayout />}>
                 <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
                 <Route path='/addSalary/:id' element={<AddSalary />} />
-                <Route path='/salary/:empId/:month/:year' element={<SalaryReport />} />
+                <Route path='/salary/:empId/:month/:year/:id' element={<SalaryReport />} />
                 <Route path='/addEmployee/:id' element={<AddEmployee />} />
                 <Route path='/allEmployees/:id' element={<AllEmployees />} />
                 <Route path='/updateEmployee/:empId/:id' element={<UpdateEmployee />} />
@@ -31,6 +32,7 @@ export default function StaffRoutes() {
                 <Route path='/allVacations/:id' element={<AllVacations />} />
                 <Route path='/managerAccount/:id' element={<ManagerAccount />} />
                 <Route path='/vacationReport/:vacID/:id' element={<VacationReport />} />
+                <Route path='/EmpCategory/:id' element={<EmpCategory />} />
 
             </Route>
         </Routes>
