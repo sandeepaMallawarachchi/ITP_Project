@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddSalary from "../pages/staffManager/AddSalary";
 import SalaryReport from "../pages/staffManager/SalaryReport";
-import AddEmployee from '../pages/staffManager/AddEmployee'
+// import AddEmployee from '../pages/staffManager/AddEmployee'
 import AllEmployees from '../pages/staffManager/AllEmployees'
 import UpdateEmployee from '../pages/staffManager/UpdateEmployee'
 import DeleteEmployee from '../pages/staffManager/DeleteEmployee'
@@ -28,7 +28,7 @@ export default function StaffRoutes() {
                 <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
                 <Route path='/addSalary/:id' element={<AddSalary />} />
                 <Route path='/salary/:empId/:month/:year/:id' element={<SalaryReport />} />
-                <Route path='/addEmployee/:id' element={<AddEmployee />} />
+                {/* <Route path='/addEmployee/:id' element={<AddEmployee />} /> */}
                 <Route path='/allEmployees/:id' element={<AllEmployees />} />
                 <Route path='/updateEmployee/:empId/:id' element={<UpdateEmployee />} />
                 <Route path='/deleteEmployee/:empId/:id' element={<DeleteEmployee />} />

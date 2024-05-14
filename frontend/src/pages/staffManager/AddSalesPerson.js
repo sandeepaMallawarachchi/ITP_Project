@@ -60,6 +60,7 @@ function AddEmployee() {
 
     return (
         <div className='absolute mt-48 left-1/3 w-1/2'>
+            <h1 className="text-green-500 font-bold">Salesperson Registration form</h1>
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="empId"> Enter Sales Person ID: </label>
