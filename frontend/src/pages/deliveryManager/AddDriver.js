@@ -63,6 +63,7 @@ export default function AddDriver() {
             address,
             phone_number,
             email,
+            
             duration_of_job
         }
 
@@ -138,7 +139,7 @@ export default function AddDriver() {
                 </div> */}
                 <div>
                         <label htmlFor="dID" className="block text-sm font-medium text-gray-700">Driver ID</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dID" placeholder="Enter driver ID" value={dID} onChange={(e) => setdID(e.target.value)} />
+                        <input type="text" maxLength={6} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dID" placeholder="DID123" value={dID} onChange={(e) => setdID(e.target.value)} />
                     </div>
 
 
@@ -209,7 +210,7 @@ export default function AddDriver() {
 
                     <div>
                         <label htmlFor="duration_of_job" className="block text-sm font-medium text-gray-700">Duration of Job</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" placeholder="Enter duration of job" value={duration_of_job} onChange={(e) => setDuration_of_job(e.target.value)} />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" placeholder="1 year" value={duration_of_job} onChange={(e) => setDuration_of_job(e.target.value)} />
                     </div>
 
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>

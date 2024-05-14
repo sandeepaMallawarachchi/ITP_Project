@@ -101,7 +101,7 @@ export default function AddLocation() {
 
                     <div>
                         <label htmlFor="cusID" className="block text-sm font-medium text-gray-700">Customer's ID</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="cusID" placeholder="Enter Customer ID" value={cusID} onChange={(e) => setCusID(e.target.value)} />
+                        <input type="text" maxLength={7} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="cusID" placeholder="CID1234" value={cusID} onChange={(e) => setCusID(e.target.value)} />
                     </div>
 
                     <div>
@@ -126,7 +126,7 @@ export default function AddLocation() {
 
                     <div>
                         <label htmlFor="delivery_code" className="block text-sm font-medium text-gray-700">Delivery Code</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="delivery_code" placeholder="Enter Delivery Code" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
+                        <input type="text" maxLength={4} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="delivery_code" placeholder="D123" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
                     </div>
 
                     <div>
@@ -141,3 +141,5 @@ export default function AddLocation() {
         </div>
     );
  }
+
+ 
