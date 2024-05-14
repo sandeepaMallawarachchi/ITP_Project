@@ -127,27 +127,27 @@ export default function AddLocation() {
 
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
+                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
                     </div>
 
                     <div>
                         <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="district" className="block text-sm font-medium text-gray-700">District</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="district" placeholder="Enter District" value={district} onChange={(e) => setDistrict(e.target.value)} />
+                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="district" placeholder="Enter District" value={district} onChange={(e) => setDistrict(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="delivery_code" className="block text-sm font-medium text-gray-700">Delivery Code</label>
-                        <input
+                        <input required
                             type="text"
                             maxLength={4}
                             className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
