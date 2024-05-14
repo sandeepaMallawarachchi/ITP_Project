@@ -74,7 +74,7 @@ export default function AddReportData() {
             });
     }
 
-
+    
     const navigate = useNavigate();
 
     const handleAllReportDetails = () => {
@@ -95,22 +95,9 @@ export default function AddReportData() {
                             placeholder="NE6565"
                             maxLength={6}
                             value={vehicleType}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                setVehicleType(value);
-
-                                // Validate vehicleType format
-                                const vehicleTypeRegex = /^NE\d{4}$/;
-                                if (!value.match(vehicleTypeRegex) && value !== "") {
-                                    setError("Vehicle Type should be in the format NEXXXX, where X represents a digit");
-                                } else {
-                                    setError("");
-                                }
-                            }}
+                            onChange={(e) => setVehicleType(e.target.value)}
                         />
-                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                     </div>
-
                     <div className="mb-4">
                         <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
                         <input
@@ -122,7 +109,7 @@ export default function AddReportData() {
                             onChange={handleDateChange}
                             max={
                                 new Date().toISOString().split('T')[0]
-                            }
+                              }
                         />
                     </div>
                     <div className="mb-4">
