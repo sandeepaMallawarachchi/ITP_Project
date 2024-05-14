@@ -146,6 +146,10 @@ export default function SalesManagerNavigations() {
         navigate(`/staff/empCategory/${id}`);
     };
 
+    const handleTopSellers = () => {
+        navigate(`/staff/topSellers/${id}`);
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchEmployeeDetails();
@@ -214,6 +218,9 @@ export default function SalesManagerNavigations() {
                                 <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
                                 <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
                             </Sidebar.Collapse>
+                            <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleTopSellers}>
+                                Top Sellers
+                            </Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
