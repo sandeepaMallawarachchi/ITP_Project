@@ -111,7 +111,7 @@ export default function FinancialManagerNavigations() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/financial/salesManagerDashboard/${id}`);
+        navigate(`/financial/managerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {
