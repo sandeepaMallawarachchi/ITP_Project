@@ -84,8 +84,8 @@ export default function AddDriver() {
             duration_of_job
         };
 
-        try {
-            await axios.post("http://localhost:8070/driver/add", newAddDriver);
+        axios.post("http://localhost:8070/driver/add", newAddDriver)
+        .then(() => {
             alert("Driver Added");
 
             setName("");
@@ -95,11 +95,18 @@ export default function AddDriver() {
             setNumber("");
             setEmail("");
             setDuration_of_job("");
-        } catch (err) {
-            alert(err.message);
-            console.log(err);
-        }
-    };
+            setError(""); // Clear error message after successful submission
+        })
+        .catch((err) => {
+            if (err.response && err.response.status === 400) {
+                alert('Driver ID already exists!');
+            } else {
+                alert(err.message);
+            }
+        });
+}
+
+       
 
     const handleSubmit = async (e) => {
         e.preventDefault();
