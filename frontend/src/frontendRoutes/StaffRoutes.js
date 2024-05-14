@@ -44,6 +44,7 @@ export default function StaffRoutes() {
                 <Route path='/updateSalesperson/:salesPersonId/:id' element={<UpdateSalesPerson />} />
                 <Route path='/deleteSalesperson/:salespersonID/:id' element={<DeleteSalesPerson />} />
                 <Route path='/deleteDriver/:driverId/:id' element={<DeleteDriver />} />
+                <Route path='/topSellers/:id' element={<TopSellers />} />
             </Route>
         </Routes>
 
