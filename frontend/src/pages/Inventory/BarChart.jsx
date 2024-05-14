@@ -45,7 +45,7 @@ export default function Barchart(){
                 case "ceylon black tea":
                     ceylonOrder = ceylonOrder + item.quantity
                     break;
-                case "hendricks cinnamon tea":
+                case "cinnamon tea":
                     cinnamonOrder = cinnamonOrder + item.quantity;
                     break;
                 default :

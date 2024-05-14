@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -95,10 +95,7 @@ export default function AddProduct() {
   const today = new Date();
   today.setDate(today.getDate() + 1);
   
-
-  
   //validation rules
-
   function validate(value){
 
     const errors = {}
@@ -108,7 +105,7 @@ export default function AddProduct() {
       errors.reorderLevel = "Reorder Level should be less than Stock Level !";
     }
 
-    // if(productData.stockLevel.toString().length <= productData.reorderLevel.toString().length){ }
+    
     
    return errors;
   }
@@ -176,7 +173,7 @@ export default function AddProduct() {
                         new Date().toISOString().split('T')[0]
                       } required />
           
-        </div>
+          </div>
 
         <div className="flex-1 ml-20">
           <div className="mb-2 block">
