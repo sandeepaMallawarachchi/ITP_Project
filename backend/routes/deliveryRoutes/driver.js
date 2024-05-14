@@ -28,7 +28,7 @@ router.route("/add").post(async (req, res) => {
 
         await newDriver.save();
 
-        res.json({ message: "Driver Added successfully" });
+        res.json("Driver Added");
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Internal server error" });
