@@ -5,6 +5,7 @@ export default function AddIncome() {
     const [liabilities, setLiabilities] = useState("");
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
+    const [error, setError] = useState(""); // State for error message
 
     const setData = async (e) => {
         e.preventDefault();
@@ -25,6 +26,22 @@ export default function AddIncome() {
         } catch (err) {
             alert("Error adding liabilities");
             console.error(err);
+        }
+
+
+    };
+
+    //validation for amount
+    const handleAmountChange = (e) => {
+        const enterAmount = e.target.value;
+
+
+        if (enterAmount > 0) {
+            setAmount(enterAmount);
+            setError("");
+
+        } else {
+            setError("Enter positive value");
         }
     };
 
@@ -50,9 +67,10 @@ export default function AddIncome() {
 
                 <div className="mb-3">
                     <label htmlFor="amountInput" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
-                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amountInput" placeholder="Type amount"
+                    <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amountInput" placeholder="Type amount"
                         value={amount}
-                        onChange={(e) => setAmount(e.target.value)} required />
+                        onChange={handleAmountChange} required />
+                        {error && <div className="text-danger">{error}</div>}
                 </div>
 
                 <button
