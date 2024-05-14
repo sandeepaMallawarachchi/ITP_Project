@@ -1,14 +1,36 @@
 const router = require("express").Router();
-let Sales = require("../../models/salesModels/salesDetails");
+const Sales = require("../../models/salesModels/salesDetails");
+const Salesmen = require("../../models/salesmenModels/salesmenDetails");
 
-// Fetch top 5 sellers
 router.route("/topSellers").get(async (req, res) => {
     try {
-        // Fetch top 5 sellers based on some criteria
         const topSellers = await Sales.aggregate([
-            { $group: { _id: "$salesPersonID", totalSales: { $sum: "$totalPrice" } } },
+            { 
+                $group: { 
+                    _id: "$salesPersonID", 
+                    totalSales: { $sum: "$totalPrice" } 
+                } 
+            },
             { $sort: { totalSales: -1 } },
-            { $limit: 3 }
+            { $limit: 3 },
+            { 
+                $lookup: {
+                    from: "salesmenDetails",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "salesperson"
+                }
+            },
+            {
+                $unwind: "$salesperson"
+            },
+            {
+                $project: {
+                    _id: 1,
+                    totalSales: 1,
+                    name: "$salesperson.name"
+                }
+            }
         ]);
 
         res.status(200).send({ status: "Top sellers fetched", topSellers });
