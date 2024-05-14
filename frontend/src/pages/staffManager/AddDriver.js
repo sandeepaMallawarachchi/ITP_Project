@@ -45,7 +45,7 @@ export default function AddDriver() {
     return (
 
         <div className="absolute mt-48 left-1/3 w-1/2">
-            <h1 className="text-2xl font-bold mb-4">Driver Registration form</h1>
+            <h1 className="text-green-500 font-bold">Driver Registration form</h1>
             <form onSubmit={sendData}>
 
                 <div>
