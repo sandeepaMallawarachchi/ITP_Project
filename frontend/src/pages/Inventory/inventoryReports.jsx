@@ -31,19 +31,54 @@ export default function Reports(){
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle: "Inventory Stockcost Report"
+        documentTitle: "Inventory Stockcost Report",
+        pageStyle: `
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        
+        .logo{
+            display: block;
+            margin: 0 auto;
+
+        }
+        
+        .title {
+            
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: green;
+          
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }`
     });
 
     return (
         <div style={{marginTop:"10rem",marginLeft:"23rem"}}>
             <Button onClick={handlePrint} color="blue" className="my-10" style={{marginLeft: "2rem"}}>Download Report</Button>
+            <h1 style={{marginLeft:"23rem",marginTop:"-5rem",fontWeight:"bold",fontSize:"1.5rem"}}>Inventory StockCost Report</h1>
             <div ref={componentRef}>
-                {handlePrint ? null : (
-                    <>
-                        <img src={logo} alt="logo" className="logo" />
-                        <h1 className="w-[60rem] ml-[2rem] mt-[2.5rem] font-bold text-xl title">Inventory Stock Cost Report</h1>
-                    </>
-                )}
                 <table className="w-[60rem] ml-[2rem] mt-[2.5rem]">
                     <thead className="bg-blue-50 border-b-2 border-gray-200">
                         <tr>
