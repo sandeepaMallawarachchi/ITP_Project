@@ -102,6 +102,13 @@ export default function AddDailyStock() {
         }
     };
 
+    const handleNumericInput = (value, setter) => {
+        const regex = /^[0-9\b]+$/;
+        if (regex.test(value) || value === "") {
+            setter(value);
+        }
+    };
+
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <Alert color="info" className={`absolute ${successAlert ? 'w-full text-center -mt-14 left-0' : 'hidden'}`}>
@@ -162,7 +169,7 @@ export default function AddDailyStock() {
                         className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errStock ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         required
                         value={totalStock}
-                        onChange={(e) => setTotalStock(e.target.value)}
+                        onChange={(e) => handleNumericInput(e.target.value, setTotalStock)}
                     />
                 </div>
 

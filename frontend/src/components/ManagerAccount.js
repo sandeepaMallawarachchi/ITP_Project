@@ -47,7 +47,7 @@ export default function ManagerAccount() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/empLogin/updateManager/${id}`, managerDetails);
+            await axios.put(`http://localhost:8070/empLogin/updateManagerAccount/${id}`, managerDetails);
 
             setSuccessAlert(true);
 
@@ -55,7 +55,6 @@ export default function ManagerAccount() {
                 setSuccessAlert(false);
             }, 5000);
 
-            navigate(`/managerAccount/${id}`);
         } catch (error) {
             console.log("Error!", error.message);
 
@@ -162,7 +161,7 @@ export default function ManagerAccount() {
         <div className='absolute mt-44 left-1/4 w-3/4 '>
 
             <Alert color="info" className={`absolute ${successAlert ? 'w-5/6 text-center -mt-14 left-0' : 'hidden'}`}>
-                <span className="font-medium">Salesman updated successfully</span>
+                <span className="font-medium">Manager updated successfully</span>
             </Alert>
             <Alert color="failure" icon={HiInformationCircle} className={`absolute ${errorsAlert ? 'w-5/6 text-center -mt-14 left-0' : 'hidden'}`}>
                 <span className="font-medium">Error updating!</span>

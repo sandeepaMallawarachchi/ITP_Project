@@ -142,8 +142,8 @@ export default function SalesManagerNavigations() {
         navigate(`/staff/addVacation/${id}`);
     };
 
-    const handleRegistration = () => {
-        navigate(`/staff/managerRegistration/${id}`);
+    const handleAllEmployees = () => {
+        navigate(`/staff/empCategory/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -202,12 +202,9 @@ export default function SalesManagerNavigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
-                                Registration
-                            </Sidebar.Item>
                             <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
                                 <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
-                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAllEmployees}>Add Employee</Sidebar.Item>
                             </Sidebar.Collapse>
                             <Sidebar.Collapse icon={GiTakeMyMoney} label="Salaries">
                                 <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>All Salaries</Sidebar.Item>

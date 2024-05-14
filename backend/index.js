@@ -109,6 +109,16 @@ app.use("/tea",teaRouter);
 app.use("/driver",driverRouter);
 app.use("/report",reportRouter);
 
+//payment riutes
+const paymentRouter = require("./routes/paymentRoutes/payment.js");
+const paymentdetailsRouter = require("./routes/paymentRoutes/paymentdetails.js");
+const paymentadminRouter = require("./routes/paymentRoutes/paymentadmin.js");
+
+app.use("/paymentdetails",paymentdetailsRouter);
+app.use("/payment", paymentRouter);
+app.use("/paymentadmin",paymentadminRouter);
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
