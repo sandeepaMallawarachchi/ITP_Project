@@ -5,6 +5,7 @@ const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 let Manager = require("../../models/staffModels/managerDetails");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
+let Driver = require("../../models/deliveryModels/driver");
 let EmployeeProfilePicture = require("../../models/staffModels/profilePictureDetails");
 
 //register a new manager
@@ -429,5 +430,19 @@ router.route("/changeProfilePicture/:empId").get(async (req, res) => {
         res.status(500).send({ error: "Error fetching image" });
     }
 });
+
+//delete driver
+router.route("/deleteDriver/:dID").delete(async (req, res) => {
+    let dID = req.params.dID;
+
+    await Driver.findOneAndDelete({ dID })
+        .then(() => {
+            res.status(200).send({ status: "User deleted" });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with delete user", error: err.message });
+
+        })
+})
 
 module.exports = router;
