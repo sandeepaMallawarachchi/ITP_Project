@@ -1,0 +1,46 @@
+Flow Charts
+
+
+Algorithm 
+
+Step 1: Start
+
+Step 2: Input login credentials(username and password)
+
+Step 3: Validate the credentials:
+
+            a.If the credentials are valid:
+
+               -Display "Login successful"
+
+               -proceed to step 8
+
+            b. If the credentials are not valid:
+
+               -Display "Invalid Username and password"
+
+               -Go back to step 2 to input login credentials agin
+
+Step 4: Display Dashboard option
+
+Step 5: select delivery status page
+
+Step 6: Check delivery status availability:
+
+          a.If delivery status is available:
+
+               -Update delivery ststus
+
+               -proceed to step 8
+
+          b.If delivery status is not available
+
+               -Display "No delivery status available"
+
+Step 9: End
+               
+
+
+
+
+                  

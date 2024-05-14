@@ -1,0 +1,134 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axois from "axios";
+
+export default function AllDriver() {
+
+     
+    const [SearchValue,setSearchValue] = useState("");
+    const [driver, setDriver] = useState([]);
+    const [filteredDriver, setFilteredDriver] = useState([]);
+    
+    
+    useEffect(() => {
+        fetchDriver();
+    }, );
+
+    useEffect(() => {
+        filterDriver();
+    }, [SearchValue, driver]);
+
+    const fetchDriver = () => {
+        axois.get("http://localhost:5000/driver/")
+            .then(response => {
+                setDriver(response.data);
+                setFilteredDriver(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    const filterDriver = () => {
+        if (SearchValue.trim() === "") {
+            // If search value is empty, display all payment details
+            setFilteredDriver(driver);
+        } else {
+            // Filter payment details based on search value
+            const filteredData = driver.filter(driver1 =>
+                driver1.dname && driver1.dname.toLowerCase().includes(SearchValue.toLowerCase())
+            );
+            setFilteredDriver(filteredData);
+        }
+    }
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date(dateString).toLocaleString('en-US', options);
+    }
+       
+
+       const navigate = useNavigate();
+       const handleUpdate = (id) => {
+       navigate(`/updateDrivers/${id}`);
+    }
+
+    
+    
+       const handleDelete = (id) => {
+       navigate(`/deleteDrivers/${id}`);
+    }
+
+    return (
+       
+        <div>
+        <div style={{marginLeft:480}}>
+            <br></br>
+            <div style={{position: 'relative'}}>
+            <input style={{paddingLeft: '30px'}} placeholder='Search' onChange={(e) => {
+            setSearchValue(e.target.value);
+            }}></input>
+            <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            style={{position: 'absolute', right: '520px', top: '50%', transform: 'translateY(-50%)'}} // Position the icon
+        >
+            <path 
+                d="M21.707 20.293l-5.285-5.285a7.48 7.48 0 10-.708.708l5.285 5.285a.5.5 0 00.707 0 .5.5 0 000-.707zM3 10.5a7.5 7.5 0 1114.998-.002A7.5 7.5 0 013 10.5z" 
+            />
+        </svg>
+        </div>
+        </div>
+        
+        {filteredDriver.length > 0 ? (
+        <div>
+            <h1>All Drivers</h1>
+            <table className="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Driver Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Duration of Job</th>
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {driver.map((driver1) => (
+                        <tr key={(driver1._id)}>
+                            <td>{driver1.dname}</td>
+                            <td>{driver1.age}</td>
+                            <td>{driver1.address}</td>
+                            <td>{driver1.phone_number}</td>
+                            <td>{driver1.email}</td>
+                            <td>{driver1.duration_of_job}</td>
+                            <td>
+                                <button type="update" className="btn btn-primary" onClick={() => handleUpdate(driver1._id)}>Update</button>
+
+                            </td>
+                            <td>
+                                <button type="delete" className="btn btn-primary" onClick={() => handleDelete(driver1._id)}>Delete</button>
+
+                            </td>
+
+
+                        </tr>
+                    ))}
+
+                </tbody>
+            </table>
+        </div>
+         ) : (
+            <div>No results found</div>
+        )}
+</div>
+)
+}
+
+  

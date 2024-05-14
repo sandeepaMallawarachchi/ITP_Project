@@ -1,0 +1,28 @@
+router.route("/add").post((req, res) => {
+    const name = req.body.name;
+    const cusID = req.body.cusID;
+    const email = req.body.email;
+    const phone_number = req.body.phone_number; // Ensure phone_number is parsed to Number
+    const address = req.body.address;
+    const district = req.body.district;
+    const delivery_code = req.body.delivery_code;
+
+    const newTea = new Tea({
+        name,
+        cusID,
+        email,
+        phone_number,
+        address,
+        district,
+        delivery_code
+    });
+
+    newTea.save()
+        .then(() => {
+            res.json("location Added");
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(400).json('Error: ' + err);
+        });
+});

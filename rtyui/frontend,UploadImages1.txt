@@ -1,0 +1,45 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const UploadImage = () => {
+    const [file, setFile] = useState(null);
+    const [uploadStatus, setUploadStatus] = useState('');
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+
+    const handleUpload = async () => {
+        if (!file) {
+            alert('Please select a file');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const response = await axios.post('http://localhost:5000/License/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(response.data);
+            setUploadStatus('Upload successful');
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            setUploadStatus('Upload failed');
+        }
+    };
+
+    return (
+        <div>
+            <h2>Upload Image</h2>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handleUpload}>Upload</button>
+            {uploadStatus && <p>{uploadStatus}</p>}
+        </div>
+    );
+};
+
+export default UploadImage;
