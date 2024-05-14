@@ -3,13 +3,13 @@ import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 function DeleteDriver() {
-    const { id, driverId } = useParams();
+    const { id, dID } = useParams();
     const navigate = useNavigate();
-    
-
+ 
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/driver/deleteDriver/${driverId}`);
+            await axios.delete(`http://localhost:8070/empLogin/deleteDriver/${dID}`);
+            alert('Driver deleted')
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {
             console.error("Error deleting driver", error.message);
