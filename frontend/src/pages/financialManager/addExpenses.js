@@ -153,7 +153,7 @@ export default function AddExpenses() {
                             placeholder="Amount"
                             onChange={handleAmountChange}
                             value={amount} required />
-                        {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
+                        {error && <div className="text-danger">{error}</div>} 
                     </div>
                 ) : (
                     <div className="mb-3">
