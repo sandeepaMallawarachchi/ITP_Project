@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../../firebase';
 
 export default function AddDriver() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [dname, setName] = useState("");
     const [dID, setdID] = useState("");
     const [age, setAge] = useState("");
@@ -21,6 +21,7 @@ export default function AddDriver() {
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [error, setError] = useState("");
 
     const handleFileChange = (e) => {
         setLicense(e.target.files[0]);
@@ -118,12 +119,13 @@ export default function AddDriver() {
             setTimeout(() => {
                 setSuccessAlert(false);
             }, 5000);
-        } catch (error) {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 5000);
-            console.log(error);
+        } catch (err) {
+
+            if (err.response && err.response.status === 400) {
+                alert('Diver ID already exists!');
+            } else {
+                alert(err.message);
+            }
         }
     };
 
@@ -133,19 +135,47 @@ export default function AddDriver() {
         navigate(`/deliveryManager/allDrivers/${id}`);
     };
 
+    const handleDriverNameChange = (value) => {
+        const regex = /^[a-zA-Z\s]+$/;
+        if (regex.test(value) || value === "") {
+            setName(value);
+        }
+    };
+
     return (
-        
+
         <div className="absolute mt-48 left-1/3 w-1/2">
             <h1 className="text-2xl font-bold mb-4">Driver Registration form</h1>
             <form onSubmit={sendData}>
                 <div>
                     <label htmlFor="dname" className="block text-sm font-medium text-gray-700">Driver Name</label>
-                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dname" placeholder="Enter driver Name" value={dname} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dname" placeholder="Enter driver Name" value={dname} onChange={(e) => handleDriverNameChange(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor="dID" className="block text-sm font-medium text-gray-700">Driver ID</label>
-                    <input type="text" maxLength={6} className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dID" placeholder="DID123" value={dID} onChange={(e) => setdID(e.target.value)} />
+                    <input
+                        type="text"
+                        maxLength={6}
+                        className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        id="dID"
+                        placeholder="DID123"
+                        value={dID}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            setdID(value);
+
+                            // Validate Driver ID format
+                            const driverIDRegex = /^DID\d{0,4}$/;
+                            if (!value.match(driverIDRegex) && value !== "") {
+                                setError("Driver ID should be in the format DIDXXXX, where X represents a digit");
+                            } else {
+                                setError("");
+                            }
+                        }}
+                    />
+                    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                 </div>
+
                 <div>
                     <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
                     <input type="number" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="age" placeholder="Enter the Age" value={age} onChange={(e) => setAge(e.target.value)} />
@@ -209,3 +239,5 @@ export default function AddDriver() {
         </div>
     );
 }
+
+

@@ -10,6 +10,7 @@ export default function AddReportData() {
     const [fuelCost, setFuelCost] = useState("");
     const [serviceCharge, setServiceCharge] = useState("");
     const [totalCost, setTotalCost] = useState("");
+    const [error, setError] = useState("");
 
     const handleFuelCostChange = (e) => {
         const input = e.target.value;
@@ -74,7 +75,7 @@ export default function AddReportData() {
             });
     }
 
-    
+
     const navigate = useNavigate();
 
     const handleAllReportDetails = () => {
@@ -95,8 +96,20 @@ export default function AddReportData() {
                             placeholder="NE6565"
                             maxLength={6}
                             value={vehicleType}
-                            onChange={(e) => setVehicleType(e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                setVehicleType(value);
+
+                                // Validate vehicleType format
+                                const vehicleTypeRegex = /^NE\d{0,4}$/;
+                                if (!value.match(vehicleTypeRegex) && value !== "") {
+                                    setError("Vehicle Type should be in the format NEXXXX, where X represents a digit");
+                                } else {
+                                    setError("");
+                                }
+                            }}
                         />
+                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
                     </div>
                     <div className="mb-4">
                         <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
@@ -109,7 +122,7 @@ export default function AddReportData() {
                             onChange={handleDateChange}
                             max={
                                 new Date().toISOString().split('T')[0]
-                              }
+                            }
                         />
                     </div>
                     <div className="mb-4">

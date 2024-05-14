@@ -13,7 +13,7 @@ router.route("/add").post(async (req, res) => {
         const existingDriver = await Driver.findOne({ dID });
 
         if (existingDriver) {
-            return res.status(400).json({ error: "Driver with this ID already exists" });
+            return res.status(400).json({ message: "Driver with this ID already exists" });
         }
 
         const newDriver = new Driver({
