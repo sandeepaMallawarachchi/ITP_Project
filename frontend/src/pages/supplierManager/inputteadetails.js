@@ -27,7 +27,7 @@ const Teadetails = () => {
   };
 
   return (
-    <div className="absolute max-w-lg mx-auto mt-28      ml-80     ">
+    <div className="absolute max-w-lg mx-auto mt-28      ml-[500px]">             
       <h2 className="text-2xl font-bold mb-4">Add New tea details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

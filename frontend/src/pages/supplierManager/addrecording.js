@@ -38,9 +38,9 @@ const Reporting = () => {
           <input type="text" id="paymentmethod" name="paymentmethod" value={details.paymentmethod} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
         </div>
         <div>
-          <label htmlFor="date" className="block font-medium text-gray-700">Date:</label>
-          <input type="date" id="date" name="date" value={details.date} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
-        </div>
+  <label htmlFor="date" className="block font-medium text-gray-700">Date:</label>
+  <input type="date" id="date" name="date" value={details.date} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" step="1" />
+</div>
         <div>
           <label htmlFor="quantity" className="block font-medium text-gray-700">Quantity:</label>
           <input type="text" id="quantity" name="quantity" value={details.quantity} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
