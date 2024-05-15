@@ -13,6 +13,7 @@ import DeleteIn from '../pages/financialManager/deleteIncome';
 import UpdateIncome from '../pages/financialManager/updateIncome';
 import BalanceSheet from '../pages/financialManager/balanceSheet';
 import AddLiabilities from '../pages/financialManager/addLiabilities';
+import FinancialManagerDashBoard from '../pages/financialManager/financialManagerDashBoard';
 
 export default function financialRoutes() {
     return (
@@ -29,6 +30,7 @@ export default function financialRoutes() {
                 <Route path="/updateIncome/:incomeID/:id" element={<UpdateIncome />} />
                 <Route path="/balanceSheetHome/:id" element={<BalanceSheet />} />
                 <Route path="/managerAccount/:id" element={<ManagerAccount />} />
+                <Route path="/managerDashboard/:id" element={<FinancialManagerDashBoard />} />
             </Route>
         </Routes>
     )

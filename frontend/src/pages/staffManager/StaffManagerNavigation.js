@@ -15,7 +15,7 @@ import notFoundError from '../../images/notFound.jpeg';
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { FaUmbrellaBeach } from "react-icons/fa";
-import { MdAppRegistration } from "react-icons/md";
+import { GiTrophyCup } from "react-icons/gi";
 
 export default function SalesManagerNavigations() {
     const { id } = useParams();
@@ -146,6 +146,10 @@ export default function SalesManagerNavigations() {
         navigate(`/staff/empCategory/${id}`);
     };
 
+    const handleTopSellers = () => {
+        navigate(`/staff/topSellers/${id}`);
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchEmployeeDetails();
@@ -214,6 +218,7 @@ export default function SalesManagerNavigations() {
                                 <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
                                 <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
                             </Sidebar.Collapse>
+                            <Sidebar.Item icon={GiTrophyCup} onClick={handleTopSellers}>Top Sellers</Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>

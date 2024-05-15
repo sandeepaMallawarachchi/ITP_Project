@@ -80,7 +80,7 @@ export default function AddLocation() {
         if (regex.test(value) || value === "") {
             setName(value);
         }
-
+        
     };
 
     const navigate = useNavigate();
@@ -101,75 +101,33 @@ export default function AddLocation() {
 
                     <div>
                         <label htmlFor="cusID" className="block text-sm font-medium text-gray-700">Customer's ID</label>
-                        <input
-                            type="text"
-                            maxLength={7}
-                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            id="cusID"
-                            placeholder="CID1234"
-                            value={cusID}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                setCusID(value);
-
-
-                                // Validate cusID format
-                                const cusIDRegex = /^CID\d{0,4}$/;
-                                if (!value.match(cusIDRegex) && value !== "") {
-                                    setError("Customer ID should be in the format CIDXXXX, where X represents a digit");
-                                } else {
-                                    setError("");
-                                }
-                            }}
-                        />
-                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="cusID" placeholder="Enter Customer ID" value={cusID} onChange={(e) => setCusID(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
                     </div>
 
                     <div>
                         <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="district" className="block text-sm font-medium text-gray-700">District</label>
-                        <input required type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="district" placeholder="Enter District" value={district} onChange={(e) => setDistrict(e.target.value)} />
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="district" placeholder="Enter District" value={district} onChange={(e) => setDistrict(e.target.value)} />
                     </div>
 
                     <div>
                         <label htmlFor="delivery_code" className="block text-sm font-medium text-gray-700">Delivery Code</label>
-                        <input required
-                            type="text"
-                            maxLength={4}
-                            className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            id="delivery_code"
-                            placeholder="D123"
-                            value={delivery_code}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                setDelivery_code(value);
-
-                                // Validate delivery_code format
-                                const deliveryCodeRegex = /^D\d{3}$/;
-                                if (!value.match(deliveryCodeRegex) && value !== "") {
-                                    setError("Delivery Code should be in the format DXXX, where X represents a digit");
-                                } else {
-                                    setError("");
-                                }
-                            }}
-                        />
-                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="delivery_code" placeholder="Enter Delivery Code" value={delivery_code} onChange={(e) => setDelivery_code(e.target.value)} />
                     </div>
-
 
                     <div>
                         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
@@ -182,5 +140,4 @@ export default function AddLocation() {
             </div>
         </div>
     );
-}
-
+ }

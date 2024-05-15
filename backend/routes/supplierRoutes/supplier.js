@@ -111,15 +111,16 @@ router.route("/adddetails").post(async (req, res) => {
 })
 
 router.route("/addsuppliers").post(async (req, res) => {
-    const { name, age, address, email } = req.body;
+    const { name,address, email,sid } = req.body;    
 
     try {
         const newDetails = await suppliermodels.create({
 
             name,
-            age,
             address,
-            email // Set date to today's date with time set to 00:00:00
+            email,
+            sid
+             // Set date to today's date with time set to 00:00:00
         });
 
         res.json({ status: " suppliers added", purchase: newDetails });
@@ -229,7 +230,7 @@ router.route("/addteadetails").post(async (req, res) => {
     }
 
 })
-router.route("/addrecording").post(async (req, res) => {
+router.route("/addrecording").post(async (req, res) => {    
     const { paymentmethod, quantity, date } = req.body;
 
     try {
@@ -247,4 +248,39 @@ router.route("/addrecording").post(async (req, res) => {
     }
 
 })
+router.route('/updating/:id').put(async (req, res) => {  
+    try {
+        const { id } = req.params;
+        const {name,email ,address}  = req.body;
+        const updatedetails = {
+             name,
+               email,
+              address 
+        };
+        const update = await suppliermodels.findByIdAndUpdate(id, updatedetails, { new: true });
+        res.json(update);
+    } catch (error) {
+        console.error("error:", error);
+        res.status(500).json({ error: "An error occurred while updating data" });
+    }
+});
+router.route("/addrecords").post(async (req, res) => {     
+    const {paymentmethod,date,quantity,teatype } = req.body;     
+
+    try {
+        const newDetails = await  usermodels.create({
+             paymentmethod,
+             date,
+             quantity,
+             teatype // Set date to today's date with time set to 00:00:00
+        });
+
+        res.json({ status: "Purchase added", purchase: newDetails });
+    } catch (error) {
+        console.error("Error adding purchase:", error.message);
+        res.status(500).json({ error: "Error adding purchase" });
+    }
+
+})
+
 module.exports = router;
