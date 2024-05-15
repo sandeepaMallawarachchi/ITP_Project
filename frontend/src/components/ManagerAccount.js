@@ -142,6 +142,7 @@ export default function ManagerAccount() {
         setIsHovered(false);
     };
 
+    //retrieving the profile picture
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
@@ -173,7 +174,7 @@ export default function ManagerAccount() {
                     onMouseLeave={handleMouseLeave} />
 
                 {isHovered && (
-                    <div className="absolute -mt-64 ml-10 w-3/4">
+                    <div className="-mt-48 ml-10 w-3/4">
                         <input
                             type="file"
                             id="report"

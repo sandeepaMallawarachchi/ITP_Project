@@ -9,11 +9,11 @@ router.route("/add").post(async (req, res) => {
     try {
         const { dname, dID, age, address, phone_number, email, duration_of_job } = req.body;
 
-        // Check if the email already exists in the database
-        const existingDriver = await Driver.findOne({ email });
+        // Check if the dID already exists in the database
+        const existingDriver = await Driver.findOne({ dID });
 
         if (existingDriver) {
-            return res.status(400).json({ error: "Driver with this email already exists" });
+            return res.status(400).json({ message: "Driver with this ID already exists" });
         }
 
         const newDriver = new Driver({
@@ -34,6 +34,8 @@ router.route("/add").post(async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+
 
 router.route("/").get((req, res) => {
 
