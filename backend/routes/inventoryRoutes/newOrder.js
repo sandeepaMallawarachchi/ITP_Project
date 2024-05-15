@@ -12,11 +12,12 @@ router.post("/addOrder",async(req,res)=>{
         teaType,
         quantity,
         date : new Date().toLocaleDateString(),
-        status : "Low stock"
+        status : "Pending"
     }
     
     const newOrder = new order(newOrderProduct)
-     await newOrder.save().then(()=>{
+    
+    await newOrder.save().then(()=>{
         res.status(200).json({msg : "Order requested successfully"})
     }).catch((err)=>{
         res.status(400).json({err: err.message})
@@ -27,7 +28,7 @@ router.post("/addOrder",async(req,res)=>{
 router.patch("/updateOrderStatus/:id",async(req,res)=>{
     const {id} = req.params
     
-    await order.findByIdAndUpdate(id,{status : "Order Added"})
+    await order.findByIdAndUpdate(id,{status : "Order Complete"})
     .then(()=>{
         res.status(200).json({msg : "Order status updated"})
     }).catch((err)=>{
@@ -45,6 +46,18 @@ router.get("/getAllOrders",async(req,res)=>{
     }).catch((err)=>{
         res.status(400).json({err: err.message})
     })
+})
+
+//delete order
+router.delete("/deleteOrder/:id",async(req,res)=>{
+    const {id} = req.params
+    await order.findByIdAndDelete(id)
+    .then(()=>{
+        res.status(200).json({msg:"order deleted"})
+    }).catch((err)=>{
+        res.status(400).json({err: err.message})
+    })
+    
 })
 
 module.exports = router

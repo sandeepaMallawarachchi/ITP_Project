@@ -2,12 +2,14 @@ import React,{useState,useEffect} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
-
+import { useParams } from "react-router-dom";
 
 export default function DisplayProducts(){
 
   //initialize state to store product details
     const [products,setProducts] = useState([])
+
+    const {id} = useParams()
 
     useEffect(()=>{
 
@@ -61,8 +63,8 @@ export default function DisplayProducts(){
                       <td className="p-3 text-sm text-gray-500">{new Date(item.expDate).toLocaleDateString()}</td>
                       <td className="p-3 text-sm text-gray-500" >{item.reorderLevel }</td>
                       <div className="flex gap-2">
-                      <Button color="success" className="my-2 mx-3"><Link to={`/inventory/updateProduct/${item._id}`}> Update</Link></Button>
-                      <Button color="failure" className="my-2 mx-3"><Link to={`/inventory/deleteProduct/${item._id}`}> Delete</Link> </Button>
+                      <Button color="success" className="my-2 mx-3"><Link to={`/inventory/updateProduct/${item._id}/${id}`}> Update</Link></Button>
+                      <Button color="failure" className="my-2 mx-3"><Link to={`/inventory/deleteProduct/${item._id}/${id}`}> Delete</Link> </Button>
                       </div>
                     </tr>
                     )}
