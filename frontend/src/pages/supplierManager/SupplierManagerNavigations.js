@@ -140,14 +140,18 @@ export default function SupplierManagerNavigations() {
     const handleSearch = () => {
         navigate(`/supplierManager/search/${id}`);
     };
-
+    const handleOrder = () => {
+        navigate(`/supplierManager/orderDetails/${id}`);
+    };
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchStockDetails();
         filterStockDetails();
 
     };
-
+    const handlerecords  = () => {
+        navigate(`/supplierManager/addrecord/${id}`)  
+    };
     const handleTableClose = () => {
         setShowTable(false);
     };
@@ -205,6 +209,9 @@ export default function SupplierManagerNavigations() {
                             <Sidebar.Item icon={MdFormatListBulleted} onClick={handlePayment}>
                                 Payment Details
                             </Sidebar.Item>
+                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleOrder}>  
+                                 Order Details  
+                            </Sidebar.Item>
                             <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleAllSuppliers}>
                                 All supliers
                             </Sidebar.Item>
@@ -213,6 +220,9 @@ export default function SupplierManagerNavigations() {
                             </Sidebar.Item>
                             <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleSearch}>
                                 Search Supplier
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handlerecords}>  
+                                 Add recordings  
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>

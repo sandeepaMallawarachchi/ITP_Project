@@ -5,10 +5,7 @@ const   supplierSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-     age: {
-        type:  Number,
-        required: true
-    },
+      
      address: {
         type:  String,
         required: true
@@ -16,6 +13,10 @@ const   supplierSchema = new mongoose.Schema({
       email:{
            type:String,
            required:true
+     },
+     sid:{
+          type:String,
+          required:true
      }
 });
 

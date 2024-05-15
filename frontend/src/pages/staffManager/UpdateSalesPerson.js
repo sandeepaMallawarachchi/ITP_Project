@@ -48,6 +48,8 @@ export default function UpdateSalesPerson() {
                 setSuccessAlert(false);
             }, 5000);
 
+            navigate(`/staff/allEmployees/${id}`)
+
         } catch (error) {
             console.log("Error!", error.message);
 

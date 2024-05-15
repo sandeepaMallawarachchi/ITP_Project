@@ -51,8 +51,9 @@ function CurrentSale() {
         navigate(`/sales/deleteSale/${id}/${cusID}/${saleID}`);
     };
 
+    const totalamount = salesSummary.subTotal
     const handleConfirm = () => {
-        navigate(`/payment/cash/${id}/${cusID}/${cusName}`);
+        navigate(`/payment/cash/${id}/${cusID}/${cusName}/${totalamount}`);
     };
 
     return (
