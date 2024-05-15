@@ -18,14 +18,14 @@ export default function DeleteProduct(){
         expDate :""
     })
 
-    const {id} = useParams();
+    const {productId, id} = useParams();
     const navigate = useNavigate();
 
     useEffect(()=>{
 
         async function getProduct(){
           //getting the product with :id from db
-            await axios.get(`http://localhost:8070/inventory/product/getPack/${id}`)
+            await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`)
             .then((response)=>{
                 console.log("Got a product")
                 const manDate = new Date(response.data.manDate).toLocaleDateString();
@@ -43,14 +43,14 @@ export default function DeleteProduct(){
 
         getProduct()
         
-    },[id])
+    },[productId])
 
     async function deleteProduct(e){
        
         e.preventDefault();
         try{
           //deleting the product from db with :id
-            await axios.delete(`http://localhost:8070/inventory/product/deleteTeaPack/${id}`)
+            await axios.delete(`http://localhost:8070/inventory/product/deleteTeaPack/${productId}`)
             .then(()=>{
                alert("delete product")
             }).catch((err)=>{
@@ -61,7 +61,7 @@ export default function DeleteProduct(){
             console.log(err);
         }
 
-        navigate("/inventory")
+        navigate(`/inventory/dashboard/${id}`)
     }
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link,useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Alert, Spinner } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from '../../firebase';
 
 export default function AddDriver() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [dname, setName] = useState("");
     const [dID, setdID] = useState("");
     const [age, setAge] = useState("");
@@ -20,6 +20,8 @@ export default function AddDriver() {
     const [uploading, setUploading] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [error, setError] = useState("");
 
     const handleFileChange = (e) => {
         setLicense(e.target.files[0]);
@@ -53,8 +55,24 @@ export default function AddDriver() {
         );
     };
 
+    const checkDriverExists = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8070/driver/${dID}`);
+            return response.data.exists;
+        } catch (error) {
+            console.error("Error checking driver existence:", error);
+            return false;
+        }
+    };
+
     const sendData = async (e) => {
         e.preventDefault();
+
+        const exists = await checkDriverExists();
+        if (exists) {
+            setAlertMessage("Already customer exist");
+            return;
+        }
 
         const newAddDriver = {
             dname,
@@ -64,10 +82,10 @@ export default function AddDriver() {
             phone_number,
             email,
             duration_of_job
-        }
+        };
 
-        try {
-            await axios.post("http://localhost:8070/driver/add", newAddDriver);
+        axios.post("http://localhost:8070/driver/add", newAddDriver)
+        .then(() => {
             alert("Driver Added");
 
             setName("");
@@ -77,11 +95,18 @@ export default function AddDriver() {
             setNumber("");
             setEmail("");
             setDuration_of_job("");
-        } catch (err) {
-            alert(err.message);
-            console.log(err)
-        }
-    }
+            setError(""); // Clear error message after successful submission
+        })
+        .catch((err) => {
+            if (err.response && err.response.status === 400) {
+                alert('Driver ID already exists!');
+            } else {
+                alert(err.message);
+            }
+        });
+}
+
+       
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -101,12 +126,13 @@ export default function AddDriver() {
             setTimeout(() => {
                 setSuccessAlert(false);
             }, 5000);
-        } catch (error) {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 5000);
-            console.log(error);
+        } catch (err) {
+
+            if (err.response && err.response.status === 400) {
+                alert('Diver ID already exists!');
+            } else {
+                alert(err.message);
+            }
         }
     };
 
@@ -114,112 +140,76 @@ export default function AddDriver() {
 
     const handleAllDrivers = () => {
         navigate(`/deliveryManager/allDrivers/${id}`);
-    }
+    };
+
+    const handleDriverNameChange = (value) => {
+        const regex = /^[a-zA-Z\s]+$/;
+        if (regex.test(value) || value === "") {
+            setName(value);
+        }
+    };
 
     return (
-        
+
         <div className="absolute mt-48 left-1/3 w-1/2">
             <h1 className="text-2xl font-bold mb-4">Driver Registration form</h1>
             <form onSubmit={sendData}>
-                {/* <div className="mb-3">
-                    <label htmlFor="dname" className="form-label">Driver Name</label>
-                    <input type="text" className="form-control" id="dname" placeholder="Enter Driver Name"
-                        onChange={(e) => setName(e.target.value)} />
-                </div> */}
-                    <div>
-                        <label htmlFor="dname" className="block text-sm font-medium text-gray-700">Driver Name</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dname" placeholder="Enter driver Name" value={dname} onChange={(e) => setName(e.target.value)} />
-                    </div>
-
-                {/* <div className="mb-3">
-                    <label htmlFor="dID" className="form-label">Driver ID</label>
-                    <input type="text" className="form-control" id="dID" placeholder="Enter the Driver ID"
-                        onChange={(e) => setdID(e.target.value)} />
-                </div> */}
                 <div>
-                        <label htmlFor="dID" className="block text-sm font-medium text-gray-700">Driver ID</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dID" placeholder="Enter driver ID" value={dID} onChange={(e) => setdID(e.target.value)} />
-                    </div>
-
-
-                {/* <div className="mb-3">
-                    <label htmlFor="age" className="form-label">Age</label>
-                    <input type="number" className="form-control" id="age" placeholder="Enter the Age"
-                        onChange={(e) => setAge(e.target.value)} />
-                </div> */}
-
-                    <div>
-                        <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
-                        <input type="number" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="age" placeholder="Enter the Age" value={age} onChange={(e) => setAge(e.target.value)} />
-                    </div>
-
-
-
-                {/* <div className="mb-3">
-                    <label htmlFor="address" className="form-label">Address</label>
-                    <input type="text" className="form-control" id="address" placeholder="Enter the Address"
-                        onChange={(e) => setAddress(e.target.value, 10)} /> 
+                    <label htmlFor="dname" className="block text-sm font-medium text-gray-700">Driver Name</label>
+                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dname" placeholder="Enter driver Name" value={dname} onChange={(e) => handleDriverNameChange(e.target.value)} />
                 </div>
-                 */}
-
-                    <div>
-                        <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-                    </div>
-
-                {/* <div className="mb-3">
-                    <label htmlFor="phone_number" className="form-label">Phone Number</label>
+                <div>
+                    <label htmlFor="dID" className="block text-sm font-medium text-gray-700">Driver ID</label>
                     <input
                         type="text"
-                        className="form-control"
-                        id="phone_number"
-                        maxLength="10"
-                        pattern="[0-9]{10}"
-                        placeholder="Enter the Phone Number"
-                        onChange={(e) => setNumber(e.target.value)}
-                        title="Please enter exactly 10 digits"
-                        required  // Add required attribute if the field is mandatory
+                        maxLength={6}
+                        className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        id="dID"
+                        placeholder="DID123"
+                        value={dID}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            setdID(value);
+
+                            // Validate Driver ID format
+                            const driverIDRegex = /^DID\d{0,4}$/;
+                            if (!value.match(driverIDRegex) && value !== "") {
+                                setError("Driver ID should be in the format DIDXXXX, where X represents a digit");
+                            } else {
+                                setError("");
+                            }
+                        }}
                     />
-                </div> */}
+                    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                </div>
 
-                
-                    <div>
-                        <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
-                    </div>
-
-
-                {/* <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input type="email" className="form-control" id="email" placeholder="Enter the Email"
-                        onChange={(e) => setEmail(e.target.value)} />
-                </div> */}
-
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-
-
-                {/* <div className="mb-3">
-                    <label htmlFor="duration_of_job" className="form-label">Duration of Job</label>
-                    <input type="text" className="form-control" id="duration_of_job" placeholder="Enter duration of job"
-                        onChange={(e) => setDuration_of_job(e.target.value)} />
-                </div> */}
-
-                    <div>
-                        <label htmlFor="duration_of_job" className="block text-sm font-medium text-gray-700">Duration of Job</label>
-                        <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" placeholder="Enter duration of job" value={duration_of_job} onChange={(e) => setDuration_of_job(e.target.value)} />
-                    </div>
-
+                <div>
+                    <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
+                    <input type="number" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="age" placeholder="Enter the Age" value={age} onChange={(e) => setAge(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="address" placeholder="Enter the Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="phone_number" className="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="phone_number" maxLength="10" pattern="[0-9]{10}" placeholder="Enter the Phone Number" value={phone_number} onChange={(e) => setNumber(e.target.value)} title="Please enter exactly 10 digits" required />
+                </div>
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="email" placeholder="Enter the Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="duration_of_job" className="block text-sm font-medium text-gray-700">Duration of Job</label>
+                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="duration_of_job" placeholder="1 year" value={duration_of_job} onChange={(e) => setDuration_of_job(e.target.value)} />
+                </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
             </form>
             <div className="mt-4">
-                    <button onClick={handleAllDrivers} className="text-blue-500 hover:text-blue-700 text-lg">All Drivers</button>
-                </div>
+                <button onClick={handleAllDrivers} className="text-blue-500 hover:text-blue-700 text-lg">All Drivers</button>
+            </div>
 
             <form onSubmit={handleSubmit} className="mt-10">
-
                 <div className="mb-6">
                     <label htmlFor="report" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Driver's license</label>
                     <input
@@ -246,7 +236,15 @@ export default function AddDriver() {
                     {uploading ? "Confirming..." : "Upload report"}
                 </button>
             </form>
+
+            {alertMessage && (
+                <Alert type="error" className="mt-4">
+                    <HiInformationCircle className="text-xl" />
+                    <p className="ml-2">{alertMessage}</p>
+                </Alert>
+            )}
         </div>
-    
     );
 }
+
+

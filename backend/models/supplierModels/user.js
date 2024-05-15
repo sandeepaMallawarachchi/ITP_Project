@@ -17,7 +17,15 @@ const userSchema = new Schema({
      teatype: {
         type: String,
         required: true
-    } 
+    }, 
+     sid: {
+        type: String,
+        required: true
+    },
+     amount: {
+        type: String,
+        required: true
+    }  
     }
     
  );

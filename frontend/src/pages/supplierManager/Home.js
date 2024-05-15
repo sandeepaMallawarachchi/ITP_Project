@@ -24,7 +24,10 @@ export default function Home() {
               <th className="px-4 py-2">Date Of payment</th>
               <th className="px-4 py-2">Payment method</th>
               <th className="px-4 py-2">Quantity</th>
+              <th className="px-4 py-2"> Amount  </th>
               <th className="px-4 py-2">Tea Type </th>
+              <th className="px-4 py-2"> Supplier </th>
+               
               {/* Add more table headers if needed */}
             </tr>
           </thead>
@@ -34,7 +37,10 @@ export default function Home() {
                 <td className="border px-4 py-2">{item.date}</td>
                 <td className="border px-4 py-2">{item.paymentmethod}</td>
                 <td className="border px-4 py-2">{item.quantity}</td>
-                <td className="border px-4 py-2">{item.teatype}</td>  
+                <td className="border px-4 py-2">{item.amount }</td>
+                <td className="border px-4 py-2">{item.teatype}</td>
+                <td className="border px-4 py-2">{item.sid }</td>
+
                 {/* Render additional columns if needed */}
               </tr>
             ))}
