@@ -77,15 +77,15 @@ export default function ManagerRegistration() {
         }
     };
 
-    const handlePhoneNoChange = (value) => {
-        const regex = /^[0-9]{10}$/;
-        if (!regex.test(value)) {
-            setPhoneError("Phone number must be 10 digits.");
-        } else {
-            setPhoneError("");
-            setPhoneNo(value);
-        }
-    };
+    // const handlePhoneNoChange = (value) => {
+    //     const regex = /^[0-9]{10}$/;
+    //     if (!regex.test(value)) {
+    //         setPhoneError("Phone number must be 10 digits.");
+    //     } else {
+    //         setPhoneError("");
+    //         setPhoneNo(value);
+    //     }
+    // };
 
     const handleEmpIdChange = (value) => {
         const validateEmpId = /^E\d{0,4}$/;
