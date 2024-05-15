@@ -9,7 +9,8 @@ import Showsupplier from '../pages/supplierManager/showsupplier';
 import Search from '../pages/supplierManager/serach';
 import Teadetails from '../pages/supplierManager/inputteadetails';
 import ManagerAccount from '../components/ManagerAccount';
-import Reporting from '../pages/supplierManager/addrecording'        
+import Reporting from '../pages/supplierManager/addrecording'
+import OrderDetails from '../pages/supplierManager/OrderDetails'
 
 export default function SalesManagerRoutes() {
 
@@ -29,9 +30,10 @@ export default function SalesManagerRoutes() {
                 <Route path="/showSupplier/:id" element={<Showsupplier />} ></Route >
                 <Route path="/addProduct/:id" element={<Teadetails />} ></Route >
                 <Route path='/managerAccount/:id' element={<ManagerAccount />} />
-                <Route path="/addrecord/:id" element={<Reporting/>} ></Route >
+                <Route path="/addrecord/:id" element={<Reporting />} ></Route >
+                <Route path="/orderDetails/:id" element={<OrderDetails />} ></Route >
             </Route>
-                  
+
         </Routes>
     );
 }

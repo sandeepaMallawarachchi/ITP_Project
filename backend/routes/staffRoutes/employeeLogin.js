@@ -445,4 +445,43 @@ router.route("/deleteDriver/:dID").delete(async (req, res) => {
         })
 })
 
+//get driver by id
+router.route("/get/:dID").get(async (req, res) => {
+    let dID = req.params.dID;
+
+    const user = await Driver.findOne({ dID })
+        .then((driver) => {
+            res.status(200).send({ status: "Driver fetched", driver });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with get user", error: err.message });
+
+        })
+})
+
+//update driver
+router.route("/update/:dID").put(async (req, res) => {
+    let userId = req.params.dID;
+    const { dname, dID, age, address, phone_number, email, duration_of_job } = req.body;
+
+    const updateDriver = {
+        dname,
+        dID,
+        age,
+        address,
+        phone_number,
+        email,
+        duration_of_job
+    }
+
+    const update = await Driver.findOneAndUpdate({ userId }, updateDriver)
+        .then(() => {
+            res.status(200).send({ status: "Driver updated" })
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).send({ status: "Error with updating data" });
+        })
+
+})
+
 module.exports = router;
