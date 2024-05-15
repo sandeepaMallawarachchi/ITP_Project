@@ -47,6 +47,7 @@ function Search() {
                     {item.name}
                   </a>
                 </p>
+                <p className="text-gray-700">sid : {item.sid }</p>
                 <p className="text-gray-700">Address: {item.address}</p>
               </div>
             )}

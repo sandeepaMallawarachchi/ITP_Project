@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const Reporting = () => {
+  const [ details, setdetails  ] = useState({
+    paymentmethod:'' ,
+             date:'', 
+             quantity:'',
+             teatype:'' 
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+     setdetails({ ... details, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:8070/supplier/addrecords`,details);     
+      console.log(response.data);
+      // Optionally, you can redirect to another page after successful submission
+      // Insert navigation logic here
+    } catch (error) {
+      console.error('Error adding supplier:', error);
+    }
+  };
+
+  return (
+    <div className="absolute max-w-lg mx-auto mt-28    ml-72 ">
+      <h2 className="text-2xl font-bold mb-4">Add New  Purchasing details</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block font-medium text-gray-700">Payment method :</label>
+          <input type="text" id="paymentmethod " name="paymentmethod" value={ details.name} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+        <div>
+          <label htmlFor="type" className="block font-medium text-gray-700">Date :</label>
+          <input type="date"   id="date"   name="date"   value={ details.date} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+        <div>
+          <label htmlFor="price" className="block font-medium text-gray-700">Quantity :</label>
+          <input type="text" id="quantity"   name="quantity" value={ details.quantity} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+        <div>
+          <label htmlFor="quantity" className="block font-medium text-gray-700"> Tea type:</label>
+          <input type="text" id="teatype"   name="teatype" value={ details.teatype} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+        <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export default Reporting;

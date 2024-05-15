@@ -147,7 +147,9 @@ export default function SupplierManagerNavigations() {
         filterStockDetails();
 
     };
-
+    const handlerecords  = () => {
+        navigate(`/supplierManager/addrecord/${id}`)  
+    };
     const handleTableClose = () => {
         setShowTable(false);
     };
@@ -218,6 +220,9 @@ export default function SupplierManagerNavigations() {
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>
                                 My account
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handlerecords}>  
+                                 Add recordings  
                             </Sidebar.Item>
                             <Sidebar.Item icon={BiBuoy}>
                                 Help
