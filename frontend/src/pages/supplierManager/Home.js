@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div className='absolute mt-40    left-1/4  w-1/2 '>
-      <h1 className="text-2xl font-bold mb-4">Purchasing details</h1>
+      <h1 className="text-2xl font-bold mb-10">Purchasing details</h1>  
       <div className="overflow-x-auto">
         <table className="table-auto w-full">
           <thead>

@@ -4,36 +4,43 @@ import axios from 'axios';
 const Supplierdetails = () => {
   const [supplier, setSupplier] = useState({
     name: '',
-    age: '',
+     sid: '',
     address: '',
     email: ''
   });
   const [emailError, setEmailError] = useState('');
+  const [nameError, setNameError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSupplier({ ...supplier, [name]: value });
 
-    // Validate email format as the user types
-    if (name === 'email') {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(value)) {
-        setEmailError('Invalid email format');
+    // Validate name format as the user types
+    if (name === 'name') {
+      const namePattern = /^[a-zA-Z\s]*$/; // Allow only letters and spaces
+      if (!namePattern.test(value)) {
+        setNameError('Invalid name format');
       } else {
-        setEmailError('');
+        setNameError('');
       }
-    } else if (name !== 'email' && emailError) {
-      // If the user is typing in other fields and there's an email error, clear it
-      setEmailError('');
+    }
+
+    // Update state
+    setSupplier({ ...supplier, [name]: value });
+  };
+
+  const handleKeyDown = (e) => {
+    // Prevent typing "@" and "!" in the name field
+    if (e.target.name === 'name' && (e.key === '@' || e.key === '!')) {
+      e.preventDefault();
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if there's an email error before submitting
-    if (emailError) {
+    // Check if there's an email error or name error before submitting
+    if (emailError || nameError) {
       return;
     }
 
@@ -59,13 +66,20 @@ const Supplierdetails = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block">Name:</label>
-          <input type="text" id="name" name="name" value={supplier.name} onChange={handleChange} required
+          <input type="text" id="name" name="name" value={supplier.name} onChange={handleChange} onKeyDown={handleKeyDown} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
+          {nameError && <p className="text-red-500">{nameError}</p>}
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="age" className="block">Age:</label>
           <input type="number" id="age" name="age" value={supplier.age} onChange={handleChange} required
+            className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div> */}
+        <div>
+          <label htmlFor="sid" className="block">Username  :</label>
+          <input type="text" id="sid"   name="sid" value={supplier.sid} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
