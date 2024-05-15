@@ -10,6 +10,7 @@ import CurrentSale from '../pages/salesPerson/CurrentSale';
 import MyAccount from '../components/MyAccount';
 import DeleteSale from '../pages/salesPerson/DeleteSale';
 import RemainingStock from '../pages/salesPerson/RemainingStock';
+import Locations from '../pages/salesPerson/Locations';
 
 export default function SalesRoutes() {
 
@@ -29,7 +30,8 @@ export default function SalesRoutes() {
                 <Route path='/SalesSummary/:id' element={<SalesSummary />} />
                 <Route path='/deleteSale/:id/:cusID/:saleID' element={<DeleteSale />} />
                 <Route path='/remainingStock/:id' element={<RemainingStock />} />
-                <Route path='/currentSale/:id' element={<CurrentSale />} />
+                <Route path='/currentSale/:id/:cusID' element={<CurrentSale />} />
+                <Route path='/locations/:id' element={<Locations />} />
             </Route>
 
         </Routes>

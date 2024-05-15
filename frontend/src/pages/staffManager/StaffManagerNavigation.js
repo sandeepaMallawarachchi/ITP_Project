@@ -15,7 +15,7 @@ import notFoundError from '../../images/notFound.jpeg';
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { FaUmbrellaBeach } from "react-icons/fa";
-import { MdAppRegistration } from "react-icons/md";
+import { GiTrophyCup } from "react-icons/gi";
 
 export default function SalesManagerNavigations() {
     const { id } = useParams();
@@ -142,8 +142,12 @@ export default function SalesManagerNavigations() {
         navigate(`/staff/addVacation/${id}`);
     };
 
-    const handleRegistration = () => {
-        navigate(`/staff/managerRegistration/${id}`);
+    const handleAllEmployees = () => {
+        navigate(`/staff/empCategory/${id}`);
+    };
+
+    const handleTopSellers = () => {
+        navigate(`/staff/topSellers/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -202,12 +206,9 @@ export default function SalesManagerNavigations() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdAppRegistration} onClick={handleRegistration}>
-                                Registration
-                            </Sidebar.Item>
                             <Sidebar.Collapse icon={HiMiniUserGroup} label="Employees">
                                 <Sidebar.Item icon={HiMiniUserGroup} onClick={handleEmployees}>All Employees</Sidebar.Item>
-                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddEmployee}>Add Employee</Sidebar.Item>
+                                <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAllEmployees}>Add Employee</Sidebar.Item>
                             </Sidebar.Collapse>
                             <Sidebar.Collapse icon={GiTakeMyMoney} label="Salaries">
                                 <Sidebar.Item icon={GiTakeMyMoney} onClick={handleSalaries}>All Salaries</Sidebar.Item>
@@ -217,6 +218,7 @@ export default function SalesManagerNavigations() {
                                 <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
                                 <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
                             </Sidebar.Collapse>
+                            <Sidebar.Item icon={GiTrophyCup} onClick={handleTopSellers}>Top Sellers</Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>

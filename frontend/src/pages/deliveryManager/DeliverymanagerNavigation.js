@@ -15,6 +15,12 @@ import { Avatar } from 'flowbite-react';
 import { Alert } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import notFoundError from '../../images/notFound.jpeg';
+import { MdAppRegistration } from "react-icons/md";
+import { GrStatusInfo } from "react-icons/gr";
+import { IoMdCheckboxOutline } from "react-icons/io";
+import { TbReportMoney } from "react-icons/tb";
+
+
 
 export default function DeliverymanagerNavigation() {
     const { id } = useParams();
@@ -192,19 +198,19 @@ export default function DeliverymanagerNavigation() {
                             <Sidebar.Item icon={MdOutlineSpaceDashboard} onClick={handleDashboard}>
                                 Dashboard
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleCustomerRegistration}>
+                            <Sidebar.Item icon={MdAppRegistration} onClick={handleCustomerRegistration}>
                                 Customer Registration
                             </Sidebar.Item>
-                            <Sidebar.Item icon={IoSearchSharp} onClick={handleDeliveryStatus}>
+                            <Sidebar.Item icon={GrStatusInfo} onClick={handleDeliveryStatus}>
                                 Delivery Status
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdFormatListBulleted} onClick={handleDriverRegistration}>
+                            <Sidebar.Item icon={MdAppRegistration} onClick={handleDriverRegistration}>
                                 Driver Registration
                             </Sidebar.Item>
-                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleCheckingVehicleCondition}>
-                                Ckecking Vehicle Conditions
+                            <Sidebar.Item icon={IoMdCheckboxOutline} onClick={handleCheckingVehicleCondition}>
+                                Vehicle Conditions
                             </Sidebar.Item>
-                            <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleGenerateReport}>
+                            <Sidebar.Item icon={TbReportMoney} onClick={handleGenerateReport}>
                                 Generate Report
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>

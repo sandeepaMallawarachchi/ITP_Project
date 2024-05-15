@@ -7,7 +7,7 @@ let teaPack = require("../../models/inventoryModels/product");
 //add a new sale
 router.route("/addSale/:id").post(async (req, res) => {
     const salesPersonID = req.params.id;
-    const { amount, sellingPrice, cusID, productName } = req.body;
+    const { amount, sellingPrice, cusID, productName, cusName } = req.body;
     const date = new Date();
     date.setUTCHours(0, 0, 0, 0);   
     
@@ -48,6 +48,7 @@ router.route("/addSale/:id").post(async (req, res) => {
         const newSale = await Sales.create({
             salesPersonID,
             cusID,
+            cusName,
             productName,
             amount,
             unitPrice,
