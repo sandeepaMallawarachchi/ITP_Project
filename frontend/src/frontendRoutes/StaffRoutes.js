@@ -20,6 +20,7 @@ import UpdateSalesPerson from '../pages/staffManager/UpdateSalesPerson'
 import DeleteSalesPerson from '../pages/staffManager/DeleteSalesPerson'
 import DeleteDriver from '../pages/staffManager/DeleteDriver'
 import TopSellers from '../pages/staffManager/TopSellers'
+import UpdateDriver from '../pages/staffManager/UpdateDriver'
 
 export default function StaffRoutes() {
     return (
@@ -45,6 +46,7 @@ export default function StaffRoutes() {
                 <Route path='/deleteSalesperson/:salespersonID/:id' element={<DeleteSalesPerson />} />
                 <Route path='/deleteDriver/:driverId/:id' element={<DeleteDriver />} />
                 <Route path='/topSellers/:id' element={<TopSellers />} />
+                <Route path='/updateDriver/:dID/:id' element={<UpdateDriver />} />
             </Route>
         </Routes>
 
