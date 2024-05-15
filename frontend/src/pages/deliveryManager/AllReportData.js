@@ -42,7 +42,6 @@ export default function AllReportData() {
                     <thead>
                         <tr>
                             <th className="px-4 py-2 text-black">Vehicle Type</th>
-                            <th className="px-4 py-2 text-black">Date</th>
                             <th className="px-4 py-2 text-black">Monthly Distance (km)</th>
                             <th className="px-4 py-2 text-black">Fuel Cost (LKR)</th>
                             <th className="px-4 py-2 text-black">Service Charge (LKR)</th>
@@ -54,7 +53,6 @@ export default function AllReportData() {
                         {report.map((reportItem) => (
                             <tr key={reportItem._id}>
                                 <td className="border px-4 py-2">{reportItem.vehicleType}</td>
-                                <td className="border px-4 py-2">{reportItem.date}</td>
                                 <td className="border px-4 py-2">{reportItem.monthlyDistance}</td>
                                 <td className="border px-4 py-2">{reportItem.fuelCost}</td>
                                 <td className="border px-4 py-2">{reportItem.serviceCharge}</td>
