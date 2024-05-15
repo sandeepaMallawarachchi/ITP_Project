@@ -3,7 +3,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
+import { Alert } from "flowbite-react";
 
 export default function AddProduct() {
 
@@ -24,6 +24,7 @@ export default function AddProduct() {
 
   //state to store validation errors
   const [formErrors,setFormErrors] = useState({});
+  const [alert,setAlert] = useState(false);
 
   function handleChange(e){
 
@@ -68,12 +69,17 @@ export default function AddProduct() {
             manDate : productData.manDate,
             expDate: productData.expDate
           })
-          alert("successfully added the product")
-          navigate(`/inventory/products/${id}`)
+          //alert("successfully added the product")
+          setAlert(true)
+          
 
        }catch(err){
         console.log(err)
        }
+
+      //  setTimeout(()=>{
+      //   setAlert(false)
+      // },5000)
   }
 
 
@@ -84,6 +90,7 @@ export default function AddProduct() {
       //if no validation errors, can submit the form
       if(Object.keys(error).length === 0){
         await addProduct()
+        navigate(`/inventory/products/${id}`)
           
       }else{
         setFormErrors(error)
@@ -113,9 +120,14 @@ export default function AddProduct() {
     
   return (
       <div style={{marginLeft:"25%",marginTop:"10rem"}}>
+      {
+        alert && 
+        <Alert color="info">
+            <span className="font-medium">Product successfully added</span>
+        </Alert>
+      }
       <form onSubmit={handleSubmit} className="flex w-10/12 flex-col gap-4 ">
-      
-      <div className="flex justify-between">
+         <div className="flex justify-between">
               <div className="flex-1">
                 <div className="mb-2 block">
                   <Label>Product Name</Label>

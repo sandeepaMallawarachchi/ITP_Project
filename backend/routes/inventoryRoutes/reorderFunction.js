@@ -71,7 +71,7 @@ const sendMail = async(name,quantity)=>{
 
     var mailOptions = {
         from : process.env.USER,
-        to : 'gunathilakaranketh@gmail.com',
+        to : 'sandeepamallawarachchi1@gmail.com',
         subject : 'Reorder notification',
         text : `This product "${name}" has reached its reorder level.Current stock level ${quantity}.Please consider ordering now`
     }

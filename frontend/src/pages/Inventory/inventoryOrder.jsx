@@ -34,6 +34,7 @@ export default function Order(){
            const res = await axios.delete(`http://localhost:8070/inventory/orders/deleteOrder/${id}`)
            if(res){
             alert("order deleted")
+            navigate(`/inventory/dashboard/${id}`)
             
            }
 
