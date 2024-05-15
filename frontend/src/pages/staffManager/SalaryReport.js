@@ -77,7 +77,7 @@ function SalaryReport() {
 
     return (
         <div>
-            <div style={{ marginTop: "10rem", marginLeft: "23rem" }} >
+            <div style={{ position:"absolute", marginTop: "10rem", marginLeft: "23rem" }} >
                 <Button onClick={handlePrint} color="blue" className="my-10 " style={{ marginLeft: "2rem" }}> Download Report</Button>
                 <div ref={componentRef} >
 
