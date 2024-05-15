@@ -20,6 +20,7 @@ export default function PaymentRoutes() {
 
         <Routes>
             <Route path="/:id" element={<Home />} />
+            <Route path="/cash/:id/:cusID/:cusName/:totalamount" element={<Cash />} />
             <Route path="/cash/:id" element={<Cash />} />
             <Route path="/cardpayment/:id" element={<Cardpayment />} />
             <Route path="/transactionReport/:id" element={<TransactionReport />} />

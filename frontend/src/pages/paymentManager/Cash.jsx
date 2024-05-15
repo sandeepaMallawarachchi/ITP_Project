@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { FaRegFaceGrinStars } from "react-icons/fa6";
@@ -9,11 +9,10 @@ import Navigation from './Navigation';
 
 function Cash() {
 
-
+  const { cusName, totalamount } = useParams();
   const [payamount, setPayamount] = useState("");
-  const [totalamount, setTotalAmount] = useState("");
+  // const [totalamount, setTotalAmount] = useState("");
   const [customerID, setCustomerID] = useState("");
-  const [cusName, setCusName] = useState("");
   const [paymentDetails, setPaymentDetails] = useState([]);
   const [customerName, setCustomerName] = useState([]);
   const [showRedAlert, setShowRedAlert] = useState(false);
@@ -99,10 +98,6 @@ function Cash() {
 
   }
 
-
-
-
-
   function calculate_credit_amount() {
     return totalamount - payamount;
   }
@@ -158,14 +153,10 @@ function Cash() {
         }} />
         <br></br>
 
-        <input type='number' placeholder='Totalamount amount you have to pay' onChange={(e) => {
-          setTotalAmount(e.target.value);
-        }} />
+        <input type='number' placeholder='Totalamount amount you have to pay' value={totalamount}/>
         <br></br>
 
-        <input type='text' placeholder='Enter Customer Name' onChange={(e) => {
-          setCustomerName(e.target.value);
-        }}></input>
+        <input type='text' placeholder='Enter Customer Name' value={cusName}></input>
       </div>
 
       <div className="border border-gray-300 p-4 rounded-lg max-w-md mx-auto mt-8" style={{ marginTop: "-70px", marginLeft: "450px" }}>
