@@ -7,11 +7,12 @@ function AddSalary() {
     const [name, setName] = useState("");
     const [designation, setDesignation] = useState("");
     const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
+    const [year, setYear] = useState(new Date().getFullYear().toString());
     const [basicSalary, setBasicSalary] = useState(0);
     const [ETFbonus, setETFbonus] = useState(0);
     const [EPFbonus, setEPFbonus] = useState(0);
-    const [paymentDate, setPaymentDate] = useState("");
+    const [year, setYear] = useState(new Date().getFullYear().toString());
+    const [empIdError, setEmpIdError] = useState("");
 
     const { id } = useParams();
 
@@ -63,12 +64,30 @@ function AddSalary() {
         }
     };
 
+    const handleEmpIdChange = (value) => {
+        const validateEmpId = /^E\d{0,4}$/;
+        if (!validateEmpId.test(value)) {
+            setEmpIdError("Employee ID should begin with 'E' followed by up to four digits.");
+        } else {
+            setEmpIdError("");
+            setEmpId(value);
+        }
+    };
+
+    const handleNumericInput = (value, setter) => {
+        const regex = /^[0-9\b]+$/;
+        if (regex.test(value) || value === "") {
+            setter(value);
+        }
+    };
+
     return (
         <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={sendData}>
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="empId">Enter Employee ID: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empId" value={empId} onChange={(e) => setEmpId(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empId" value={empId} onChange={(e) => handleEmpIdChange(e.target.value)} />
+                    {empIdError && <div className="text-red-500">{empIdError}</div>}
                 </div>
 
                 <div className="mb-3">
@@ -95,27 +114,27 @@ function AddSalary() {
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="year">Enter Year: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="year" value={year} onChange={(e) => setYear(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="year" value={year} readOnly />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="basicSalary">Enter Basic Salary: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" id="basicSalary" value={basicSalary} onChange={(e) => setBasicSalary(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="basicSalary" value={basicSalary} onChange={(e) => handleNumericInput(e.target.value, setBasicSalary)} />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="ETFbonus">ETF Bonus Amount: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" id="ETFbonus" value={ETFbonus} onChange={(e) => setETFbonus(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="ETFbonus" value={ETFbonus} onChange={(e) => handleNumericInput(e.target.value, setETFbonus)} />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="EPFbonus">EPF Bonus Amount: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" id="EPFbonus" value={EPFbonus} onChange={(e) => setEPFbonus(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="EPFbonus" value={EPFbonus} onChange={(e) => handleNumericInput(e.target.value, setEPFbonus)} />
                 </div>
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="paymentDate">Payment Date: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="date" id="paymentDate" value={paymentDate} onChange={(e) => setPaymentDate(e.target.value)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="date" id="paymentDate" value={paymentDate} readOnly />
                 </div>
 
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Salary</button>
