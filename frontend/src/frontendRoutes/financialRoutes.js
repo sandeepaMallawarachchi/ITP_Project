@@ -18,15 +18,15 @@ export default function financialRoutes() {
     return (
         <Routes>
             <Route element={<FinancialManagerLayout />}>
-                <Route path="/add" element={<AddExpenses />} />
+                <Route path="/add/:id" element={<AddExpenses />} />
                 <Route path="/HomeExpenses/:id" element={<Home />} />
                 <Route path="/HomeIncome/:id" element={<HomeIn />} />
                 <Route path="/addLiabilities/:id" element={<AddLiabilities />} />
                 <Route path="/addIncome/:id" element={<AddIncome />} />
-                <Route path="/deleteExpen/:id/:id" element={<DeleteEx />} />
-                <Route path="/updateExpenses/:id/:id" element={<UpdateExpenses />} />
-                <Route path="/deleteIncome/:id/:id" element={<DeleteIn />} />
-                <Route path="/updateIncome/:id/:id" element={<UpdateIncome />} />
+                <Route path="/deleteExpen/:expenseID/:id" element={<DeleteEx />} />
+                <Route path="/updateExpenses/:expenseID/:id" element={<UpdateExpenses />} />
+                <Route path="/deleteIncome/:incomeID/:id" element={<DeleteIn />} />
+                <Route path="/updateIncome/:incomeID/:id" element={<UpdateIncome />} />
                 <Route path="/balanceSheetHome/:id" element={<BalanceSheet />} />
                 <Route path="/managerAccount/:id" element={<ManagerAccount />} />
             </Route>

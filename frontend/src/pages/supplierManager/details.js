@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function Details() {
   const [items, setItems] = useState([]);
+  const { id } = useParams();
 
   const fetchData = async () => {
     try {
@@ -29,8 +30,15 @@ export default function Details() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleUpdate = (itemId, id) => {
+    navigate(`/supplierManager/update/${itemId}/${id}`);
+  };  
+
+
   return (
-    <div className='text-green-500'>
+    <div className='absolute mt-40  left-1/3 w-1/2 '>
       <h1>Data Table</h1>
       <div className="overflow-x-auto">
         <table className="table-auto">
@@ -53,10 +61,10 @@ export default function Details() {
                 <td className="border px-4 py-2">
                   <div className="flex">
                     <div className="mr-2">
-                      <Link to={`/update/${item._id}`} className="text-blue-500">Update</Link>
+                      <button onClick={() => handleUpdate(item._id, id)} className="text-blue-500">Update</button>
                     </div>
                     <div>
-                      <button onClick={() => handleDelete(item._id)} className="text-red-500">Delete</button>
+                      <button onClick={() => handleDelete(item._id, id)} className="text-red-500">Delete</button>
                     </div>
                   </div>
                 </td>

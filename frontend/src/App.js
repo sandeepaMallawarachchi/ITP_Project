@@ -21,6 +21,10 @@ import DeliveryRoutes from './frontendRoutes/DeliveryRoutes';
 //financial
 import FinancialRoutes from './frontendRoutes/financialRoutes';
 
+
+//payment
+import PaymentRoutes from './frontendRoutes/PaymentRoutes';
+
 //login
 import Login from "./components/Login";
 import ForgetPassword from "./components/ForgetPassword";
@@ -65,6 +69,11 @@ function App() {
           <Route path='/staff/*' element={<StaffRoutes />} />
         </Routes>
 
+        {/* payment routes */}
+        <Routes>
+          <Route path='/payment/*' element={<PaymentRoutes />} />
+        </Routes>
+
         {/* login routes */}
         <Routes>
           <Route path='/' element={<Login />} />
@@ -73,6 +82,8 @@ function App() {
         <Routes>
           <Route path='/forgetPassword' element={<ForgetPassword />} />
         </Routes>
+
+        
       </div>
     </Router>
   );

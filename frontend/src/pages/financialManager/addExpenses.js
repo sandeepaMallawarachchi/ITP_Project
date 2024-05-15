@@ -11,7 +11,7 @@ export default function AddExpenses() {
     const [error, setError] = useState("");
     const [totalSalary, setTotalSalary] = useState(0); // State to store total salary
     const [totalDelivery, setTotalDelivery] = useState(0); // State to store total delivery
-    
+
 
     // Fetch total salary and total delivery when component mounts
     useEffect(() => {
@@ -41,36 +41,36 @@ export default function AddExpenses() {
             });
     };
 
-    //validation for date
-    const handleDateChange = (e) => {
-        const selectedDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+     //validation for date
+     const handleDateChange = (e) => {
+         const selectedDate = e.target.value;
+        const currentDate = new Date().toISOString().split('T')[0]; 
 
         if (selectedDate > currentDate) {
-            setError("Selected date cannot be a future date.");
-        } else {
+             setError("Selected date cannot be a future date.");
+         } else {
             setDate(selectedDate);
-            setError(""); // Clear error if date is valid
-        }
-    };
+             setError(""); 
+         }
+     };
 
-     //validation for amount
-     const handleAmountChange = (e) => {
+    
+    
+
+    //validation for amount
+    const handleAmountChange = (e) => {
         const enterAmount = e.target.value;
 
 
         if (enterAmount > 0) {
             setAmount(enterAmount);
-            setError(""); 
-            
+            setError("");
+
         } else {
             setError("Enter positive value");
         }
     };
 
-    const addIncomeBtn = () => {
-        navigate(`/addIncome`);
-    };
 
     function setData(e) {
         e.preventDefault();
@@ -106,19 +106,25 @@ export default function AddExpenses() {
     }
 
     return (
-        <div className="container">
+        <div className='absolute mt-48 left-1/3 w-1/2 '>
             <form onSubmit={setData}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div className="mb-3">
-            <label htmlFor="date" className="form-label">Date</label><br />
-            <input type="date" className="form-control" id="date" onChange={handleDateChange} value={date} required />
-            {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
-        </div>
+                    <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label><br />
+                    <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    id="date" 
+                    onChange={handleDateChange} 
+                    max={
+                        new Date().toISOString().split('T')[0]
+                      }
+                    value={date} required />
+                    {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
+                </div>
 
                 <div className="mb-3">
-                    <label htmlFor="category" className="form-label">Category</label><br />
+                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label><br />
                     <select
-                        className="form-control"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
@@ -133,25 +139,37 @@ export default function AddExpenses() {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Description</label><br />
-                    <input type="text" className="form-control" id="description" placeholder="Type description" onChange={(e) => setDescription(e.target.value)} value={description} required />
+                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label><br />
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     id="description" 
+                     placeholder="Type description" 
+                     onChange={(e) => setDescription(e.target.value)}
+                     value={description} required />
                 </div>
 
                 {/* Conditionally render the input field based on the selected category */}
                 {["Water Bill", "Electricity Bill", "Other"].includes(category) ? (
                     <div className="mb-3">
-                        <label htmlFor="amount" className="form-label">Amount</label><br />
-                        <input type="number" className="form-control" id="amount" placeholder="Amount" onChange={handleAmountChange} value={amount} required />
+                        <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
+                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        id="amount" 
+                        placeholder="Amount" 
+                        onChange={handleAmountChange} 
+                        value={amount} required />
                         {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
                     </div>
                 ) : (
                     <div className="mb-3">
-                        <label htmlFor="amount" className="form-label">Amount</label><br />
-                        <input type="number" className="form-control" id="amount" placeholder="Amount" value={category === "salary" ? totalSalary : category === "delivery" ? totalDelivery : amount} readOnly required />
+                        <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
+                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        id="amount" 
+                        placeholder="Amount" 
+                        value={category === "salary" ? totalSalary : category === "delivery" ? totalDelivery : amount} readOnly required />
                     </div>
                 )}
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                 <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64">Submit</button>
             </form>
         </div>
     );

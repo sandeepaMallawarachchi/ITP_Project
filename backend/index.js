@@ -58,11 +58,13 @@ const salaryRouter = require("./routes/staffRoutes/salary.js");
 const StaffRouter = require("./routes/staffRoutes/staff.js");
 const VacationRouter = require("./routes/staffRoutes/vacation.js");
 const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
+const VacationStatusRouter = require("./routes/staffRoutes/vacationStatus.js");
 
 app.use("/Staff", StaffRouter);
 app.use("/staff/salary", salaryRouter);
 app.use("/staff/vacation", VacationRouter);
 app.use("/empLogin", employeeLoginRouter);
+app.use("/staff/vacationStatus", VacationStatusRouter);
 
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");
@@ -106,6 +108,16 @@ const reportRouter = require("./routes/deliveryRoutes/report.js");
 app.use("/tea",teaRouter);
 app.use("/driver",driverRouter);
 app.use("/report",reportRouter);
+
+//payment riutes
+const paymentRouter = require("./routes/paymentRoutes/payment.js");
+const paymentdetailsRouter = require("./routes/paymentRoutes/paymentdetails.js");
+const paymentadminRouter = require("./routes/paymentRoutes/paymentadmin.js");
+
+app.use("/paymentdetails",paymentdetailsRouter);
+app.use("/payment", paymentRouter);
+app.use("/paymentadmin",paymentadminRouter);
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);

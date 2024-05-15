@@ -130,6 +130,15 @@ export default function Navigations() {
         navigate(`/sales/remainingStock/${id}`);
     };
 
+    const handleLocations = () => {
+        navigate(`/sales/locations/${id}`);
+    };
+
+    
+    const handlePayment = () => {
+        navigate(`/payment/cash/${id}`)
+    };
+
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchStockDetails();
@@ -140,10 +149,6 @@ export default function Navigations() {
     const handleTableClose = () => {
         setShowTable(false);
         setProductName("");
-    };
-
-    const handleProfilePic = () => {
-        navigate(`/sales/myAccount/${id}`)
     };
 
     return (
@@ -172,7 +177,7 @@ export default function Navigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleProfilePic} >
+                    <div className="flex md:order-2  mr-8 items-start cursor-pointer" onClick={handleMyAccount} >
                         <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{salesman.name}</span>
@@ -194,7 +199,7 @@ export default function Navigations() {
                             <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddSale}>
                                 New sale
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlinePayment}>
+                            <Sidebar.Item icon={MdOutlinePayment} onClick={handlePayment}>
                                 Payment
                             </Sidebar.Item>
                             <Sidebar.Item icon={MdFormatListBulleted} onClick={handleSalesSummary}>
@@ -203,7 +208,7 @@ export default function Navigations() {
                             <Sidebar.Item icon={IoSearchSharp} onClick={handleRemainingStock}>
                                 Remaining Stock
                             </Sidebar.Item>
-                            <Sidebar.Item icon={FiMapPin}>
+                            <Sidebar.Item icon={FiMapPin} onClick={handleLocations}>
                                 Locations
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>

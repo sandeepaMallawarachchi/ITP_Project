@@ -7,17 +7,18 @@ let VehicleEmission = require("../../models/deliveryModels/vehicleEmission");
 
 router.route("/add").post(async (req, res) => {
     try {
-        const { dname, age, address, phone_number, email, duration_of_job } = req.body;
+        const { dname, dID, age, address, phone_number, email, duration_of_job } = req.body;
 
-        // Check if the email already exists in the database
-        const existingDriver = await Driver.findOne({ email });
+        // Check if the dID already exists in the database
+        const existingDriver = await Driver.findOne({ dID });
 
         if (existingDriver) {
-            return res.status(400).json({ error: "Driver with this email already exists" });
+            return res.status(400).json({ message: "Driver with this ID already exists" });
         }
 
         const newDriver = new Driver({
             dname,
+            dID,
             age,
             address,
             phone_number,
@@ -26,7 +27,7 @@ router.route("/add").post(async (req, res) => {
         });
 
         await newDriver.save();
-        
+
         res.json("Driver Added");
     } catch (error) {
         console.log(error);
@@ -34,23 +35,26 @@ router.route("/add").post(async (req, res) => {
     }
 });
 
-router.route("/").get((req,res)=>{
 
-    Driver.find().then((driver)=>{
-       res.json(driver)
-}).catch((err)=>{
-    console.log(err)
+
+router.route("/").get((req, res) => {
+
+    Driver.find().then((driver) => {
+        res.json(driver)
+    }).catch((err) => {
+        console.log(err)
 
     })
 
- })
+})
 
- router.route("/update/:id").put(async(req, res) => {
+router.route("/update/:id").put(async (req, res) => {
     let userId = req.params.id;
-    const {dname, age, address, phone_number, email, duration_of_job} = req.body;
+    const { dname, dID, age, address, phone_number, email, duration_of_job } = req.body;
 
     const updateDriver = {
         dname,
+        dID,
         age,
         address,
         phone_number,
@@ -59,45 +63,45 @@ router.route("/").get((req,res)=>{
     }
 
     const update = await Driver.findByIdAndUpdate(userId, updateDriver)
-    .then(() => {
-        res.status(200).send({status: "Driver updated"})
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).send({status: "Error with updating data"});
-    })
+        .then(() => {
+            res.status(200).send({ status: "Driver updated" })
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).send({ status: "Error with updating data" });
+        })
 
- })
+})
 
- router.route("/deleteDriver/:id").delete(async (req, res) => {
+router.route("/deleteDriver/:id").delete(async (req, res) => {
     let userId = req.params.id;
 
     await Driver.findByIdAndDelete(userId)
-    .then(() => {
-        res.status(200).send({status: "User deleted"});
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({status: "Error with delete user", error: err.message});
+        .then(() => {
+            res.status(200).send({ status: "User deleted" });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with delete user", error: err.message });
 
-    })
- })
+        })
+})
 
- router.route("/get/:id").get(async (req, res) => {
+router.route("/get/:id").get(async (req, res) => {
     let userId = req.params.id;
 
     const user = await Driver.findById(userId)
-    .then((driver) => {
-        res.status(200).send({status: "Driver fetched", driver});
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({status: "Error with get user", error: err.message});
+        .then((driver) => {
+            res.status(200).send({ status: "Driver fetched", driver });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with get user", error: err.message });
 
-    })
- })
+        })
+})
 
- //upload driver license
+//upload driver license
 router.route("/uploadLicense").post(async (req, res) => {
 
-    const { downloadURL} = req.body;
+    const { downloadURL } = req.body;
 
     if (!downloadURL) {
         res.status(400).send({ status: "File url not found" });
@@ -136,7 +140,7 @@ router.route("/uploadLicense").post(async (req, res) => {
 //upload vehicle license
 router.route("/uploadVehicleLicense").post(async (req, res) => {
 
-    const { downloadURL} = req.body;
+    const { downloadURL } = req.body;
 
     if (!downloadURL) {
         res.status(400).send({ status: "File url not found" });
@@ -157,7 +161,7 @@ router.route("/uploadVehicleLicense").post(async (req, res) => {
 //upload vehicle emission test
 router.route("/uploadVehicleEmssion").post(async (req, res) => {
 
-    const { downloadURL} = req.body;
+    const { downloadURL } = req.body;
 
     if (!downloadURL) {
         res.status(400).send({ status: "File url not found" });

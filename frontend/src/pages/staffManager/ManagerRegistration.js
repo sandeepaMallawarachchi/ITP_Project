@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 export default function ManagerRegistration() {
-
     const [empId, setEmpId] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -17,9 +16,11 @@ export default function ManagerRegistration() {
     const [email, setEmail] = useState("");
     const [phoneNo, setPhoneNo] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
+    const [phoneError, setPhoneError] = useState("");
+
+    const navigate = useNavigate();
 
     const sendData = (e) => {
-
         e.preventDefault();
 
         const newManager = {
@@ -41,108 +42,119 @@ export default function ManagerRegistration() {
         try {
             axios.post(`http://localhost:8070/empLogin/managerRegister`, newManager);
             alert("Success! Manager added");
+            setEmpId('');
+            setFirstName('');
+            setLastName('');
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
+            setGender('');
+            setDepartment('');
+            setDesignation('');
+            setAddress('');
+            setEmail('');
+            setPhoneNo('');
+            setDateOfBirth('');
+
         } catch (error) {
-            alert("Error! Failed to add manger");
+            alert("Error! Failed to add manager");
             console.error("Error:", error);
         }
     }
 
+    const handleNumericInput = (value, setter) => {
+        const regex = /^[0-9\b]+$/; 
+        if (regex.test(value) || value === "") {
+            setter(value);
+        }
+    };
+
     return (
-        <div className='absolute mt-48 left-1/3 w-1/2 '>
+        <div className='absolute mt-48 left-1/3 w-1/2'>
             <form onSubmit={sendData}>
-                <div class="mb-3">
-                    <label for="empId" class="form-label">Enter Employee ID: </label>
-                    <input type="text" class="form-control" id="empId" required onChange={(e) => {
-                        setEmpId(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="empId">Enter Employee ID:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="empId" required
+                        value={empId} onChange={(e) => setEmpId(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Enter First Name: </label>
-                    <input type="text" class="form-control" id="firstName" required onChange={(e) => {
-                        setFirstName(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="firstName">Enter First Name:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="firstName" required
+                        value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="lastName" class="form-label">Enter Last Name: </label>
-                    <input type="text" class="form-control" id="lastName" required onChange={(e) => {
-                        setLastName(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="lastName">Enter Last Name:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="lastName" required
+                        value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="username" class="form-label">Enter Username: </label>
-                    <input type="text" class="form-control" id="username" required onChange={(e) => {
-                        setUsername(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="username">Enter Username:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="username" required
+                        value={username} onChange={(e) => setUsername(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Enter Password: </label>
-                    <input type="password" class="form-control" id="password" required onChange={(e) => {
-                        setPassword(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="password">Enter Password:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="password" id="password" required
+                        value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Enter Confirm Password: </label>
-                    <input type="password" class="form-control" id="confirmPassword" required onChange={(e) => {
-                        setConfirmPassword(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="confirmPassword">Enter Confirm Password:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="password" id="confirmPassword" required
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="gender" class="form-label">Enter Gender: </label>
-                    <input type="text" class="form-control" id="gender" required onChange={(e) => {
-                        setGender(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="gender">Enter Gender:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="gender" required
+                        value={gender} onChange={(e) => setGender(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="department" class="form-label">Enter Department: </label>
-                    <input type="text" class="form-control" id="department" required onChange={(e) => {
-                        setDepartment(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="department">Enter Department:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="department" required
+                        value={department} onChange={(e) => setDepartment(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="designation" class="form-label">Enter Designation: </label>
-                    <input type="text" class="form-control" id="designation" required onChange={(e) => {
-                        setDesignation(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="designation">Enter Designation:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="designation" required
+                        value={designation} onChange={(e) => setDesignation(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="address" class="form-label">Enter Address: </label>
-                    <input type="text" class="form-control" id="address" required onChange={(e) => {
-                        setAddress(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="address">Enter Address:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="address" required
+                        value={address} onChange={(e) => setAddress(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">Enter Email: </label>
-                    <input type="text" class="form-control" id="email" required onChange={(e) => {
-                        setEmail(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="email">Enter Email:</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="email" required
+                        value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <label for="phoneNo" class="form-label">Enter PhoneNo: </label>
-                    <input type="text" class="form-control" id="phoneNo" required onChange={(e) => {
-                        setPhoneNo(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="phoneNo">Enter PhoneNo:</label>
+                    <input type="text" maxLength={10} minLength={10} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="phoneNo" required
+                        value={phoneNo} onChange={(e) => {
+                            handleNumericInput(e.target.value,setPhoneNo);
+                        }} />
+                    {phoneError && <div className="text-red-500">{phoneError}</div>}
                 </div>
 
-                <div class="mb-3">
-                    <label for="dateOfBirth" class="form-label">Enter Date Of Birth: </label>
-                    <input type="date" class="form-control" id="dateOfBirth" required onChange={(e) => {
-                        setDateOfBirth(e.target.value);
-                    }} />
+                <div className="mb-3">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="dateOfBirth">Enter Date Of Birth:</label>
+                    <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="dateOfBirth" required
+                        value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register Employee</button>
             </form>
         </div>
-    )
+    );
 }

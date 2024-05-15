@@ -169,7 +169,7 @@ export default function SalesManagerNavigations() {
                             <span className="sr-only">Search</span>
                         </button>
                     </div>
-                    <div className="flex md:order-2  mr-20 items-start">
+                    <div className="flex md:order-2  mr-20 items-start" onClick={handleMyAccount}>
                         <Avatar alt="User settings" img={profilePicture} rounded />
                         <div className="ml-4 flex flex-col">
                             <span className='text-green-500 font-bold'>{manager.firstName}</span>

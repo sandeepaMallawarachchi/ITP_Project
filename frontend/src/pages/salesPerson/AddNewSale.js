@@ -8,12 +8,14 @@ export default function AddNewSale() {
 
     const { id } = useParams();
     const [productName, setProductName] = useState("");
-    
     const [amount, setAmount] = useState("");
     const [sellingPrice, setSellingPrice] = useState("");
     const [unitPrice, setUnitPrice] = useState("");
     const [cusID, setCusID] = useState("");
+    const [cusName, setCusName] = useState("");
     const [error, setError] = useState(false);
+    const [errCusId, setErrCusId] = useState(false);
+    const [errCusName, setErrCusName] = useState(false);
     const [productNames, setProductNames] = useState([]);
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorsAlert, setErrorAlert] = useState(false);
@@ -49,6 +51,33 @@ export default function AddNewSale() {
         fetchStandardPrice();
     };
 
+    const handleNumericInput = (value, setter) => {
+        const regex = /^[0-9\b]+$/;
+        if (regex.test(value) || value === "") {
+            setter(value);
+        }
+    };
+
+    const handleCusIDChange = (value) => {
+        const regex = /^c\d*$/;
+        if (regex.test(value) || value === "") {
+            setCusID(value);
+            setErrCusId(false);
+        } else {
+            setErrCusId(true);
+        }
+    };
+
+    const handleCusNameChange = (value) => {
+        const regex = /^[a-zA-Z\s]+$/;
+        if (regex.test(value) || value === "") {
+            setCusName(value);
+            setErrCusName(false);
+        } else {
+            setErrCusName(true);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -59,6 +88,7 @@ export default function AddNewSale() {
                 sellingPrice,
                 unitPrice,
                 cusID,
+                cusName,
             });
 
             if (res.data.error) {
@@ -95,7 +125,7 @@ export default function AddNewSale() {
     };
 
     const handleSalesSummary = () => {
-        navigate(`/currentSale/${id}/${cusID}`);
+        navigate(`/sales/currentSale/${id}/${cusID}/${cusName}`);
     };
 
     return (
@@ -108,18 +138,30 @@ export default function AddNewSale() {
             </Alert>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label for="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
+                    <label htmlFor="cusID" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer ID</label>
                     <input
                         type="text"
                         id="cusID"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errCusId ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         placeholder="c123"
                         required
-                        onChange={(e) => {
-
-                            setCusID(e.target.value);
-                        }}
+                        value={cusID}
+                        onChange={(e) => handleCusIDChange(e.target.value)}
                     />
+                    {errCusId && <p className="text-red-600 text-sm mt-1">Customer ID must start with 'c' followed by numbers.</p>}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="cusName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Customer Name</label>
+                    <input
+                        type="text"
+                        id="cusName"
+                        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errCusName ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
+                        placeholder="someone"
+                        required
+                        value={cusName}
+                        onChange={(e) => handleCusNameChange(e.target.value)}
+                    />
+                    {errCusName && <p className="text-red-600 text-sm mt-1">Customer Name should not contain special characters or numbers.</p>}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="teaType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter product name</label>
@@ -144,8 +186,9 @@ export default function AddNewSale() {
                         value={amount}
                         placeholder='100 KG'
                         id="amount"
-                        onChange={(e) => setAmount(e.target.value)}
+                        onChange={(e) => handleNumericInput(e.target.value, setAmount)}
                     />
+                    {error && <p className="text-red-600 text-sm mt-1">Amount should be lower than remaining stock</p>}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="unitPrice" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Standard price</label>
@@ -168,7 +211,7 @@ export default function AddNewSale() {
                         value={sellingPrice}
                         placeholder='LKR 1000'
                         id="sellingPrice"
-                        onChange={(e) => setSellingPrice(e.target.value)}
+                        onChange={(e) => handleNumericInput(e.target.value, setSellingPrice)}
                     />
                 </div>
 
