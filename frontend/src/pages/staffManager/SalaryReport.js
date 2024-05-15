@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import { useReactToPrint } from 'react-to-print';
 import { Button } from "flowbite-react";
+import logo from '../../images/logo.png';
 
 function SalaryReport() {
     const { empId } = useParams();
     const { month } = useParams();
     const { year } = useParams();
     const [salaryDetails, setSalaryDetails] = useState([]);
+    const [showLogoAndTitle, setShowLogoAndTitle] = useState(false);
 
     useEffect(() => {
         const fetchSalaryDetails = async () => {
@@ -16,6 +18,7 @@ function SalaryReport() {
                 const response = await axios.get(`http://localhost:8070/staff/salary/salaryDetails/${empId}/${month}/${year}`);
                 setSalaryDetails(response.data);
                 console.log(response.data);
+                setShowLogoAndTitle(true)
             } catch (error) {
                 console.error("Error fetching salary details:", error.message);
             }
@@ -28,7 +31,8 @@ function SalaryReport() {
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,//specifies the content to be print
-        documentTitle: "Salary Report",
+        onBeforeGetContent: () => setShowLogoAndTitle(true),
+        onAfterPrint: () => setShowLogoAndTitle(false),
         pageStyle: `
         @page {
             size: A4;
@@ -53,22 +57,32 @@ function SalaryReport() {
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        .document-title {
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            margin: 10px;
+            content: url(${logo});
+        }
+        .title {
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 18px;
+            font-size: 2rem;
             font-weight: bold;
+            color: green;
+            margin-top: 170px
         }
     `
     })
 
     return (
         <div>
-            <h2>Salary Details</h2>
             <div style={{ marginTop: "10rem", marginLeft: "23rem" }} >
                 <Button onClick={handlePrint} color="blue" className="my-10 " style={{ marginLeft: "2rem" }}> Download Report</Button>
                 <div ref={componentRef} >
-                    <div className="document-title" style={{ marginLeft: "23rem", marginTop: "-5rem", fontWeight: "bold", fontSize: "1.5rem" }}>Salary Report</div>
+
+                    <img className='ml-56 logo' />
+                    <h1 className='text-center text-2xl font-bold text-green-500 title'>Salary Details</h1>
                     {salaryDetails.map((detail, index) => (
                         <div key={index}>
                             <p>Employee ID: {detail.empId}</p>
