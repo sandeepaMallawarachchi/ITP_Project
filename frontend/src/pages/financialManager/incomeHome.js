@@ -4,11 +4,13 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useReactToPrint } from 'react-to-print';
 import { Button } from "flowbite-react";
 
+
 export default function HomeIn() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
+   
 
 
     useEffect(() => {
@@ -25,6 +27,7 @@ export default function HomeIn() {
             .then((res) => {
                 const totalIncome = res.data.getTotalIncome;
                 setTotalIncome(totalIncome);
+                
             })
             .catch((error) => {
                 alert(error.message);
