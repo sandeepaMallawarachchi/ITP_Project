@@ -13,6 +13,7 @@ export default function FinancialManagerDashBoard() {
 
     const [totalIncome, setTotalIncome] = useState(0); // Initialize totalIncome as 0
     const [totalExpenses, setTotalExpenses] = useState(0); // Initialize totalExpenses as 0
+    
 
     useEffect(() => {
         axios.get("http://localhost:8070/incomeRt/getTotalIncome")
@@ -39,6 +40,8 @@ export default function FinancialManagerDashBoard() {
             setTotalExpenses(0); // Set totalExpenses to 0 on error
         });
 }, []);
+
+
 
     useEffect(() => {
         const fetchManagerDetails = async () => {
