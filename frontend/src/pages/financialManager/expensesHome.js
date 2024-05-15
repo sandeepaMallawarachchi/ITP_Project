@@ -3,6 +3,11 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "flowbite-react";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import logo from "../../images/logo.png";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default function Home() {
     const { id } = useParams();
@@ -46,41 +51,103 @@ export default function Home() {
 
     const componentRef = useRef();
 
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-        documentTitle: "Expenses Report",
-        pageStyle: `
-        @page {
-            size: A4;
-            margin: 1cm;
+    const handlePrint = async () => {
+        const exportData = expenses.map((item) => ({
+    
+        
+          "Date ": item.date,
+          "Category": item.category,
+          "Description": item.description,
+          "Amount": item.amount,
+          
+          
+        }))
+    
+        const headerRow = [
+            "Date",
+            "Category",
+            "Description",
+            "Amount",
+            
+        ]
+    
+        const tableRows = [
+            headerRow.map((header) => ({
+              text: header,
+              fontSize: 12,
+              bold: true,
+              fillColor: "#04AA6D",
+              color: "white",
+            })),
+            
+            ...exportData.map((item,index)=>{
+                const backgroundColor = index % 2 === 0 ? "white" : "#f2f2f2";
+                return Object.values(item).map((value)=>({
+                    text: value,
+                    fontSize: 8,
+                    fillColor:backgroundColor,
+                }));
+            }),
+        ];
+    
+        const columnWidths = [120,70, 90, 100, 100];
+    
+        try{
+            const response = await fetch(logo);
+            const blob = await response.blob();
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = ()=>{
+                const base64data = reader.result;
+                const docDefinition = {
+                    content: [
+                        // {
+                        //     text:"Hendricks Tea",
+                        //     style: "additionalHeader",
+                        //     alignment: "center",
+                        //     margin: [0, 20, 0, 0],
+                        // },
+                        {
+                            image: base64data,
+                            width: 120,
+                            height: 100,
+                            alignment: "center",
+                            margin: [0,20,0,10]
+                        },
+                        {text:"Expenses Sheet",style: "header",margin:[0,10,0,20]},
+                        {
+                            table:{
+                                headerRows : 1,
+                                widths: columnWidths,
+                                body : tableRows,
+                            },
+                            margin:[0,10,0,0]
+                        },
+                    ],
+                    styles : {
+                        header: {
+                            fontSize: 18,
+                            bold: true,
+                            alignment: "center",
+                            margin: [0, 0, 0, 20],
+                        },
+                        additionalHeader: {
+                            fontSize: 16,
+                            bold: true,
+                        },
+                    },
+                };
+    
+                const pdfDoc = pdfMake.createPdf(docDefinition)
+                pdfDoc.download("Expenses sheet.pdf")
+            }
+    
+        }catch(err){
+            console.error("Error fetching image", err)
         }
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .document-title {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-    `,
-    });
+    
+    };
+
 
     const handleDeleteExpensesBtn = (expenseID) => {
         navigate(`/financial/deleteExpen/${expenseID}/${id}`);
