@@ -46,7 +46,14 @@ export default function ManagerRegistration() {
             alert("Success! Manager added");
             clearForm();
         } catch (error) {
-            alert("Error! Failed to add manager");
+            if (error.response && error.response.status === 400) {
+                alert("Manager already exists!");
+                clearForm();
+            }
+            else {
+                alert("Error! Failed to add manager");
+                clearForm();
+            }
             console.error("Error:", error);
         }
     }

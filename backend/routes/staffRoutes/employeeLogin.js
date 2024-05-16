@@ -36,7 +36,7 @@ router.route('/managerRegister').post(async (req, res) => {
             return res.status(400).json({ error: "Passwords do not match" });
         }
 
-        const existingManager = await Manager.find({ username, designation });
+        const existingManager = await Manager.find({ empId });
 
         if (existingManager.length > 0) {
             return res.status(400).json({ error: "Manager already exists!" });
