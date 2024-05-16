@@ -177,7 +177,7 @@ function Cash() {
 
       <Navigation />
 
-      <div style={{ marginLeft: '1100px', marginTop: '200px' }}>
+      <div style={{ marginLeft: '1100px', marginTop: '200px' }} hidden>
         <input type="text" placeholder="Customer ID" value={cusID} readOnly />
         <br />
 
@@ -189,7 +189,7 @@ function Cash() {
 
       <div
         className="border border-gray-300 p-4 rounded-lg max-w-md mx-auto mt-8"
-        style={{ marginTop: '-70px', marginLeft: '450px' }}
+        style={{ marginTop: '250px', marginLeft: '600px' }}
       >
         <div className="flex justify-between mb-2">
           <span className="font-semibold">Amount: </span>
