@@ -60,7 +60,7 @@ function SearchByName() {
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
-                        style={{ position: 'absolute', right: '520px', top: '50%', transform: 'translateY(-50%)' }} // Position the icon
+                        style={{ position: 'absolute', right: '600px', top: '50%', transform: 'translateY(-50%)' }} // Position the icon
                     >
                         <path
                             d="M21.707 20.293l-5.285-5.285a7.48 7.48 0 10-.708.708l5.285 5.285a.5.5 0 00.707 0 .5.5 0 000-.707zM3 10.5a7.5 7.5 0 1114.998-.002A7.5 7.5 0 013 10.5z"

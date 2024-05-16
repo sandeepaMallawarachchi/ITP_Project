@@ -265,14 +265,16 @@ router.route('/updating/:id').put(async (req, res) => {
     }
 });
 router.route("/addrecords").post(async (req, res) => {     
-    const {paymentmethod,date,quantity,teatype } = req.body;     
+    const {paymentmethod,date,quantity,teatype,sid,amount } = req.body;     
 
     try {
         const newDetails = await  usermodels.create({
              paymentmethod,
              date,
              quantity,
-             teatype // Set date to today's date with time set to 00:00:00
+             teatype,
+             sid,
+             amount // Set date to today's date with time set to 00:00:00
         });
 
         res.json({ status: "Purchase added", purchase: newDetails });

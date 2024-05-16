@@ -17,9 +17,9 @@ function Cash() {
 
   useEffect(() => {
     if (cusID) {
-      const id = parseInt(cusID.replace('c', '')); // Convert cusID to number
+      const id = parseInt(cusID.replace('c', ''));
       setCustomerID(id);
-      setCustomerName(cusName); // Set the customer name
+      setCustomerName(cusName);
     }
   }, [cusID, cusName]);
 
@@ -57,7 +57,7 @@ function Cash() {
     axios
       .post('http://localhost:8070/paymentdetails/add', newPaymentDetails)
       .then(() => {
-        navigate('/transactionReport', {
+        navigate(`/payment/transactionReport/${id}`, {
           state: { customerID, payamount, totalcreditamount, payTimeDateFormate },
         });
       })
@@ -167,9 +167,9 @@ function Cash() {
     }
   }
 
-  const handlPayNavigations = () => {
-    navigate(`/payment/transactionReport/${id}`)
-  }
+  // const handlPayNavigations=()=>{
+  //   navigate(`/payment/transactionReport/${id}`)
+  // }
 
   return (
     <div>
@@ -177,8 +177,8 @@ function Cash() {
 
       <Navigation />
 
-      <div style={{ marginLeft: '1100px', marginTop: '200px' }}>
-        <input type="text" placeholder="Customer ID" value={customerID} readOnly />
+      <div style={{ marginLeft: '1100px', marginTop: '200px' }} hidden>
+        <input type="text" placeholder="Customer ID" value={cusID} readOnly />
         <br />
 
         <input type="number" placeholder="Total amount you have to pay" value={totalamount} readOnly />
@@ -189,7 +189,7 @@ function Cash() {
 
       <div
         className="border border-gray-300 p-4 rounded-lg max-w-md mx-auto mt-8"
-        style={{ marginTop: '-70px', marginLeft: '450px' }}
+        style={{ marginTop: '250px', marginLeft: '600px' }}
       >
         <div className="flex justify-between mb-2">
           <span className="font-semibold">Amount: </span>
@@ -229,14 +229,16 @@ function Cash() {
         <br />
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button
+          {/* <Link to={`/payment/transactionReport/${id}`}> */}
+            <button
 
-            disabled={(bannedStatus && payamount < fulltotalamount) || payamount > fulltotalamount}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={sendData && handlPayNavigations}
-          >
-            Pay
-          </button>
+              disabled={(bannedStatus && payamount < fulltotalamount) || payamount > fulltotalamount}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={sendData}
+            >
+              Pay
+            </button>
+          {/* </Link> */}
           <br />
         </div>
 

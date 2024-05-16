@@ -39,7 +39,7 @@ export default function Details() {
 
   return (
     <div className='absolute mt-40  left-1/3 w-1/2 '>
-      <h1>Data Table</h1>
+      <h1 className='text-2xl'>Data Table</h1>
       <div className="overflow-x-auto">
         <table className="table-auto">
           <thead>

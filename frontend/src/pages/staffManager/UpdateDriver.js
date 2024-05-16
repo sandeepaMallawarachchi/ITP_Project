@@ -7,7 +7,6 @@ function UpdateDriver() {
     const [driverDetails, setDriverDetails] = useState({
         dname: "",
         age: "",
-        dID: "",
         address: "",
         phone_number: "",
         email: "",
@@ -48,10 +47,6 @@ function UpdateDriver() {
                 <div>
                     <label htmlFor="dname" className="block text-sm font-medium text-gray-700">Driver Name</label>
                     <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dname" value={driverDetails.dname} onChange={(e) => setDriverDetails({ ...driverDetails, dname: e.target.value })} />
-                </div>
-                <div>
-                    <label htmlFor="dID" className="block text-sm font-medium text-gray-700">Driver ID</label>
-                    <input type="text" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" id="dID" value={driverDetails.dID} onChange={(e) => setDriverDetails({ ...driverDetails, dID: e.target.value })} />
                 </div>
                 <div>
                     <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>

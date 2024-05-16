@@ -57,11 +57,11 @@ export default function AddDriver() {
     };
 
     const handleAgeChange = (value) => {
-        if (parseInt(age) > 50) {
+        if (parseInt(value) > 50) {
             setAgeError("Age must be 50 or less.");
-            return;
         } else {
             setAgeError("");
+            setAge(value);
         }
     };
 

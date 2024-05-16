@@ -6,7 +6,9 @@ const Reporting = () => {
     paymentmethod: '',
     date: '',
     quantity: '',
-    teatype: ''
+    teatype: '',
+    sid:'',
+    amount:''
   });
 
   const [isSuccess, setIsSuccess] = useState(false);
@@ -29,7 +31,7 @@ const Reporting = () => {
   };
 
   return (
-    <div className="absolute max-w-lg mx-auto mt-28 ml-72 ">
+    <div className="absolute max-w-lg mx-auto mt-28 ml-[500px] ">
       <h2 className="text-2xl font-bold mb-4 text-green-500">Add New Purchasing details</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -48,6 +50,14 @@ const Reporting = () => {
         <div>
           <label htmlFor="teatype" className="block font-medium text-gray-700">Tea type:</label>
           <input type="text" id="teatype" name="teatype" value={details.teatype} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+        <div>
+          <label htmlFor="sid" className="block font-medium text-gray-700">Supplier :</label>
+          <input type="text" id="sid"  name="sid"  value={details.sid} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+        <div>
+          <label htmlFor="amount"   className="block font-medium text-gray-700"> Amount :</label>
+          <input type="text" id="amount"  name="amount"  value={details.amount} onChange={handleChange} required className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
         </div>
         <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">Submit</button>
       </form>
