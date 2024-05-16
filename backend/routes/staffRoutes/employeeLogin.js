@@ -461,12 +461,11 @@ router.route("/get/:dID").get(async (req, res) => {
 
 //update driver
 router.route("/update/:dID").put(async (req, res) => {
-    let userId = req.params.dID;
-    const { dname, dID, age, address, phone_number, email, duration_of_job } = req.body;
+    let dID = req.params.dID;
+    const { dname, age, address, phone_number, email, duration_of_job } = req.body;
 
     const updateDriver = {
         dname,
-        dID,
         age,
         address,
         phone_number,
@@ -474,7 +473,7 @@ router.route("/update/:dID").put(async (req, res) => {
         duration_of_job
     }
 
-    const update = await Driver.findOneAndUpdate({ userId }, updateDriver)
+    const update = await Driver.findOneAndUpdate({ dID }, updateDriver)
         .then(() => {
             res.status(200).send({ status: "Driver updated" })
         }).catch((err) => {
