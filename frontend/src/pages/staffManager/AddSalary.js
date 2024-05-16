@@ -11,7 +11,7 @@ function AddSalary() {
     const [basicSalary, setBasicSalary] = useState(0);
     const [ETFbonus, setETFbonus] = useState(0);
     const [EPFbonus, setEPFbonus] = useState(0);
-    const [paymentDate, setPaymentDate] = useState("");
+    const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split('T')[0]);
     const [empIdError, setEmpIdError] = useState("");
 
     const { id } = useParams();
