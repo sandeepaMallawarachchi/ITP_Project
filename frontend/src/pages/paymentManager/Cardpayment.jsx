@@ -53,7 +53,7 @@ function Cardpayment() {
 
       if (CardNumber === card.cardnumber && cardholdername === card.cardholdername && cvv === card.CVV) {
         console.log("Success ! ");
-        // navigate(`/payment/cash/${id}`);
+        navigate(`/payment/cash/${id}`);
         return; //if found one match it exit the loop
       }
     }

@@ -23,5 +23,13 @@ router.route("/add").post((req,res) => {
 
 })
 
+router.route("/").get((req,res) => {
+    Payment.find().then((paymentdetailss) => {
+        res.json(paymentdetailss);
+    }).catch((err) => {
+        console.log(err);
+    })
+})
+
 module.exports = router; 
 
