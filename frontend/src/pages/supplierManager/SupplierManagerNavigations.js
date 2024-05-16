@@ -221,7 +221,7 @@ export default function SupplierManagerNavigations() {
                             <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleSearch}>
                                 Search Supplier
                             </Sidebar.Item>
-                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handlerecords}>  
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handlerecords}>  
                                  Add recordings  
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
