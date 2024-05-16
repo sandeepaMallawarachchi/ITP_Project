@@ -4,7 +4,7 @@ import axios from 'axios';
 const Supplierdetails = () => {
   const [supplier, setSupplier] = useState({
     name: '',
-     sid: '',
+    sid: '',
     address: '',
     email: ''
   });
@@ -25,15 +25,18 @@ const Supplierdetails = () => {
       }
     }
 
+    // Validate email format as the user types
+    if (name === 'email') {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email validation regex
+      if (!emailPattern.test(value)) {
+        setEmailError('Invalid email format');
+      } else {
+        setEmailError('');
+      }
+    }
+
     // Update state
     setSupplier({ ...supplier, [name]: value });
-  };
-
-  const handleKeyDown = (e) => {
-    // Prevent typing "@" and "!" in the name field
-    if (e.target.name === 'name' && (e.key === '@' || e.key === '!')) {
-      e.preventDefault();
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -66,20 +69,14 @@ const Supplierdetails = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block">Name:</label>
-          <input type="text" id="name" name="name" value={supplier.name} onChange={handleChange} onKeyDown={handleKeyDown} required
+          <input type="text" id="name" name="name" value={supplier.name} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
           {nameError && <p className="text-red-500">{nameError}</p>}
         </div>
-        {/* <div>
-          <label htmlFor="age" className="block">Age:</label>
-          <input type="number" id="age" name="age" value={supplier.age} onChange={handleChange} required
-            className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
-          />
-        </div> */}
         <div>
-          <label htmlFor="sid" className="block">Username  :</label>
-          <input type="text" id="sid"   name="sid" value={supplier.sid} onChange={handleChange} required
+          <label htmlFor="sid" className="block">Username:</label>
+          <input type="text" id="sid" name="sid" value={supplier.sid} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
