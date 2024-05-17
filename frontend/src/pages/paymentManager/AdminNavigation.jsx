@@ -57,6 +57,11 @@ function AdminNavigation() {
                                 </Link>
                             </Sidebar.ItemGroup>
                             <Sidebar.ItemGroup className='cursor-pointer'>
+                                <Link to={`/payment/managerAccount/${id}`}>
+                                    <Sidebar.Item icon={MdOutlineAccountCircle}>
+                                        My Account
+                                    </Sidebar.Item>
+                                </Link>
                                 <Sidebar.Item icon={BiBuoy}>
                                     Help
                                 </Sidebar.Item>
