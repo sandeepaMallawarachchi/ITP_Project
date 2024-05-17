@@ -10,7 +10,7 @@ export default function ManagerRegistration() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [gender, setGender] = useState("");
-    const [department, setDepartment] = useState("");
+    const [department, setDepartment] = useState("");//
     const [designation, setDesignation] = useState("");
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
