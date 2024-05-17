@@ -15,7 +15,7 @@ router.route("/addSalary").post((req, res) => {
     const paymentDate = req.body.paymentDate;
 
     const netBonus = Number(ETFbonus) + Number(EPFbonus);
-    const netSalary = Number(basicSalary) + netBonus;
+    const netSalary = Number(basicSalary) - netBonus;
 
     const newSalary = new Salary({
 

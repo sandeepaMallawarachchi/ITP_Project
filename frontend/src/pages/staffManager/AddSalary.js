@@ -40,6 +40,22 @@ function AddSalary() {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        // Recalculate EPF bonus when basicSalary changes
+        const epf = 0.2 * basicSalary;
+        setEPFbonus(epf);
+        
+        // Recalculate ETF bonus when basicSalary changes
+        const etf = calculateETF(basicSalary);
+        setETFbonus(etf);
+    }, [basicSalary]);
+
+    // Function to calculate ETF bonus
+    const calculateETF = (salary) => {
+        // Define your ETF calculation logic here
+        return 0.03 * salary;
+    };
+
     const sendData = async (e) => {
         e.preventDefault();
         const newSalary = {
@@ -129,7 +145,7 @@ function AddSalary() {
 
                 <div className="mb-3">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="EPFbonus">EPF Bonus Amount: </label>
-                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="EPFbonus" value={EPFbonus} onChange={(e) => handleNumericInput(e.target.value, setEPFbonus)} />
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" id="EPFbonus" value={EPFbonus} />
                 </div>
 
                 <div className="mb-3">
