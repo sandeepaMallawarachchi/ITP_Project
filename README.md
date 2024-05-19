@@ -1,19 +1,14 @@
 # Hendrik's Tea Management System
 
-Hendrik's Tea Factory Management System, a comprehensive web-based application that is 
-transforming the management and production of tea. Its seamless integration and user friendly features enable producers to increase sales, manage payments, organize deliveries, 
-supervise employees, keep an eye on inventories, and optimize supply chain operations.
+![image](https://github.com/sandeepaMallawarachchi/ITP_Project/assets/126542051/157b32e1-e314-47e2-9cf6-896286e581f1)
+
+
+Hendrik's Tea Factory Management System, a comprehensive web-based application that is transforming the management and production of tea. Its seamless integration and user friendly features enable producers to increase sales, manage payments, organize deliveries, supervise employees, keep an eye on inventories, and optimize supply chain operations.
 
 ## Our Web Application
 
-The sales module of the system is primarily responsible for managing client contacts, 
-tracking orders, and providing analytical insights to support strategic decision-making. The 
-finance module manages spending, produces reports, and uses automated accounting and 
-invoicing to provide financial transparency.
-The delivery module simplifies logistics for effective shipment tracking and route 
-optimization, while the payment module facilitates safe transactions through a variety of 
-gateways. Workforce management is made easier by the staff module, while procurement 
-procedures and stock levels are kept at ideal levels by the supply and inventory departments.
+The sales module of the system is primarily responsible for managing client contacts, tracking orders, and providing analytical insights to support strategic decision-making. The 
+finance module manages spending, produces reports, and uses automated accounting and invoicing to provide financial transparency.The delivery module simplifies logistics for effective shipment tracking and route optimization, while the payment module facilitates safe transactions through a variety of gateways. Workforce management is made easier by the staff module, while procurement procedures and stock levels are kept at ideal levels by the supply and inventory departments.
 
 ## Getting Started
 
@@ -92,6 +87,7 @@ Check your computer or laptop already intalled Node using **command promt**
 
     Node --verson
 
+If your computer don't have node you should [download](https://nodejs.org/en) and intall node
 navigate to **backend** folder
 
     cd backend
@@ -106,8 +102,35 @@ You can install above dependenceis one by one on terminal or using(install this 
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+* Frontend
+  ```
+  cd frontend
+  ```
+  ```
+  npm start
+  ```
+  
+* Backend
+  ```
+  cd backend
+  ```
+  ```
+  npm start
+  ```
+
+# Things To Change
+
+## Mogo DB connection
+
+1. Create a account and cluster on [mogodb atlas](https://www.mongodb.com/cloud/atlas/register)
+2. Replace MONGODB_URL with your url ( Backend --> .env --> MONGODB_URL)
+3. Replace below Emails and Password with yours ( Backend --> .env )
+
+    ```
+    USER=gun...@gmail.com
+    EMAIL_USERNAME=sandeepa...@gmail.com
+    EMAIL_PASSWORD=******
+    PASS=******
+    REGISTRATION_EMAIL=sandeepa...@gmail.com
+    REGISTRATION_PASSWORD=******
+    ```
