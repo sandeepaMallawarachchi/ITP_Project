@@ -78,7 +78,7 @@ export default function Login() {
             if (error.response && error.response.status === 401) {
                 setInvalidPassword(true);
                 setErrorPassword(true);
-                setErrorUsername(false);
+                setErrorUsername(false);a
 
                 setTimeout(() => {
                     setInvalidPassword(false);
