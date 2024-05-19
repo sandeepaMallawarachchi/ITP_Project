@@ -9,7 +9,11 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 8070;
 
-app.use(cors());
+app.use(cors({
+    origin: [''],
+    methods: ['POST', 'GET', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -107,18 +111,18 @@ const teaRouter = require("./routes/deliveryRoutes/Locations.js");
 const driverRouter = require("./routes/deliveryRoutes/driver.js");
 const reportRouter = require("./routes/deliveryRoutes/report.js");
 
-app.use("/tea",teaRouter);
-app.use("/driver",driverRouter);
-app.use("/report",reportRouter);
+app.use("/tea", teaRouter);
+app.use("/driver", driverRouter);
+app.use("/report", reportRouter);
 
 //payment riutes
 const paymentRouter = require("./routes/paymentRoutes/payment.js");
 const paymentdetailsRouter = require("./routes/paymentRoutes/paymentdetails.js");
 const paymentadminRouter = require("./routes/paymentRoutes/paymentadmin.js");
 
-app.use("/paymentdetails",paymentdetailsRouter);
+app.use("/paymentdetails", paymentdetailsRouter);
 app.use("/payment", paymentRouter);
-app.use("/paymentadmin",paymentadminRouter);
+app.use("/paymentadmin", paymentadminRouter);
 
 
 app.listen(PORT, () => {
