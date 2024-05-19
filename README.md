@@ -88,6 +88,7 @@ Check your computer or laptop already intalled Node using **command promt**
     Node --verson
 
 If your computer don't have node you should [download](https://nodejs.org/en) and intall node
+
 navigate to **backend** folder
 
     cd backend
@@ -96,7 +97,7 @@ navigate to **frontend** folder
 
     cd frontend
    
-You can install above dependenceis one by one on terminal or using(install this both in frontend and backend separately)
+You can install above dependenceis one by one on terminal or using(install both in frontend and backend separately)
 
     npm i
 
@@ -120,11 +121,14 @@ You can install above dependenceis one by one on terminal or using(install this 
 
 # Things To Change
 
-## Mogo DB connection
+### Mongo DB connection
 
 1. Create a account and cluster on [mogodb atlas](https://www.mongodb.com/cloud/atlas/register)
 2. Replace MONGODB_URL with your url ( Backend --> .env --> MONGODB_URL)
-3. Replace below Emails and Password with yours ( Backend --> .env )
+
+### Emails
+
+Replace below Emails and Password with yours ( Backend --> .env )
 
     ```
     USER=gun...@gmail.com
