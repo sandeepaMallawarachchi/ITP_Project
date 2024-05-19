@@ -17,6 +17,19 @@ procedures and stock levels are kept at ideal levels by the supply and inventory
 
 ## Getting Started
 
+### Libraries
+
+
+The MERN stack is a popular technology stack used for building dynamic web applications. It consists of four main components:
+
+1. MongoDB: A NoSQL database that stores data in a flexible, JSON-like format. It is schema-less, which means it allows for easy integration of different data types and structures.
+
+2. Express.js: A minimal and flexible Node.js web application framework that provides a robust set of features for building web and mobile applications. It simplifies the process of creating server-side logic and handling HTTP requests.
+
+3. React.js: React is a JavaScript library for building dynamic and interactive user interfaces for web applications. It's maintained by Facebook and offers features like a virtual DOM for efficient rendering, JSX for composing UI components within JavaScript, and a component-based architecture for building reusable UI elements. With support for unidirectional data flow and React Hooks for managing component state, React provides a concise and powerful way to develop modern web applications.
+
+4. Node.js: A JavaScript runtime environment that executes JavaScript code outside of a web browser. It allows developers to build scalable and high-performance server-side applications. Node.js uses an event-driven, non-blocking I/O model, making it efficient for handling multiple concurrent requests.
+
 ### Dependencies
 
 #### Frontend
@@ -70,10 +83,26 @@ procedures and stock levels are kept at ideal levels by the supply and inventory
     "nodemailer": "^6.9.12",
     "nodemon": "^3.0.3",
     "react-to-print": "^2.15.1"
+    
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+Download Zip file and open it using **visual studio code** software. You can download it [here](https://code.visualstudio.com/download).
+
+Check your computer or laptop already intalled Node using **command promt**
+
+    Node --verson
+
+navigate to **backend** folder
+
+    cd backend
+   
+navigate to **frontend** folder
+
+    cd frontend
+   
+You can install above dependenceis one by one on terminal or using(install this both in frontend and backend separately)
+
+    npm i
 
 ### Executing program
 
