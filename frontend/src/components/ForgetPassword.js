@@ -16,7 +16,7 @@ export default function ForgetPassword() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:8070/salesmen/forgetPassword`, {
+            const res = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/forgetPassword`, {
                 usernameOrPhone,
                 email
             });

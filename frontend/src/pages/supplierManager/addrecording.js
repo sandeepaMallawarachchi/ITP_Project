@@ -21,7 +21,7 @@ const Reporting = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:8070/supplier/addrecords`, details);
+      await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/supplier/addrecords`, details);
       setIsSuccess(true);
       // Optionally, you can redirect to another page after successful submission
       // Insert navigation logic here

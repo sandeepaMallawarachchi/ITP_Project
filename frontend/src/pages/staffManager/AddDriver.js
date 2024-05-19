@@ -28,7 +28,7 @@ export default function AddDriver() {
         };
 
         try {
-            await axios.post("http://localhost:8070/driver/add", newAddDriver);
+            await axios.post("https://hendriks-tea-management-system-backend.vercel.app/driver/add", newAddDriver);
             alert("Driver Added");
 
             setName("");

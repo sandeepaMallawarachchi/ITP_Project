@@ -34,7 +34,7 @@ function PaymentAdminHome() {
 
 
     const getallpaymentdetails = () => {
-        axios.get(`http://localhost:8070/paymentdetails`).then(response => {
+        axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails`).then(response => {
             setAllPaymentDetails(response.data);
             calculateSumOfPayAmount(response.data);
             calculateSumofCreditAmount(response.data);

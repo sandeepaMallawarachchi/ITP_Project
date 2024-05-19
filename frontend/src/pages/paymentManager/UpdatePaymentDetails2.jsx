@@ -15,7 +15,7 @@ function UpdatePaymentDetails2() {
     useEffect(() => {
         const fetchPaymentDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/paymentdetails/get/${id}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/get/${id}`);
                 setPaymentDetails(response.data);
 
                 if (response.data.length > 0) {
@@ -33,7 +33,7 @@ function UpdatePaymentDetails2() {
    
 
     const handleupdate = async () => {
-        const response = await axios.put(`http://localhost:8070/paymentdetails/update/${id}`,{
+        const response = await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/update/${id}`,{
             payamount : updatepayamount,
             creditamount : totalamount - updatepayamount,
 

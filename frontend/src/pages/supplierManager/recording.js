@@ -36,7 +36,7 @@ const  Recording = () => {
     // }
 
     try {
-      const response = await axios.post(`http://localhost:8070/supplier/addrecording`  , supplier);
+      const response = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/supplier/addrecording`  , supplier);
       console.log(response.data);
       // Optionally, you can redirect to another page after successful submission
       // Insert navigation logic here

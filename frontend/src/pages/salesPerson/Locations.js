@@ -9,7 +9,7 @@ function Locations() {
         const fetchSaleDetails = async () => {
             try {
 
-                const res = await axios.get(`http://localhost:8070/tea/`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/tea/`);
                 console.log(res.data);
 
                 setLocations(res.data);

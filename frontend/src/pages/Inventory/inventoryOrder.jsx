@@ -13,7 +13,7 @@ export default function Order(){
     useEffect(()=>{
         async function getOrders(){
             try{
-                const res = await axios.get(`http://localhost:8070/inventory/orders/getAllOrders`)
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/getAllOrders`)
                 setOrders(res.data)
                 console.log(res.data)
             }catch(err){
@@ -31,7 +31,7 @@ export default function Order(){
     
     async function handleDelete(id){
         try{
-           const res = await axios.delete(`http://localhost:8070/inventory/orders/deleteOrder/${id}`)
+           const res = await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/deleteOrder/${id}`)
            if(res){
             alert("order deleted")
             navigate(`/inventory/dashboard/${id}`)

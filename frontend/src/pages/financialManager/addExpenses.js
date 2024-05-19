@@ -21,7 +21,7 @@ export default function AddExpenses() {
 
     // Function to fetch total salary
     const fetchTotalSalary = () => {
-        axios.get("http://localhost:8070/totalSalary/totalSalary")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/totalSalary/totalSalary")
             .then(response => {
                 setTotalSalary(response.data.totalSalary);
             })
@@ -32,7 +32,7 @@ export default function AddExpenses() {
 
     // Function to fetch total delivery
     const fetchTotalDelivery = () => {
-        axios.get("http://localhost:8070/report/")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/report/")
             .then(response => {
                 setTotalDelivery(response.data.totalCostSum);
             })
@@ -87,7 +87,7 @@ export default function AddExpenses() {
             amount: newAmount
         };
 
-        axios.post("http://localhost:8070/expenses/add", newExpense)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/expenses/add", newExpense)
             .then(() => {
                 alert("Expenses Added");
                 // Reset form fields after successful submission

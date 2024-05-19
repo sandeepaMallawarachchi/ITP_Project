@@ -20,7 +20,7 @@ export default function BalanceSheet() {
     const [totalBalance, setTotalBalance] = useState(0);
    
     useEffect(() => {
-        axios.get("http://localhost:8070/totalLiabilities/totalLiabilities").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/totalLiabilities/totalLiabilities").then((res) => {
             setTotalLiabilities(res.data.totalLiabilities); 
         }).catch((error) => {
             alert(error.message);
@@ -29,7 +29,7 @@ export default function BalanceSheet() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/balanceRt/balances").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/balanceRt/balances").then((res) => {
             setIncome(res.data);
         }).catch((error) => {
             alert(error.message);
@@ -38,7 +38,7 @@ export default function BalanceSheet() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/getTotalBalance/totalBalance")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/getTotalBalance/totalBalance")
             .then((res) => {
                 const totalBalance = res.data.totalBalance;
                 setTotalBalance(totalBalance);
@@ -54,7 +54,7 @@ export default function BalanceSheet() {
    
 
     useEffect(() => {
-        axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/getTotalIncome/getTotalSales")
             .then((res) => {
                 const totalIncome = res.data.totalSales;
                 setTotalIncome(totalIncome);

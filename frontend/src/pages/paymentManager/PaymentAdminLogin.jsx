@@ -18,7 +18,7 @@ function PaymentAdminLogin() {
   }, []);
 
   const getpaymentadmindetails = () => {
-    axios.get(`http://localhost:8070/paymentadmin/get`).then(response => {
+    axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentadmin/get`).then(response => {
       setPaymentAdminDetails(response.data);
     }).catch((err) => {
       console.log(err);

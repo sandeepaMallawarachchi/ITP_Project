@@ -16,7 +16,7 @@ export default function DisplayProducts(){
         const getProducts = async()=>{
             try{
               //getting product data from db and setting into products 
-                const response = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getTeaPack`);
                 //console.log(response.data)
                 setProducts(response.data)
             }catch(err){

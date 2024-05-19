@@ -57,7 +57,7 @@ export default function AddDriver() {
 
     const checkDriverExists = async () => {
         try {
-            const response = await axios.get(`http://localhost:8070/driver/${dID}`);
+            const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/driver/${dID}`);
             return response.data.exists;
         } catch (error) {
             console.error("Error checking driver existence:", error);
@@ -84,7 +84,7 @@ export default function AddDriver() {
             duration_of_job
         };
 
-        axios.post("http://localhost:8070/driver/add", newAddDriver)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/driver/add", newAddDriver)
         .then(() => {
             alert("Driver Added");
 
@@ -116,7 +116,7 @@ export default function AddDriver() {
                 return alert("Please wait for the upload to complete!");
             }
 
-            await axios.post(`http://localhost:8070/driver/uploadLicense`, { downloadURL });
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/driver/uploadLicense`, { downloadURL });
 
             setDownloadURL('');
             setLicense(null);

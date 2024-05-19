@@ -29,7 +29,7 @@ function AddSalary() {
 
     const fetchEmpDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:8070/staff/salary/get/${empId}`);
+            const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/staff/salary/get/${empId}`);
             const { firstName, designation } = response.data.netSalary; // Adjust to your API response structure
             setName(firstName);
             setDesignation(designation);
@@ -71,7 +71,7 @@ function AddSalary() {
         };
 
         try {
-            await axios.post(`http://localhost:8070/staff/salary/addSalary`, newSalary);
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/staff/salary/addSalary`, newSalary);
             alert("Success! Salary added");
             navigate(`/staff/salary/${empId}/${month}/${year}/${id}`);
         } catch (error) {

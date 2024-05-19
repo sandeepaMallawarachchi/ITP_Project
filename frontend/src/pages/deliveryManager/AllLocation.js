@@ -13,7 +13,7 @@ export default function AllLocation() {
     }, []);
 
     const fetchTea = () => {
-        axios.get("http://localhost:8070/tea/")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/tea/")
             .then(response => {
                 setTea(response.data);
                 setFilteredTea(response.data);

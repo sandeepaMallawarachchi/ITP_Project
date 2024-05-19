@@ -9,7 +9,7 @@ export default function Showsupplier() {
   const [address, setAddress] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:8070/supplier/supplierdetails`)
+    axios.get(`https://hendriks-tea-management-system-backend.vercel.app/supplier/supplierdetails`)
       .then(response => {
         setData(response.data);
       })
@@ -20,7 +20,7 @@ export default function Showsupplier() {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:8070/supplier/supp/${itemId}`);
+      await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/supplier/supp/${itemId}`);
       alert('Supplier deleted!');
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -29,7 +29,7 @@ export default function Showsupplier() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:8070/supplier/updating/${selectedItemId}`, { name,email  , address });
+      await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/supplier/updating/${selectedItemId}`, { name,email  , address });
       alert('Supplier details updated!');
     } catch (error) {
       console.error('Error updating item:', error);

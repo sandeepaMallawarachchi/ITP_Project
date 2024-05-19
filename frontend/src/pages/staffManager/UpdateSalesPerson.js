@@ -22,7 +22,7 @@ export default function UpdateSalesPerson() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${salesPersonId}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/salesmenDashboard/${salesPersonId}`);
                 console.log(res.data);
 
                 const salesmanData = res.data.salesman || res.data;
@@ -40,7 +40,7 @@ export default function UpdateSalesPerson() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${salesPersonId}`, salesmanDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/updateSalesmen/${salesPersonId}`, salesmanDetails);
 
             setSuccessAlert(true);
 

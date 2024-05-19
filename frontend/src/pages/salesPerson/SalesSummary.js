@@ -19,7 +19,7 @@ function SalesSummary() {
     useEffect(() => {
         const fetchSaleDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/sales/getSalesSummary/${cusID}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/getSalesSummary/${cusID}`);
 
                 if (res.data.error) {
                     setError(true);

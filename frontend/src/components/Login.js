@@ -21,7 +21,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:8070/empLogin/employeeLogin`, {
+            const res = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/employeeLogin`, {
                 usernameOrPhone,
                 password
             });

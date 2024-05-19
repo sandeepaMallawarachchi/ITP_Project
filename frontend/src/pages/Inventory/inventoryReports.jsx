@@ -14,7 +14,7 @@ export default function GenerateReport(){
     useEffect(()=>{
     async function fetchData(){
         try{
-            const res = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`)
+            const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getTeaPack`)
             
             
             setData(res.data)
@@ -186,7 +186,7 @@ return(
 //     useEffect(()=>{
 //         const fetchData = async () => {
 //             try {
-//                 const res = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
+//                 const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getTeaPack`);
 //                 setData(res.data);
 //             } catch(err) {
 //                 console.log(err);

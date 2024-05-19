@@ -38,7 +38,7 @@ export default function Navigations() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
                 const salesmanData = res.data.salesman || res.data;
                 const { name, email } = salesmanData;
@@ -58,7 +58,7 @@ export default function Navigations() {
 
     const fetchStockDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:8070/sales/searchStock/${id}/${productName}`);
+            const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/searchStock/${id}/${productName}`);
 
             if (res.data.error) {
                 setError(true);
@@ -98,7 +98,7 @@ export default function Navigations() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/changeProfilePicture/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/changeProfilePicture/${id}`);
                 console.log(res.data);
 
                 const { imageURL } = res.data.image;

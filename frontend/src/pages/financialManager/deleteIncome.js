@@ -9,7 +9,7 @@ export default function DeleteIn() {
 
 
     const yesBtn = async () => {
-        axios.delete(`http://localhost:8070/incomeRt/delete/${incomeID}`).then(() => {
+        axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/incomeRt/delete/${incomeID}`).then(() => {
             alert("Income delete")
             navigate(`/financial/HomeIncome/${id}`)
         }).catch((err) => {

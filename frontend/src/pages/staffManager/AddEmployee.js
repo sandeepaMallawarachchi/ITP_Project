@@ -32,7 +32,7 @@ function AddEmployee() {
         };
 
         try {
-            await axios.post(`http://localhost:8070/staff/add`, newEmp);
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/staff/add`, newEmp);
             alert("Success! Employee added");
 
             setFirstName("")

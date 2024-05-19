@@ -59,7 +59,7 @@ export default function AddProduct() {
   async function addProduct(){
        try{
           //adding new tea product to inventory
-          await axios.post("http://localhost:8070/inventory/product/addTeaPack",{
+          await axios.post("https://hendriks-tea-management-system-backend.vercel.app/inventory/product/addTeaPack",{
             productName : productData.name,
             teaType : productData.type,
             stockLevel : productData.stockLevel,

@@ -8,7 +8,7 @@ export default function RemainingInventoryStock() {
     useEffect(() => {
         const fetchStockDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesManagement/getRemainingStock`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/getRemainingStock`);
                 setStockDetails(res.data);
             } catch (error) {
                 console.log("Error fetching details", error.message);

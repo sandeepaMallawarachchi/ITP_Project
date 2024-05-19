@@ -9,7 +9,7 @@ function RemainingStock() {
     useEffect(() => {
         const fetchStockDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/sales/stocks/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/stocks/${id}`);
                 setStockDetails(res.data);
             } catch (error) {
                 console.log("Error fetching details", error.message);

@@ -15,7 +15,7 @@ function UpdateDriver() {
     useEffect(() => {
         const fetchDriverDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/empLogin/get/${dID}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/get/${dID}`);
                 setDriverDetails(response.data.driver);
                 console.log(response.data.driver)
             } catch (error) {
@@ -33,7 +33,7 @@ function UpdateDriver() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/empLogin/update/${dID}`, driverDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/update/${dID}`, driverDetails);
             alert("Details Updated!");
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {

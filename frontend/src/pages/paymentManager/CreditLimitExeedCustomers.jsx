@@ -14,7 +14,7 @@ function CreditLimitExeedCustomers() {
     },);
 
     const getpaymentdetails = () => {
-        axios.get(`http://localhost:8070/paymentdetails/`).then(response => {
+        axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/`).then(response => {
             const paymentDetails = response.data;
 
             const groupcustomers = paymentDetails.reduce((acc, payment) => {
@@ -30,13 +30,13 @@ function CreditLimitExeedCustomers() {
     }
 
     const hadleBanButton = async (customerID) => {
-        const resoponse = await axios.put(`http://localhost:8070/paymentdetails/ban/${customerID}`, {
+        const resoponse = await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/ban/${customerID}`, {
             bannedstatus: true
         })
     }
 
     const hadleUnbanButton = async (customerID) => {
-        const response = await axios.put(`http://localhost:8070/paymentdetails/ban/${customerID}`, {
+        const response = await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/ban/${customerID}`, {
             bannedstatus: false
         })
     }

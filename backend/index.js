@@ -10,7 +10,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 8070;
 
 app.use(cors({
-    origin: [''],
+    origin: ['https://hendrik-s-tea-management-system-frontend.vercel.app'],
     methods: ['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true
 }));

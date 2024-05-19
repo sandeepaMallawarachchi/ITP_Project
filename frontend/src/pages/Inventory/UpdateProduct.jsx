@@ -29,7 +29,7 @@ useEffect(()=>{
 //fetch data of a particular product through an api
   const fetchData = async()=>{
     try{
-    const response = await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`);
+    const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getPack/${productId}`);
     console.log(response.data)
     const manDate = new Date(response.data.manDate).toISOString().split('T')[0]
     const expDate = new Date(response.data.expDate).toISOString().split('T')[0]
@@ -77,7 +77,7 @@ function handleChange(e){
 //updating the new data through an api
 const updateData = async()=>{
    try{
-     const response = await axios.patch(`http://localhost:8070/inventory/product/updateTeaPack/${productId}`,{
+     const response = await axios.patch(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/updateTeaPack/${productId}`,{
         productName : data.productName,
         teaType : data.teaType,
         stockLevel : data.stockLevel,

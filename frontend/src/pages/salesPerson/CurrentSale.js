@@ -18,7 +18,7 @@ function CurrentSale() {
         const fetchSaleDetails = async () => {
             try {
 
-                const res = await axios.get(`http://localhost:8070/sales/getSalesSummary/${cusID}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/getSalesSummary/${cusID}`);
                 console.log(res.data);
 
                 const saleData = res.data.sale || res.data;
@@ -35,7 +35,7 @@ function CurrentSale() {
     //     e.preventDefault();
 
     //     try {
-    //         await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
+    //         await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/updateSalesmen/${id}`, salesmanDetails);
     //         alert('Details Updated successfully');
     //         navigate(`/salesmenDashboard/${id}`);
     //     } catch (error) {

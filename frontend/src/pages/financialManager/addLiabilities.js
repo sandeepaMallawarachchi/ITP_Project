@@ -17,7 +17,7 @@ export default function AddIncome() {
         };
 
         try {
-            await axios.post("http://localhost:8070/balanceRt/addbalances", newLiabilities);
+            await axios.post("https://hendriks-tea-management-system-backend.vercel.app/balanceRt/addbalances", newLiabilities);
             alert("Liabilities Added");
             // Optionally, you can reset the form fields after successful submission
             setLiabilities("");

@@ -42,7 +42,7 @@ export default function ManagerRegistration() {
         }
 
         try {
-            await axios.post(`http://localhost:8070/empLogin/managerRegister`, newManager);
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/managerRegister`, newManager);
             alert("Success! Manager added");
             clearForm();
         } catch (error) {

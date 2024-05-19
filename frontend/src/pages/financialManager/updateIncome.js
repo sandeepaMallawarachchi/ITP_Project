@@ -14,7 +14,7 @@ function UpdateIncome() {
     useEffect(() => {
         const fetchIncome = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/incomeRt/get/${incomeID}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/incomeRt/get/${incomeID}`);
                 const incomeData = response.data.income; // Assuming the response has an 'income' property
                 setDetails({
                     date: incomeData.date || "",
@@ -33,7 +33,7 @@ function UpdateIncome() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/incomeRt/update/${incomeID}`, details);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/incomeRt/update/${incomeID}`, details);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating income details", error.message);

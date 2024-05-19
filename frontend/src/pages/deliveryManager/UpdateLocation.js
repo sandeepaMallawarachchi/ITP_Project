@@ -17,7 +17,7 @@ function UpdateLocation() {
     useEffect(() => {
         const fetchLocDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/tea/get/${locId}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/tea/get/${locId}`);
                 setLocDetails(response.data.tea);
             } catch (error) {
                 console.error("Error fetching customer location details", error.message);
@@ -32,7 +32,7 @@ function UpdateLocation() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/tea/update/${locId}`, locDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/tea/update/${locId}`, locDetails);
             alert("Details Updated!");
             navigate(`/deliverymanager/alllocations/${id}`);
         } catch (error) {

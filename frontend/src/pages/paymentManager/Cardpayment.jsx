@@ -29,7 +29,7 @@ function Cardpayment() {
       CVV
     }
 
-    axios.post("http://localhost:8070/payment/add", newPayment).then(() => {
+    axios.post("https://hendriks-tea-management-system-backend.vercel.app/payment/add", newPayment).then(() => {
       alert("Card details added ! ");
     }).catch((err) => {
       alert(err);
@@ -38,7 +38,7 @@ function Cardpayment() {
   }
 
   const getCardDetails = () => {
-    axios.get(`http://localhost:8070/payment/`).then(response => {
+    axios.get(`https://hendriks-tea-management-system-backend.vercel.app/payment/`).then(response => {
       setCardDetails(response.data);
     }).catch((err) => {
       console.log(err);

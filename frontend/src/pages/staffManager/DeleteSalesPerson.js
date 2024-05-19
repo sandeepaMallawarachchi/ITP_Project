@@ -9,7 +9,7 @@ function DeleteSalesPerson() {
     
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/salesmen/deleteSalesmen/${salespersonID}`);
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/deleteSalesmen/${salespersonID}`);
             alert("Salesperson deleted!");
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {

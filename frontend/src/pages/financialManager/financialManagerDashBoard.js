@@ -16,7 +16,7 @@ export default function FinancialManagerDashBoard() {
     
 
     useEffect(() => {
-        axios.get("http://localhost:8070/incomeRt/getTotalIncome")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/getTotalIncome")
             .then((res) => {
                 const totalIncomeData = res.data.getTotalIncome;
                 console.log("Total Income data:", totalIncomeData);
@@ -29,7 +29,7 @@ export default function FinancialManagerDashBoard() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/getTotalExpenses/getTotalExpenses")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/getTotalExpenses/getTotalExpenses")
         .then((res) => {
             const totalExpensesData = res.data.getTotalExpenses;
             console.log("Total Expenses data:", totalExpensesData);
@@ -46,7 +46,7 @@ export default function FinancialManagerDashBoard() {
     useEffect(() => {
         const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
                 console.log("Manager data:", res.data);
                 const managerData = res.data.manager || res.data;
                 const { firstName, designation } = managerData;

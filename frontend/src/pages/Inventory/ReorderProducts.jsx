@@ -9,7 +9,7 @@ export default function ReorderProducts(){
         async function fetchOrders(){
             try{
                 //get details of productsthat has reached reorder level
-                const response = await axios.get("http://localhost:8070/inventory/reorder/getReorders");
+                const response = await axios.get("https://hendriks-tea-management-system-backend.vercel.app/inventory/reorder/getReorders");
                 setOrders(response.data)
                 //alert("order successfully fetched")
 

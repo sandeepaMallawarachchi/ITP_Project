@@ -53,7 +53,7 @@ export default function AddLocation() {
             delivery_code
         };
 
-        axios.post("http://localhost:8070/tea/add", newCustomerLocation)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/tea/add", newCustomerLocation)
             .then(() => {
                 alert("Customer location Added");
 

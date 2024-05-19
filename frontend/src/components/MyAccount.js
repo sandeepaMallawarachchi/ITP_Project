@@ -30,7 +30,7 @@ export default function SalesmenDashboard() {
     useEffect(() => {
         const fetchSalesmanDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/salesmenDashboard/${id}`);
                 console.log(res.data);
 
                 const salesmanData = res.data.salesman || res.data;
@@ -48,7 +48,7 @@ export default function SalesmenDashboard() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/salesmen/updateSalesmen/${id}`, salesmanDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/updateSalesmen/${id}`, salesmanDetails);
 
             setSuccessAlert(true);
 
@@ -73,7 +73,7 @@ export default function SalesmenDashboard() {
 
     const handleLogout = async () => {
         try {
-            await axios.get(`http://localhost:8070/empLogin/logout`);
+            await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/logout`);
             navigate('/');
         } catch (error) {
             console.log("Error logging out:", error.message);

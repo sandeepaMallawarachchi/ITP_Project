@@ -10,7 +10,7 @@ function AllEmployees() {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get("http://localhost:8070/staff/allEmployees").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/staff/allEmployees").then((res) => {
             setEmployees(res.data);
         }).catch((error) => {
             alert(error.message);
@@ -18,7 +18,7 @@ function AllEmployees() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/staff/allSalesmen").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/staff/allSalesmen").then((res) => {
             setSalesPersons(res.data);
         }).catch((error) => {
             alert(error.message);
@@ -26,7 +26,7 @@ function AllEmployees() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/staff/allDrivers").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/staff/allDrivers").then((res) => {
             setDrivers(res.data);
         }).catch((error) => {
             alert(error.message);

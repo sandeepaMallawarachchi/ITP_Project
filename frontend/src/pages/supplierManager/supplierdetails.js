@@ -48,7 +48,7 @@ const Supplierdetails = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:8070/supplier/addsuppliers`, supplier);
+      const response = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/supplier/addsuppliers`, supplier);
       console.log(response.data);
       setSuccessMessage('Supplier added successfully!');
       // Optionally, you can redirect to another page after successful submission

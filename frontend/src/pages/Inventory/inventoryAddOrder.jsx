@@ -32,7 +32,7 @@ export default function AddOrders(){
 
         e.preventDefault();
         //adding order data to db
-        await axios.post("http://localhost:8070/inventory/orders/addOrder",{
+        await axios.post("https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/addOrder",{
             productName : order.productName,
             teaType : order.teaType,
             quantity : order.quantity,

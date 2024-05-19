@@ -10,7 +10,7 @@ function DeleteSale() {
     const handleDelete = async () => {
         try {
 
-            await axios.delete(`http://localhost:8070/sales/deleteSale/${saleID}`);
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/sales/deleteSale/${saleID}`);
             alert("Sale deleted!");
             navigate(`/sales/currentSale/${id}/${cusID}`);
         } catch (error) {

@@ -18,7 +18,7 @@ function SearchByName() {
     }, [SearchValue, paymentDetails]);
 
     const fetchpaymentdetails = () => {
-        axios.get(`http://localhost:8070/paymentdetails/`)
+        axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/`)
             .then(response => {
             setPaymentDetails(response.data);
             setFilteredPaymentDetails(response.data);

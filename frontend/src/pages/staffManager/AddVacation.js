@@ -36,7 +36,7 @@ function AddVacation() {
         }
 
         try {
-            axios.post(`http://localhost:8070/staff/vacation/add`, newVac);
+            axios.post(`https://hendriks-tea-management-system-backend.vercel.app/staff/vacation/add`, newVac);
             alert("Vacation Request Success! ");
         } catch (error) {
             alert("Error! Failed to request a vacation");

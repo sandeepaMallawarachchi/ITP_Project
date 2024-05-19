@@ -20,7 +20,7 @@ export default function HomeIn() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8070/incomeRt/displayIncome").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/displayIncome").then((res) => {
             setIncome(res.data);
         }).catch((error) => {
             alert(error.message);
@@ -29,7 +29,7 @@ export default function HomeIn() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/incomeRt/getTotalIncome")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/getTotalIncome")
             .then((res) => {
                 const totalIncome = res.data.getTotalIncome;
                 setTotalIncome(totalIncome);

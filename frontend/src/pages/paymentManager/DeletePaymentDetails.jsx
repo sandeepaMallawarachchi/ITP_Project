@@ -16,7 +16,7 @@ function DeletePaymentDetails() {
     }, [customerID]);
 
     const fetchPaymentDetails = () => {
-        axios.get(`http://localhost:8070/paymentdetails/${customerID}`).then(response => {
+        axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/${customerID}`).then(response => {
             setPaymentDetails(response.data);
         }).catch((err) => {
             console.log(err);
@@ -24,7 +24,7 @@ function DeletePaymentDetails() {
     };
 
     const deletepaymentdetails = (objectID) => {
-        axios.delete(`http://localhost:8070/paymentdetails/delete/${objectID}`).then(response=> {
+        axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/delete/${objectID}`).then(response=> {
              console.log(response.data);
              alert("Payment Details Deleted ! ");
         }).catch((err) => {

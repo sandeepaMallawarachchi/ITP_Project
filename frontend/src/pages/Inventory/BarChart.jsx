@@ -11,7 +11,7 @@ export default function Barchart(){
         async function getOrders(){
             try{
                 //get order data from DB
-                const res = await axios.get("http://localhost:8070/inventory/orders/getAllOrders");
+                const res = await axios.get("https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/getAllOrders");
                 setOrders(res.data);
                 //console.log(res.data)
             }catch(err){

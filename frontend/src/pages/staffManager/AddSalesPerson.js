@@ -37,7 +37,7 @@ function AddSalesPerson() {
         };
 
         try {
-            await axios.post(`http://localhost:8070/salesmen/salesmenRegister`, newSalesPerson);
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/salesmenRegister`, newSalesPerson);
             alert("Success! Sales person added");
             setSalespersonID('')
             setName('')

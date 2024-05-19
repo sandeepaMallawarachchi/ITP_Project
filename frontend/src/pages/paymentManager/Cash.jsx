@@ -35,7 +35,7 @@ function Cash() {
   }
 
   const setUnBanned = async (customerID) => {
-    await axios.put(`http://localhost:8070/paymentdetails/ban/${customerID}`, {
+    await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/ban/${customerID}`, {
       bannedstatus: false,
     });
   };
@@ -55,7 +55,7 @@ function Cash() {
     };
 
     axios
-      .post('http://localhost:8070/paymentdetails/add', newPaymentDetails)
+      .post('https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/add', newPaymentDetails)
       .then(() => {
         navigate(`/payment/transactionReport/${id}`, {
           state: { customerID, payamount, totalcreditamount, payTimeDateFormate },
@@ -68,7 +68,7 @@ function Cash() {
 
   const previouscreditamount = () => {
     axios
-      .get(`http://localhost:8070/paymentdetails/${customerID}`)
+      .get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/${customerID}`)
       .then((response) => {
         setPaymentDetails(response.data);
       })
@@ -80,7 +80,7 @@ function Cash() {
   const checkBannedStatus = () => {
     if (customerID !== '') {
       axios
-        .get(`http://localhost:8070/paymentdetails/${customerID}`)
+        .get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/${customerID}`)
         .then((response) => {
           const paymentdetails = response.data;
 

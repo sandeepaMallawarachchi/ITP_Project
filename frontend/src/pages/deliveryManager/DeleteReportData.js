@@ -8,7 +8,7 @@ function DeleteReportData() {
 
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/report/delete/${rId}`);
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/report/delete/${rId}`);
             navigate(`/deliverymanager/allReportData/${id}`);
         } catch (error) {
             console.error("Error deleting data", error.message);

@@ -11,7 +11,7 @@ function TopSellers() {
     const [names, setNames] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8070/staff/topSellerStatus/topSellers`)
+        axios.get(`https://hendriks-tea-management-system-backend.vercel.app/staff/topSellerStatus/topSellers`)
             .then(response => {
                 setTopSellers(response.data.topSellers);
                 setNames(response.data.names); // Set names from response

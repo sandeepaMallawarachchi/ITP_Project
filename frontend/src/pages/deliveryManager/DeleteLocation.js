@@ -8,7 +8,7 @@ function DeleteLocation() {
 
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/tea/delete/${locId}`);
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/tea/delete/${locId}`);
              navigate(`/deliverymanager/alllocations/${id}`);
         } catch (error) {
             console.error("Error deleting location", error.message);

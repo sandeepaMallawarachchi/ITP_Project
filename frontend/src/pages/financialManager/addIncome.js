@@ -18,7 +18,7 @@ export default function AddIncome() {
     const [date, setDate] = useState(""); // Moved after useEffect
 
     const fetchTotalAmount = () => {
-        axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/getTotalIncome/getTotalSales")
             .then(response => {
                 setAmount(response.data.totalSales);
             })
@@ -72,7 +72,7 @@ export default function AddIncome() {
             amount
         };
 
-        axios.post("http://localhost:8070/incomeRt/addIncome", newIncome)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/addIncome", newIncome)
             .then(() => {
                 alert("Income Added");
             })

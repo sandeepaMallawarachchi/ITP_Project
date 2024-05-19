@@ -19,7 +19,7 @@ export default function AddDailyStock() {
     useEffect(() => {
         const fetchProductName = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getTeaPack`);
                 const products = res.data.map(item => item.productName);
                 setProductName(products);
             } catch (error) {
@@ -51,7 +51,7 @@ export default function AddDailyStock() {
         }
 
         try {
-            const res = await axios.post(`http://localhost:8070/salesManagement/addStock`, {
+            const res = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/addStock`, {
                 salesPersonID,
                 salesPersonName,
                 productName: selectedTeaType,

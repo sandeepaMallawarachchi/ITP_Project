@@ -17,7 +17,7 @@ function UpdateDriver() {
     useEffect(() => {
         const fetchDriverDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/driver/get/${driverId}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/driver/get/${driverId}`);
                 setDriverDetails(response.data.driver);
             } catch (error) {
                 console.error("Error fetching driver details", error.message);
@@ -32,7 +32,7 @@ function UpdateDriver() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/driver/update/${driverId}`, driverDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/driver/update/${driverId}`, driverDetails);
             alert("Details Updated!");
             navigate(`/deliverymanager/allDrivers/${id}`);
         } catch (error) {

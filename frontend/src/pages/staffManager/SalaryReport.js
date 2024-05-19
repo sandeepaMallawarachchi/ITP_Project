@@ -15,7 +15,7 @@ function SalaryReport() {
     useEffect(() => {
         const fetchSalaryDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/staff/salary/salaryDetails/${empId}/${month}/${year}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/staff/salary/salaryDetails/${empId}/${month}/${year}`);
                 setSalaryDetails(response.data);
                 console.log(response.data);
                 setShowLogoAndTitle(true)

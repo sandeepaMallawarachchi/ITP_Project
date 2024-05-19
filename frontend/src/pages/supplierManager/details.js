@@ -8,7 +8,7 @@ export default function Details() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8070/supplier/item`);
+      const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/supplier/item`);
       console.log('Response:', response.data);
 
       setItems(response.data.Item);
@@ -23,7 +23,7 @@ export default function Details() {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:8070/supplier/items/${itemId}`);
+      await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/supplier/items/${itemId}`);
       fetchData();
     } catch (error) {
       console.error('Error deleting item:', error);

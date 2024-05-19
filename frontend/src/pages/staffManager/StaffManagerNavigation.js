@@ -39,7 +39,7 @@ export default function SalesManagerNavigations() {
     useEffect(() => {
         const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
                 console.log(res.data);
                 const managerData = res.data.manager || res.data;
                 const { firstName, designation } = managerData;
@@ -58,7 +58,7 @@ export default function SalesManagerNavigations() {
 
     const fetchEmployeeDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+            const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
 
             if (res.data.error) {
                 setError(true);
@@ -98,7 +98,7 @@ export default function SalesManagerNavigations() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/changeProfilePicture/${id}`);
                 console.log(res.data);
 
                 const { imageURL } = res.data.image;

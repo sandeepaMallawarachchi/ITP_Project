@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8070/supplier/get`)
+    axios.get(`https://hendriks-tea-management-system-backend.vercel.app/supplier/get`)
       .then(response => {
         setData(response.data);
       })

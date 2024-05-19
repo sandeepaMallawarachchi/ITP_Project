@@ -16,7 +16,7 @@ export default function Update() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8070/supplier/fetch/${itemId}`)
+      .get(`https://hendriks-tea-management-system-backend.vercel.app/supplier/fetch/${itemId}`)
       .then((res) => {
         setValues({
           ...res.data,
@@ -30,7 +30,7 @@ export default function Update() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8070/supplier/update/${itemId}`, values)
+      .put(`https://hendriks-tea-management-system-backend.vercel.app/supplier/update/${itemId}`, values)
       .then((res) => {
         alert("Updated successfully");
         navigate(`/supplierManager/details/${id}`);

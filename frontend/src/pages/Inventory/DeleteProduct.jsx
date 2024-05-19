@@ -25,7 +25,7 @@ export default function DeleteProduct(){
 
         async function getProduct(){
           //getting the product with :id from db
-            await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`)
+            await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getPack/${productId}`)
             .then((response)=>{
                 console.log("Got a product")
                 const manDate = new Date(response.data.manDate).toLocaleDateString();
@@ -50,7 +50,7 @@ export default function DeleteProduct(){
         e.preventDefault();
         try{
           //deleting the product from db with :id
-            await axios.delete(`http://localhost:8070/inventory/product/deleteTeaPack/${productId}`)
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/deleteTeaPack/${productId}`)
             .then(()=>{
                alert("delete product")
             }).catch((err)=>{

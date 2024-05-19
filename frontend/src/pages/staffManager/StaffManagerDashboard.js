@@ -11,13 +11,13 @@ export default function StaffManagerDashboard() {
 
     useEffect(() => {
         const fetchManagerDetails = async () => {
-            const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+            const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
             const managerData = res.data.manager || res.data;
             setManager({ firstName: managerData.firstName, designation: managerData.designation });
         };
 
         const fetchDepartmentData = async () => {
-            const res = await axios.get('http://localhost:8070/empLogin/getManagers');
+            const res = await axios.get('https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManagers');
             const employees = res.data.departmentDetails;
             aggregateDepartmentData(employees);
         };

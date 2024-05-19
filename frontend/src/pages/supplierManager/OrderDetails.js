@@ -9,7 +9,7 @@ function OrderDetails() {
     useEffect(() => {
         const fetchOrderDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/inventory/orders/getAllOrders`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/getAllOrders`);
                 setOrderDetails(res.data);
             } catch (error) {
                 console.log("Error fetching details", error.message);

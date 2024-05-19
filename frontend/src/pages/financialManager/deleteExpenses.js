@@ -9,7 +9,7 @@ export default function DeleteEx() {
 
 
     const yesBtn = async () => {
-        axios.delete(`http://localhost:8070/expenses/delete/${expenseID}`).then(() => {
+        axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/expenses/delete/${expenseID}`).then(() => {
             alert("Expenses delete")
             navigate(`/financial/HomeExpenses/${id}`)
         }).catch((err) => {

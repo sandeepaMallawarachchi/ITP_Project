@@ -59,7 +59,7 @@ export default function AddReportData() {
             totalCost
         }
 
-        axios.post("http://localhost:8070/report/add", newAddReportData)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/report/add", newAddReportData)
             .then(() => {
                 alert("Data Added")
 

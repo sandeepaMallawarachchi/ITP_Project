@@ -18,7 +18,7 @@ export default function Home() {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:8070/expenses/display")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/expenses/display")
             .then((res) => {
                 setExpenses(res.data);
             })
@@ -28,7 +28,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/totalSalary/totalSalary")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/totalSalary/totalSalary")
             .then((res) => {
                 const totalSalary = res.data.totalSalary;
                 setTotalSalary(totalSalary);
@@ -39,7 +39,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/getTotalExpenses/getTotalExpenses")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/getTotalExpenses/getTotalExpenses")
             .then((res) => {
                 const totalExpenses = res.data.getTotalExpenses;
                 setTotalExpenses(totalExpenses);

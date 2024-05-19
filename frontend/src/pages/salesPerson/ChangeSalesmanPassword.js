@@ -29,7 +29,7 @@ function ChangeSalesmanPassword() {
                 return;
             }
 
-            await axios.put(`http://localhost:8070/salesmen/changePassword/${id}`, {
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/changePassword/${id}`, {
                 password: newPassword.password,
                 confirmPassword: newPassword.confirmPassword
             });

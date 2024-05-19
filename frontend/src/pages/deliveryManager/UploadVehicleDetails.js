@@ -84,8 +84,8 @@ export default function UploadVehicleDetails() {
             }
 
             await Promise.all([
-                axios.post(`http://localhost:8070/driver/uploadVehicleLicense`, { downloadURL: licenseDownloadURL }),
-                axios.post(`http://localhost:8070/driver/uploadVehicleEmssion`, { downloadURL: emissionDownloadURL })
+                axios.post(`https://hendriks-tea-management-system-backend.vercel.app/driver/uploadVehicleLicense`, { downloadURL: licenseDownloadURL }),
+                axios.post(`https://hendriks-tea-management-system-backend.vercel.app/driver/uploadVehicleEmssion`, { downloadURL: emissionDownloadURL })
             ]);
 
             setLicenseDownloadURL('');

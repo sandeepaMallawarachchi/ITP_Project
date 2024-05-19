@@ -8,7 +8,7 @@ function DeleteDriver() {
 
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/empLogin/deleteDriver/${dID}`);
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/deleteDriver/${dID}`);
             alert('Driver deleted')
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {

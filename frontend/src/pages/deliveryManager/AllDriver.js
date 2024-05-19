@@ -17,7 +17,7 @@ export default function AllDriver() {
     }, [searchValue, driver]);
 
     const fetchDriver = () => {
-        axios.get("http://localhost:8070/driver/")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/driver/")
             .then(response => {
                 setDriver(response.data);
                 setFilteredDriver(response.data);

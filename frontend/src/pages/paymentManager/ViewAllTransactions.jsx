@@ -16,7 +16,7 @@ function ViewAllTransactions() {
    })
     
    const getPaymentDetails = () => {
-      axios.get(`http://localhost:8070/paymentdetails/${customerID}`).then(response => {
+      axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/${customerID}`).then(response => {
         setPaymentDetails(response.data);
       })
    }
