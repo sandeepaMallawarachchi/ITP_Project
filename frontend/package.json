@@ -22,7 +22,6 @@
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.1",
     "jspdf": "^2.5.1",
-    "pdfmake": "^0.2.10",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
