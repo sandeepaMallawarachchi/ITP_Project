@@ -21,7 +21,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/employeeLogin`, {
+            const res = await axios.post(`https://itp-project-backend.vercel.app/empLogin/employeeLogin`, {
                 usernameOrPhone,
                 password
             });
@@ -42,7 +42,7 @@ export default function Login() {
                 navigate(`/inventory/dashboard/${empId}`);
                 return;
             }
-          
+
             else if (res.data.designation === 'Staff Manager') {
                 const empId = res.data.empId;
                 navigate(`/staff/staffManagerDashboard/${empId}`);
@@ -78,7 +78,7 @@ export default function Login() {
             if (error.response && error.response.status === 401) {
                 setInvalidPassword(true);
                 setErrorPassword(true);
-                setErrorUsername(false);a
+                setErrorUsername(false); a
 
                 setTimeout(() => {
                     setInvalidPassword(false);
