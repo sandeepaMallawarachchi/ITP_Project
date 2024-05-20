@@ -2,18 +2,14 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const app = express();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require("dotenv").config();
 
-const app = express();
-const corsConfig = {
-    origin: "*",
-    Credential: true,
-    mehtods: ["GET", "POST", "PUT", "DELETE"],
-}
-app.options("", cors(corsConfig));
-app.use(cors(corsConfig));
+const PORT = process.env.PORT || 8070;
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -29,7 +25,9 @@ const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
 });
 
 const connection = mongoose.connection;
@@ -37,7 +35,7 @@ connection.once("open", () => {
     console.log("Mongodb connected successfully");
 });
 
-// Routes
+//sales routes
 const salesRouter = require("./routes/salesRoutes/sales.js");
 const salesmenRouter = require("./routes/salesRoutes/salesmen.js");
 const salesManagementRouter = require("./routes/salesRoutes/salesManagement.js");
@@ -46,28 +44,31 @@ app.use("/sales", salesRouter);
 app.use("/salesmen", salesmenRouter);
 app.use("/salesManagement", salesManagementRouter);
 
-const invRouter = require("./routes/inventoryRoutes/product.js");
-const orderRouter = require("./routes/inventoryRoutes/newOrder.js");
-const reorderRouter = require("./routes/inventoryRoutes/reorderFunction.js");
+//inventory routes
+const invRouter = require("./routes/inventoryRoutes/product.js")
+const orderRouter = require("./routes/inventoryRoutes/newOrder.js")
+const reorderRouter = require("./routes/inventoryRoutes/reorderFunction.js")
 
-app.use("/inventory/product", invRouter);
-app.use("/inventory/orders", orderRouter);
-app.use("/inventory/reorder", reorderRouter);
+app.use("/inventory/product", invRouter)
+app.use("/inventory/orders", orderRouter)
+app.use("/inventory/reorder", reorderRouter)
 
+//staff routes
 const salaryRouter = require("./routes/staffRoutes/salary.js");
-const staffRouter = require("./routes/staffRoutes/staff.js");
-const vacationRouter = require("./routes/staffRoutes/vacation.js");
+const StaffRouter = require("./routes/staffRoutes/staff.js");
+const VacationRouter = require("./routes/staffRoutes/vacation.js");
 const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
-const vacationStatusRouter = require("./routes/staffRoutes/vacationStatus.js");
-const topSellers = require("./routes/staffRoutes/topSellers.js");
+const VacationStatusRouter = require("./routes/staffRoutes/vacationStatus.js");
+const TopSellers = require("./routes/staffRoutes/topSellers.js");
 
-app.use("/staff", staffRouter);
+app.use("/Staff", StaffRouter);
 app.use("/staff/salary", salaryRouter);
-app.use("/staff/vacation", vacationRouter);
+app.use("/staff/vacation", VacationRouter);
 app.use("/empLogin", employeeLoginRouter);
-app.use("/staff/vacationStatus", vacationStatusRouter);
-app.use("/staff/topSellerStatus", topSellers);
+app.use("/staff/vacationStatus", VacationStatusRouter);
+app.use("/staff/topSellerStatus", TopSellers);
 
+//financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");
 const incomeRouter = require("./routes/financialRoutes/incomesheet.js");
 const getTotalIncome = require("./routes/financialRoutes/totalIncome.js");
@@ -94,24 +95,32 @@ app.use("/totalLiabilities", totalLiabilities);
 app.use("/totalAssets", totalAssets);
 app.use("/getTotalBalance", getTotalBalance);
 
+
+
+//supplier routes
 const supplier = require("./routes/supplierRoutes/supplier.js");
 
 app.use("/supplier", supplier);
 
+//delivery routes
 const teaRouter = require("./routes/deliveryRoutes/Locations.js");
 const driverRouter = require("./routes/deliveryRoutes/driver.js");
 const reportRouter = require("./routes/deliveryRoutes/report.js");
 
-app.use("/tea", teaRouter);
-app.use("/driver", driverRouter);
-app.use("/report", reportRouter);
+app.use("/tea",teaRouter);
+app.use("/driver",driverRouter);
+app.use("/report",reportRouter);
 
+//payment riutes
 const paymentRouter = require("./routes/paymentRoutes/payment.js");
-const paymentDetailsRouter = require("./routes/paymentRoutes/paymentdetails.js");
-const paymentAdminRouter = require("./routes/paymentRoutes/paymentadmin.js");
+const paymentdetailsRouter = require("./routes/paymentRoutes/paymentdetails.js");
+const paymentadminRouter = require("./routes/paymentRoutes/paymentadmin.js");
 
-app.use("/paymentdetails", paymentDetailsRouter);
+app.use("/paymentdetails",paymentdetailsRouter);
 app.use("/payment", paymentRouter);
-app.use("/paymentadmin", paymentAdminRouter);
+app.use("/paymentadmin",paymentadminRouter);
 
-module.exports = app;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
+});
