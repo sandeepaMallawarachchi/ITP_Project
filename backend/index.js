@@ -7,12 +7,13 @@ const session = require('express-session');
 require("dotenv").config();
 
 const app = express();
-
-app.use(cors({
-    origin: ['https://hendrik-s-tea-management-system-frontend.vercel.app'],
-    methods: ['POST', 'GET', 'PUT', 'DELETE'],
-    credentials: true
-}));
+const corsConfig = {
+    origin: "*",
+    Credential: true,
+    mehtods: ["GET", "POST", "PUT", "DELETE"],
+}
+app.options("", cors(corsConfig));
+app.use(cors(corsConfig));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
