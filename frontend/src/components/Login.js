@@ -21,7 +21,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`https://itp-project-backend.vercel.app/empLogin/employeeLogin`, {
+            const res = await axios.post(`hhttps://itp-project-ebon.vercel.app/empLogin/employeeLogin`, {
                 usernameOrPhone,
                 password
             });
@@ -78,7 +78,7 @@ export default function Login() {
             if (error.response && error.response.status === 401) {
                 setInvalidPassword(true);
                 setErrorPassword(true);
-                setErrorUsername(false); a
+                setErrorUsername(false);
 
                 setTimeout(() => {
                     setInvalidPassword(false);
