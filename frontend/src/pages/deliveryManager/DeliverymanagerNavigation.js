@@ -116,7 +116,7 @@ export default function DeliverymanagerNavigation() {
     }, [id]);
 
     const handleDashboard = () => {
-        navigate(`/deliveryManager/salesManagerDashboard/${id}`);
+        navigate(`/deliveryManager/deliveryManagerDashboard/${id}`);
     };
 
     const handleMyAccount = () => {

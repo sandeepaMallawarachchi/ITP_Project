@@ -16,36 +16,37 @@ import UpdateReportData from "../pages/deliveryManager/UpdateReportData";
 import DeleteReportData from "../pages/deliveryManager/DeleteReportData";
 import DeliveryStatus from "../pages/deliveryManager/DeliveryStatus";
 import UploadVehicleDetails from "../pages/deliveryManager/UploadVehicleDetails";
+import DeliverymanagerDashboard from "../pages/deliveryManager/DeliverymanagerDashboard";
+
+export default function DeliveryRoutes() {
 
 
-export default function DeliveryRoutes(){
+  return (
+
+    <Routes>
+      <Route element={<DeliverymanagerLayouts />}>
+
+        <Route path="/deliveryManagerDashboard/:id" element={<DeliverymanagerDashboard />} />
+        <Route path="/addlocations/:id" element={<AddLocation />} />
+        <Route path="/alllocations/:id" element={<AllLocation />} />
+        <Route path="/updatelocations/:locId/:id" element={<UpdateLocation />} />
+        <Route path="/deletelocations/:locId/:id" element={<DeleteLocation />} />
+        <Route path="/addDrivers/:id" element={<AddDriver />} />
+        <Route path="/allDrivers/:id" element={<AllDriver />} />
+        <Route path="/updateDrivers/:driverId/:id" element={<UpdateDriver />} />
+        <Route path="/deleteDrivers/:driverId/:id" element={<DeleteDriver />} />
+        <Route path="/uploadImage/:id" element={<UploadImage />} />
+        <Route path="/addReportData/:id" element={<AddReportData />} />
+        <Route path="/allReportData/:id" element={<AllReportData />} />
+        <Route path="/updateReportData/:rId/:id" element={<UpdateReportData />} />
+        <Route path="/deleteReportData/:rId/:id" element={<DeleteReportData />} />
+        <Route path="/deliveryStatus/:id" element={<DeliveryStatus />} />
+        <Route path="/uploadVehicleDetails/:id" element={<UploadVehicleDetails />} />
+        <Route path="/managerAccount/:id" element={<ManagerAccount />} />
+
+      </Route>
+    </Routes>
 
 
-    return(
-
-      <Routes>
-        <Route element={<DeliverymanagerLayouts/>}>
-        
-          <Route path="/addlocations/:id" element={<AddLocation />} />
-          <Route path="/alllocations/:id" element={<AllLocation />} />
-          <Route path="/updatelocations/:locId/:id" element={<UpdateLocation />} />
-          <Route path="/deletelocations/:locId/:id" element={<DeleteLocation />} />
-          <Route path="/addDrivers/:id" element={<AddDriver />} />
-          <Route path="/allDrivers/:id" element={<AllDriver />} />
-          <Route path="/updateDrivers/:driverId/:id" element={<UpdateDriver />} />
-          <Route path="/deleteDrivers/:driverId/:id" element={<DeleteDriver />} />
-          <Route path="/uploadImage/:id" element={<UploadImage />} />
-          <Route path="/addReportData/:id" element={<AddReportData />} />
-          <Route path="/allReportData/:id" element={<AllReportData />} />
-          <Route path="/updateReportData/:rId/:id" element={<UpdateReportData />} />
-          <Route path="/deleteReportData/:rId/:id" element={<DeleteReportData />} />
-          <Route path="/deliveryStatus/:id" element={<DeliveryStatus />} />
-          <Route path="/uploadVehicleDetails/:id" element={<UploadVehicleDetails />} />
-          <Route path="/managerAccount/:id" element={<ManagerAccount />} />
-
-        </Route>
-      </Routes>
-
-
-    )
+  )
 }
