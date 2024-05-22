@@ -11,6 +11,13 @@ export default function AddReportData() {
     const [serviceCharge, setServiceCharge] = useState("");
     const [totalCost, setTotalCost] = useState("");
     const [error, setError] = useState("");
+    
+    const handleMonthlyDistanceChange = (e) => {
+        const input = e.target.value;
+        if (!isNaN(input) && input >= 0) {
+            setMonthlyDistance(input);
+        }
+    };
 
     const handleFuelCostChange = (e) => {
         const input = e.target.value;
@@ -133,7 +140,7 @@ export default function AddReportData() {
                             id="monthlyDistance"
                             placeholder="Enter monthly distance"
                             value={monthlyDistance}
-                            onChange={(e) => setMonthlyDistance(e.target.value)}
+                            onChange={handleMonthlyDistanceChange}
                         />
                     </div>
                     <div className="mb-4">

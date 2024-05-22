@@ -50,7 +50,7 @@ export default function AllLocation() {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen absolute mt-64 left-1/3 w-1/2">
+        <div className="flex justify-center items-center h-screen absolute mt-20 left-1/3 w-1/2">
             <div>
                 <h1 className="text-3xl font-bold mb-8">All Customers</h1>
                 <div className="relative mb-4">

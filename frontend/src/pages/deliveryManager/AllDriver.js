@@ -50,7 +50,7 @@ export default function AllDriver() {
 
     
     return (
-        <div className="flex justify-center items-center h-screen absolute pt-10 mt-48 left-1/4 ml-20 w-1/2">
+        <div className="flex justify-center items-center h-screen absolute pt-10 mt-20 left-1/4 ml-20 w-1/2">
             <div>
                 <h1 className="text-3xl font-bold mb-8">All Drivers</h1>
                 <div className="relative mb-4 ">
