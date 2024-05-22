@@ -7,6 +7,7 @@ function DeletePaymentDetails() {
 
     const [customerID,setCustomerID] = useState("");
     const[paymentDetails,setPaymentDetails] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         if (customerID !== "") {
@@ -15,7 +16,7 @@ function DeletePaymentDetails() {
     }, [customerID]);
 
     const fetchPaymentDetails = () => {
-        axios.get(`http://localhost:8070/paymentdetails/${customerID}`).then(response => {
+        axios.get(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/${customerID}`).then(response => {
             setPaymentDetails(response.data);
         }).catch((err) => {
             console.log(err);
@@ -23,7 +24,7 @@ function DeletePaymentDetails() {
     };
 
     const deletepaymentdetails = (objectID) => {
-        axios.delete(`http://localhost:8070/paymentdetails/delete/${objectID}`).then(response=> {
+        axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/paymentdetails/delete/${objectID}`).then(response=> {
              console.log(response.data);
              alert("Payment Details Deleted ! ");
         }).catch((err) => {
@@ -31,12 +32,35 @@ function DeletePaymentDetails() {
     })
     }
 
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value.trim(); // Trim whitespace
+        if (inputValue === '') {
+            setCustomerID(null); // If input is empty, set customerID to null
+            setErrorMessage('');
+        } else if (!isNaN(inputValue)) {
+            setCustomerID(Number(inputValue));
+            setErrorMessage('');
+        } else {
+            setCustomerID(''); // Set an empty string here
+            setErrorMessage('Customer ID must be a number!');
+        }
+    };
+
+
   return (
     <div>
         <Navigation/>
-        <input placeholder='Enter Customer ID' id="form2Example1" class="form-control" style={{ marginTop: "150px", marginLeft:"300px" }} required onChange={(e) => {
-            setCustomerID(e.target.value);
-        }}/>
+        <div style={{marginTop:20, marginLeft:20}}>
+        <input
+                    placeholder='Enter Customer ID'
+                    value={customerID}
+                    onChange={handleInputChange}
+                    className={`w-72 h-10 px-4 mb-2 border rounded-md focus:outline-none transition-colors duration-300 ${errorMessage ? 'border-red-500' : 'border-gray-300'} ${!errorMessage && 'focus:border-blue-500'}`}
+                    id="form2Example1"
+                    style={{ marginTop: "180px", marginLeft: "300px" }}
+                    required
+                /></div>
+                {errorMessage && <small style={{ color: 'red', marginLeft:325}}>{errorMessage}</small>}
         <br></br>
 
         

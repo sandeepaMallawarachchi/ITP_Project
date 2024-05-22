@@ -4,41 +4,51 @@ import axios from 'axios';
 const Supplierdetails = () => {
   const [supplier, setSupplier] = useState({
     name: '',
-    age: '',
+    sid: '',
     address: '',
     email: ''
   });
   const [emailError, setEmailError] = useState('');
+  const [nameError, setNameError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSupplier({ ...supplier, [name]: value });
+
+    // Validate name format as the user types
+    if (name === 'name') {
+      const namePattern = /^[a-zA-Z\s]*$/; // Allow only letters and spaces
+      if (!namePattern.test(value)) {
+        setNameError('Invalid name format');
+      } else {
+        setNameError('');
+      }
+    }
 
     // Validate email format as the user types
     if (name === 'email') {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email validation regex
       if (!emailPattern.test(value)) {
         setEmailError('Invalid email format');
       } else {
         setEmailError('');
       }
-    } else if (name !== 'email' && emailError) {
-      // If the user is typing in other fields and there's an email error, clear it
-      setEmailError('');
     }
+
+    // Update state
+    setSupplier({ ...supplier, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if there's an email error before submitting
-    if (emailError) {
+    // Check if there's an email error or name error before submitting
+    if (emailError || nameError) {
       return;
     }
 
     try {
-      const response = await axios.post(`http://localhost:8070/supplier/addsuppliers`, supplier);
+      const response = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/supplier/addsuppliers`, supplier);
       console.log(response.data);
       setSuccessMessage('Supplier added successfully!');
       // Optionally, you can redirect to another page after successful submission
@@ -62,10 +72,11 @@ const Supplierdetails = () => {
           <input type="text" id="name" name="name" value={supplier.name} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
+          {nameError && <p className="text-red-500">{nameError}</p>}
         </div>
         <div>
-          <label htmlFor="age" className="block">Age:</label>
-          <input type="number" id="age" name="age" value={supplier.age} onChange={handleChange} required
+          <label htmlFor="sid" className="block">Username:</label>
+          <input type="text" id="sid" name="sid" value={supplier.sid} onChange={handleChange} required
             className="border border-gray-300 px-3 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>

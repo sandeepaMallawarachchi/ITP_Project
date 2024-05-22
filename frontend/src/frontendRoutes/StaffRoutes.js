@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddSalary from "../pages/staffManager/AddSalary";
 import SalaryReport from "../pages/staffManager/SalaryReport";
-import AddEmployee from '../pages/staffManager/AddEmployee'
+// import AddEmployee from '../pages/staffManager/AddEmployee'
 import AllEmployees from '../pages/staffManager/AllEmployees'
 import UpdateEmployee from '../pages/staffManager/UpdateEmployee'
 import DeleteEmployee from '../pages/staffManager/DeleteEmployee'
@@ -19,6 +19,8 @@ import AddDriver from '../pages/staffManager/AddDriver'
 import UpdateSalesPerson from '../pages/staffManager/UpdateSalesPerson'
 import DeleteSalesPerson from '../pages/staffManager/DeleteSalesPerson'
 import DeleteDriver from '../pages/staffManager/DeleteDriver'
+import TopSellers from '../pages/staffManager/TopSellers'
+import UpdateDriver from '../pages/staffManager/UpdateDriver'
 
 export default function StaffRoutes() {
     return (
@@ -27,7 +29,7 @@ export default function StaffRoutes() {
                 <Route path='/staffManagerDashboard/:id' element={<StaffManagerDashboard />} />
                 <Route path='/addSalary/:id' element={<AddSalary />} />
                 <Route path='/salary/:empId/:month/:year/:id' element={<SalaryReport />} />
-                <Route path='/addEmployee/:id' element={<AddEmployee />} />
+                {/* <Route path='/addEmployee/:id' element={<AddEmployee />} /> */}
                 <Route path='/allEmployees/:id' element={<AllEmployees />} />
                 <Route path='/updateEmployee/:empId/:id' element={<UpdateEmployee />} />
                 <Route path='/deleteEmployee/:empId/:id' element={<DeleteEmployee />} />
@@ -42,7 +44,9 @@ export default function StaffRoutes() {
                 <Route path='/addDriver/:id' element={<AddDriver />} />
                 <Route path='/updateSalesperson/:salesPersonId/:id' element={<UpdateSalesPerson />} />
                 <Route path='/deleteSalesperson/:salespersonID/:id' element={<DeleteSalesPerson />} />
-                <Route path='/deleteDriver/:driverId/:id' element={<DeleteDriver />} />
+                <Route path='/deleteDriver/:dID/:id' element={<DeleteDriver />} />
+                <Route path='/topSellers/:id' element={<TopSellers />} />
+                <Route path='/updateDriver/:dID/:id' element={<UpdateDriver />} />
             </Route>
         </Routes>
 

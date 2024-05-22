@@ -8,7 +8,7 @@ function AllVacations() {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get("http://localhost:8070/staff/vacation/allVacations").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/staff/vacation/allVacations").then((res) => {
             setVacations(res.data.vacation);
             console.log(res.data);
         }).catch((error) => {

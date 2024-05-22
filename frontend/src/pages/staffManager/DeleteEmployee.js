@@ -9,7 +9,7 @@ function DeleteEmployee() {
     
     const yesBtn = async () => {
         try {
-            await axios.delete(`http://localhost:8070/empLogin/delete/${empId}`);
+            await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/delete/${empId}`);
             alert("Employee deleted!");
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {

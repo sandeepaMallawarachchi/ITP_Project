@@ -18,7 +18,7 @@ function UpdateEmployee() {
     useEffect(() => {
         const fetchEmpDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/empLogin/getManager/${empId}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${empId}`);
                 // Accessing nested manager data correctly
                 const empData = response.data.manager;
                 const { firstName, lastName, gender, department, designation, address, email, phoneNo } = empData;
@@ -37,7 +37,7 @@ function UpdateEmployee() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/empLogin/updateManager/${empId}`, empDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/updateManager/${empId}`, empDetails);
             alert("Details Updated!");
             navigate(`/staff/allEmployees/${id}`);
         } catch (error) {

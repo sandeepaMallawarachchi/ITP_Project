@@ -29,15 +29,15 @@ useEffect(()=>{
 //fetch data of a particular product through an api
   const fetchData = async()=>{
     try{
-    const response = await axios.get(`http://localhost:8070/inventory/product/getPack/${productId}`);
+    const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getPack/${productId}`);
     console.log(response.data)
-    const manDate = new Date(response.data.manDate).toLocaleDateString();
-    const expDate = new Date(response.data.expDate).toLocaleDateString();
-    //set the response to setData() and update the state of data
-    setData({...response.data,
-               manDate : manDate,
-               expDate : expDate}
-            );
+    const manDate = new Date(response.data.manDate).toISOString().split('T')[0]
+    const expDate = new Date(response.data.expDate).toISOString().split('T')[0]
+    setData({
+      ...response.data,
+      manDate : manDate,
+      expDate: expDate
+    } );
      }catch(err){
      console.log(err);
    }
@@ -70,16 +70,14 @@ function handleChange(e){
     {
         ...prevItem,
         [name] : value
-    }
+    })
     )
- )
-
-}
+  }
 
 //updating the new data through an api
 const updateData = async()=>{
    try{
-     const response = await axios.patch(`http://localhost:8070/inventory/product/updateTeaPack/${productId}`,{
+     const response = await axios.patch(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/updateTeaPack/${productId}`,{
         productName : data.productName,
         teaType : data.teaType,
         stockLevel : data.stockLevel,
@@ -104,32 +102,12 @@ const updateData = async()=>{
  function validate(value){
 
   const errors = {}
-  const dateRegex = /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/
-
-  const manufacturedDate = new Date(value.manDate).setHours(0,0,0,0);
-  const expiryDate = new Date(value.expDate).setHours(0,0,0,0);
   
   //checking if stocklevel is lesser than reorder level
   if(parseInt(value.stockLevel) <= parseInt(value.reorderLevel)){
     errors.reorderLevel = "Reorder Level should be less than Stock Level !";
   }
   
-  //checking if manufactured date is in the correct format 
-  if(!dateRegex.test(value.manDate)){
-    errors.manDate = "Manufactured Date is not in the correct format !";
-  }
-  
-  //checking if the expiry date is in the correct format
-  if(!dateRegex.test(value.expDate)){
-    errors.expDate = "Expiry Date is not in the correct format !";
-  }
-
-  //checking if the expiry date has passed the manufactured date
-  if(expiryDate <= manufacturedDate){
-    errors.expDate = "Entered date has passed manufactured date !";
-  }
-
-
   return errors;
 }
 
@@ -147,9 +125,10 @@ async function handleSubmit(e){
       setFormErrors(errors)
       
     }
+  }
 
-}
-
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
 
     return(
         <div style={{marginLeft:"25%",marginTop:"10rem"}}>
@@ -160,14 +139,14 @@ async function handleSubmit(e){
           <div className="mb-2 block">
             <Label>Product Name</Label>
           </div>
-          <TextInput  type="text" name="productName" value={data.productName} onChange={handleChange} required />
+          <TextInput  type="text" name="productName" value={data.productName.replace(/[^a-zA-Z\s]/g, '')} onChange={handleChange} required />
         </div>
 
         <div className="flex-1 ml-20">
           <div className="mb-2 block">
           <Label>Tea Type</Label>
           </div>
-          <TextInput  type="text" name="teaType" value={data.teaType} onChange={handleChange} required />
+          <TextInput  type="text" name="teaType" value={data.teaType.replace(/[^a-zA-Z\s]/g, '')} onChange={handleChange} required />
         </div>
         </div>
 
@@ -199,7 +178,7 @@ async function handleSubmit(e){
 
         <div  className="flex-1 ml-20">
           <div className="mb-2 block">
-          <Label>Weight (Gram)</Label>
+          <Label>Packet Size(Gram)</Label>
           </div>
           <TextInput type="number" name="weight" value={data.weight} onChange={handleChange} required />
         </div>
@@ -210,16 +189,20 @@ async function handleSubmit(e){
           <div className="mb-2 block">
           <Label>Manufactured Date</Label>
           </div>
-          <TextInput  type="text" name="manDate" value={data.manDate} onChange={handleChange} required />
-          <p className="text-sm text-red-700 my-2 ml-3">{formErrors.manDate}</p>
+          <TextInput  type="date" name="manDate" value={data.manDate} onChange={handleChange} max={
+                        new Date().toISOString().split('T')[0]
+                      } required />
+          
         </div>
 
         <div className="flex-1 ml-20">
           <div className="mb-2 block">
           <Label>Expiry Date</Label>
           </div>
-          <TextInput  type="text" name="expDate" value={data.expDate} onChange={handleChange} required />
-          <p className="text-sm text-red-700 my-2 ml-3">{formErrors.expDate}</p>
+          <TextInput  type="date" name="expDate" value={data.expDate} onChange={handleChange} min={
+                      today.toISOString().split('T')[0]
+                      } required />
+          
         </div>
         </div>
 

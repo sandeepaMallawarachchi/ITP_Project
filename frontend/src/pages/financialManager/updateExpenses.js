@@ -14,7 +14,7 @@ function UpdateExpenses() {
     useEffect(() => {
         const fetchExpenses = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/expenses/get/${expenseID}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/expenses/get/${expenseID}`);
                 const expenseData = response.data.financial; // Assuming the response has a 'financial' property
 
                 if (expenseData && Object.keys(expenseData).length > 0) {
@@ -38,7 +38,7 @@ function UpdateExpenses() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/expenses/update/${expenseID}`, details);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/expenses/update/${expenseID}`, details);
             alert("Details Updated!");
         } catch (error) {
             console.error("Error updating expenses details", error.message);

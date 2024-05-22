@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8070/supplier/get`)
+    axios.get(`https://hendriks-tea-management-system-backend.vercel.app/supplier/get`)
       .then(response => {
         setData(response.data);
       })
@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div className='absolute mt-40    left-1/4  w-1/2 '>
-      <h1 className="text-2xl font-bold mb-4">Purchasing details</h1>
+      <h1 className="text-2xl font-bold mb-10">Purchasing details</h1>  
       <div className="overflow-x-auto">
         <table className="table-auto w-full">
           <thead>
@@ -24,7 +24,10 @@ export default function Home() {
               <th className="px-4 py-2">Date Of payment</th>
               <th className="px-4 py-2">Payment method</th>
               <th className="px-4 py-2">Quantity</th>
+              <th className="px-4 py-2"> Amount  </th>
               <th className="px-4 py-2">Tea Type </th>
+              <th className="px-4 py-2"> Supplier </th>
+               
               {/* Add more table headers if needed */}
             </tr>
           </thead>
@@ -34,7 +37,10 @@ export default function Home() {
                 <td className="border px-4 py-2">{item.date}</td>
                 <td className="border px-4 py-2">{item.paymentmethod}</td>
                 <td className="border px-4 py-2">{item.quantity}</td>
-                <td className="border px-4 py-2">{item.teatype}</td>  
+                <td className="border px-4 py-2">{item.amount }</td>
+                <td className="border px-4 py-2">{item.teatype}</td>
+                <td className="border px-4 py-2">{item.sid }</td>
+
                 {/* Render additional columns if needed */}
               </tr>
             ))}

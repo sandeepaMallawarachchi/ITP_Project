@@ -24,7 +24,7 @@ export default function SearchResult() {
       try {
         //get the searched data from db
         const res = await axios.get(
-          `http://localhost:8070/inventory/product/searchTeapack?q=${value}`
+          `https://hendriks-tea-management-system-backend.vercel.app/inventory/product/searchTeapack?q=${value}`
         );
         //console.log(res.data);
         setResult(res.data);

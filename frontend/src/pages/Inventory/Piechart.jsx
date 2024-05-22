@@ -10,7 +10,7 @@ export default function Piechart() {
         //fetching the products from DB
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getTeaPack`);
                 setData(response.data);
             } catch (err) {
                 console.log(err);

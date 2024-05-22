@@ -21,7 +21,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:8070/empLogin/employeeLogin`, {
+            const res = await axios.post(`hhttps://itp-project-ebon.vercel.app/empLogin/employeeLogin`, {
                 usernameOrPhone,
                 password
             });
@@ -42,7 +42,7 @@ export default function Login() {
                 navigate(`/inventory/dashboard/${empId}`);
                 return;
             }
-          
+
             else if (res.data.designation === 'Staff Manager') {
                 const empId = res.data.empId;
                 navigate(`/staff/staffManagerDashboard/${empId}`);

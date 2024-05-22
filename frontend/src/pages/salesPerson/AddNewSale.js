@@ -24,7 +24,7 @@ export default function AddNewSale() {
     useEffect(() => {
         const fetchProductName = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/sales/stocks/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/stocks/${id}`);
                 const productNames = res.data.map(item => item.productName);
                 console.log(productNames);
                 setProductNames(productNames);
@@ -41,7 +41,7 @@ export default function AddNewSale() {
 
         const fetchStandardPrice = async () => {
             try {
-                const res = axios.get(`http://localhost:8070/sales/getStandardPrice/${selectedProductName}`);
+                const res = axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/getStandardPrice/${selectedProductName}`);
                 console.log((await res).data.unitPrice);
                 setUnitPrice((await res).data.unitPrice);
             } catch (error) {
@@ -82,7 +82,7 @@ export default function AddNewSale() {
         e.preventDefault();
 
         try {
-            const res = await axios.post(`http://localhost:8070/sales/addSale/${id}`, {
+            const res = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/sales/addSale/${id}`, {
                 productName,
                 amount,
                 sellingPrice,

@@ -18,7 +18,7 @@ export default function DeliveryStatus() {
     useEffect(() => {
         const fetchLocation = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/tea/getCustomerLocation`, { cusID: cusID });
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/tea/getCustomerLocation`, { cusID: cusID });
 
                 if (res.data.error) {
                     setError(true);
@@ -48,7 +48,7 @@ export default function DeliveryStatus() {
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/sales/getSalesSummary/${cusID}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/getSalesSummary/${cusID}`);
 
                 if (res.data.error) {
                     setError(true);

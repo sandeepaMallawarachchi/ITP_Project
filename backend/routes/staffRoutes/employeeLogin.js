@@ -5,6 +5,7 @@ const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 let Manager = require("../../models/staffModels/managerDetails");
 let Salesmen = require("../../models/salesmenModels/salesmenDetails");
+let Driver = require("../../models/deliveryModels/driver");
 let EmployeeProfilePicture = require("../../models/staffModels/profilePictureDetails");
 
 //register a new manager
@@ -35,7 +36,7 @@ router.route('/managerRegister').post(async (req, res) => {
             return res.status(400).json({ error: "Passwords do not match" });
         }
 
-        const existingManager = await Manager.find({ username, designation });
+        const existingManager = await Manager.find({ empId });
 
         if (existingManager.length > 0) {
             return res.status(400).json({ error: "Manager already exists!" });
@@ -429,5 +430,57 @@ router.route("/changeProfilePicture/:empId").get(async (req, res) => {
         res.status(500).send({ error: "Error fetching image" });
     }
 });
+
+//delete driver
+router.route("/deleteDriver/:dID").delete(async (req, res) => {
+    let dID = req.params.dID;
+
+    await Driver.findOneAndDelete({ dID })
+        .then(() => {
+            res.status(200).send({ status: "User deleted" });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with delete user", error: err.message });
+
+        })
+})
+
+//get driver by id
+router.route("/get/:dID").get(async (req, res) => {
+    let dID = req.params.dID;
+
+    const user = await Driver.findOne({ dID })
+        .then((driver) => {
+            res.status(200).send({ status: "Driver fetched", driver });
+        }).catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with get user", error: err.message });
+
+        })
+})
+
+//update driver
+router.route("/update/:dID").put(async (req, res) => {
+    let dID = req.params.dID;
+    const { dname, age, address, phone_number, email, duration_of_job } = req.body;
+
+    const updateDriver = {
+        dname,
+        age,
+        address,
+        phone_number,
+        email,
+        duration_of_job
+    }
+
+    const update = await Driver.findOneAndUpdate({ dID }, updateDriver)
+        .then(() => {
+            res.status(200).send({ status: "Driver updated" })
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).send({ status: "Error with updating data" });
+        })
+
+})
 
 module.exports = router;

@@ -19,7 +19,7 @@ export default function SalesManagerDashboard() {
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesManagement/getTotalSales`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/getTotalSales`);
                 const { salesDetails } = res.data;
                 setSales(salesDetails);
                 console.log(salesDetails)
@@ -34,7 +34,7 @@ export default function SalesManagerDashboard() {
     useEffect(() => {
         const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
                 console.log(res.data);
                 const managerData = res.data.manager || res.data;
                 const { firstName, designation } = managerData;

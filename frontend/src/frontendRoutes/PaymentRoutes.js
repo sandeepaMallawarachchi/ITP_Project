@@ -12,6 +12,7 @@ import Test from "../pages/paymentManager/Test";
 import SearchByName from "../pages/paymentManager/SearchByName";
 import CreditLimitExeedCustomers from "../pages/paymentManager/CreditLimitExeedCustomers";
 import ViewAllTransactions from "../pages/paymentManager/ViewAllTransactions";
+import ManagerAccount from '../components/ManagerAccount'
 import Navigation from "../pages/paymentManager/Navigation";
 
 export default function PaymentRoutes() {
@@ -20,11 +21,12 @@ export default function PaymentRoutes() {
 
         <Routes>
             <Route path="/:id" element={<Home />} />
+            <Route path="/cash/:id/:cusID/:cusName/:totalamount" element={<Cash />} />
             <Route path="/cash/:id" element={<Cash />} />
             <Route path="/cardpayment/:id" element={<Cardpayment />} />
             <Route path="/transactionReport/:id" element={<TransactionReport />} />
             <Route path="/updatepaymentdetails/:id" element={<UpdatePaymentDetails />} />
-            <Route path="/updatepaymentdetails2/:id/:id" element={<UpdatePaymentDetails2 />} />
+            <Route path="/updatepaymentdetails2/:id/:salesId" element={<UpdatePaymentDetails2 />} />
             <Route path="/paymentadmin/:id" element={<PaymentAdminLogin />} />
             <Route path="/deletepaymentdetails/:id" element={<DeletePaymentDetails />} />
             <Route path="/paymentadminhome/:id" element={<PaymentAdminHome />} />
@@ -32,6 +34,7 @@ export default function PaymentRoutes() {
             <Route path="/searchbyname/:id" element={<SearchByName />} />
             <Route path="/creditlimitexeedcustomers/:id" element={<CreditLimitExeedCustomers />} />
             <Route path="/viewalltransactions/:customerID/:id" element={<ViewAllTransactions />} />
+            <Route path="/managerAccount/:id" element={<ManagerAccount />} />
             <Route path="/navigation/:id" element={<Navigation />} />
         </Routes>
 

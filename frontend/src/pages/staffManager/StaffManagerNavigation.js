@@ -15,7 +15,7 @@ import notFoundError from '../../images/notFound.jpeg';
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { FaUmbrellaBeach } from "react-icons/fa";
-import { MdAppRegistration } from "react-icons/md";
+import { GiTrophyCup } from "react-icons/gi";
 
 export default function SalesManagerNavigations() {
     const { id } = useParams();
@@ -39,7 +39,7 @@ export default function SalesManagerNavigations() {
     useEffect(() => {
         const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
                 console.log(res.data);
                 const managerData = res.data.manager || res.data;
                 const { firstName, designation } = managerData;
@@ -58,7 +58,7 @@ export default function SalesManagerNavigations() {
 
     const fetchEmployeeDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+            const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
 
             if (res.data.error) {
                 setError(true);
@@ -98,7 +98,7 @@ export default function SalesManagerNavigations() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/changeProfilePicture/${id}`);
                 console.log(res.data);
 
                 const { imageURL } = res.data.image;
@@ -144,6 +144,10 @@ export default function SalesManagerNavigations() {
 
     const handleAllEmployees = () => {
         navigate(`/staff/empCategory/${id}`);
+    };
+
+    const handleTopSellers = () => {
+        navigate(`/staff/topSellers/${id}`);
     };
 
     const handleSearchClick = async () => {
@@ -214,6 +218,7 @@ export default function SalesManagerNavigations() {
                                 <Sidebar.Item icon={FaUmbrellaBeach} onClick={handleVacations}>All Vacations</Sidebar.Item>
                                 <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handleAddVacation}>Add Vacation</Sidebar.Item>
                             </Sidebar.Collapse>
+                            <Sidebar.Item icon={GiTrophyCup} onClick={handleTopSellers}>Top Sellers</Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>
                             <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleMyAccount}>

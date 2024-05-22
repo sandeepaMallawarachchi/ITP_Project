@@ -18,7 +18,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 }
+    cookie: { maxAge: 2 * 24 * 60 * 60 * 1000 }
 }));
 
 const URL = process.env.MONGODB_URL;
@@ -59,12 +59,14 @@ const StaffRouter = require("./routes/staffRoutes/staff.js");
 const VacationRouter = require("./routes/staffRoutes/vacation.js");
 const employeeLoginRouter = require("./routes/staffRoutes/employeeLogin.js");
 const VacationStatusRouter = require("./routes/staffRoutes/vacationStatus.js");
+const TopSellers = require("./routes/staffRoutes/topSellers.js");
 
 app.use("/Staff", StaffRouter);
 app.use("/staff/salary", salaryRouter);
 app.use("/staff/vacation", VacationRouter);
 app.use("/empLogin", employeeLoginRouter);
 app.use("/staff/vacationStatus", VacationStatusRouter);
+app.use("/staff/topSellerStatus", TopSellers);
 
 //financial routes
 const expensesRouter = require("./routes/financialRoutes/financials.js");

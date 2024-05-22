@@ -18,13 +18,25 @@ export default function AddIncome() {
     const [date, setDate] = useState(""); // Moved after useEffect
 
     const fetchTotalAmount = () => {
-        axios.get("http://localhost:8070/getTotalIncome/getTotalSales")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/getTotalIncome/getTotalSales")
             .then(response => {
                 setAmount(response.data.totalSales);
             })
             .catch(error => {
                 console.error("Error fetching total amount:", error);
             });
+    };
+
+
+    const handleCategoryChange = (e) => {
+        const value = e.target.value;
+        const regex = /^[a-zA-Z\s]*$/;
+
+        if (regex.test(value)) {
+            setCategory(value);
+        } else {
+            setError("Category can only contain alphabets and spaces.");
+        }
     };
 
     useEffect(() => {
@@ -47,6 +59,12 @@ export default function AddIncome() {
     function setData(e) {
         e.preventDefault();
 
+        if (!category) {
+            setError("Category is required and can only contain alphabets and spaces.");
+            return;
+        }
+
+
         const newIncome = {
             date,
             category,
@@ -54,7 +72,7 @@ export default function AddIncome() {
             amount
         };
 
-        axios.post("http://localhost:8070/incomeRt/addIncome", newIncome)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/addIncome", newIncome)
             .then(() => {
                 alert("Income Added");
             })
@@ -76,7 +94,8 @@ export default function AddIncome() {
 
                 <div className="mb-3">
                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label><br></br>
-                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="category" placeholder="Enter expense category" onChange={(e) => setCategory(e.target.value)} />
+                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="category" placeholder="Enter expense category" value={category} onChange={handleCategoryChange} />
+                    {error && <div className="text-danger">{error}</div>}
                 </div>
                 <br></br>
 
@@ -87,8 +106,8 @@ export default function AddIncome() {
                 <br></br>
                 <div className="mb-3">
                     <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br></br>
-                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amount" placeholder="Enter amount" value={amount} />
-                    {error && <div className="text-danger">{error}</div>}
+                    <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="amount" placeholder="Enter amount" value={amount} />
+                    
                 </div>
                 <br></br>
 

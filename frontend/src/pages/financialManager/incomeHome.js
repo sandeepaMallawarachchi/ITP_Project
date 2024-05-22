@@ -3,16 +3,24 @@ import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useReactToPrint } from 'react-to-print';
 import { Button } from "flowbite-react";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import logo from "../../images/logo.png";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 export default function HomeIn() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [income, setIncome] = useState([]);
     const [totalIncome, setTotalIncome] = useState([]);
+    
+   
 
 
     useEffect(() => {
-        axios.get("http://localhost:8070/incomeRt/displayIncome").then((res) => {
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/displayIncome").then((res) => {
             setIncome(res.data);
         }).catch((error) => {
             alert(error.message);
@@ -21,10 +29,11 @@ export default function HomeIn() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8070/incomeRt/getTotalIncome")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/incomeRt/getTotalIncome")
             .then((res) => {
                 const totalIncome = res.data.getTotalIncome;
                 setTotalIncome(totalIncome);
+                
             })
             .catch((error) => {
                 alert(error.message);
@@ -34,42 +43,104 @@ export default function HomeIn() {
 
     const componentRef = useRef();
 
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,//specifies the content to be print
-        documentTitle: "Expenses Report",
-        pageStyle: `
-        @page {
-            size: A4;
-            margin: 1cm;
+    const handlePrint = async () => {
+        const exportData = income.map((item) => ({
+    
+        
+          "Date ": item.date,
+          "Category": item.category,
+          "Description": item.description,
+          "Amount": item.amount,
+          
+          
+        }))
+    
+        const headerRow = [
+            "Date",
+            "Category",
+            "Description",
+            "Amount",
+            
+            
+        ]
+    
+        const tableRows = [
+            headerRow.map((header) => ({
+              text: header,
+              fontSize: 12,
+              bold: true,
+              fillColor: "#04AA6D",
+              color: "white",
+            })),
+            
+            ...exportData.map((item,index)=>{
+                const backgroundColor = index % 2 === 0 ? "white" : "#f2f2f2";
+                return Object.values(item).map((value)=>({
+                    text: value,
+                    fontSize: 8,
+                    fillColor:backgroundColor,
+                }));
+            }),
+        ];
+    
+        const columnWidths = [120,70, 90, 100, 100];
+    
+        try{
+            const response = await fetch(logo);
+            const blob = await response.blob();
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = ()=>{
+                const base64data = reader.result;
+                const docDefinition = {
+                    content: [
+                        // {
+                        //     text:"Hendricks Tea",
+                        //     style: "additionalHeader",
+                        //     alignment: "center",
+                        //     margin: [0, 20, 0, 0],
+                        // },
+                        {
+                            image: base64data,
+                            width: 120,
+                            height: 100,
+                            alignment: "center",
+                            margin: [0,20,0,10]
+                        },
+                        {text:"Income Sheet",style: "header",margin:[0,10,0,20]},
+                        {
+                            table:{
+                                headerRows : 1,
+                                widths: columnWidths,
+                                body : tableRows,
+                            },
+                            margin:[0,10,10,0],
+                            alignment: "center",
+                        },
+                    ],
+                    styles : {
+                        header: {
+                            fontSize: 18,
+                            bold: true,
+                            alignment: "center",
+                            margin: [0, 0, 0, 20],
+                        },
+                        additionalHeader: {
+                            fontSize: 16,
+                            bold: true,
+                        },
+                    },
+                };
+    
+                const pdfDoc = pdfMake.createPdf(docDefinition)
+                pdfDoc.download("Income sheet.pdf")
+            }
+    
+        }catch(err){
+            console.error("Error fetching image", err)
         }
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .document-title {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-    `
-    })
-
+    
+    };
 
 
 
@@ -115,7 +186,8 @@ export default function HomeIn() {
                                 <td className="border border-gray-400 px-4 py-2">{incomes.category}</td>
                                 <td className="border border-gray-400 px-4 py-2">{incomes.description}</td>
                                 <td className="border border-gray-400 px-4 py-2">{incomes.amount}</td>
-                                <td>
+                                <td className="border border-gray-400 px-4 py-2">{incomes.action}
+                                
                                     <button className="mt-5 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                                         onClick={() => handleUpdateIncomeBtn(incomes._id, id)}>Update Income
                                     </button>

@@ -21,7 +21,7 @@ export default function AddExpenses() {
 
     // Function to fetch total salary
     const fetchTotalSalary = () => {
-        axios.get("http://localhost:8070/totalSalary/totalSalary")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/totalSalary/totalSalary")
             .then(response => {
                 setTotalSalary(response.data.totalSalary);
             })
@@ -32,7 +32,7 @@ export default function AddExpenses() {
 
     // Function to fetch total delivery
     const fetchTotalDelivery = () => {
-        axios.get("http://localhost:8070/report/")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/report/")
             .then(response => {
                 setTotalDelivery(response.data.totalCostSum);
             })
@@ -41,21 +41,18 @@ export default function AddExpenses() {
             });
     };
 
-     //validation for date
-     const handleDateChange = (e) => {
-         const selectedDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0]; 
+    //validation for date
+    const handleDateChange = (e) => {
+        const selectedDate = e.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
 
         if (selectedDate > currentDate) {
-             setError("Selected date cannot be a future date.");
-         } else {
+            setError("Selected date cannot be a future date.");
+        } else {
             setDate(selectedDate);
-             setError(""); 
-         }
-     };
-
-    
-    
+            setError("");
+        }
+    };
 
     //validation for amount
     const handleAmountChange = (e) => {
@@ -90,7 +87,7 @@ export default function AddExpenses() {
             amount: newAmount
         };
 
-        axios.post("http://localhost:8070/expenses/add", newExpense)
+        axios.post("https://hendriks-tea-management-system-backend.vercel.app/expenses/add", newExpense)
             .then(() => {
                 alert("Expenses Added");
                 // Reset form fields after successful submission
@@ -111,13 +108,13 @@ export default function AddExpenses() {
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div className="mb-3">
                     <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label><br />
-                    <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    id="date" 
-                    onChange={handleDateChange} 
-                    max={
-                        new Date().toISOString().split('T')[0]
-                      }
-                    value={date} required />
+                    <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        id="date"
+                        onChange={handleDateChange}
+                        max={
+                            new Date().toISOString().split('T')[0]
+                        }
+                        value={date} required />
                     {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
                 </div>
 
@@ -141,35 +138,35 @@ export default function AddExpenses() {
                 <div className="mb-3">
                     <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label><br />
                     <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     id="description" 
-                     placeholder="Type description" 
-                     onChange={(e) => setDescription(e.target.value)}
-                     value={description} required />
+                        id="description"
+                        placeholder="Type description"
+                        onChange={(e) => setDescription(e.target.value)}
+                        value={description} required />
                 </div>
 
                 {/* Conditionally render the input field based on the selected category */}
                 {["Water Bill", "Electricity Bill", "Other"].includes(category) ? (
                     <div className="mb-3">
                         <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
-                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                        id="amount" 
-                        placeholder="Amount" 
-                        onChange={handleAmountChange} 
-                        value={amount} required />
-                        {error && <div className="text-danger">{error}</div>} {/* Display error message if error exists */}
+                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            id="amount"
+                            placeholder="Amount"
+                            onChange={handleAmountChange}
+                            value={amount} required />
+                        {error && <div className="text-danger">{error}</div>} 
                     </div>
                 ) : (
                     <div className="mb-3">
                         <label htmlFor="amount" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label><br />
-                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                        id="amount" 
-                        placeholder="Amount" 
-                        value={category === "salary" ? totalSalary : category === "delivery" ? totalDelivery : amount} readOnly required />
+                        <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            id="amount"
+                            placeholder="Amount"
+                            value={category === "salary" ? totalSalary : category === "delivery" ? totalDelivery : amount} readOnly required />
                     </div>
                 )}
 
-                 <button
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64">Submit</button>
+                <button
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 ml-64">Submit</button>
             </form>
         </div>
     );

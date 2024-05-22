@@ -8,7 +8,7 @@ export default function SalesPersonDetails() {
     useEffect(() => {
         const fetchSalesPersonDetails = async () => {
             try {
-                const res = await axios.get("http://localhost:8070/salesManagement/getSalespersons");
+                const res = await axios.get("https://hendriks-tea-management-system-backend.vercel.app/salesManagement/getSalespersons");
                 setSalesPersonDetails(res.data.salesPersonDetails);
                 console.log(res.data);
             } catch (error) {

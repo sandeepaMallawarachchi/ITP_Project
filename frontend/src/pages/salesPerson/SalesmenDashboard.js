@@ -30,7 +30,7 @@ export default function SalesmenDashboard() {
                     navigate('/');
                 }
                 else {
-                    const res = await axios.get(`http://localhost:8070/salesmen/salesmenDashboard/${id}`, {
+                    const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesmen/salesmenDashboard/${id}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -52,7 +52,7 @@ export default function SalesmenDashboard() {
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/sales/getDailySales/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/getDailySales/${id}`);
 
                 if (res.data.error) {
                     setHelloGifVisible(true);

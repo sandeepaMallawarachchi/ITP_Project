@@ -27,14 +27,14 @@ const UploadImage = () => {
         formData2.append('image', file2);
 
         try {
-            const response1 = await axios.post('http://localhost:8070/License/upload', formData1, {
+            const response1 = await axios.post('https://hendriks-tea-management-system-backend.vercel.app/License/upload', formData1, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
             console.log('Response 1:', response1.data);
 
-            const response2 = await axios.post('http://localhost:8070/License/upload', formData2, {
+            const response2 = await axios.post('https://hendriks-tea-management-system-backend.vercel.app/License/upload', formData2, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

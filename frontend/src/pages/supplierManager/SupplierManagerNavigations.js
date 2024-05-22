@@ -38,7 +38,7 @@ export default function SupplierManagerNavigations() {
     useEffect(() => {
         const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
                 console.log(res.data);
                 const managerData = res.data.manager || res.data;
                 const { firstName, designation } = managerData;
@@ -57,7 +57,7 @@ export default function SupplierManagerNavigations() {
 
     const fetchStockDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:8070/sales/searchStock/${id}/${productName}`);
+            const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/sales/searchStock/${id}/${productName}`);
 
             if (res.data.error) {
                 setError(true);
@@ -97,7 +97,7 @@ export default function SupplierManagerNavigations() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/changeProfilePicture/${id}`);
                 console.log(res.data);
 
                 const { imageURL } = res.data.image;
@@ -140,14 +140,18 @@ export default function SupplierManagerNavigations() {
     const handleSearch = () => {
         navigate(`/supplierManager/search/${id}`);
     };
-
+    const handleOrder = () => {
+        navigate(`/supplierManager/orderDetails/${id}`);
+    };
     const handleSearchClick = async () => {
         setSearchClicked(true);
         await fetchStockDetails();
         filterStockDetails();
 
     };
-
+    const handlerecords  = () => {
+        navigate(`/supplierManager/addrecord/${id}`)  
+    };
     const handleTableClose = () => {
         setShowTable(false);
     };
@@ -205,6 +209,9 @@ export default function SupplierManagerNavigations() {
                             <Sidebar.Item icon={MdFormatListBulleted} onClick={handlePayment}>
                                 Payment Details
                             </Sidebar.Item>
+                            <Sidebar.Item icon={MdOutlineAccountCircle} onClick={handleOrder}>  
+                                 Order Details  
+                            </Sidebar.Item>
                             <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleAllSuppliers}>
                                 All supliers
                             </Sidebar.Item>
@@ -213,6 +220,9 @@ export default function SupplierManagerNavigations() {
                             </Sidebar.Item>
                             <Sidebar.Item icon={HiOutlineDocumentReport} onClick={handleSearch}>
                                 Search Supplier
+                            </Sidebar.Item>
+                            <Sidebar.Item icon={MdOutlineAddCircleOutline} onClick={handlerecords}>  
+                                 Add recordings  
                             </Sidebar.Item>
                         </Sidebar.ItemGroup>
                         <Sidebar.ItemGroup className='cursor-pointer'>

@@ -30,7 +30,7 @@ export default function ManagerAccount() {
     useEffect(() => {
         const fetchManagerDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/getManager/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/getManager/${id}`);
                 console.log(res.data);
                 const managerData = res.data.manager || res.data;
                 const { firstName, lastName, dateOfBirth, email, phoneNo, address } = managerData;
@@ -47,7 +47,7 @@ export default function ManagerAccount() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/empLogin/updateManagerAccount/${id}`, managerDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/updateManagerAccount/${id}`, managerDetails);
 
             setSuccessAlert(true);
 
@@ -68,7 +68,7 @@ export default function ManagerAccount() {
 
     const handleLogout = async () => {
         try {
-            await axios.get(`http://localhost:8070/empLogin/logout`);
+            await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/logout`);
             navigate('/');
         } catch (error) {
             console.log("Error logging out:", error.message);
@@ -115,7 +115,7 @@ export default function ManagerAccount() {
                 return alert("Please wait for the upload to complete!");
             }
 
-            await axios.post(`http://localhost:8070/empLogin/uploadProfilePicture`, { imageURL, empId: id });
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/uploadProfilePicture`, { imageURL, empId: id });
 
             setImageURL('');
             setImage(null);
@@ -146,7 +146,7 @@ export default function ManagerAccount() {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/empLogin/changeProfilePicture/${id}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/empLogin/changeProfilePicture/${id}`);
                 console.log(res.data);
 
                 const { imageURL } = res.data.image;

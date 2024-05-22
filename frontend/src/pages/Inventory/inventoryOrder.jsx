@@ -1,85 +1,83 @@
-import React,{useState} from "react";
+import React,{ useState,useEffect } from "react";
 import axios from "axios";
-import { Button, Label, TextInput } from "flowbite-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "flowbite-react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function Orders(){
+export default function Order(){
 
-    const navigate = useNavigate();
-    const {id} = useParams();
+    const [orders,setOrders] = useState([])
+    const {id} = useParams()
+    const navigate = useNavigate()
 
-    //initialize state to store order form data
-    const [order,setOrder] = useState({
-        productName : "",
-        teaType : "",
-        quantity : 0
-    });
-
-    function handleChange(e){
-        
-        const {name,value} = e.target;
-        if(name === "quantity" && parseFloat(value)<0){
-            return ;
+    useEffect(()=>{
+        async function getOrders(){
+            try{
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/getAllOrders`)
+                setOrders(res.data)
+                console.log(res.data)
+            }catch(err){
+                console.log(err)
+            }
         }
 
-        setOrder((item)=>({
-            ...item,
-            [name] : value
-        }))
+        getOrders()
+    },[])
+
+    function handleClick(e){
+        navigate(`/inventory/addOrders/${id}`)
+
     }
-
-    async function addOrder(e){
-
-        e.preventDefault();
-        //adding order data to db
-        await axios.post("http://localhost:8070/inventory/orders/addOrder",{
-            productName : order.productName,
-            teaType : order.teaType,
-            quantity : order.quantity,
+    
+    async function handleDelete(id){
+        try{
+           const res = await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/inventory/orders/deleteOrder/${id}`)
+           if(res){
+            alert("order deleted")
+            navigate(`/inventory/dashboard/${id}`)
             
-         })
-        .then(()=>{
-            alert("Order added successfully")
-            // navigate(`inventory/dashboard/${id}`);
-        }).catch((err)=>{
+           }
+
+        }catch(err){
             console.log(err)
-        })
-
-        
-        setOrder({
-            productName : "",
-            teaType : "",
-            quantity : 0
-        })
-
-        
+        }
     }
-    return (
-        <div style={{marginLeft:"40%",marginTop:"10rem"}}>
-        <form onSubmit={addOrder} className="flex w-3/5 flex-col gap-10">
-        <div>
-          <div className="mb-2 block">
-            <Label>Product Name</Label>
-          </div>
-          <TextInput  type="text" name="productName" value={order.productName} onChange={handleChange} required />
-        </div>
 
-        <div>
-          <div className="mb-2 block">
-          <Label>Tea Type</Label>
-          </div>
-          <TextInput  type="text" name="teaType" value={order.teaType} onChange={handleChange} required />
-        </div>
-
-        <div>
-          <div className="mb-2 block">
-          <Label>Quantity</Label>
-          </div>
-          <TextInput  type="number" name="quantity" value={order.quantity} onChange={handleChange} onWheel={(e) => e.preventDefault()} required />
-        </div>
-
-        <Button type="submit" style={{width:"15rem",marginTop:"1rem"}} pill >Make an Order</Button>
-        </form>
+    return(
+        <div >
+            <Button className="mt-[10rem] ml-[25rem]" color="blue" onClick={handleClick}>Add an Order</Button>
+            <div className="mt-[3.5rem] ml-[25rem] mb-[2rem]" >
+                <table className="w-[60rem]">
+                    <thead className="bg-blue-50 border-b-2 border-gray-200 ">
+                        <tr>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left w-7rem">Product Name</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left ">Tea Type</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Quantity</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left"> Ordered Date</th>
+                            <th className="p-3 text-sm font-semibold tracking-wide text-left">Order status</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                        {
+                            orders.map((item,index)=>{
+                                return (
+                                    <tr key = {index}className="hover:bg-blue-50">
+                                        <td className="p-3 text-sm text-gray-700 w-7rem">{item.productName}</td>
+                                        <td className="p-3 text-sm text-gray-700">{item.teaType}</td>
+                                        <td className="p-3 text-sm text-gray-700">{item.quantity}</td>
+                                        <td className="p-3 text-sm text-gray-700">{new Date(item.createdAt).toLocaleDateString()}</td>
+                                        <td className="p-3 text-sm text-gray-700 font-semibold">{item.status}</td>
+                                        <Button color="failure" className="my-2 ml-3" onClick={()=> handleDelete(item._id)}>Delete</Button>
+                                    </tr>
+                                    )
+                                })
+                        }
+                    </tbody>
+                </table> 
+            </div>  
+            
         </div>
     )
- }
+
+
+}

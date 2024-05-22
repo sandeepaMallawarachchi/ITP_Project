@@ -12,7 +12,7 @@ function VacationReport() {
     useEffect(() => {
         const fetchVacationDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/staff/vacation/vacationDetails/${vacID}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/staff/vacation/vacationDetails/${vacID}`);
                 setVacationDetails(response.data.vacation);
             } catch (error) {
                 console.error("Error fetching vacation details:", error.message);

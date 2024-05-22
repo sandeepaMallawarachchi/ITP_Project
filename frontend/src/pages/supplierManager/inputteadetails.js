@@ -17,7 +17,7 @@ const Teadetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:8087/supplier/addteadetails`, teadetails);
+      const response = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/supplier/addteadetails`,teadetails);       
       console.log(response.data);
       // Optionally, you can redirect to another page after successful submission
       // Insert navigation logic here
@@ -27,7 +27,7 @@ const Teadetails = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10">
+    <div className="absolute max-w-lg mx-auto mt-28      ml-[500px]">             
       <h2 className="text-2xl font-bold mb-4">Add New tea details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

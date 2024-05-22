@@ -16,7 +16,7 @@ export default function AllReportData() {
     }, []);
 
     const fetchReport = () => {
-        axios.get("http://localhost:8070/report/")
+        axios.get("https://hendriks-tea-management-system-backend.vercel.app/report/")
             .then(response => {
                 const { reports, totalCostSum } = response.data;
                 setReport(reports);

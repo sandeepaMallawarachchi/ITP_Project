@@ -63,7 +63,7 @@ export default function MonthlyReport() {
                 return alert("Please wait for the upload to complete!");
             }
 
-            await axios.post(`http://localhost:8070/salesManagement/uploadReport`, { downloadURL, year, month });
+            await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/uploadReport`, { downloadURL, year, month });
 
             setYear('');
             setMonth('');
@@ -87,7 +87,7 @@ export default function MonthlyReport() {
     useEffect(() => {
         const fetchReport = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesManagement/downloadReport`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/downloadReport`);
                 setReportDetails(res.data.report);
             } catch (error) {
                 console.log("Error fetching details", error.message);

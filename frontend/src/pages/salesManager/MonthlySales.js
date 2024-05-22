@@ -13,7 +13,7 @@ export default function MonthlySales() {
     useEffect(() => {
         const fetchSalesDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/salesManagement/getSalespersonSales/${salesPersonID}`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/getSalespersonSales/${salesPersonID}`);
                 const { totalSales, totalAmount, salesDetails } = res.data;
                 setSalesSummary({ totalSales, totalAmount, salesDetails });
                 console.log(totalSales, totalAmount, salesDetails);

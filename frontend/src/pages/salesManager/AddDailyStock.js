@@ -19,7 +19,7 @@ export default function AddDailyStock() {
     useEffect(() => {
         const fetchProductName = async () => {
             try {
-                const res = await axios.get(`http://localhost:8070/inventory/product/getTeaPack`);
+                const res = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/inventory/product/getTeaPack`);
                 const products = res.data.map(item => item.productName);
                 setProductName(products);
             } catch (error) {
@@ -51,7 +51,7 @@ export default function AddDailyStock() {
         }
 
         try {
-            const res = await axios.post(`http://localhost:8070/salesManagement/addStock`, {
+            const res = await axios.post(`https://hendriks-tea-management-system-backend.vercel.app/salesManagement/addStock`, {
                 salesPersonID,
                 salesPersonName,
                 productName: selectedTeaType,
@@ -99,6 +99,13 @@ export default function AddDailyStock() {
             setErrSalesPersonName(false);
         } else {
             setErrSalesPersonName(true);
+        }
+    };
+
+    const handleNumericInput = (value, setter) => {
+        const regex = /^[0-9\b]+$/;
+        if (regex.test(value) || value === "") {
+            setter(value);
         }
     };
 
@@ -162,7 +169,7 @@ export default function AddDailyStock() {
                         className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${errStock ? 'border-red-600 border-2 focus:ring-red-600' : ''}`}
                         required
                         value={totalStock}
-                        onChange={(e) => setTotalStock(e.target.value)}
+                        onChange={(e) => handleNumericInput(e.target.value, setTotalStock)}
                     />
                 </div>
 

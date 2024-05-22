@@ -8,7 +8,7 @@ function Search() {
     const searchValue = e.target.value;
     setValue(searchValue);
     try {
-      const response = await fetch(`http://localhost:8070/supplier/search?q=${searchValue}`);
+      const response = await fetch(`https://hendriks-tea-management-system-backend.vercel.app/supplier/search?q=${searchValue}`);
       const searchData = await response.json();
       console.log(searchData); // Log the data variable
       setData(searchData);
@@ -47,6 +47,7 @@ function Search() {
                     {item.name}
                   </a>
                 </p>
+                <p className="text-gray-700">sid : {item.sid }</p>
                 <p className="text-gray-700">Address: {item.address}</p>
               </div>
             )}

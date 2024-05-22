@@ -8,7 +8,7 @@ export default function Details() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8070/supplier/item`);
+      const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/supplier/item`);
       console.log('Response:', response.data);
 
       setItems(response.data.Item);
@@ -23,7 +23,7 @@ export default function Details() {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:8070/supplier/items/${itemId}`);
+      await axios.delete(`https://hendriks-tea-management-system-backend.vercel.app/supplier/items/${itemId}`);
       fetchData();
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -39,7 +39,7 @@ export default function Details() {
 
   return (
     <div className='absolute mt-40  left-1/3 w-1/2 '>
-      <h1>Data Table</h1>
+      <h1 className='text-2xl'>Data Table</h1>
       <div className="overflow-x-auto">
         <table className="table-auto">
           <thead>

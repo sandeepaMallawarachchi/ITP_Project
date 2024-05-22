@@ -15,7 +15,7 @@ function UpdateReportData() {
     useEffect(() => {
         const fetchReportDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8070/report/get/${rId}`);
+                const response = await axios.get(`https://hendriks-tea-management-system-backend.vercel.app/report/get/${rId}`);
                 setReportDetails(response.data.report);
             } catch (error) {
                 console.error("Error fetching report details", error.message);
@@ -30,7 +30,7 @@ function UpdateReportData() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:8070/report/update/${rId}`, reportDetails);
+            await axios.put(`https://hendriks-tea-management-system-backend.vercel.app/report/update/${rId}`, reportDetails);
             alert("Details Updated!");
             navigate(`/deliverymanager/allReportData/${id}`);
         } catch (error) {
